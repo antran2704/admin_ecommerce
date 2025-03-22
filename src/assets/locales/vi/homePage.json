@@ -1,0 +1,21 @@
+{
+  "statistics": "Thống kê",
+  "officeIncome": "Doanh thu cho thuê văn phòng",
+  "fillRateByFloor": "Tỉ lệ lấp đầy theo tầng",
+  "fillRateByFloorChart": {
+    "rate": "Tỉ lệ",
+    "fill": "Lắp đầy",
+    "empty": "Trống",
+    "total": "Tổng"
+  },
+  "fillRateByPackage": "Tỉ lệ lấp đầy theo gói sản phẩm",
+  "serviceIncome": "Doanh thu dịch vụ",
+  "reveune": "Doanh thu",
+  "totalNewUsers": "Khách hàng mới",
+  "totalIncome": "Tổng doanh thu",
+  "filter": {
+    "building": "Tòa nhà",
+    "follow": "Xem theo",
+    "time": "Thời gian"
+  }
+}

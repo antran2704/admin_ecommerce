@@ -1,0 +1,24 @@
+.ant-upload-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.ant-upload {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.ant-upload-list-item {
+  margin-top: 0px !important;
+  
+  a:hover {
+    color: #007A54;
+   }
+}
+
+.ant-upload-list-item-container {
+  margin-bottom: 10px;
+}

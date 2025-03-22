@@ -1,0 +1,37 @@
+{
+  "title": "Thông tin tài khoản",
+  "editTitle": "Cập nhật tài khoản",
+  "filter": {
+    "male": "Nam",
+    "female": "Nữ",
+    "active": "Hoạt động",
+    "inactive": "Ngừng hoạt động"
+  },
+  "form": {
+    "name": "Họ và tên",
+    "birthday": "Ngày sinh",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ",
+    "sex": "Giới tính",
+    "role": "Vị trí",
+    "password": "Mật khẩu",
+    "changePassword": "Thay đổi mật khẩu",
+    "roleGroup": "Nhóm quyền",
+    "workplace": "Nơi làm việc",
+    "status": "Trạng thái",
+    "startedAt": "Ngày bắt đầu làm việc",
+    "endedAt": "Ngày kết thúc làm việc",
+    "createdAt": "Ngày tạo"
+  },
+  "changePasswordModal": {
+    "title": "Thay đổi mật khẩu",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận lại mật khẩu"
+  },
+  "breadcrumb": {
+    "update": "Cập nhật tài khoản",
+    "viewInfo": "Thông tin tài khoản"
+  }
+}

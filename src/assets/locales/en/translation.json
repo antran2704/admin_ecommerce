@@ -1,0 +1,90 @@
+{
+  "LoginPage": {
+    "title": "Login",
+    "btn": {
+      "forgotPassword": "Forget password?"
+    },
+    "form": {
+      "username": "Email",
+      "password": "Password"
+    }
+  },
+  "ConfirmOtpPage": {
+    "title": "Confirm OTP",
+    "noReceiveCode": "No receive code?",
+    "resend": "Resend code",
+    "description": "Please input OTP code from email"
+  },
+  "ForgotPasswordPage": {
+    "title": "Forget Password",
+    "description": "Please enter your email, we'll send you a OTP"
+  },
+  "SignUpPage": {
+    "title": "Sign Up"
+  },
+  "ResetPasswordPage": {
+    "title": "Set up password"
+  },
+  "UtilityType": {
+    "meetingRoom": "Metting room",
+    "napRoom": "Nap room",
+    "liveStream": "Live stream",
+    "printerCl": "Printer color",
+    "printerBw": "Printer black white",
+    "printer": "Printer",
+    "event": "Event",
+    "parking": "Parking"
+  },
+  "MeasureUnit": {
+    "pax": "Pax",
+    "hour": "Hour",
+    "paper": "Paper",
+    "part": "Part",
+    "day": "Day",
+    "other": "Other"
+  },
+  "TransactionType": {
+    "given": "Given {{currency}}",
+    "payment": "Payment",
+    "refund": "Refund {{currency}}",
+    "refundAddition": "Refund Addition",
+    "expired": "Expired {{currency}}",
+    "credit": "Credit",
+    "deposit": "Deposit",
+    "contract": "Payment contract",
+    "parking": "Payment parking"
+  },
+  "Wallet": {
+    "title": "Account/ Wallet",
+    "give": "Given wallet",
+    "deposit": "Deposit wallet",
+    "credit": "Credit wallet",
+    "remain": "Remain",
+    "totalLimit": "Total limit",
+    "totalUsed": "Total used",
+    "totalNotUse": "Total not use"
+  },
+  "DayOfWeek": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "PrinterLimit": {
+    "remain": "Remain",
+    "printerCl": "Printer color - Size {{pageSize}}",
+    "printerBw": "Printer black white - Size {{pageSize}}",
+    "page": "Page"
+  },
+  "GuestGroupType": {
+    "retailCustomer": "Retail customer",
+    "tinicoGuest": "Tinico Guest ",
+    "officeGuest": "Office Sharing TiniO Guest"
+  },
+  "LocaleSwitcher": {
+    "locale": "{locale, select, vi {Vietnamese} en {English} other {Unknown}}"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "statistics": "Statistics",
+  "officeIncome": "Office rental income",
+  "fillRateByFloor": "Fill rate by floor",
+  "fillRateByFloorChart": {
+    "rate": "Rate",
+    "fill": "Fill",
+    "empty": "Empty",
+    "total": "Total"
+  },
+  "fillRateByPackage": "Fill rate by package",
+  "serviceIncome": "Service income",
+  "totalIncome": "Total income",
+  "reveune": "Reveune",
+  "totalNewUsers": "Total new users",
+  "filter": {
+    "building": "Building",
+    "follow": "Follow",
+    "time": "Time"
+  }
+}

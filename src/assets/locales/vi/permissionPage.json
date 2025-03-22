@@ -1,0 +1,28 @@
+{
+  "title": "Phân quyền hệ thống",
+  "groupRole": "Nhóm quyền",
+  "role": "Vai trò",
+  "feature": "Chức năng",
+  "notFoundRole": "Vui lòng chọn nhóm quyền để xem vai trò",
+  "notFoundPermission": "Vui lòng chọn vai trò để xem chức năng",
+  "form": {
+    "name": "Tên"
+  },
+  "modalCreateGroupRole": {
+    "title": "Tạo nhóm quyền"
+  },
+  "modalCreateRole": {
+    "title": "Tạo vai trò"
+  },
+  "modalDelete": {
+    "title": "Xóa phân quyền",
+    "subtitle": "Bạn muốn xóa phân quyền?"
+  },
+  "modalUpdatePermission": {
+    "title": "Thông báo",
+    "description": "Bạn chắc chắn muốn lưu thông tin cập nhật?"
+  },
+  "breadcrumb": {
+    "list": "Phân quyền"
+  }
+}

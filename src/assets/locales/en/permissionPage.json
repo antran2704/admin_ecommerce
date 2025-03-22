@@ -1,0 +1,28 @@
+{
+  "title": "Permissions",
+  "groupRole": "Group role",
+  "role": "Role",
+  "feature": "Feature",
+  "notFoundRole": "Please select group role to view role",
+  "notFoundPermission": "Please select role to view permission",
+  "form": {
+    "name": "Name"
+  },
+  "modalCreateGroupRole": {
+    "title": "Create group role"
+  },
+  "modalCreateRole": {
+    "title": "Create role"
+  },
+  "modalUpdatePermission": {
+    "title": "Notification",
+    "description": "Do you want update?"
+  },
+  "modalDelete": {
+    "title": "Delete permission",
+    "subtitle": "Do you want delete permission?"
+  },
+  "breadcrumb": {
+    "list": "Permissions"
+  }
+}

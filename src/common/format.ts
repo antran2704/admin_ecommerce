@@ -1,0 +1,40 @@
+import { ENUM_DAY_OF_WEEK } from "~/enum/constants";
+
+const DAY_DMY: string = "DD/MM/YYYY";
+const DAY_MY: string = "MM/YYYY";
+const DAY_DMY_FILE: string = "DD_MM_YYYY";
+const DAY_DYHMS: string = "DD/MM/YYYY - HH:mm:ss";
+const DAY_DYHM: string = "HH:mm - DD/MM/YYYY";
+
+const VALUE_OF_24_HOURS: number = 23.98;
+
+const VALUE_DAY_OF_WEEK: { [k: string]: number } = {
+  [ENUM_DAY_OF_WEEK.MONDAY]: 1,
+  [ENUM_DAY_OF_WEEK.TUESDAY]: 2,
+  [ENUM_DAY_OF_WEEK.WEDNESDAY]: 3,
+  [ENUM_DAY_OF_WEEK.THURSDAY]: 4,
+  [ENUM_DAY_OF_WEEK.FRIDAY]: 5,
+  [ENUM_DAY_OF_WEEK.SATURDAY]: 6,
+  [ENUM_DAY_OF_WEEK.SUNDAY]: 7,
+};
+
+const DAY_OF_WEEK_MAPPING = {
+  0: ENUM_DAY_OF_WEEK.SUNDAY,
+  1: ENUM_DAY_OF_WEEK.MONDAY,
+  2: ENUM_DAY_OF_WEEK.TUESDAY,
+  3: ENUM_DAY_OF_WEEK.WEDNESDAY,
+  4: ENUM_DAY_OF_WEEK.THURSDAY,
+  5: ENUM_DAY_OF_WEEK.FRIDAY,
+  6: ENUM_DAY_OF_WEEK.SATURDAY,
+};
+
+export {
+  DAY_DMY,
+  DAY_MY,
+  DAY_DMY_FILE,
+  DAY_DYHMS,
+  DAY_DYHM,
+  VALUE_DAY_OF_WEEK,
+  DAY_OF_WEEK_MAPPING,
+  VALUE_OF_24_HOURS,
+};

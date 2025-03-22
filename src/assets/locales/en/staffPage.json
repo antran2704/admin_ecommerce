@@ -1,0 +1,85 @@
+{
+  "title": "Manager staff",
+  "searchTitle": "Search with ID, Name, Email",
+  "filter": {
+    "department": "Department",
+    "role": "Role",
+    "createdAt": "Created At",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "tabs": {
+    "detail": "Detail",
+    "cardInfo": "Card Infomation",
+    "historyBooking": "History booking"
+  },
+  "table": {
+    "id": "ID account",
+    "name": "Name",
+    "email": "Email",
+    "groupRole": "Group role",
+    "role": "Role",
+    "status": "Status",
+    "createdAt": "Created At",
+    "action": "Action"
+  },
+  "createTitle": "Create staff",
+  "viewInfoTitle": "Infomation of staff",
+  "editTitle": "Update staff information",
+  "form": {
+    "userId": "ID account",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "workplace": "Work place",
+    "dateOfBirth": "Date of birth",
+    "gender": "Gender",
+    "address": "Address",
+    "groupRole": "Group role",
+    "role": "Role",
+    "status": "Status",
+    "startedAt": "Started at",
+    "endedAt": "Ended at",
+    "createdAt": "Created At",
+    "password": "Password",
+    "createPassword": "Create password",
+    "confirmPassword": "Confirm password",
+    "printerLimit": "Printer limit",
+    "userType": "User type (Parking)"
+  },
+  "cardForm": {
+    "cardNumber": "Card number",
+    "cardType": "Card type",
+    "startDate": "Start date",
+    "statusUse": "Status use",
+    "building": "Building",
+    "room": "Room/Area",
+    "vehicle": "Vehicle",
+    "licensePlate": "License plate",
+    "vehicleType": "Vehicle type",
+    "customerType": "Customer type (Parking)",
+    "descriptionVehicle": "Description vehicle",
+    "printer": "Printer",
+    "delete": "Delete card"
+  },
+  "modalDelete": {
+    "title": "Delete staff",
+    "subtitle": "Do you want delete staff?"
+  },
+  "modalUploadFile": {
+    "title": "Upload File",
+    "description1": "Click or drag file to this area to upload",
+    "description2": "Support file format"
+  },
+  "modalUpdate": {
+    "title": "Update staff",
+    "subtitle": "Do you want update staff?"
+  },
+  "breadcrumb": {
+    "list": "List of staff",
+    "viewInfo": "Infomation staff",
+    "create": "Create staff",
+    "update": "Update staff"
+  }
+}

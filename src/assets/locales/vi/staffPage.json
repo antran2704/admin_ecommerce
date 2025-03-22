@@ -1,0 +1,85 @@
+{
+  "title": "Quản lý nhân viên",
+  "searchTitle": "Tìm kiếm ID, Tên nhân viên, Email",
+  "filter": {
+    "department": "Phòng ban",
+    "role": "Chức vụ",
+    "createdAt": "Ngày tạo",
+    "status": "Trạng thái",
+    "active": "Đang hoạt động",
+    "inactive": "Ngừng hoạt động"
+  },
+  "tabs": {
+    "detail": "Chi tiết",
+    "cardInfo": "Thông tin thẻ",
+    "historyBooking": "Lịch sử booking"
+  },
+  "table": {
+    "id": "ID tài khoản",
+    "name": "Tên nhân viên",
+    "email": "Email",
+    "groupRole": "Nhóm quyền",
+    "role": "Vai trò",
+    "status": "Trạng thái",
+    "createdAt": "Ngày tạo",
+    "action": "Thao tác"
+  },
+  "createTitle": "Thêm mới nhân viên",
+  "viewInfoTitle": "Thông tin nhân viên",
+  "editTitle": "Cập nhật nhân viên",
+  "form": {
+    "userId": "ID tài khoản",
+    "name": "Tên nhân viên",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "workplace": "Nơi làm việc",
+    "dateOfBirth": "Ngày sinh",
+    "gender": "Giới tính",
+    "address": "Địa chỉ",
+    "groupRole": "Nhóm quyền",
+    "role": "Vai trò",
+    "status": "Trạng thái",
+    "startedAt": "Ngày bắt đầu",
+    "endedAt": "Ngày kết thúc",
+    "createdAt": "Ngày tạo",
+    "password": "Mật khẩu",
+    "createPassword": "Đặt mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "printerLimit": "Hạn mức in ấn",
+    "userType": "Loại người dùng (Bãi xe)"
+  },
+  "cardForm": {
+    "cardNumber": "Số thẻ",
+    "cardType": "Loại thẻ",
+    "startDate": "Ngày bắt đầu sử dụng",
+    "statusUse": "Trạng thái sử dụng",
+    "building": "Tòa nhà",
+    "room": "Phòng / khu",
+    "vehicle": "Phương tiện",
+    "licensePlate": "Biển số xe",
+    "vehicleType": "Loại phương tiện",
+    "customerType": "Loại người dùng (Bãi xe)",
+    "descriptionVehicle": "Mô tả xe",
+    "printer": "Máy in",
+    "delete": "Xóa đăng kí"
+  },
+  "modalDelete": {
+    "title": "Xóa nhân viên",
+    "subtitle": "Bạn muốn xóa nhân viên?"
+  },
+  "modalUploadFile": {
+    "title": "Tải lên dữ liệu",
+    "description1": "Bấm hoặc kéo tệp tin vào khu vực này để tải lên.",
+    "description2": "Hỗ trợ file có phần mở rộng"
+  },
+  "modalUpdate": {
+    "title": "Cập nhật nhân viên",
+    "subtitle": "Bạn muốn cập nhật thông tin nhân viên?"
+  },
+  "breadcrumb": {
+    "list": "Danh sách nhân viên",
+    "viewInfo": "Thông tin nhân viên",
+    "create": "Thêm mới nhân viên",
+    "update": "Cập nhật nhân viên"
+  }
+}

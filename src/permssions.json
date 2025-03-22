@@ -1,0 +1,982 @@
+{
+  "ADMIN": [
+    {
+      "title": "ADMIN_NOTIFICATION",
+      "key": "ADMIN_NOTIFICATION",
+      "children": [
+        {
+          "title": "ADMIN_NOTIFICATION.VIEW",
+          "key": "ADMIN_NOTIFICATION.VIEW"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_DASHBOARD",
+      "key": "ADMIN_PAGE_DASHBOARD",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_DASHBOARD.VIEW",
+          "key": "ADMIN_PAGE_DASHBOARD.VIEW"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_ROLE",
+      "key": "ADMIN_PAGE_ROLE",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_ROLE.VIEW",
+          "key": "ADMIN_PAGE_ROLE.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_ROLE.CREATE",
+          "key": "ADMIN_PAGE_ROLE.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_ROLE.UPDATE",
+          "key": "ADMIN_PAGE_ROLE.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_ROLE.DELETE",
+          "key": "ADMIN_PAGE_ROLE.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_GROUP",
+      "key": "ADMIN_PAGE_GROUP",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_GROUP.VIEW",
+          "key": "ADMIN_PAGE_GROUP.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_GROUP.CREATE",
+          "key": "ADMIN_PAGE_GROUP.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_GROUP.UPDATE",
+          "key": "ADMIN_PAGE_GROUP.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_GROUP.DELETE",
+          "key": "ADMIN_PAGE_GROUP.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_MANAGE_USER",
+      "key": "ADMIN_PAGE_MANAGE_USER",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_MANAGE_USER.VIEW",
+          "key": "ADMIN_PAGE_MANAGE_USER.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_MANAGE_USER.CREATE",
+          "key": "ADMIN_PAGE_MANAGE_USER.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_MANAGE_USER.UPDATE",
+          "key": "ADMIN_PAGE_MANAGE_USER.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_MANAGE_USER.DELETE",
+          "key": "ADMIN_PAGE_MANAGE_USER.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_MANAGE_USER.CHANGE_PASSWORD",
+          "key": "ADMIN_PAGE_MANAGE_USER.CHANGE_PASSWORD"
+        },
+        {
+          "title": "ADMIN_PAGE_MANAGE_USER.ENABLE",
+          "key": "ADMIN_PAGE_MANAGE_USER.ENABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_MANAGE_USER.DISABLE",
+          "key": "ADMIN_PAGE_MANAGE_USER.DISABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_MANAGE_USER.PRE_SIGNED_PUT_URL",
+          "key": "ADMIN_PAGE_MANAGE_USER.PRE_SIGNED_PUT_URL"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_END_USER",
+      "key": "ADMIN_PAGE_END_USER",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_END_USER.VIEW",
+          "key": "ADMIN_PAGE_END_USER.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_END_USER.CREATE",
+          "key": "ADMIN_PAGE_END_USER.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_END_USER.UPDATE",
+          "key": "ADMIN_PAGE_END_USER.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_END_USER.DELETE",
+          "key": "ADMIN_PAGE_END_USER.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_END_USER.CHANGE_PASSWORD",
+          "key": "ADMIN_PAGE_END_USER.CHANGE_PASSWORD"
+        },
+        {
+          "title": "ADMIN_PAGE_END_USER.ENABLE",
+          "key": "ADMIN_PAGE_END_USER.ENABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_END_USER.DISABLE",
+          "key": "ADMIN_PAGE_END_USER.DISABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_END_USER.PRE_SIGNED_PUT_URL",
+          "key": "ADMIN_PAGE_END_USER.PRE_SIGNED_PUT_URL"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_TENANT",
+      "key": "ADMIN_PAGE_TENANT",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_TENANT.VIEW",
+          "key": "ADMIN_PAGE_TENANT.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT.CREATE",
+          "key": "ADMIN_PAGE_TENANT.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT.UPDATE",
+          "key": "ADMIN_PAGE_TENANT.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT.DELETE",
+          "key": "ADMIN_PAGE_TENANT.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT.PRE_SIGNED_PUT_URL",
+          "key": "ADMIN_PAGE_TENANT.PRE_SIGNED_PUT_URL"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT.ENABLE",
+          "key": "ADMIN_PAGE_TENANT.ENABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT.DISABLE",
+          "key": "ADMIN_PAGE_TENANT.DISABLE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_BUILDING",
+      "key": "ADMIN_PAGE_BUILDING",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_BUILDING.VIEW",
+          "key": "ADMIN_PAGE_BUILDING.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_BUILDING.CREATE",
+          "key": "ADMIN_PAGE_BUILDING.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_BUILDING.UPDATE",
+          "key": "ADMIN_PAGE_BUILDING.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_BUILDING.DELETE",
+          "key": "ADMIN_PAGE_BUILDING.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_BUILDING.PRE_SIGNED_PUT_URL",
+          "key": "ADMIN_PAGE_BUILDING.PRE_SIGNED_PUT_URL"
+        },
+        {
+          "title": "ADMIN_PAGE_BUILDING.ENABLE",
+          "key": "ADMIN_PAGE_BUILDING.ENABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_BUILDING.DISABLE",
+          "key": "ADMIN_PAGE_BUILDING.DISABLE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_FLOOR",
+      "key": "ADMIN_PAGE_FLOOR",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_FLOOR.CREATE",
+          "key": "ADMIN_PAGE_FLOOR.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_FLOOR.UPDATE",
+          "key": "ADMIN_PAGE_FLOOR.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_FLOOR.DELETE",
+          "key": "ADMIN_PAGE_FLOOR.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_FLOOR.VIEW",
+          "key": "ADMIN_PAGE_FLOOR.VIEW"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_ROOM",
+      "key": "ADMIN_PAGE_ROOM",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_ROOM.VIEW",
+          "key": "ADMIN_PAGE_ROOM.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_ROOM.CREATE",
+          "key": "ADMIN_PAGE_ROOM.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_ROOM.UPDATE",
+          "key": "ADMIN_PAGE_ROOM.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_ROOM.DELETE",
+          "key": "ADMIN_PAGE_ROOM.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_POSITION",
+      "key": "ADMIN_PAGE_ADMIN_PAGE_POSITION",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_POSITION.VIEW",
+          "key": "ADMIN_PAGE_POSITION.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_POSITION.CREATE",
+          "key": "ADMIN_PAGE_POSITION.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_POSITION.UPDATE",
+          "key": "ADMIN_PAGE_POSITION.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_POSITION.DELETE",
+          "key": "ADMIN_PAGE_POSITION.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_POSITION.VIEW",
+          "key": "ADMIN_PAGE_POSITION.VIEW"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_PARKING_LOT",
+      "key": "ADMIN_PAGE_PARKING_LOT",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_PARKING_LOT.VIEW",
+          "key": "ADMIN_PAGE_PARKING_LOT.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_PARKING_LOT.CREATE",
+          "key": "ADMIN_PAGE_PARKING_LOT.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_PARKING_LOT.UPDATE",
+          "key": "ADMIN_PAGE_PARKING_LOT.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_PARKING_LOT.DELETE",
+          "key": "ADMIN_PAGE_PARKING_LOT.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_PARKING_LOT.ENABLE",
+          "key": "ADMIN_PAGE_PARKING_LOT.ENABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_PARKING_LOT.DISABLE",
+          "key": "ADMIN_PAGE_PARKING_LOT.DISABLE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_UTILITY",
+      "key": "ADMIN_PAGE_UTILITY",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_UTILITY.VIEW",
+          "key": "ADMIN_PAGE_UTILITY.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY.CREATE",
+          "key": "ADMIN_PAGE_UTILITY.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY.UPDATE",
+          "key": "ADMIN_PAGE_UTILITY.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY.DELETE",
+          "key": "ADMIN_PAGE_UTILITY.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY.PRE_SIGNED_PUT_URL",
+          "key": "ADMIN_PAGE_UTILITY.PRE_SIGNED_PUT_URL"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_UTILITY_DIAGRAM",
+      "key": "ADMIN_PAGE_UTILITY_DIAGRAM",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_UTILITY_DIAGRAM.VIEW",
+          "key": "ADMIN_PAGE_UTILITY_DIAGRAM.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY_DIAGRAM.CREATE",
+          "key": "ADMIN_PAGE_UTILITY_DIAGRAM.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY_DIAGRAM.UPDATE",
+          "key": "ADMIN_PAGE_UTILITY_DIAGRAM.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY_DIAGRAM.DELETE",
+          "key": "ADMIN_PAGE_UTILITY_DIAGRAM.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_CATEGORY",
+      "key": "ADMIN_PAGE_CATEGORY",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_CATEGORY.VIEW",
+          "key": "ADMIN_PAGE_CATEGORY.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_CATEGORY.CREATE",
+          "key": "ADMIN_PAGE_CATEGORY.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_CATEGORY.UPDATE",
+          "key": "ADMIN_PAGE_CATEGORY.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_CATEGORY.DELETE",
+          "key": "ADMIN_PAGE_CATEGORY.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_ADDITIONAL_UTILITY",
+      "key": "ADMIN_PAGE_ADDITIONAL_UTILITY",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_ADDITIONAL_UTILITY.VIEW",
+          "key": "ADMIN_PAGE_ADDITIONAL_UTILITY.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_ADDITIONAL_UTILITY.CREATE",
+          "key": "ADMIN_PAGE_ADDITIONAL_UTILITY.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_ADDITIONAL_UTILITY.UPDATE",
+          "key": "ADMIN_PAGE_ADDITIONAL_UTILITY.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_ADDITIONAL_UTILITY.DELETE",
+          "key": "ADMIN_PAGE_ADDITIONAL_UTILITY.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_BENEFIT",
+      "key": "ADMIN_PAGE_BENEFIT",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_BENEFIT.VIEW",
+          "key": "ADMIN_PAGE_BENEFIT.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_BENEFIT.CREATE",
+          "key": "ADMIN_PAGE_BENEFIT.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_BENEFIT.UPDATE",
+          "key": "ADMIN_PAGE_BENEFIT.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_BENEFIT.DELETE",
+          "key": "ADMIN_PAGE_BENEFIT.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_BENEFIT.PRE_SIGNED_PUT_URL",
+          "key": "ADMIN_PAGE_BENEFIT.PRE_SIGNED_PUT_URL"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_PACKAGE",
+      "key": "ADMIN_PAGE_PACKAGE",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_PACKAGE.VIEW",
+          "key": "ADMIN_PAGE_PACKAGE.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_PACKAGE.CREATE",
+          "key": "ADMIN_PAGE_PACKAGE.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_PACKAGE.UPDATE",
+          "key": "ADMIN_PAGE_PACKAGE.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_PACKAGE.DELETE",
+          "key": "ADMIN_PAGE_PACKAGE.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_PACKAGE_QUOTA",
+      "key": "ADMIN_PAGE_PACKAGE_QUOTA",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_PACKAGE_QUOTA.VIEW",
+          "key": "ADMIN_PAGE_PACKAGE_QUOTA.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_PACKAGE_QUOTA.CREATE",
+          "key": "ADMIN_PAGE_PACKAGE_QUOTA.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_PACKAGE_QUOTA.UPDATE",
+          "key": "ADMIN_PAGE_PACKAGE_QUOTA.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_PACKAGE_QUOTA.DELETE",
+          "key": "ADMIN_PAGE_PACKAGE_QUOTA.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_TENANT_CONTRACT",
+      "key": "ADMIN_PAGE_TENANT_CONTRACT",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_TENANT_CONTRACT.VIEW",
+          "key": "ADMIN_PAGE_TENANT_CONTRACT.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT_CONTRACT.CREATE",
+          "key": "ADMIN_PAGE_TENANT_CONTRACT.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT_CONTRACT.UPDATE",
+          "key": "ADMIN_PAGE_TENANT_CONTRACT.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT_CONTRACT.DELETE",
+          "key": "ADMIN_PAGE_TENANT_CONTRACT.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT_CONTRACT.PRE_SIGNED_PUT_URL",
+          "key": "ADMIN_PAGE_TENANT_CONTRACT.PRE_SIGNED_PUT_URL"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT_CONTRACT.ENABLE",
+          "key": "ADMIN_PAGE_TENANT_CONTRACT.ENABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_TENANT_CONTRACT.DISABLE",
+          "key": "ADMIN_PAGE_TENANT_CONTRACT.DISABLE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_LIST_PRICE",
+      "key": "ADMIN_PAGE_LIST_PRICE",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_LIST_PRICE.VIEW",
+          "key": "ADMIN_PAGE_LIST_PRICE.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_LIST_PRICE.CREATE",
+          "key": "ADMIN_PAGE_LIST_PRICE.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_LIST_PRICE.UPDATE",
+          "key": "ADMIN_PAGE_LIST_PRICE.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_LIST_PRICE.DELETE",
+          "key": "ADMIN_PAGE_LIST_PRICE.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_LIST_PRICE_TABLE",
+      "key": "ADMIN_PAGE_LIST_PRICE_TABLE",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_LIST_PRICE_TABLE.VIEW",
+          "key": "ADMIN_PAGE_LIST_PRICE_TABLE.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_LIST_PRICE_TABLE.CREATE",
+          "key": "ADMIN_PAGE_LIST_PRICE_TABLE.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_LIST_PRICE_TABLE.UPDATE",
+          "key": "ADMIN_PAGE_LIST_PRICE_TABLE.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_LIST_PRICE_TABLE.DELETE",
+          "key": "ADMIN_PAGE_LIST_PRICE_TABLE.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_UTILITY_PRICE",
+      "key": "ADMIN_PAGE_UTILITY_PRICE",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_UTILITY_PRICE.VIEW",
+          "key": "ADMIN_PAGE_UTILITY_PRICE.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY_PRICE.CREATE",
+          "key": "ADMIN_PAGE_UTILITY_PRICE.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY_PRICE.UPDATE",
+          "key": "ADMIN_PAGE_UTILITY_PRICE.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY_PRICE.DELETE",
+          "key": "ADMIN_PAGE_UTILITY_PRICE.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_UTILITY_PRICE.CALCULATE",
+          "key": "ADMIN_PAGE_UTILITY_PRICE.CALCULATE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_WALLET",
+      "key": "ADMIN_PAGE_WALLET",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_WALLET.VIEW",
+          "key": "ADMIN_PAGE_WALLET.VIEW"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_ORDER",
+      "key": "ADMIN_PAGE_ORDER",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_ORDER.VIEW",
+          "key": "ADMIN_PAGE_ORDER.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_ORDER.CREATE",
+          "key": "ADMIN_PAGE_ORDER.CREATE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_BOOKING",
+      "key": "ADMIN_PAGE_BOOKING",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_BOOKING.VIEW",
+          "key": "ADMIN_PAGE_BOOKING.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_BOOKING.CREATE",
+          "key": "ADMIN_PAGE_BOOKING.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_BOOKING.CONFIRM",
+          "key": "ADMIN_PAGE_BOOKING.CONFIRM"
+        },
+        {
+          "title": "ADMIN_PAGE_BOOKING.CANCEL",
+          "key": "ADMIN_PAGE_BOOKING.CANCEL"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_TRANSACTION",
+      "key": "ADMIN_PAGE_TRANSACTION",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_TRANSACTION.VIEW",
+          "key": "ADMIN_PAGE_TRANSACTION.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_TRANSACTION.CREATE",
+          "key": "ADMIN_PAGE_TRANSACTION.CREATE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_CARD",
+      "key": "ADMIN_PAGE_CARD",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_CARD.VIEW",
+          "key": "ADMIN_PAGE_CARD.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_CARD.CREATE",
+          "key": "ADMIN_PAGE_CARD.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_CARD.UPDATE",
+          "key": "ADMIN_PAGE_CARD.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_CARD.DELETE",
+          "key": "ADMIN_PAGE_CARD.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_CARD.ENABLE",
+          "key": "ADMIN_PAGE_CARD.ENABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_CARD.DISABLE",
+          "key": "ADMIN_PAGE_CARD.DISABLE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_USER_CARD_INFO",
+      "key": "ADMIN_PAGE_USER_CARD_INFO",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_USER_CARD_INFO.VIEW",
+          "key": "ADMIN_PAGE_USER_CARD_INFO.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_USER_CARD_INFO.CREATE",
+          "key": "ADMIN_PAGE_USER_CARD_INFO.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_USER_CARD_INFO.UPDATE",
+          "key": "ADMIN_PAGE_USER_CARD_INFO.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_USER_CARD_INFO.DELETE",
+          "key": "ADMIN_PAGE_USER_CARD_INFO.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_USER_CARD_INFO.ENABLE",
+          "key": "ADMIN_PAGE_USER_CARD_INFO.ENABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_USER_CARD_INFO.DISABLE",
+          "key": "ADMIN_PAGE_USER_CARD_INFO.DISABLE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_TICKET",
+      "key": "ADMIN_PAGE_TICKET",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_TICKET.VIEW",
+          "key": "ADMIN_PAGE_TICKET.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_TICKET.CREATE",
+          "key": "ADMIN_PAGE_TICKET.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_TICKET.UPDATE",
+          "key": "ADMIN_PAGE_TICKET.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_TICKET.DELETE",
+          "key": "ADMIN_PAGE_TICKET.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_TICKET.SEND_FEEDBACK",
+          "key": "ADMIN_PAGE_TICKET.SEND_FEEDBACK"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_NEWS",
+      "key": "ADMIN_PAGE_NEWS",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_NEWS.VIEW",
+          "key": "ADMIN_PAGE_NEWS.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_NEWS.CREATE",
+          "key": "ADMIN_PAGE_NEWS.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_NEWS.UPDATE",
+          "key": "ADMIN_PAGE_NEWS.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_NEWS.DELETE",
+          "key": "ADMIN_PAGE_NEWS.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_NEWS.ENABLE",
+          "key": "ADMIN_PAGE_NEWS.ENABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_NEWS.DISABLE",
+          "key": "ADMIN_PAGE_NEWS.DISABLE"
+        },
+        {
+          "title": "ADMIN_PAGE_NEWS.CONVERT_HOT_NEWS",
+          "key": "ADMIN_PAGE_NEWS.CONVERT_HOT_NEWS"
+        },
+        {
+          "title": "ADMIN_PAGE_NEWS.PRE_SIGNED_PUT_URL",
+          "key": "ADMIN_PAGE_NEWS.PRE_SIGNED_PUT_URL"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_REGISTRATION_FORM",
+      "key": "ADMIN_PAGE_REGISTRATION_FORM",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_REGISTRATION_FORM.VIEW",
+          "key": "ADMIN_PAGE_REGISTRATION_FORM.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_REGISTRATION_FORM.CREATE",
+          "key": "ADMIN_PAGE_REGISTRATION_FORM.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_REGISTRATION_FORM.UPDATE",
+          "key": "ADMIN_PAGE_REGISTRATION_FORM.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_REGISTRATION_FORM.DELETE",
+          "key": "ADMIN_PAGE_REGISTRATION_FORM.DELETE"
+        },
+        {
+          "title": "ADMIN_PAGE_REGISTRATION_FORM.CONFIRM",
+          "key": "ADMIN_PAGE_REGISTRATION_FORM.CONFIRM"
+        },
+        {
+          "title": "ADMIN_PAGE_REGISTRATION_FORM.REJECT",
+          "key": "ADMIN_PAGE_REGISTRATION_FORM.REJECT"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_REGULATION",
+      "key": "ADMIN_PAGE_REGULATION",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_REGULATION.VIEW",
+          "key": "ADMIN_PAGE_REGULATION.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_REGULATION.CREATE",
+          "key": "ADMIN_PAGE_REGULATION.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_REGULATION.UPDATE",
+          "key": "ADMIN_PAGE_REGULATION.UPDATE"
+        },
+        {
+          "title": "ADMIN_PAGE_REGULATION.DELETE",
+          "key": "ADMIN_PAGE_REGULATION.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "ADMIN_PAGE_DEBT_LEDGER",
+      "key": "ADMIN_PAGE_DEBT_LEDGER",
+      "children": [
+        {
+          "title": "ADMIN_PAGE_DEBT_LEDGER.VIEW",
+          "key": "ADMIN_PAGE_DEBT_LEDGER.VIEW"
+        },
+        {
+          "title": "ADMIN_PAGE_DEBT_LEDGER.CREATE",
+          "key": "ADMIN_PAGE_DEBT_LEDGER.CREATE"
+        },
+        {
+          "title": "ADMIN_PAGE_DEBT_LEDGER.DELETE",
+          "key": "ADMIN_PAGE_DEBT_LEDGER.DELETE"
+        }
+      ]
+    }
+  ],
+  "PORTAL": [
+    {
+      "title": "PORTAL_PAGE_TRANSACTION",
+      "key": "PORTAL_PAGE_TRANSACTION",
+      "children": [
+        {
+          "title": "PORTAL_PAGE_TRANSACTION.VIEW",
+          "key": "PORTAL_PAGE_TRANSACTION.VIEW"
+        },
+        {
+          "title": "PORTAL_PAGE_TRANSACTION.CREATE",
+          "key": "PORTAL_PAGE_TRANSACTION.CREATE"
+        }
+      ]
+    },
+    {
+      "title": "PORTAL_PAGE_MANAGE_USER",
+      "key": "PORTAL_PAGE_MANAGE_USER",
+      "children": [
+        {
+          "title": "PORTAL_PAGE_MANAGE_USER.VIEW",
+          "key": "PORTAL_PAGE_MANAGE_USER.VIEW"
+        },
+        {
+          "title": "PORTAL_PAGE_MANAGE_USER.CREATE",
+          "key": "PORTAL_PAGE_MANAGE_USER.CREATE"
+        },
+        {
+          "title": "PORTAL_PAGE_MANAGE_USER.UPDATE",
+          "key": "PORTAL_PAGE_MANAGE_USER.UPDATE"
+        },
+        {
+          "title": "PORTAL_PAGE_MANAGE_USER.DELETE",
+          "key": "PORTAL_PAGE_MANAGE_USER.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "PORTAL_PAGE_BOOKING",
+      "key": "PORTAL_PAGE_BOOKING",
+      "children": [
+        {
+          "title": "PORTAL_PAGE_BOOKING.VIEW",
+          "key": "PORTAL_PAGE_BOOKING.VIEW"
+        },
+        {
+          "title": "PORTAL_PAGE_BOOKING.CREATE",
+          "key": "PORTAL_PAGE_BOOKING.CREATE"
+        },
+        {
+          "title": "PORTAL_PAGE_BOOKING.UPDATE",
+          "key": "PORTAL_PAGE_BOOKING.UPDATE"
+        },
+        {
+          "title": "PORTAL_PAGE_BOOKING.DELETE",
+          "key": "PORTAL_PAGE_BOOKING.DELETE"
+        },
+        {
+          "title": "PORTAL_PAGE_BOOKING.CANCEL",
+          "key": "PORTAL_PAGE_BOOKING.CANCEL"
+        },
+        {
+          "title": "PORTAL_PAGE_BOOKING.FEEDBACK",
+          "key": "PORTAL_PAGE_BOOKING.FEEDBACK"
+        }
+      ]
+    },
+    {
+      "title": "PORTAL_PAGE_EMPLOYEE_CARD",
+      "key": "PORTAL_PAGE_EMPLOYEE_CARD",
+      "children": [
+        {
+          "title": "PORTAL_PAGE_EMPLOYEE_CARD.VIEW",
+          "key": "PORTAL_PAGE_EMPLOYEE_CARD.VIEW"
+        },
+        {
+          "title": "PORTAL_PAGE_EMPLOYEE_CARD.CREATE",
+          "key": "PORTAL_PAGE_EMPLOYEE_CARD.CREATE"
+        },
+        {
+          "title": "PORTAL_PAGE_EMPLOYEE_CARD.UPDATE",
+          "key": "PORTAL_PAGE_EMPLOYEE_CARD.UPDATE"
+        },
+        {
+          "title": "PORTAL_PAGE_EMPLOYEE_CARD.DELETE",
+          "key": "PORTAL_PAGE_EMPLOYEE_CARD.DELETE"
+        },
+        {
+          "title": "PORTAL_PAGE_EMPLOYEE_CARD.ENABLE",
+          "key": "PORTAL_PAGE_EMPLOYEE_CARD.ENABLE"
+        },
+        {
+          "title": "PORTAL_PAGE_EMPLOYEE_CARD.DISABLE",
+          "key": "PORTAL_PAGE_EMPLOYEE_CARD.DISABLE"
+        }
+      ]
+    },
+    {
+      "title": "PORTAL_PAGE_REGISTRATION_FORM",
+      "key": "PORTAL_PAGE_REGISTRATION_FORM",
+      "children": [
+        {
+          "title": "PORTAL_PAGE_REGISTRATION_FORM.VIEW",
+          "key": "PORTAL_PAGE_REGISTRATION_FORM.VIEW"
+        },
+        {
+          "title": "PORTAL_PAGE_REGISTRATION_FORM.CREATE",
+          "key": "PORTAL_PAGE_REGISTRATION_FORM.CREATE"
+        },
+        {
+          "title": "PORTAL_PAGE_REGISTRATION_FORM.UPDATE",
+          "key": "PORTAL_PAGE_REGISTRATION_FORM.UPDATE"
+        },
+        {
+          "title": "PORTAL_PAGE_REGISTRATION_FORM.DELETE",
+          "key": "PORTAL_PAGE_REGISTRATION_FORM.DELETE"
+        }
+      ]
+    },
+    {
+      "title": "PORTAL_PAGE_BILL",
+      "key": "PORTAL_PAGE_BILL",
+      "children": [
+        {
+          "title": "PORTAL_PAGE_BILL.VIEW",
+          "key": "PORTAL_PAGE_BILL.VIEW"
+        }
+      ]
+    },
+    {
+      "title": "PORTAL_PAGE_DEBT",
+      "key": "PORTAL_PAGE_DEBT",
+      "children": [
+        {
+          "title": "PORTAL_PAGE_DEBT.VIEW",
+          "key": "PORTAL_PAGE_DEBT.VIEW"
+        }
+      ]
+    },
+    {
+      "title": "PORTAL_PAGE_TENANT_CONTRACT",
+      "key": "PORTAL_PAGE_TENANT_CONTRACT",
+      "children": [
+        {
+          "title": "PORTAL_PAGE_TENANT_CONTRACT.VIEW",
+          "key": "PORTAL_PAGE_TENANT_CONTRACT.VIEW"
+        }
+      ]
+    }
+  ]
+}

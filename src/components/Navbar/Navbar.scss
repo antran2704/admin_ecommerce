@@ -1,0 +1,22 @@
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-submenu-title {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ant-dropdown
+  .ant-dropdown-menu
+  .ant-dropdown-menu-submenu-title
+  .ant-dropdown-menu-submenu-expand-icon {
+  position: relative !important;
+}
+
+.ant-dropdown-menu-item {
+  margin-top: 4px !important;
+}
+
+.ant-dropdown {
+  .ant-dropdown-menu-item:first-child {
+    margin-top: 0 !important;
+  }
+}

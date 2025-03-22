@@ -1,0 +1,90 @@
+{
+  "LoginPage": {
+    "title": "Đăng nhập",
+    "btn": {
+      "forgotPassword": "Quên mật khẩu?"
+    },
+    "form": {
+      "username": "Email",
+      "password": "Mật khẩu"
+    }
+  },
+  "ConfirmOtpPage": {
+    "title": "Xác thực OTP",
+    "noReceiveCode": "Không nhận được mã?",
+    "resend": "Gửi lại mã",
+    "description": "Nhập mã OTP được gửi đến email"
+  },
+  "ForgotPasswordPage": {
+    "title": "Quên mật khẩu",
+    "description": "Vui lòng nhập email của bạn, chúng tôi sẽ gửi OTP về email này."
+  },
+  "SignUpPage": {
+    "title": "Đăng ký"
+  },
+  "ResetPasswordPage": {
+    "title": "Thiết lập mật khẩu"
+  },
+  "LocaleSwitcher": {
+    "locale": "{locale, select, vi {Tiếng việt} en {Tiếng anh} other {Không biết}}"
+  },
+  "UtilityType": {
+    "meetingRoom": "Phòng họp",
+    "napRoom": "Phòng ngủ",
+    "liveStream": "Live stream",
+    "printerCl": "Máy in màu",
+    "printerBw": "Máy in trắng đen",
+    "printer": "Máy in",
+    "event": "Event",
+    "parking": "Bãi xe"
+  },
+  "MeasureUnit": {
+    "pax": "Pax",
+    "hour": "Giờ",
+    "paper": "Trang",
+    "part": "Phần",
+    "day": "Ngày",
+    "other": "Khác"
+  },
+  "TransactionType": {
+    "given": "Tặng {{currency}}",
+    "payment": "Thanh toán",
+    "refund": "Hoàn {{currency}}",
+    "refundAddition": "Hoàn dịch vụ đi kèm",
+    "expired": "{{currency}} hết hạn",
+    "credit": "Ví trả sau",
+    "deposit": "Ví nạp",
+    "contract": "Thanh toán hợp đồng",
+    "parking": "Thanh toán gửi xe"
+  },
+  "Wallet": {
+    "title": "Tài khoản/ Ví",
+    "give": "Ví tặng",
+    "deposit": "Ví nạp",
+    "credit": "Ví trả sau",
+    "remain": "Còn lại",
+    "totalLimit": "Tổng hạn mức",
+    "totalUsed": "Cần thanh toán",
+    "totalNotUse": "Số dư"
+  },
+  "DayOfWeek": {
+    "monday": "Thứ 2",
+    "tuesday": "Thứ 3",
+    "wednesday": "Thứ 4",
+    "thursday": "Thứ 5",
+    "friday": "Thứ 6",
+    "saturday": "Thứ 7",
+    "sunday": "Chủ nhật"
+  },
+  "PrinterLimit": {
+    "remain": "Còn lại",
+    "printerCl": "Máy in màu - Khổ {{pageSize}}",
+    "printerBw": "Máy in trắng đen - Khổ {{pageSize}}",
+    "page": "Trang"
+  },
+  "GuestGroupType": {
+    "retailCustomer": "Khách lẻ",
+    "tinicoGuest": "Khách Tinico",
+    "officeGuest": "Khách Office Sharing TiniO"
+  }
+}

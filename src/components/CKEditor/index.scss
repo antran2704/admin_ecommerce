@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+.ck {
+  .ck-powered-by {
+    display: none !important;
+  }
+
+  &.ck-sticky-panel__content {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+  }
+
+  &.ck-toolbar {
+    background-color: #f2f4f7;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+  }
+
+  &.ck-content {
+    padding: 0 30px !important;
+    height: 400px;
+    resize: vertical;
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+  }
+}
+
+.error .ck {
+  &.ck-sticky-panel__content {
+    border-color: #f44336 !important;
+  }
+
+  &.ck-content {
+    border-color: #f44336 !important;
+  }
+}

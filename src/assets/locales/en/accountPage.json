@@ -1,0 +1,37 @@
+{
+  "title": "Infomation of account",
+  "editTitle": "Update account",
+  "filter": {
+    "male": "Male",
+    "female": "Female",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "form": {
+    "name": "Name",
+    "birthday": "Birthday",
+    "address": "Address",
+    "email": "Email",
+    "phone": "Phone",
+    "sex": "Sex",
+    "role": "Role",
+    "password": "Password",
+    "changePassword": "Change password",
+    "roleGroup": "Role group",
+    "workplace": "Word place",
+    "status": "Status",
+    "startedAt": "Started at",
+    "endedAt": "Ended at",
+    "createdAt": "Created At"
+  },
+  "changePasswordModal": {
+    "title": "Change password",
+    "currentPassword": "Password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password"
+  },
+  "breadcrumb": {
+    "update": "Update account",
+    "viewInfo": "Infomation account"
+  }
+}

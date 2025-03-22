@@ -1,0 +1,74 @@
+{
+  "all": "Tất cả",
+  "goBack": "Trở về",
+  "confirm": "Xác nhận",
+  "close": "Đóng",
+  "continute": "Tiếp tục",
+  "agree": "Đồng ý",
+  "cancel": "Hủy",
+  "canceled": "Đã hủy",
+  "save": "Lưu",
+  "yes": "Có",
+  "no": "Không",
+  "edit": "Chỉnh sửa",
+  "add": "Thêm {{name}}",
+  "saveAndCreate": "Lưu & thêm mới",
+  "cancelEdit": "Hủy chỉnh sửa",
+  "delete": "Xóa",
+  "create": "Thêm mới",
+  "update": "Cập nhật",
+  "updating": "Đang cập nhật",
+  "success": "Thành công",
+  "noData": "Chưa có dữ liệu",
+  "changePassword": "Đổi mật khẩu",
+  "manualSetupPassword": "Thiết lập mật khẩu thủ công",
+  "sendPasswordToEmail": "Gửi mật khẩu tài khoản đến email",
+  "addAndExportPdf": "Thêm & Xuất PDF",
+  "character": "kí tự",
+  "number": "số",
+  "file": {
+    "exportFile": "Xuất file",
+    "exportExcel": "Xuất Excel",
+    "exportPdf": "Xuất PDF",
+    "exportTemplate": "Xuất Template",
+    "importFile": "Thêm tệp",
+    "image": "Hình ảnh"
+  },
+  "copied": "Đã copy",
+  "field": {
+    "phone": "Số điện thoại",
+    "password": "Mật khẩu",
+    "rePassword": "Nhập lại mật khẩu"
+  },
+  "checkPassword": {
+    "checkLength": "Ít nhất 8 kí tự",
+    "checkNumber": "Ít nhất 1 chữ số",
+    "checkUppercase": "Ít nhất 1 chữ hoa",
+    "checkLowercase": "Ít nhất 1 chữ thường",
+    "checkSpecial": "Ít nhất 1 kí tự đặc biệt"
+  },
+  "placeholder": {
+    "username": "Nhập tên...",
+    "email": "Nhập email...",
+    "password": "Nhập mật khẩu...",
+    "search": "Tìm kiếm...",
+    "select": "Chọn..."
+  },
+  "pagination": {
+    "page": "Trang",
+    "of": "trong"
+  },
+  "modal": {
+    "update": {
+      "title": "Lưu thay đổi",
+      "subtitle": "Bạn có chắc chắn muốn lưu thay đổi?"
+    },
+    "blocker": {
+      "title": "Thông báo",
+      "description": "Bạn chưa lưu cập nhật. Bạn có chắc muốn thoát?"
+    }
+  },
+  "breadcrumb": {
+    "home": "Trang chủ"
+  }
+}
