@@ -72,20 +72,10 @@ const verifyOTP = async (data: IVerifyOTP) => {
     .then((res) => res.data);
 };
 
-const getRefreshToken = async (accessToken: string, refreshToken: string) => {
-  return await AxiosClient.post(
-    BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/user/refresh-token",
-    {
-      accessToken,
-      refreshToken,
-    },
-  ).then((res) => res.data);
-};
 
 export {
   signup,
   login,
-  getRefreshToken,
   isInForgotPassword,
   isExitUser,
   resetPassword,

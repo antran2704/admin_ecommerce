@@ -5,25 +5,25 @@ import ability, { setRules } from "~/context/ability";
 
 import { getAuthToken } from "~/helper/auth";
 import { useAppDispatch, useAppSelector } from "~/store/hooks";
-import { setInforUser, updatePermission } from "~/store/slice/user";
+import {
+  fetchUserAsyncThunk,
+  selectUserSlice,
+  updatePermission,
+} from "~/store/slice/user";
 import SpinnerLoading from "../Loading/Spinner";
 import { AbilityContextProvider } from "~/context/can";
-import { IProfile } from "~/interface/profile";
 import { IAddRule } from "~/interface/permission";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
-import { getPermissionOfUser } from "~/api-client/role";
+import apiMeService from "~/api-client/me";
 
 const AuthenGuard = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
-  const { infoUser } = useAppSelector((state) => state.user);
+  const { infoUser } = useAppSelector(selectUserSlice);
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState<boolean>(!infoUser.userId);
 
-  const handleSetupPermission = async (
-    roles: string[],
-    isAdmin: boolean = false,
-  ) => {
+  const handleSetupPermission = async (isAdmin: boolean = false) => {
     if (isAdmin) {
       const rules = setRules([
         {
@@ -37,7 +37,7 @@ const AuthenGuard = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    const permissions: string[] = await getPermissionOfUser(roles);
+    const { permissions } = await apiMeService.getPermissions();
 
     const formatRules: IAddRule[] = permissions.map((item) => {
       const [subject, action] = item.split(".");
@@ -65,13 +65,14 @@ const AuthenGuard = ({ children }: { children: ReactNode }) => {
     }
 
     try {
-      // const user: IProfile = await getMe();
+      // const user: IProfile = await apiMeService.getProfile();
 
       // if (user) {
       //   dispatch(setInforUser(user));
       // }
 
-      setLoading(false);
+      // setLoading(false);
+      await dispatch(fetchUserAsyncThunk()).unwrap();
     } catch (error) {
       navigate("/login");
     }
@@ -83,7 +84,7 @@ const AuthenGuard = ({ children }: { children: ReactNode }) => {
     }
 
     if (infoUser.userId) {
-      handleSetupPermission(infoUser.roles, infoUser.isAdmin);
+      handleSetupPermission(infoUser.isAdmin);
     }
   }, [infoUser]);
 

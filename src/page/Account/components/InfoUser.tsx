@@ -12,8 +12,7 @@ import { IProfileForm, IUpdateProfileMe } from "~/interface/profile";
 import { InputPhone, InputText } from "~/components/Core/Input";
 import { DateFilter, SelectFilter } from "~/components/Core";
 import { ENUM_ACCOUNT_STATUS, ENUM_GENDER } from "~/enum/user";
-import { fetchUser } from "~/store/slice/user";
-import MESSAGE_ERROR from "~/common/error";
+import { fetchUserAsyncThunk } from "~/store/slice/user";
 import {
   combinePhoneNumber,
   getPhoneNumberAndCodeArea,
@@ -108,7 +107,7 @@ const InforUser = (props: Props) => {
 
     // await updateMe(dataSend)
     //   .then(() => {
-    //     dispatch(fetchUser());
+    //     dispatch(fetchUserAsyncThunk());
     //     messageApi.success(tSuccess("ok"));
     //   })
     //   .catch(() => {
@@ -119,29 +118,29 @@ const InforUser = (props: Props) => {
   };
 
   const handleGetData = async () => {
-    const { codeArea, phone } = getPhoneNumberAndCodeArea(infoUser.phoneNumber);
+    // const { codeArea, phone } = getPhoneNumberAndCodeArea(infoUser.phoneNumber);
 
-    reset({
-      address: infoUser.address,
-      dateOfBirth: infoUser.dateOfBirth
-        ? dayjs(infoUser.dateOfBirth).format(DAY_DMY)
-        : null,
-      email: infoUser.email,
-      fullName: infoUser.fullName,
-      phoneNumber: phone,
-      codeArea: codeArea || "84",
-      status: infoUser.isActive
-        ? ENUM_ACCOUNT_STATUS.ACTIVE
-        : ENUM_ACCOUNT_STATUS.INACTIVE,
-      createdAt: dayjs(infoUser.createdAt).format(DAY_DMY),
-      gender: infoUser.gender ? infoUser.gender : ENUM_GENDER.MALE,
-      role: infoUser.roleNames,
-      roleGroup: infoUser.groups,
-      startedAt: dayjs(infoUser.createdAt).format(DAY_DMY),
-      endedAt: "",
-      workLocationAddress: infoUser.workLocationAddress,
-      workLocationId: infoUser.workLocationId,
-    });
+    // reset({
+    //   address: infoUser.address,
+    //   dateOfBirth: infoUser.dateOfBirth
+    //     ? dayjs(infoUser.dateOfBirth).format(DAY_DMY)
+    //     : null,
+    //   email: infoUser.email,
+    //   fullName: infoUser.fullName,
+    //   phoneNumber: phone,
+    //   codeArea: codeArea || "84",
+    //   status: infoUser.isActive
+    //     ? ENUM_ACCOUNT_STATUS.ACTIVE
+    //     : ENUM_ACCOUNT_STATUS.INACTIVE,
+    //   createdAt: dayjs(infoUser.createdAt).format(DAY_DMY),
+    //   gender: infoUser.gender ? infoUser.gender : ENUM_GENDER.MALE,
+    //   role: infoUser.roleNames,
+    //   roleGroup: infoUser.groups,
+    //   startedAt: dayjs(infoUser.createdAt).format(DAY_DMY),
+    //   endedAt: "",
+    //   workLocationAddress: infoUser.workLocationAddress,
+    //   workLocationId: infoUser.workLocationId,
+    // });
   };
 
   useEffect(() => {

@@ -1,0 +1,28 @@
+import { API_VERSION, BASE_URL } from "~/common/api";
+import { INTERNAL_PATH } from "~/config/constants";
+import AxiosClient from "~/config/axiosClient";
+import { IMeProfile } from "~/interface/profile";
+
+const apiMeService = {
+  getProfile: async (): Promise<IMeProfile> => {
+    return await AxiosClient.get(BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admins/me").then(
+      (res) => res.data,
+    );
+  },
+  getPermissions: async (): Promise<{ permissions: string[] }> => {
+    return await AxiosClient.get(
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admins/me/permissions",
+    ).then((res) => res.data);
+  },
+  getRefreshToken: async (accessToken: string, refreshToken: string) => {
+    return await AxiosClient.post(
+      BASE_URL + API_VERSION.V1 + "/auth/admin/refresh-token",
+      {
+        accessToken,
+        refreshToken,
+      },
+    ).then((res) => res.data);
+  },
+};
+
+export default apiMeService;

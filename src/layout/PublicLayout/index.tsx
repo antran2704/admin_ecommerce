@@ -3,12 +3,13 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { getAuthToken } from "~/helper/auth";
 import LocaleSwitcher from "~/components/LocaleSwitcher";
 import { useAppDispatch, useAppSelector } from "~/store/hooks";
-import { fetchUser } from "~/store/slice/user";
+import { fetchUserAsyncThunk, selectUserSlice } from "~/store/slice/user";
 import SpinnerLoading from "~/components/Loading/Spinner";
 
 const PublicLayout = () => {
   const navigate = useNavigate();
-  const { infoUser } = useAppSelector((state) => state.user);
+  const { infoUser } = useAppSelector(selectUserSlice);
+
   const dispatch = useAppDispatch();
 
   const chechAuth = async () => {
@@ -17,7 +18,7 @@ const PublicLayout = () => {
 
     if (!accessToken || !refreshToken) return;
 
-    dispatch(fetchUser());
+    dispatch(fetchUserAsyncThunk());
   };
 
   useEffect(() => {

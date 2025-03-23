@@ -1,10 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { ISettingSlice } from "../types/settingSlice.type";
 
-interface IInitData {
-  isOpenSidebar: boolean;
-}
-
-const initialState: IInitData = {
+const initialState: ISettingSlice = {
   isOpenSidebar: false,
 };
 
@@ -12,7 +9,7 @@ const settingSlice = createSlice({
   name: "setting",
   initialState,
   reducers: {
-    changeSidebar: (state: IInitData, action: PayloadAction<boolean>) => {
+    changeSidebar: (state: ISettingSlice, action: PayloadAction<boolean>) => {
       state.isOpenSidebar = action.payload;
     },
   },

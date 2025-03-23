@@ -1,16 +1,16 @@
 import axios from "axios";
-import { getRefreshToken } from "~/api-client/auth";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { message } from "antd";
+import { NavigateFunction } from "react-router-dom";
+
 import { getAuthToken, removeAuthToken, setAuthToken } from "~/helper/auth";
 import { IAuthToken } from "~/interface/auth";
-import { AppDispatch } from "~/store";
+import { AppDispatch } from "~/store/types";
 import { logoutUser } from "~/store/slice/user";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import { INTERNAL_PATH } from "./constants";
-import { message } from "antd";
 import MESSAGE_ERROR from "~/common/error";
-import { NavigateFunction } from "react-router-dom";
 import { API_VERSION, BASE_URL } from "~/common/api";
 import { getTimezoneOffset, getUserTimezone } from "~/helper/dateTime";
+import apiMeService from "~/api-client/me";
 
 let navigate: NavigateFunction;
 let isRefreshToken: boolean = false;
@@ -47,6 +47,7 @@ const listError: string[] = [
   "INVALID_REFRESH_TOKEN",
   // "Unauthorized",
   "REFRESH_TOKEN_EXPIRED",
+  "invalid signature"
 ];
 
 AxiosClient.interceptors.request.use(
@@ -85,7 +86,7 @@ AxiosClient.interceptors.request.use(
         const refreshToken = getAuthToken("refreshToken") as string;
 
         try {
-          const response: IAuthToken = await getRefreshToken(
+          const response: IAuthToken = await apiMeService.getRefreshToken(
             accessToken,
             refreshToken,
           );
@@ -146,10 +147,9 @@ AxiosClient.interceptors.response.use(
 
     const url: string = error.config.url;
     const resfreshTokenUrl: string =
-      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/user/refresh-token";
+      BASE_URL + API_VERSION.V1 + "/auth/admin/refresh-token";
 
     if (
-      error.response.status === 401 &&
       listError.includes(error.response.data.message) &&
       url === resfreshTokenUrl
     ) {

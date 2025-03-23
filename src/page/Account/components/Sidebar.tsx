@@ -1,12 +1,11 @@
 import { useState, Fragment, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
 import { message } from "antd";
 
 import "./Account.scss";
 
 import { useAppDispatch, useAppSelector } from "~/store/hooks";
-import { fetchUser } from "~/store/slice/user";
+import { fetchUserAsyncThunk } from "~/store/slice/user";
 
 import ChangePasswordModal from "./ChangePasswordModal";
 import Avartar from "~/components/Avartar";
@@ -49,8 +48,8 @@ const SidebarAccount = (props: Props) => {
 
     onLoading("avartar", true);
     try {
-      const fileName: string = infoUser.imageProfile
-        ? infoUser.imageProfile.fileName
+      const fileName: string = infoUser.avaratar
+        ? infoUser.avaratar
         : file.lastModified.toString();
 
       // const newUrl: string = await presignedPutUrlProfile(fileName);
@@ -63,7 +62,7 @@ const SidebarAccount = (props: Props) => {
       //   },
       // });
 
-      dispatch(fetchUser()).then(() => {
+      dispatch(fetchUserAsyncThunk()).then(() => {
         messageApi.success(tSuccess("update"));
       });
     } catch (error) {
@@ -74,8 +73,8 @@ const SidebarAccount = (props: Props) => {
   };
 
   useEffect(() => {
-    if (infoUser.userId && infoUser.imageProfile) {
-      setAvartar(infoUser.imageProfile.url);
+    if (infoUser.userId && infoUser.avaratar) {
+      setAvartar(infoUser.avaratar);
     }
   }, [infoUser]);
 

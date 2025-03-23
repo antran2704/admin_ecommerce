@@ -12,17 +12,6 @@ const getRoles = async (paramater: IRoleSearch) => {
   ).then((res) => res.data);
 };
 
-const getPermissionOfUser = async (roleIds: string[]) => {
-  const parseParameter = parseQueryString({ items: roleIds });
-  return await AxiosClient.get(
-    BASE_URL +
-      API_VERSION.V1 +
-      INTERNAL_PATH +
-      "/roles/permissions" +
-      parseParameter,
-  ).then((res) => res.data);
-};
-
 const createRole = async (data: ICreateRole) => {
   return await AxiosClient.post(
     BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/roles",
@@ -43,4 +32,4 @@ const deleteRole = async (roleId: string) => {
   ).then((res) => res.data);
 };
 
-export { getRoles, getPermissionOfUser, createRole, updateRole, deleteRole };
+export { getRoles, createRole, updateRole, deleteRole };

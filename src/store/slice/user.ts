@@ -1,48 +1,37 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ENUM_GENDER } from "~/enum/user";
-import { IProfile } from "~/interface/profile";
+import { IMeProfile } from "~/interface/profile";
+import { IUserSlice } from "../types/userSlice.type";
+import { AsyncThunkConfig, RootState } from "../types";
+import apiMeService from "~/api-client/me";
 
-interface IInforUserSlice {
-  infoUser: IProfile;
-  permission: string[];
-  loadingUser: boolean;
-}
-
-const initInfoUser: IProfile = {
+const initInfoUser: IMeProfile = {
   userId: "",
-  idCard: "",
-  phoneNumber: "",
-  imageProfile: null,
-  dateOfBirth: "",
+  name: "",
   email: "",
-  fullName: "",
-  gender: ENUM_GENDER.MALE,
-  address: "",
-  createdAt: "",
-  workLocationAddress: "",
-  workLocationId: "",
-  isAdmin: false,
+  avaratar: "",
   isActive: true,
-  roleNames: [],
-  roles: [],
-  groups: [],
+  isAdmin: false,
+  createdAt: "",
 };
 
-const userInfo: IInforUserSlice = {
+const userInfo: IUserSlice = {
   infoUser: initInfoUser,
   permission: [],
   loadingUser: false,
 };
 
-const fetchUser = createAsyncThunk("user/fetchUserInfo", async () => {
-  return null;
-});
+const fetchUserAsyncThunk = createAsyncThunk<any, void, AsyncThunkConfig>(
+  "user/fetchUserInfo",
+  async () => {
+    return apiMeService.getProfile();
+  },
+);
 
 const userSlice = createSlice({
   name: "user",
   initialState: userInfo,
   reducers: {
-    setInforUser: (state, action: PayloadAction<IProfile>) => {
+    setInforUser: (state, action: PayloadAction<IMeProfile>) => {
       state.infoUser = action.payload;
     },
     updatePermission: (state, action: PayloadAction<string[]>) => {
@@ -55,17 +44,17 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(
-      fetchUser.fulfilled,
-      (state, action: PayloadAction<IProfile>) => {
+      fetchUserAsyncThunk.fulfilled,
+      (state, action: PayloadAction<IMeProfile>) => {
         state.infoUser = action.payload;
 
         state.loadingUser = false;
       },
     );
-    builder.addCase(fetchUser.pending, (state) => {
+    builder.addCase(fetchUserAsyncThunk.pending, (state) => {
       state.loadingUser = true;
     });
-    builder.addCase(fetchUser.rejected, (state) => {
+    builder.addCase(fetchUserAsyncThunk.rejected, (state) => {
       state.loadingUser = false;
     });
   },
@@ -74,5 +63,8 @@ const userSlice = createSlice({
 const userReducer = userSlice.reducer;
 
 export const { setInforUser, logoutUser, updatePermission } = userSlice.actions;
-export { fetchUser };
+export { fetchUserAsyncThunk };
+
+export const selectUserSlice = (state: RootState) => state.user;
+
 export default userReducer;
