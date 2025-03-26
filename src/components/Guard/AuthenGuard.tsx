@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import ability, { setRules } from "~/context/ability";
 
-import { getAuthToken } from "~/helper/auth";
+import { getAuthToken, removeAuthToken } from "~/helper/auth";
 import { useAppDispatch, useAppSelector } from "~/store/hooks";
 import {
   fetchUserAsyncThunk,
@@ -15,6 +15,7 @@ import { AbilityContextProvider } from "~/context/can";
 import { IAddRule } from "~/interface/permission";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import apiMeService from "~/api-client/me";
+import hanldeErrorAxios from "~/helper/handleErrorAxios";
 
 const AuthenGuard = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
@@ -38,7 +39,6 @@ const AuthenGuard = ({ children }: { children: ReactNode }) => {
     }
 
     const { permissions } = await apiMeService.getPermissions();
-
     const formatRules: IAddRule[] = permissions.map((item) => {
       const [subject, action] = item.split(".");
 
@@ -65,15 +65,14 @@ const AuthenGuard = ({ children }: { children: ReactNode }) => {
     }
 
     try {
-      // const user: IProfile = await apiMeService.getProfile();
-
-      // if (user) {
-      //   dispatch(setInforUser(user));
-      // }
-
-      // setLoading(false);
       await dispatch(fetchUserAsyncThunk()).unwrap();
+      setLoading(false);
     } catch (error) {
+      const { message } = hanldeErrorAxios(error);
+      if(message === "USER_WAS_DISABLED" || message === "USER_NOT_FOUND") {
+        removeAuthToken();
+      }
+
       navigate("/login");
     }
   };

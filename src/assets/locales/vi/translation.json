@@ -1,24 +1,4 @@
 {
-  "LoginPage": {
-    "title": "Đăng nhập",
-    "btn": {
-      "forgotPassword": "Quên mật khẩu?"
-    },
-    "form": {
-      "username": "Email",
-      "password": "Mật khẩu"
-    }
-  },
-  "ConfirmOtpPage": {
-    "title": "Xác thực OTP",
-    "noReceiveCode": "Không nhận được mã?",
-    "resend": "Gửi lại mã",
-    "description": "Nhập mã OTP được gửi đến email"
-  },
-  "ForgotPasswordPage": {
-    "title": "Quên mật khẩu",
-    "description": "Vui lòng nhập email của bạn, chúng tôi sẽ gửi OTP về email này."
-  },
   "SignUpPage": {
     "title": "Đăng ký"
   },

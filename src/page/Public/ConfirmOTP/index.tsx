@@ -5,11 +5,11 @@ import { decodeUrl, urlToBase64 } from "~/helper/url";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { LOGO } from "~/common/image";
-import { isInForgotPassword, resendOTP, verifyOTP } from "~/api-client/auth";
 import MESSAGE_ERROR from "~/common/error";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
-import { ENUM_OTP_TYPE } from "~/enum/auth";
-import { IResponseOTP } from "~/interface/auth";
+import apiAuthService from "~/api-client/auth";
+import { IConfirmForgotPasswordOtp } from "~/interface/auth";
+import { IForgotPasswordOtpResponse } from "../interfaces/forgotPassword.interface";
 
 let timmer: NodeJS.Timeout;
 
@@ -35,7 +35,7 @@ const ForgotOtpPage = () => {
     return localStorage.getItem("otp_expired");
   }, []);
 
-  const [expired, setExpired] = useState<boolean>(false);
+  const [isExpired, setIsExpired] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
   const [message, setMessage] = useState<string | null>(null);
@@ -48,23 +48,24 @@ const ForgotOtpPage = () => {
   ) => {
     setLoading(true);
 
-    await verifyOTP({
+    const payload: IConfirmForgotPasswordOtp = {
       email: decodeEmail,
       otp: text,
-      type: ENUM_OTP_TYPE.FORGOT_PASSWORD,
-    })
+    };
+
+    await apiAuthService
+      .confirmForgotPasswordOtp(payload)
       .then(() => {
         const uri = urlToBase64(decodeEmail + "-" + text);
 
         // remove otp_expired in localStorage if success
-        // localStorage.removeItem("otp_expired");
         navigate(`/reset-password/${uri}`);
       })
       .catch((err) => {
-        const { statusCode } = hanldeErrorAxios(err);
+        const { message } = hanldeErrorAxios(err);
 
-        if (statusCode === 401) {
-          setMessage(tError("INVALID_OTP"));
+        if (message === "OTP_INVALID") {
+          setMessage(tError(MESSAGE_ERROR.OTP_INVALID));
         } else {
           messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
         }
@@ -81,7 +82,7 @@ const ForgotOtpPage = () => {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     if (minutes <= 0 && seconds <= 0) {
-      setExpired(true);
+      setIsExpired(true);
       setMinute("00");
       setSecond("00");
 
@@ -94,32 +95,33 @@ const ForgotOtpPage = () => {
   };
 
   const handleResendOTP = async () => {
-    setExpired(true);
+    setIsExpired(true);
     setLoading(true);
 
-    await resendOTP({
-      email: decodeEmail,
-      type: ENUM_OTP_TYPE.FORGOT_PASSWORD,
-    })
-      .then(({ expiredTime }: IResponseOTP) => {
+    await apiAuthService
+      .forgotPassword({
+        email: decodeEmail,
+      })
+      .then(({ expireAt }: IForgotPasswordOtpResponse) => {
         messageApi.success(tCommon("success"));
 
         // save new expired time to local storage
-        localStorage.setItem("otp_expired", expiredTime);
+        localStorage.setItem("otp_expired", expireAt);
 
-        setExpired(false);
-        setCountDownLocalstorage(expiredTime);
+        setIsExpired(false);
+        setCountDownLocalstorage(expireAt);
       })
       .catch(() => {
         messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       });
 
-    setExpired(false);
+    setIsExpired(false);
     setLoading(false);
   };
 
   const handleCheckInForgot = async (email: string) => {
-    await isInForgotPassword(email)
+    await apiAuthService
+      .isInForgotPassword({ email })
       .then((isInForgot) => {
         if (!isInForgot) {
           navigate("/login");
@@ -175,7 +177,7 @@ const ForgotOtpPage = () => {
         <div className="inp__otp relative flex items-center justify-center">
           <div className={clsx({ "opacity-40": loading })}>
             <Input.OTP
-              disabled={expired}
+              disabled={isExpired}
               length={6}
               formatter={(str) => str.toUpperCase()}
               onChange={onChange}
@@ -199,8 +201,7 @@ const ForgotOtpPage = () => {
           {t("noReceiveCode")}
           <span
             onClick={handleResendOTP}
-            className="block text-sm text-green-500 text-center font-medium hover:text-green-500 hover:underline cursor-pointer"
-          >
+            className={clsx("block text-sm text-center font-medium cursor-pointer", [isExpired ? "text-green-500 hover:underline" : "text-gray-200 pointer-events-none"])}>
             {t("resend")}
           </span>
         </p>
@@ -210,9 +211,8 @@ const ForgotOtpPage = () => {
         size="large"
         type="primary"
         loading={loading}
-        disabled={expired || !!message}
-        className="w-full !py-6 !flex items-center justify-center !text-lg !font-semibold"
-      >
+        disabled={isExpired || !!message}
+        className="w-full !py-6 !flex items-center justify-center !text-lg !font-semibold">
         {tCommon("continute")}
       </Button>
 

@@ -22,8 +22,12 @@ const userInfo: IUserSlice = {
 
 const fetchUserAsyncThunk = createAsyncThunk<any, void, AsyncThunkConfig>(
   "user/fetchUserInfo",
-  async () => {
-    return apiMeService.getProfile();
+  async (_, { rejectWithValue }) => {
+    try {
+      return apiMeService.getProfile();
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Something went wrong");
+    }
   },
 );
 

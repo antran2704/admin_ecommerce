@@ -1,5 +1,4 @@
 import { Button } from "antd";
-import axios from "axios";
 import clsx from "clsx";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,16 +7,18 @@ import { object, string } from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { isInForgotPassword, resetPassword } from "~/api-client/auth";
 import { LOGO } from "~/common/image";
 import { checkPassword, getListCheckPassword } from "~/helper/auth";
 import { decodeUrl } from "~/helper/url";
-import { IForgotPassword } from "~/interface/auth";
-import { ErrorResponse } from "~/interface/response";
 
 import { InputPassword } from "~/components/Core/Input";
 import { ICheckPassword } from "~/interface/password";
 import CheckPassword from "~/components/Password/Check";
+import { IResetPasswordRequest } from "../interfaces/resetPassword.interface";
+import apiAuthService from "~/api-client/auth";
+import hanldeErrorAxios from "~/helper/handleErrorAxios";
+import MESSAGE_ERROR from "~/common/error";
+import useMessageAntd from "~/hooks/useMessageAntd";
 
 interface IFormData {
   password: string;
@@ -57,6 +58,8 @@ const SetupForgotPassword = () => {
     resolver: yupResolver(schema) as any,
   });
 
+  const {messageAntd} = useMessageAntd();
+
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -85,7 +88,8 @@ const SetupForgotPassword = () => {
   };
 
   const handleCheckInForgot = async (email: string) => {
-    await isInForgotPassword(email)
+    await apiAuthService
+      .isInForgotPassword({ email })
       .then((isInForgot) => {
         if (!isInForgot) {
           navigate("/login");
@@ -111,35 +115,22 @@ const SetupForgotPassword = () => {
 
     setLoading(true);
 
-    const dataSend: IForgotPassword = {
-      verifyAccountOtp: otpCode,
+    const dataSend: IResetPasswordRequest = {
+      otp: otpCode,
       email,
       newPassword: values.password,
-      confirmPassword: values.confirmPassword,
     };
 
     try {
-      await resetPassword(dataSend).then((res) => res);
+      await apiAuthService.resetPassword(dataSend);
       navigate("/login");
     } catch (err) {
-      if (!axios.isAxiosError(err)) return;
+      const {message} = hanldeErrorAxios(err)
 
-      const response = err.response;
-
-      if (!response) return;
-
-      const errorReponse: ErrorResponse = response.data;
-
-      if (errorReponse.statusCode === 409) {
-        setMessage(tError("foundUser"));
-      }
-
-      if (errorReponse.statusCode === 400) {
-        switch (errorReponse.message) {
-          case "INVALID_OTP":
-            setMessage("Sai OTP");
-            break;
-        }
+      if(message === "OTP_INVALID") {
+        setMessage(tError(MESSAGE_ERROR.OTP_INVALID));
+      } else {
+        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       }
     }
 
@@ -170,8 +161,7 @@ const SetupForgotPassword = () => {
           className={clsx(
             { "opacity-40": loading },
             "w-full flex flex-col gap-3",
-          )}
-        >
+          )}>
           <div>
             <Controller
               name="password"
@@ -185,6 +175,7 @@ const SetupForgotPassword = () => {
                   errorMessage={errors.password?.message}
                   sizeText="small"
                   required={true}
+                  maxLength={30}
                   onPressEnter={handleSubmit(onSubmit)}
                   onChange={(e) => {
                     if (message) {
@@ -212,6 +203,7 @@ const SetupForgotPassword = () => {
                   errorMessage={errors.confirmPassword?.message}
                   sizeText="small"
                   required={true}
+                  maxLength={30}
                   onPressEnter={handleSubmit(onSubmit)}
                   onChange={(e) => {
                     if (message) {
@@ -240,8 +232,7 @@ const SetupForgotPassword = () => {
         type="primary"
         loading={loading}
         onClick={handleSubmit(onSubmit)}
-        className="w-full !py-6 !flex items-center justify-center !text-lg !font-semibold"
-      >
+        className="w-full !py-6 !flex items-center justify-center !text-lg !font-semibold">
         {tCommon("confirm")}
       </Button>
     </div>

@@ -1,0 +1,6 @@
+{
+  "title": "Confirm OTP",
+  "noReceiveCode": "No receive code?",
+  "resend": "Resend code",
+  "description": "Please input OTP code from email"
+}
