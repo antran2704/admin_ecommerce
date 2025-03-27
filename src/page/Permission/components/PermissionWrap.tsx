@@ -5,7 +5,7 @@ import { getRoles } from "~/api-client/role";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import { useTranslation } from "react-i18next";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 
 const PermissionWrap = () => {
   const { messageAntd } = useMessageAntd();

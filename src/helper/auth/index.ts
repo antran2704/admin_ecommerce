@@ -6,7 +6,11 @@ const setAuthToken = (key: string, token: string) => {
 };
 
 const getAuthToken = (key: string): string | null => {
-  return JSON.parse(localStorage.getItem(key) as string) || null;
+  const value = localStorage.getItem(key)
+
+  if(!value || value === "undefined") return null
+
+  return JSON.parse(value);
 };
 
 const removeAuthToken = () => {

@@ -1,14 +1,18 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IMeProfile } from "~/interface/profile";
 import { IUserSlice } from "../types/userSlice.type";
 import { AsyncThunkConfig, RootState } from "../types";
 import apiMeService from "~/api-client/me";
+import { IMeProfile } from "~/page/Account/interfaces";
 
 const initInfoUser: IMeProfile = {
   userId: "",
   name: "",
   email: "",
-  avaratar: "",
+  avatar: "",
+  role: "",
+  roleId: "",
+  groupRole: "",
+  groupRoleId: "",
   isActive: true,
   isAdmin: false,
   createdAt: "",

@@ -14,7 +14,7 @@ import { initPagination } from "~/common/pagination";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import { BtnEdit, BtnTrash, BtnView } from "~/components/Button";
 import { DAY_DMY } from "~/common/format";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import { deleteStaff } from "~/api-client/staff";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";

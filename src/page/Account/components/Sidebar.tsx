@@ -10,7 +10,7 @@ import { fetchUserAsyncThunk } from "~/store/slice/user";
 import ChangePasswordModal from "./ChangePasswordModal";
 import Avartar from "~/components/Avartar";
 import ChangePassword from "~/components/ChangePassword";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 
 interface Props {
   isEdit: boolean;
@@ -48,9 +48,9 @@ const SidebarAccount = (props: Props) => {
 
     onLoading("avartar", true);
     try {
-      const fileName: string = infoUser.avaratar
-        ? infoUser.avaratar
-        : file.lastModified.toString();
+      // const fileName: string = infoUser.avatar
+      //   ? infoUser.avatar
+      //   : file.lastModified.toString();
 
       // const newUrl: string = await presignedPutUrlProfile(fileName);
 
@@ -62,9 +62,9 @@ const SidebarAccount = (props: Props) => {
       //   },
       // });
 
-      dispatch(fetchUserAsyncThunk()).then(() => {
-        messageApi.success(tSuccess("update"));
-      });
+      // dispatch(fetchUserAsyncThunk()).then(() => {
+      //   messageApi.success(tSuccess("update"));
+      // });
     } catch (error) {
       messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
@@ -72,11 +72,11 @@ const SidebarAccount = (props: Props) => {
     onLoading("avartar", false);
   };
 
-  useEffect(() => {
-    if (infoUser.userId && infoUser.avaratar) {
-      setAvartar(infoUser.avaratar);
-    }
-  }, [infoUser]);
+  // useEffect(() => {
+  //   if (infoUser.userId && infoUser.avatar) {
+  //     setAvartar(infoUser.avatar);
+  //   }
+  // }, [infoUser]);
 
   return (
     <Fragment>

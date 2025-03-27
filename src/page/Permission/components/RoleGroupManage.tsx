@@ -16,7 +16,7 @@ import { IRoleItem } from "~/interface/role";
 
 import { ModalConfirm } from "~/components/Modal";
 import { InputText } from "~/components/Core/Input";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";

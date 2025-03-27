@@ -17,7 +17,7 @@ import CheckPassword from "~/components/Password/Check";
 import { IResetPasswordRequest } from "../interfaces/resetPassword.interface";
 import apiAuthService from "~/api-client/auth";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import useMessageAntd from "~/hooks/useMessageAntd";
 
 interface IFormData {

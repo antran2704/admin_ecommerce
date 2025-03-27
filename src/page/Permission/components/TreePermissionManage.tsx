@@ -8,7 +8,7 @@ import clsx from "clsx";
 import { updatePermisionsForRole } from "~/api-client/role/permission";
 import useBlockerRouter from "~/hooks/useBlockerRouter";
 import useMessageAntd from "~/hooks/useMessageAntd";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 

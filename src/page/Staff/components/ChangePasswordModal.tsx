@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
 import { changePasswordStaff } from "~/api-client/staff";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import { InputPassword } from "~/components/Core/Input";
 
 import { ModalConfirm } from "~/components/Modal";

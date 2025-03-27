@@ -58,8 +58,9 @@ const AuthenGuard = ({ children }: { children: ReactNode }) => {
 
     const accessToken = getAuthToken("accessToken");
     const refreshToken = getAuthToken("refreshToken");
-
+    
     if (!accessToken || !refreshToken) {
+      removeAuthToken();
       navigate("/login");
       return;
     }

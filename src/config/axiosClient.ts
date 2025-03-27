@@ -7,7 +7,7 @@ import { getAuthToken, removeAuthToken, setAuthToken } from "~/helper/auth";
 import { IAuthToken } from "~/interface/auth";
 import { AppDispatch } from "~/store/types";
 import { logoutUser } from "~/store/slice/user";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import { API_VERSION, BASE_URL } from "~/common/api";
 import { getTimezoneOffset, getUserTimezone } from "~/helper/dateTime";
 import apiMeService from "~/api-client/me";

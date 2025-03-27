@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { IAuthToken, ILogin } from "~/interface/auth";
 
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import { setAuthToken } from "~/helper/auth";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import { LOGO } from "~/common/image";
