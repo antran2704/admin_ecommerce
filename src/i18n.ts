@@ -3,8 +3,21 @@ import { initReactI18next } from "react-i18next";
 
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
+
 import resourceEn from "@assets/locales/en/translation.json";
 import resourceVi from "@assets/locales/vi/translation.json";
+
+// Login Page
+import loginPageVi from "@assets/locales/vi/loginPage.json";
+import loginPageEn from "@assets/locales/en/loginPage.json";
+
+// Forgot Password Page
+import forgotPasswordPageVi from "@assets/locales/vi/forgotPasswordPage.json";
+import forgotPasswordPageEn from "@assets/locales/en/forgotPasswordPage.json";
+
+// Confirm Otp Page
+import confirmOtpPageVi from "@assets/locales/vi/confirmOtpPage.json";
+import confirmOtpPageEn from "@assets/locales/en/confirmOtpPage.json";
 
 // Staff Page
 import staffPageVi from "@assets/locales/vi/staffPage.json";
@@ -53,6 +66,9 @@ import filterVi from "@assets/locales/vi/filter.json";
 const resources = {
   en: {
     ...resourceEn,
+    LoginPage: loginPageEn,
+    ForgotPasswordPage: forgotPasswordPageEn,
+    ConfirmOtpPage: confirmOtpPageEn,
     StaffPage: staffPageEn,
     PermissionPage: permissionPageEn,
     HomePage: homePageEn,
@@ -67,6 +83,9 @@ const resources = {
   },
   vi: {
     ...resourceVi,
+    LoginPage: loginPageVi,
+    ForgotPasswordPage: forgotPasswordPageVi,
+    ConfirmOtpPage: confirmOtpPageVi,
     StaffPage: staffPageVi,
     PermissionPage: permissionPageVi,
     HomePage: homePageVi,

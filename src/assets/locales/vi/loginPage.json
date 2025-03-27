@@ -1,0 +1,17 @@
+{
+  "title": "Đăng nhập",
+  "btn": {
+    "forgotPassword": "Quên mật khẩu?",
+    "contactSupport": "Liên hệ hỗ trợ"
+  },
+  "form": {
+    "username": "Email",
+    "password": "Mật khẩu"
+  },
+  "bannedModal": {
+    "title": "Tài khoản tạm ngưng hoạt động. Vui lòng liên hệ Admin để mở tài khoản"
+  },
+  "error": {
+    "EMAIL_OR_PASSWORD_INCORRECT": "Email hoặc mật khẩu không đúng"
+  }
+}

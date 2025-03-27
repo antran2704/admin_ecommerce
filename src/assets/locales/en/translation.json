@@ -1,24 +1,4 @@
 {
-  "LoginPage": {
-    "title": "Login",
-    "btn": {
-      "forgotPassword": "Forget password?"
-    },
-    "form": {
-      "username": "Email",
-      "password": "Password"
-    }
-  },
-  "ConfirmOtpPage": {
-    "title": "Confirm OTP",
-    "noReceiveCode": "No receive code?",
-    "resend": "Resend code",
-    "description": "Please input OTP code from email"
-  },
-  "ForgotPasswordPage": {
-    "title": "Forget Password",
-    "description": "Please enter your email, we'll send you a OTP"
-  },
   "SignUpPage": {
     "title": "Sign Up"
   },

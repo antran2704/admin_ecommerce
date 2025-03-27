@@ -4,82 +4,59 @@ import AxiosClient from "~/config/axiosClient";
 
 import { INTERNAL_PATH } from "~/config/constants";
 import {
-  IForgotPassword,
+  IConfirmForgotPasswordOtp,
   ILogin,
-  ISendOTP,
-  ISignup,
-  IVerifyOTP,
 } from "~/interface/auth";
+import {
+  IForgotPasswordOtpResponse,
+  IForgotPasswordRequest,
+} from "~/page/Public/interfaces/forgotPassword.interface";
+import { IResetPasswordRequest } from "~/page/Public/interfaces/resetPassword.interface";
 
-const login = async (body: ILogin) => {
-  return await axios
-    .post(BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/user/sign-in", body)
-    .then((res) => res.data);
+const apiAuthService = {
+  login: async (body: ILogin) => {
+    return await axios
+      .post(BASE_URL + API_VERSION.V1 + "/auth/admin/login", body)
+      .then((res) => res.data);
+  },
+  forgotPassword: async (
+    body: IForgotPasswordRequest,
+  ): Promise<IForgotPasswordOtpResponse> => {
+    return await axios
+      .post(BASE_URL + API_VERSION.V1 + "/auth/admin/forgot-password", body)
+      .then((res) => res.data);
+  },
+  isInForgotPassword: async (
+    body: IForgotPasswordRequest,
+  ): Promise<boolean> => {
+    return await axios
+      .post(BASE_URL + API_VERSION.V1 + "/auth/admin/is-in-forgot-password", body)
+      .then((res) => res.data);
+  },
+  confirmForgotPasswordOtp: async (body: IConfirmForgotPasswordOtp) => {
+    return await axios
+      .post(
+        BASE_URL + API_VERSION.V1 + "/auth/admin/confirm-forgot-password-otp",
+        body,
+      )
+      .then((res) => res.data);
+  },
+
+  resetPassword: async (body: IResetPasswordRequest) => {
+    return await axios
+      .post(
+        BASE_URL +
+          API_VERSION.V1 +
+          "/auth/admin/reset-password",
+        body,
+      )
+      .then((res) => res.data);
+  },
+  logout: async () => {
+    return await AxiosClient.post(
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/auth/admin/logout",
+    );
+  },
 };
 
-const signup = async (body: ISignup) => {
-  return await axios
-    .post(BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/user/sign-up", body)
-    .then((res) => res.data);
-};
-
-const isInForgotPassword = async (email: string) => {
-  return await axios
-    .post(
-      BASE_URL +
-        API_VERSION.V1 +
-        INTERNAL_PATH +
-        "/user/is-in-forgotten-password-progress",
-      {
-        email,
-      },
-    )
-    .then((res) => res.data);
-};
-
-const isExitUser = async (email: string) => {
-  return await axios
-    .post(BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/user/is-exist", {
-      email,
-    })
-    .then((res) => res.data);
-};
-
-const resetPassword = async (body: IForgotPassword) => {
-  return await axios
-    .post(
-      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/user/reset-password",
-      body,
-    )
-    .then((res) => res.data);
-};
-
-const logout = async () => {
-  return await AxiosClient.post(
-    BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/user/revoke",
-  );
-};
-
-const resendOTP = async (data: ISendOTP) => {
-  return await axios
-    .post(BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/user/resend-otp", data)
-    .then((res) => res.data);
-};
-
-const verifyOTP = async (data: IVerifyOTP) => {
-  return await axios
-    .post(BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/user/verify-otp", data)
-    .then((res) => res.data);
-};
-
-
-export {
-  signup,
-  login,
-  isInForgotPassword,
-  isExitUser,
-  resetPassword,
-  logout,
-  resendOTP,
-  verifyOTP,
-};
+export default apiAuthService;

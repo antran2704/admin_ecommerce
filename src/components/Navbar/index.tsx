@@ -14,10 +14,10 @@ import { useAppDispatch } from "~/store/hooks";
 import "./Navbar.scss";
 
 import { getAuthToken, removeAuthToken } from "~/helper/auth";
-import { logout } from "~/api-client/auth";
 import { logoutUser } from "~/store/slice/user";
 import MESSAGE_ERROR from "~/common/error";
 import { DropdownMenu, MobileMenu, Notification } from "./components";
+import apiAuthService from "~/api-client/auth";
 
 interface INavbarMobile {
   key: string;
@@ -62,7 +62,7 @@ const Navbar = () => {
     }
 
     try {
-      await logout();
+      await apiAuthService.logout();
     } catch (err) {
       message.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }

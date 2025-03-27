@@ -1,0 +1,17 @@
+{
+  "title": "Login",
+  "btn": {
+    "forgotPassword": "Forget password?",
+    "contactSupport": "Contact support"
+  },
+  "form": {
+    "username": "Email",
+    "password": "Password"
+  },
+  "bannedModal": {
+    "title": "Your account is banned. Please contact to Admin"
+  },
+  "error": {
+    "EMAIL_OR_PASSWORD_INCORRECT": "Email or password is incorrect"
+  }
+}

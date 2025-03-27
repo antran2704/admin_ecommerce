@@ -1,0 +1,6 @@
+{
+  "title": "Xác thực OTP",
+  "noReceiveCode": "Không nhận được mã?",
+  "resend": "Gửi lại mã",
+  "description": "Nhập mã OTP được gửi đến email"
+}
