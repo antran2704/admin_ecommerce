@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from "~/store/hooks";
 import { fetchUserAsyncThunk, selectUserSlice } from "~/store/slice/user";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
+import { ModalConfirm } from "~/components/Modal";
 
 const AccountPage = () => {
   const { t } = useTranslation("AccountPage");
@@ -32,10 +33,21 @@ const AccountPage = () => {
     resolver: yupResolver(profileFormSchema(tError)) as any,
   });
 
+  const [modal, setModal] = useState<{
+    submit: boolean;
+  }>({ submit: false });
+
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [loading, setLoading] = useState<{ submit: boolean }>({
     submit: false,
   });
+
+  const onModal = (type: keyof typeof modal, value: boolean) => {
+    setModal({
+      ...modal,
+      [type]: value,
+    });
+  };
 
   const onLoading = (key: keyof typeof loading, status: boolean) => {
     setLoading({ ...loading, [key]: status });
@@ -48,26 +60,34 @@ const AccountPage = () => {
   const onSubmit = async (values: IProfileForm) => {
     onLoading("submit", true);
 
-    const dataSend: IUpdateMeRequest = {
-      name: values.name,
-      avatar: values.avatar,
-    };
+    try {
+      if (values.avatarFile) {
+        const newImage: string = await apiMeService.uploadAvatar(values.avatarFile);
+        values.avatar = newImage;
 
-    await apiMeService
-      .update(dataSend)
-      .then(async () => {
-        await dispatch(fetchUserAsyncThunk());
-        messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
-      })
-      .catch(() => {
-        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
-      });
+        profileForm.setValue("avatarFile", null)
+      }
+
+      const dataSend: IUpdateMeRequest = {
+        name: values.name,
+        avatar: values.avatar,
+      };
+
+      await apiMeService.update(dataSend);
+      await dispatch(fetchUserAsyncThunk());
+
+      onModal("submit", false);
+
+      messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
+    } catch (error) {
+      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+    }
 
     onLoading("submit", false);
   };
 
   useEffect(() => {
-    if(!infoUser.userId) return; 
+    if (!infoUser.userId) return;
 
     profileForm.reset({
       name: infoUser.name,
@@ -75,11 +95,12 @@ const AccountPage = () => {
       email: infoUser.email,
       groupRole: infoUser.groupRole,
       role: infoUser.role,
-      status: infoUser.isActive ? ENUM_ACCOUNT_STATUS.ACTIVE : ENUM_ACCOUNT_STATUS.INACTIVE,
+      status: infoUser.isActive
+        ? ENUM_ACCOUNT_STATUS.ACTIVE
+        : ENUM_ACCOUNT_STATUS.INACTIVE,
       createdAt: infoUser.createdAt,
-    })
-
-  }, [infoUser])
+    });
+  }, [infoUser]);
 
   return (
     <MainLayout
@@ -92,7 +113,7 @@ const AccountPage = () => {
         <div className="flex lg:flex-row flex-col items-start justify-between py-10 gap-10">
           <div className="mx-auto">
             {/* Side bar */}
-            <SidebarAccount isEdit={isEdit} />
+            <SidebarAccount isEdit={isEdit} form={profileForm} />
           </div>
 
           {/* Content */}
@@ -100,45 +121,68 @@ const AccountPage = () => {
             <InfoUser form={profileForm} isEdit={isEdit} />
           </div>
         </div>
-        {isEdit && (
-          <div className="flex items-center justify-end pt-5 gap-5">
-            <Button
-              size="large"
-              type={"default"}
-              onClick={onEdit}
-              className="w-[170px]">
-              {tCommon("cancel")}
-            </Button>
-            <Button
-              size="large"
-              type="primary"
-              onClick={profileForm.handleSubmit(onSubmit)}
-              loading={loading.submit}
-              disabled={loading.submit}
-              className="w-[170px]">
-              {tCommon("save")}
-            </Button>
-          </div>
-        )}
 
-        {!isEdit && (
-          <div className="flex items-center justify-end pt-5 gap-5">
-            <Button
-              size="large"
-              type={"default"}
-              href="/"
-              className="w-[170px]">
-              {tCommon("goBack")}
-            </Button>
-            <Button
-              size="large"
-              type="primary"
-              onClick={onEdit}
-              className="w-[170px]">
-              {tCommon("update")}
-            </Button>
-          </div>
-        )}
+        <div className="sticky bottom-0 bg-white py-5 border-t">
+          {isEdit && (
+            <div className="flex items-center justify-end gap-5">
+              <Button
+                size="large"
+                type={"default"}
+                onClick={onEdit}
+                className="w-[170px]">
+                {tCommon("cancel")}
+              </Button>
+              <Button
+                size="large"
+                type="primary"
+                onClick={() => onModal("submit", true)}
+                loading={loading.submit}
+                disabled={loading.submit}
+                className="w-[170px]">
+                {tCommon("save")}
+              </Button>
+            </div>
+          )}
+
+          {!isEdit && (
+            <div className="flex items-center justify-end gap-5">
+              <Button
+                size="large"
+                type={"default"}
+                href="/"
+                className="w-[170px]">
+                {tCommon("goBack")}
+              </Button>
+              <Button
+                size="large"
+                type="primary"
+                onClick={onEdit}
+                className="w-[170px]">
+                {tCommon("update")}
+              </Button>
+            </div>
+          )}
+
+          <ModalConfirm
+            title={t("modalUpdate.title")}
+            subtitle={t("modalUpdate.subtitle")}
+            open={modal.submit}
+            onCancel={() => {
+              onModal("submit", false);
+            }}
+            onOk={profileForm.handleSubmit(onSubmit)}
+            okText={tCommon("confirm")}
+            cancelText={tCommon("goBack")}
+            destroyOnClose={true}
+            cancelButtonProps={{
+              disabled: loading.submit,
+            }}
+            okButtonProps={{
+              loading: loading.submit,
+              disabled: loading.submit,
+            }}
+          />
+        </div>
       </div>
     </MainLayout>
   );

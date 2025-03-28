@@ -8,6 +8,7 @@ const initProfileForm: IProfileForm = {
   role: "",
   groupRole: "",
   status: ENUM_ACCOUNT_STATUS.ACTIVE,
+  avatarFile: null,
   createdAt: ""
 };
 

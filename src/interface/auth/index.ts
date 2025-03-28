@@ -1,5 +1,3 @@
-import { ENUM_OTP_TYPE } from "~/enum/auth";
-
 interface ILogin {
   email: string;
   password: string;

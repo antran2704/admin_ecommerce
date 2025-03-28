@@ -15,6 +15,7 @@
   "INVALID_PHONE": "Phone is incorrect",
   "INVALID_FILE_FORMAT": "File format is incorrect",
   "OTP_INVALID": "OTP is incorrect",
+  "PASSWORD_INCORRECT": "Password is incorrect",
   "CONFIRM_PASSWORD_INCORRECT": "Confirm password is incorrect",
   "PLEASE_TRY_AGAIN": "Something went wrong, please try again"
 }

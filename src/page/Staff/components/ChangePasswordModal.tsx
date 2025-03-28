@@ -24,7 +24,7 @@ interface Props {
 const initData: IChangePassword = {
   confirmPassword: "",
   newPassword: "",
-  currentPassword: "",
+  password: "",
 };
 
 const ChangePasswordModal = (props: Props) => {

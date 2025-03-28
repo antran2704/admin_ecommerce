@@ -1,4 +1,0 @@
-export enum ENUM_OTP_TYPE {
-  SIGNUP = "SIGNUP",
-  FORGOT_PASSWORD = "FORGOT_PASSWORD",
-}
