@@ -6,7 +6,7 @@ import { initPagination } from "~/common/pagination";
 import { EOrderType } from "~/enum/paramater";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import { parseQueryString } from "~/helper/url";
-import { IResponseData } from "~/interface";
+import { IResponseDataWithPagination } from "~/interface";
 import { IPagination } from "~/interface/pagination";
 import { IStaff, IStaffSearch, IStaffTable } from "~/interface/staff";
 
@@ -30,7 +30,7 @@ const useStaffs = (query?: Partial<IStaffSearch>) => {
     setLoading(true);
 
     await getStaffs(paramater)
-      .then(({ data, meta }: IResponseData<IStaff[]>) => {
+      .then(({ data, meta }: IResponseDataWithPagination<IStaff[]>) => {
         const dataTable: IStaffTable[] = data.map((staff: IStaff) => ({
           id: staff.userId,
           key: staff.userId,
@@ -49,7 +49,7 @@ const useStaffs = (query?: Partial<IStaffSearch>) => {
         setPagination({
           page: meta.page,
           take: meta.take,
-          total: meta.itemCount,
+          total: meta.total,
         });
       })
       .catch((err) => err);

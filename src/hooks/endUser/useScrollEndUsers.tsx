@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getEndUsers } from "~/api-client/endUser";
 import { initPagination } from "~/common/pagination";
 import { EOrderType } from "~/enum/paramater";
-import { IResponseData } from "~/interface";
+import { IResponseDataWithPagination } from "~/interface";
 import { IEndUser, IEndUserSearch } from "~/interface/endUser";
 import { IPagination } from "~/interface/pagination";
 
@@ -37,12 +37,12 @@ const useScrollEndUsers = (query?: Partial<IEndUserSearch> | null) => {
     if (pagination.total && pagination.total <= data.length) return;
 
     await getEndUsers(paramater)
-      .then(({ data: services, meta }: IResponseData<IEndUser[]>) => {
+      .then(({ data: services, meta }: IResponseDataWithPagination<IEndUser[]>) => {
         setData([...data, ...services]);
         setPagination({
           page: meta.page,
           take: meta.take,
-          total: meta.itemCount,
+          total: meta.total,
         });
       })
       .catch((err) => err);

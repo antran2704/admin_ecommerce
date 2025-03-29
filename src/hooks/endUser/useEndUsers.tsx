@@ -5,7 +5,7 @@ import { getEndUsers } from "~/api-client/endUser";
 import { initPagination } from "~/common/pagination";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import { parseQueryString } from "~/helper/url";
-import { IResponseData } from "~/interface";
+import { IResponseDataWithPagination } from "~/interface";
 import { IEndUser, IEndUserSearch, IEndUserTable } from "~/interface/endUser";
 import { IPagination } from "~/interface/pagination";
 
@@ -29,7 +29,7 @@ const useEndUser = (query?: Partial<IEndUserSearch> | null) => {
     setLoading(true);
 
     await getEndUsers(paramater)
-      .then(({ data, meta }: IResponseData<IEndUser[]>) => {
+      .then(({ data, meta }: IResponseDataWithPagination<IEndUser[]>) => {
         const dataTable: IEndUserTable[] = data.map((staff: IEndUser) => ({
           id: staff.userId,
           key: staff.userId,
@@ -48,7 +48,7 @@ const useEndUser = (query?: Partial<IEndUserSearch> | null) => {
         setPagination({
           page: meta.page,
           take: meta.take,
-          total: meta.itemCount,
+          total: meta.total,
         });
       })
       .catch((err) => err);

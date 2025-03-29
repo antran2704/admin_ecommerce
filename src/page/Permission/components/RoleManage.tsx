@@ -1,11 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { RoleGroup } from "./index";
-import { Fragment, useEffect, useMemo, useState } from "react";
-import { IRoleItem, IRole, ICreateRole } from "~/interface/role";
-import { createRole, deleteRole, updateRole } from "~/api-client/role";
-import { object, string } from "yup";
+import { Fragment, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
 import { ModalConfirm } from "~/components/Modal";
 import { InputText } from "~/components/Core/Input";
 import MESSAGE_ERROR from "~/common/errorMessage";
@@ -13,20 +11,20 @@ import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import useMessageAntd from "~/hooks/useMessageAntd";
+import { ICreateRoleRequest, IRoleResponse, IRoleForm, IRoleItem } from "../interfaces";
+import { initRoleForm } from "../common/roleForm";
+import { roleFormSchema } from "../schemas/roleForm.schema";
+import apiRoleService from "~/api-client/role/role";
+import MESSAGE_SUCCESS from "~/common/successMessage";
 
 interface Props {
   selectedGroup: string | null;
   selectedValue: string | null;
   roles: IRoleItem[];
-  listRole: IRole[];
+  listRole: IRoleResponse[];
   onSelectValue: (id: string, permissions: string[]) => void;
   handleGetRoles: () => Promise<void>;
 }
-
-const initData: ICreateRole = {
-  name: "",
-  groupId: "",
-};
 
 const RoleManage = (props: Props) => {
   const {
@@ -38,17 +36,10 @@ const RoleManage = (props: Props) => {
     handleGetRoles,
   } = props;
 
-  const { t, i18n } = useTranslation("PermissionPage");
+  const { t } = useTranslation("PermissionPage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
-
-  // validation project form
-  const schema = useMemo(() => {
-    return object().shape({
-      name: string().required(tError("PLEASE_INPUT")),
-    });
-  }, [i18n.resolvedLanguage]);
 
   const {
     control,
@@ -57,9 +48,9 @@ const RoleManage = (props: Props) => {
     reset,
     clearErrors,
     setValue,
-  } = useForm<ICreateRole>({
-    defaultValues: initData,
-    resolver: yupResolver(schema) as any,
+  } = useForm<IRoleForm>({
+    defaultValues: initRoleForm,
+    resolver: yupResolver(roleFormSchema(tError)) as any,
   });
 
   const [modal, setModal] = useState<{ create: boolean }>({ create: false });
@@ -83,71 +74,60 @@ const RoleManage = (props: Props) => {
   };
 
   const onSelectRoleItem = (id: string) => {
-    const item = listRole.find((item: IRole) => item._id === id);
+    const item = listRole.find((item: IRoleResponse) => item.roleId === id);
 
     onSelectValue(id, item?.permissions || []);
   };
 
   const onUpdateRole = async (id: string, value: string) => {
-    const item = listRole.find((item: IRole) => item._id === id);
+    const item = listRole.find((item: IRoleResponse) => item.roleId === id);
 
     if (!item) return;
 
-    await updateRole(id, {
-      name: value,
-      groupId: item.groupId,
-    })
+    await apiRoleService
+      .update(id, {
+        name: value,
+        permissions: item.permissions,
+      })
       .then(() => {
-        messageAntd.success(tSuccess("update"));
+        messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
       })
       .catch((err) => {
-        const { statusCode } = hanldeErrorAxios(err);
-
-        if (statusCode === 403) {
-          messageAntd.error(tError(MESSAGE_ERROR.FORBIDDEN));
-        } else {
-          messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
-        }
+        const { message } = hanldeErrorAxios(err);
+        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       });
   };
 
   const onDeleteRole = async (id: string) => {
-    await deleteRole(id)
+    await apiRoleService
+      .delete(id)
       .then(() => {
-        messageAntd.success(tSuccess("delete"));
-        // handleGetRoles(selectedGroup);
+        messageAntd.success(tSuccess(MESSAGE_SUCCESS.DELETED));
         handleGetRoles();
       })
       .catch((err) => {
-        const { statusCode } = hanldeErrorAxios(err);
-
-        if (statusCode === 403) {
-          messageAntd.error(tError(MESSAGE_ERROR.FORBIDDEN));
-        } else {
-          messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
-        }
+        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       });
   };
 
-  const onSubmit = async (values: ICreateRole) => {
+  const onSubmit = async (values: IRoleForm) => {
+    const dataSend: ICreateRoleRequest = {
+      groupRoleId: values.groupId,
+      name: values.name,
+      permissions: [],
+    }
+
     onLoading("create", true);
 
-    await createRole(values)
+    await apiRoleService.create(dataSend)
       .then(() => {
-        // handleGetRoles(selectedGroup);
         handleGetRoles();
         onModal("create", false);
         reset();
-        messageAntd.success(tSuccess("create"));
+        messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
       })
       .catch((err) => {
-        const { statusCode } = hanldeErrorAxios(err);
-
-        if (statusCode === 403) {
-          messageAntd.error(tError(MESSAGE_ERROR.FORBIDDEN));
-        } else {
-          messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
-        }
+        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       });
 
     onLoading("create", false);
@@ -155,13 +135,10 @@ const RoleManage = (props: Props) => {
 
   useEffect(() => {
     if (!selectedGroup) {
-      // setRoles([]);
-      // setListRole([]);
       reset();
       return;
     }
 
-    // handleGetRoles(selectedGroup);
     setValue("groupId", selectedGroup);
   }, [selectedGroup]);
 
@@ -208,8 +185,7 @@ const RoleManage = (props: Props) => {
         okButtonProps={{
           loading: loading.create,
           disabled: loading.create,
-        }}
-      >
+        }}>
         <div className="pb-5">
           <Controller
             name="name"

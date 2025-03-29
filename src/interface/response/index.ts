@@ -8,15 +8,13 @@ interface ErrorResponse {
 interface IPaginationResponse {
   page: number;
   take: number;
-  pageCount: number;
-  itemCount: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
+  totalPage: number;
+  total: number;
 }
 
-interface IResponseData<T> {
+interface IResponseDataWithPagination<T> {
   data: T;
   meta: IPaginationResponse;
 }
 
-export type { ErrorResponse, IResponseData, IPaginationResponse };
+export type { ErrorResponse, IResponseDataWithPagination, IPaginationResponse };

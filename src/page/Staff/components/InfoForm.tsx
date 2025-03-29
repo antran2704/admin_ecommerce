@@ -13,11 +13,9 @@ import {
 } from "~/enum/user";
 import { IFormStaff, IStaff } from "~/interface/staff";
 import { useGroupRoles, useRoles } from "~/hooks/roles";
-import { IGroupRole } from "~/interface/role/group";
-import { IRole } from "~/interface/role";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
-import { EOrderType } from "~/enum/paramater";
+import { IRoleResponse, IGroupRoleResponse } from "~/page/Permission/interfaces";
 
 interface Props {
   data?: IStaff;
@@ -49,7 +47,7 @@ const InfoForm = (props: Props) => {
   useEffect(() => {
     if (!data) return;
 
-    setParameterRole({ groupId: data.groupIds[0] });
+    setParameterRole({ groupRoleId: data.groupIds[0] });
   }, [data]);
 
   return (
@@ -212,9 +210,9 @@ const InfoForm = (props: Props) => {
                 title={t("form.groupRole")}
                 placeholder={tError("PLEASE_SELECT")}
                 className="w-full"
-                options={groupRoles.map((role: IGroupRole) => ({
+                options={groupRoles.map((role: IGroupRoleResponse) => ({
                   label: role.name,
-                  value: role._id,
+                  value: role.groupRoleId,
                 }))}
                 error={!!errors.groupRole}
                 errorMessage={errors.groupRole?.message}
@@ -223,7 +221,7 @@ const InfoForm = (props: Props) => {
                 onChange={(value) => {
                   onChange(value);
                   setValue("roles", "");
-                  setParameterRole({ groupId: value });
+                  setParameterRole({ groupRoleId: value });
                 }}
                 value={value || null}
                 disabled={!isEdit}
@@ -246,9 +244,9 @@ const InfoForm = (props: Props) => {
                 title={t("form.role")}
                 placeholder={tError("PLEASE_SELECT")}
                 className="w-full"
-                options={roles.map((role: IRole) => ({
+                options={roles.map((role: IRoleResponse) => ({
                   label: role.name,
-                  value: role._id,
+                  value: role.roleId,
                 }))}
                 error={!!errors.roles}
                 errorMessage={errors.roles?.message}

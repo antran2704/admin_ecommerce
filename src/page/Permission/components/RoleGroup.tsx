@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { IoMdAddCircleOutline } from "react-icons/io";
 
 import { RoleItem } from "./index";
-import { IRoleItem } from "~/interface/role";
 
 import NotFoundImage from "@assets/images/PermissionPage/not_found.png";
+import { IRoleItem } from "../interfaces";
 
 interface Props {
   title: string;
