@@ -1,16 +1,18 @@
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import clsx from "clsx";
+
 import NotFoundImage from "@assets/images/PermissionPage/not_found.png";
 import TreePermission from "./TreePermission";
 import { ModalAlert } from "~/components/Modal";
-import { useEffect, useState } from "react";
-import clsx from "clsx";
-import { updatePermisionsForRole } from "~/api-client/role/permission";
 import useBlockerRouter from "~/hooks/useBlockerRouter";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
+import { apiPermissionService } from "~/api-client/role/permission";
+import MESSAGE_SUCCESS from "~/common/successMessage";
 
 interface Props {
   selectRole?: string | null;
@@ -56,12 +58,12 @@ const TreePermissionManage = (props: Props) => {
 
     onLoading("update", true);
 
-    await updatePermisionsForRole(selectRole, parseValues)
+    await apiPermissionService.update(selectRole, {permissions: parseValues})
       .then(() => {
         handleGetRoles();
         onModal("update", false);
         onBlockerRouter(false);
-        messageAntd.success(tSuccess("update"));
+        messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
       })
       .catch(() => {
         messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));

@@ -86,15 +86,19 @@ const RoleManage = (props: Props) => {
 
     await apiRoleService
       .update(id, {
-        name: value,
-        permissions: item.permissions,
+        name: value
       })
       .then(() => {
         messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
       })
       .catch((err) => {
         const { message } = hanldeErrorAxios(err);
-        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+
+        if(message === "ROLE_NAME_IS_EXISTED") {
+          messageAntd.error(t("error.ROLE_NAME_IS_EXISTED"));
+        } else {
+          messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+        }
       });
   };
 
@@ -114,7 +118,6 @@ const RoleManage = (props: Props) => {
     const dataSend: ICreateRoleRequest = {
       groupRoleId: values.groupId,
       name: values.name,
-      permissions: [],
     }
 
     onLoading("create", true);
@@ -127,7 +130,13 @@ const RoleManage = (props: Props) => {
         messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
       })
       .catch((err) => {
-        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+        const { message } = hanldeErrorAxios(err);
+
+        if(message === "ROLE_NAME_IS_EXISTED") {
+          messageAntd.error(t("error.ROLE_NAME_IS_EXISTED"));
+        } else {
+          messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+        }
       });
 
     onLoading("create", false);
