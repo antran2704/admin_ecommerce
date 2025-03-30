@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { RoleGroupManage, RoleManage, TreePermissionManage } from "./index";
-import { IRole, IRoleItem } from "~/interface/role";
-import { getRoles } from "~/api-client/role";
+import { useTranslation } from "react-i18next";
+
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import useMessageAntd from "~/hooks/useMessageAntd";
-import { useTranslation } from "react-i18next";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
+import { IRoleResponse, IRoleItem } from "../interfaces";
+import apiRoleService from "~/api-client/role/role";
+import { IResponseDataWithPagination } from "~/interface";
 
 const PermissionWrap = () => {
   const { messageAntd } = useMessageAntd();
@@ -22,7 +24,7 @@ const PermissionWrap = () => {
 
   const [roles, setRoles] = useState<IRoleItem[]>([]);
 
-  const [listRole, setListRole] = useState<IRole[]>([]);
+  const [listRole, setListRole] = useState<IRoleResponse[]>([]);
 
   const onSelectGroupItem = useCallback(
     (id: string) => {
@@ -45,24 +47,20 @@ const PermissionWrap = () => {
   };
 
   const handleGetRoles = async (groupId: string) => {
-    await getRoles({ groupId })
-      .then((payload: IRole[]) => {
-        const data: IRoleItem[] = payload.map((item: IRole) => ({
-          id: item._id,
+    await apiRoleService.getRoles({ groupRoleId: groupId })
+      .then((payload: IResponseDataWithPagination<IRoleResponse[]>) => {
+        const data: IRoleItem[] = payload.data.map((item: IRoleResponse) => ({
+          id: item.roleId,
           name: item.name,
         }));
 
         setRoles(data);
-        setListRole(payload);
+        setListRole(payload.data);
       })
       .catch((err) => {
         const { statusCode } = hanldeErrorAxios(err);
 
-        if (statusCode === 403) {
-          messageAntd.error(tError(MESSAGE_ERROR.FORBIDDEN));
-        } else {
-          messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
-        }
+        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       });
   };
 
@@ -70,12 +68,10 @@ const PermissionWrap = () => {
     if (!selectedGroupItem) {
       setRoles([]);
       setListRole([]);
-      // reset();
       return;
     }
 
     handleGetRoles(selectedGroupItem);
-    // setValue("groupId", selectedGroup);
   }, [selectedGroupItem]);
 
   return (

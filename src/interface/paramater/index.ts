@@ -5,10 +5,10 @@ interface IParameter {
 }
 
 interface ISearch {
-  take: number;
-  page: number;
+  take?: number;
+  page?: number;
   search?: string;
-  order: EOrderType;
+  order?: EOrderType;
 }
 
 export type { IParameter, ISearch };

@@ -15,6 +15,7 @@
   "INVALID_PHONE": "Số điện thoại không hợp lệ",
   "INVALID_FILE_FORMAT": "File không đúng định dạng",
   "OTP_INVALID": "OTP không hợp lệ",
+  "PASSWORD_INCORRECT": "Mật số không đúng",
   "CONFIRM_PASSWORD_INCORRECT": "Xác nhận mật khẩu không đúng",
   "PLEASE_TRY_AGAIN": "Có lỗi, vui lòng thử lại"
 }

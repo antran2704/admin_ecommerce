@@ -1,50 +1,35 @@
 import { useTranslation } from "react-i18next";
 import { RoleGroup } from "./index";
-import { Fragment, memo, useEffect, useMemo, useState } from "react";
-import { object, string } from "yup";
+import { Fragment, memo, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { ICreateRoleGroup, IGroupRole } from "~/interface/role/group";
-import {
-  createRoleGroup,
-  deleteRoleGroup,
-  getRoleGroups,
-  updateRoleGroup,
-} from "~/api-client/role/groupRole";
-import { IRoleItem } from "~/interface/role";
-
 import { ModalConfirm } from "~/components/Modal";
 import { InputText } from "~/components/Core/Input";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import useMessageAntd from "~/hooks/useMessageAntd";
+import { apiGroupRoleService } from "~/api-client/role/groupRole";
+import { IResponseDataWithPagination } from "~/interface";
+import { groupRoleFormSchema } from "../schemas/roleGroupForm.schema";
+import { initGroupRoleForm } from "../common/groupRoleForm";
+import { IGroupRoleForm, IGroupRoleResponse, IRoleItem } from "../interfaces";
+import MESSAGE_SUCCESS from "~/common/successMessage";
 
 interface Props {
   selectedValue?: string | null;
   onSelectValue?: (id: string) => void;
 }
 
-const initData: ICreateRoleGroup = {
-  name: "",
-};
-
 const RoleGroupManage = (props: Props) => {
   const { selectedValue, onSelectValue } = props;
 
-  const { t, i18n } = useTranslation("PermissionPage");
+  const { t } = useTranslation("PermissionPage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
-
-  // validation project form
-  const schema = useMemo(() => {
-    return object().shape({
-      name: string().required(tError("PLEASE_INPUT")),
-    });
-  }, [i18n.resolvedLanguage]);
 
   const {
     control,
@@ -52,9 +37,9 @@ const RoleGroupManage = (props: Props) => {
     handleSubmit,
     reset,
     clearErrors,
-  } = useForm<ICreateRoleGroup>({
-    defaultValues: initData,
-    resolver: yupResolver(schema) as any,
+  } = useForm<IGroupRoleForm>({
+    defaultValues: initGroupRoleForm,
+    resolver: yupResolver(groupRoleFormSchema(tError)) as any,
   });
 
   const [roleGroups, setRoleGroups] = useState<IRoleItem[]>([]);
@@ -80,10 +65,10 @@ const RoleGroupManage = (props: Props) => {
   };
 
   const handleGetRoleGroups = async () => {
-    await getRoleGroups()
-      .then((payload: IGroupRole[]) => {
-        const data: IRoleItem[] = payload.map((item: IGroupRole) => ({
-          id: item._id,
+    await apiGroupRoleService.roleGroups()
+      .then((payload: IResponseDataWithPagination<IGroupRoleResponse[]>) => {
+        const data: IRoleItem[] = payload.data.map((item: IGroupRoleResponse) => ({
+          id: item.groupRoleId,
           name: item.name,
         }));
 
@@ -100,9 +85,9 @@ const RoleGroupManage = (props: Props) => {
   };
 
   const onUpdateRoleGroup = async (id: string, value: string) => {
-    await updateRoleGroup(id, { name: value })
+    await apiGroupRoleService.update(id, { name: value })
       .then(() => {
-        messageAntd.success(tSuccess("update"));
+        messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
       })
       .catch((err) => {
         const { statusCode } = hanldeErrorAxios(err);
@@ -116,9 +101,9 @@ const RoleGroupManage = (props: Props) => {
   };
 
   const onDeleteRoleGroup = async (id: string) => {
-    await deleteRoleGroup(id)
+    await apiGroupRoleService.delete(id)
       .then(() => {
-        messageAntd.success(tSuccess("delete"));
+        messageAntd.success(tSuccess(MESSAGE_SUCCESS.DELETED));
         handleGetRoleGroups();
       })
       .catch((err) => {
@@ -132,15 +117,15 @@ const RoleGroupManage = (props: Props) => {
       });
   };
 
-  const onSubmit = async (values: ICreateRoleGroup) => {
+  const onSubmit = async (values: IGroupRoleForm) => {
     onLoading("create", true);
 
-    await createRoleGroup(values)
+    await apiGroupRoleService.create(values)
       .then(() => {
         handleGetRoleGroups();
         onModal("create", false);
         reset();
-        messageAntd.success(tSuccess("create"));
+        messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
       })
       .catch((err) => err);
     onLoading("create", false);

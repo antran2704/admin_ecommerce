@@ -9,19 +9,12 @@
   },
   "form": {
     "name": "Name",
-    "birthday": "Birthday",
-    "address": "Address",
     "email": "Email",
-    "phone": "Phone",
-    "sex": "Sex",
     "role": "Role",
     "password": "Password",
     "changePassword": "Change password",
     "roleGroup": "Role group",
-    "workplace": "Word place",
     "status": "Status",
-    "startedAt": "Started at",
-    "endedAt": "Ended at",
     "createdAt": "Created At"
   },
   "changePasswordModal": {
@@ -29,6 +22,10 @@
     "currentPassword": "Password",
     "newPassword": "New password",
     "confirmPassword": "Confirm password"
+  },
+  "modalUpdate": {
+    "title": "Update account",
+    "subtitle": "Do you want update account?"
   },
   "breadcrumb": {
     "update": "Update account",

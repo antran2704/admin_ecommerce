@@ -1,6 +1,6 @@
 import { TFunction } from "i18next";
 import { object, string } from "yup";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 
 const forgotPasswordFormSchema = (t: TFunction) => {
   return object().shape({

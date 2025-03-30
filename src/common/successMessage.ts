@@ -1,0 +1,7 @@
+const MESSAGE_SUCCESS = {
+  CREATED: "CREATED",
+  UPDATED: "UPDATED",
+  DELETED: "DELETED",
+};
+
+export default MESSAGE_SUCCESS;

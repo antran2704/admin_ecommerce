@@ -62,13 +62,13 @@ const DropdownMenu = (props: Props) => {
             to="/account"
             className="min-w-[240px] flex items-center px-2 py-1 gap-2"
           >
-            {infoUser.avaratar && (
+            {infoUser.avatar && (
               <img
                 className="size-10 min-w-10 border object-cover object-center rounded-full"
-                src={infoUser.avaratar}
+                src={infoUser.avatar}
               />
             )}
-            {!infoUser.avaratar && (
+            {!infoUser.avatar && (
               <FaRegUser className="size-6 min-w-6 " />
             )}
             <p className="text-sm font-semibold text-[#2B2B2B]">
@@ -184,12 +184,12 @@ const DropdownMenu = (props: Props) => {
   return (
     <Fragment>
       <div className="md:hidden flex items-center justify-center bg-[#F4F4F4] h-10 w-10 rounded-lg">
-        {!infoUser.avaratar && <Avatar icon={<FaUserAlt />} />}
-        {infoUser.avaratar && (
+        {!infoUser.avatar && <Avatar icon={<FaUserAlt />} />}
+        {infoUser.avatar && (
           <Link to={"/account"}>
             <img
               onError={(e) => (e.currentTarget.src = NO_IMAGE)}
-              src={infoUser.avaratar}
+              src={infoUser.avatar}
               className="min-w-8 w-8 h-8 rounded-full object-cover object-center"
               alt="avartar"
             />
@@ -216,11 +216,11 @@ const DropdownMenu = (props: Props) => {
           onClick={onShowDropdown}
           className="md:flex hidden items-center justify-center cursor-pointer hover:text-primary-300 bg-[#F4F4F4] dark:bg-gray-500  h-10 w-10 rounded-lg"
         >
-          {!infoUser.avaratar && <Avatar icon={<FaUserAlt />} />}
-          {infoUser.avaratar && (
+          {!infoUser.avatar && <Avatar icon={<FaUserAlt />} />}
+          {infoUser.avatar && (
             <img
               onError={(e) => (e.currentTarget.src = NO_IMAGE)}
-              src={infoUser.avaratar}
+              src={infoUser.avatar}
               className="min-w-8 w-8 h-8 rounded-full object-cover object-center"
               alt="avartar"
             />

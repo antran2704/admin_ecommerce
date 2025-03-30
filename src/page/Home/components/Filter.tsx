@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 
 import { POINT_CURRENCY, VND_CURRENCY } from "~/common/currency";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import { DateFilter, SelectFilter } from "~/components/Core";
 import FormField from "~/components/Core/Input/FormField";
 import { ENUM_CURRENCY } from "~/enum/currency";

@@ -19,7 +19,7 @@ import {
 } from "~/api-client/staff";
 import { DAY_DMY } from "~/common/format";
 import useMessageAntd from "~/hooks/useMessageAntd";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import { LoadingLayout } from "~/layout";
 import { ModalConfirm } from "~/components/Modal";
 import {

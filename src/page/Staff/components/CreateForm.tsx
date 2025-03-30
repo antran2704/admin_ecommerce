@@ -15,7 +15,7 @@ import { createStaff } from "~/api-client/staff";
 import { DAY_DMY } from "~/common/format";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import { combinePhoneNumber } from "~/helper/phoneNumber";
 import { initStaffForm } from "../common/staff";
 import { staffSchema } from "../schema/staff";

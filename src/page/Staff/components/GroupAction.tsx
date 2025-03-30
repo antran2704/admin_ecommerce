@@ -19,7 +19,7 @@ import { ETypeFile } from "~/enum/file";
 import { createStaffBatch } from "~/api-client/staff";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import { combinePhoneNumber } from "~/helper/phoneNumber";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";

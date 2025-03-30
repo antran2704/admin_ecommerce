@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { getRoles } from "~/api-client/role";
-import { IRole, IRoleSearch } from "~/interface/role";
+import apiRoleService from "~/api-client/role/role";
+import { IRoleResponse, IGetRolesRequest } from "~/page/Permission/interfaces";
 
-const useRoles = (query?: IRoleSearch) => {
-  const [roles, setRoles] = useState<IRole[]>([]);
-  const [paramater, setParameter] = useState<IRoleSearch>({ ...query });
+const useRoles = (query?: IGetRolesRequest) => {
+  const [roles, setRoles] = useState<IRoleResponse[]>([]);
+  const [paramater, setParameter] = useState<IGetRolesRequest>({ ...query });
 
-  const handleGetRoles = async (paramater: IRoleSearch) => {
-    await getRoles(paramater)
-      .then((res: IRole[]) => setRoles(res))
+  const handleGetRoles = async (paramater: IGetRolesRequest) => {
+    await apiRoleService.getRoles(paramater)
+      .then((res: IRoleResponse[]) => setRoles(res))
       .catch((err) => err);
   };
 
   useEffect(() => {
-    if (!paramater.groupId) return;
+    if (!paramater.groupRoleId) return;
 
     handleGetRoles(paramater);
   }, [paramater]);

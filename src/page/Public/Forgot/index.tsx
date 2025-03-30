@@ -16,7 +16,7 @@ import {
 import { forgotPasswordFormSchema } from "../schemas/forgotPassword.chema";
 import initForgotPasswordForm from "../common/forgotPasswordForm";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 
 const ForgotPage = () => {
   const navigate = useNavigate();

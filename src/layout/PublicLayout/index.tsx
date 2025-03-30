@@ -1,6 +1,6 @@
 import { Suspense, useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { getAuthToken } from "~/helper/auth";
+import { getAuthToken, removeAuthToken } from "~/helper/auth";
 import LocaleSwitcher from "~/components/LocaleSwitcher";
 import { useAppDispatch, useAppSelector } from "~/store/hooks";
 import { fetchUserAsyncThunk, selectUserSlice } from "~/store/slice/user";
@@ -16,7 +16,10 @@ const PublicLayout = () => {
     const accessToken = getAuthToken("accessToken");
     const refreshToken = getAuthToken("refreshToken");
 
-    if (!accessToken || !refreshToken) return;
+    if (!accessToken || !refreshToken) {
+      removeAuthToken();
+      return;
+    }
 
     dispatch(fetchUserAsyncThunk());
   };

@@ -3,7 +3,7 @@ import { getStaffs } from "~/api-client/staff";
 
 import { initPagination } from "~/common/pagination";
 import { EOrderType } from "~/enum/paramater";
-import { IResponseData } from "~/interface";
+import { IResponseDataWithPagination } from "~/interface";
 
 import { IPagination } from "~/interface/pagination";
 import { IStaff, IStaffSearch } from "~/interface/staff";
@@ -38,12 +38,12 @@ const useScrollStaffs = (query?: Partial<IStaffSearch> | null) => {
     if (pagination.total && pagination.total <= data.length) return;
 
     await getStaffs(paramater)
-      .then(({ data: services, meta }: IResponseData<IStaff[]>) => {
+      .then(({ data: services, meta }: IResponseDataWithPagination<IStaff[]>) => {
         setData([...data, ...services]);
         setPagination({
           page: meta.page,
           take: meta.take,
-          total: meta.itemCount,
+          total: meta.total,
         });
       })
       .catch((err) => err);

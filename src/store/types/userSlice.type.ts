@@ -1,4 +1,4 @@
-import { IMeProfile } from "~/interface/profile";
+import { IMeProfile } from "~/page/Account/interfaces";
 
 interface IUserSlice {
   infoUser: IMeProfile;

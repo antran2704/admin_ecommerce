@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { getRoleGroups } from "~/api-client/role/groupRole";
-import { IGroupRole, IGroupRoleSearch } from "~/interface/role/group";
+import { apiGroupRoleService } from "~/api-client/role/groupRole";
+import { ISearch } from "~/interface";
+import { IGroupRoleResponse } from "~/page/Permission/interfaces";
 
-const useGroupRoles = (query?: IGroupRoleSearch) => {
-  const [groupRoles, setGroupRoles] = useState<IGroupRole[]>([]);
+const useGroupRoles = (query?: ISearch) => {
+  const [groupRoles, setGroupRoles] = useState<IGroupRoleResponse[]>([]);
 
-  const handleGetGroupRoles = async (paramater: IGroupRoleSearch) => {
-    await getRoleGroups(paramater)
-      .then((res: IGroupRole[]) => setGroupRoles(res))
+  const handleGetGroupRoles = async (paramater: ISearch) => {
+    await apiGroupRoleService.roleGroups(paramater)
+      .then((res: IGroupRoleResponse[]) => setGroupRoles(res))
       .catch((err) => err);
   };
 

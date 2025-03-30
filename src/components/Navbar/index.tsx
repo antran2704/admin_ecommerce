@@ -15,7 +15,7 @@ import "./Navbar.scss";
 
 import { getAuthToken, removeAuthToken } from "~/helper/auth";
 import { logoutUser } from "~/store/slice/user";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import { DropdownMenu, MobileMenu, Notification } from "./components";
 import apiAuthService from "~/api-client/auth";
 

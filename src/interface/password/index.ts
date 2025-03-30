@@ -5,7 +5,7 @@ interface ICheckPassword {
 }
 
 interface IChangePassword {
-  currentPassword: string;
+  password: string;
   newPassword: string;
   confirmPassword: string;
 }

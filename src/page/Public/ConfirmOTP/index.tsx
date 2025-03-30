@@ -5,7 +5,7 @@ import { decodeUrl, urlToBase64 } from "~/helper/url";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { LOGO } from "~/common/image";
-import MESSAGE_ERROR from "~/common/error";
+import MESSAGE_ERROR from "~/common/errorMessage";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import apiAuthService from "~/api-client/auth";
 import { IConfirmForgotPasswordOtp } from "~/interface/auth";

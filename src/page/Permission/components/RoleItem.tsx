@@ -5,7 +5,7 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { BtnCheck, BtnClose, BtnEdit, BtnTrash } from "~/components/Button";
 import { InputText } from "~/components/Core/Input";
 import { ModalConfirm } from "~/components/Modal";
-import { IRoleItem } from "~/interface/role";
+import { IRoleItem } from "../interfaces";
 
 interface Props {
   data: IRoleItem;
