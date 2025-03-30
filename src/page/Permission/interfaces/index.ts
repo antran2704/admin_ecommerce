@@ -11,6 +11,8 @@ import { IRoleForm } from "./roleForm.interface";
 
 import { IRoleItem } from "./roleItem.interface";
 
+import { IUpdatePermissionRequest } from "./updatePermissionRequest.interface";
+
 export type {
   IGroupRoleResponse,
   ICreateGroupRoleRequest,
@@ -21,5 +23,6 @@ export type {
   ICreateRoleRequest,
   IUpdateRoleRequest,
   IRoleForm,
-  IRoleItem
+  IRoleItem,
+  IUpdatePermissionRequest
 };

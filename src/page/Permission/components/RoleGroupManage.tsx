@@ -65,12 +65,15 @@ const RoleGroupManage = (props: Props) => {
   };
 
   const handleGetRoleGroups = async () => {
-    await apiGroupRoleService.roleGroups()
+    await apiGroupRoleService
+      .roleGroups()
       .then((payload: IResponseDataWithPagination<IGroupRoleResponse[]>) => {
-        const data: IRoleItem[] = payload.data.map((item: IGroupRoleResponse) => ({
-          id: item.groupRoleId,
-          name: item.name,
-        }));
+        const data: IRoleItem[] = payload.data.map(
+          (item: IGroupRoleResponse) => ({
+            id: item.groupRoleId,
+            name: item.name,
+          }),
+        );
 
         setRoleGroups(data);
       })
@@ -85,15 +88,16 @@ const RoleGroupManage = (props: Props) => {
   };
 
   const onUpdateRoleGroup = async (id: string, value: string) => {
-    await apiGroupRoleService.update(id, { name: value })
+    await apiGroupRoleService
+      .update(id, { name: value })
       .then(() => {
         messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
       })
       .catch((err) => {
-        const { statusCode } = hanldeErrorAxios(err);
+        const { message } = hanldeErrorAxios(err);
 
-        if (statusCode === 403) {
-          messageAntd.error(tError(MESSAGE_ERROR.FORBIDDEN));
+        if (message === "GROUP_ROLE_IS_EXISTED") {
+          messageAntd.error(t("error.GROUP_ROLE_IS_EXISTED"));
         } else {
           messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
         }
@@ -101,7 +105,8 @@ const RoleGroupManage = (props: Props) => {
   };
 
   const onDeleteRoleGroup = async (id: string) => {
-    await apiGroupRoleService.delete(id)
+    await apiGroupRoleService
+      .delete(id)
       .then(() => {
         messageAntd.success(tSuccess(MESSAGE_SUCCESS.DELETED));
         handleGetRoleGroups();
@@ -120,14 +125,23 @@ const RoleGroupManage = (props: Props) => {
   const onSubmit = async (values: IGroupRoleForm) => {
     onLoading("create", true);
 
-    await apiGroupRoleService.create(values)
+    await apiGroupRoleService
+      .create(values)
       .then(() => {
         handleGetRoleGroups();
         onModal("create", false);
         reset();
         messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
       })
-      .catch((err) => err);
+      .catch((err) => {
+        const { message } = hanldeErrorAxios(err);
+
+        if (message === "GROUP_ROLE_IS_EXISTED") {
+          messageAntd.error(t("error.GROUP_ROLE_IS_EXISTED"));
+        } else {
+          messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+        }
+      });
     onLoading("create", false);
   };
 
@@ -173,8 +187,7 @@ const RoleGroupManage = (props: Props) => {
         okButtonProps={{
           loading: loading.create,
           disabled: loading.create,
-        }}
-      >
+        }}>
         <div className="pb-5">
           <Controller
             name="name"

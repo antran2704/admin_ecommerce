@@ -24,5 +24,9 @@
   },
   "breadcrumb": {
     "list": "Phân quyền"
+  },
+  "error": {
+    "ROLE_NAME_IS_EXISTED": "Tên vai trò đã tồn tại",
+    "GROUP_ROLE_IS_EXISTED": "Nhóm quyền đã tồn tại"
   }
 }
