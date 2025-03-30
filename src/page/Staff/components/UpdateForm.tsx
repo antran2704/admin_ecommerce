@@ -1,43 +1,33 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
-import { IFormStaff, IStaff, IUpdateStaff } from "~/interface/staff";
-import dayjs from "dayjs";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Spin, TabsProps } from "antd";
+import { TabsProps } from "antd";
 
 import { FormFooter } from "~/components/Footer";
-import { ENUM_ACCOUNT_STATUS, ENUM_TYPE_SETUP_PASSWORD } from "~/enum/user";
+import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import {
-  disableStaff,
-  enableStaff,
-  getStaff,
-  presignedUrlStaff,
-  updateStaff,
+  apiStaffService,
 } from "~/api-client/staff";
-import { DAY_DMY } from "~/common/format";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import { LoadingLayout } from "~/layout";
 import { ModalConfirm } from "~/components/Modal";
-import {
-  combinePhoneNumber,
-  getPhoneNumberAndCodeArea,
-} from "~/helper/phoneNumber";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
-import { initStaffForm } from "../common/staff";
-import { staffSchema } from "../schema/staff";
 import UpdateStaffForm from "./UpdateStaffForm";
 import Tabs from "~/components/Core/Tabs";
 
 import { useAppSelector } from "~/store/hooks";
 import useGetSearchParams from "~/hooks/useGetSearchParams";
 import { parseQueryString } from "~/helper/url";
+import { initStaffForm } from "../common/staffForm";
+import { createStaffSchema } from "../schema/creatStaff.schema";
+import { IStaffForm, IStaffResponse, IUpdateStaffRequest } from "../interfaces";
 
 interface Props {
   staffId: string;
@@ -58,9 +48,9 @@ const UpdateForm = (props: Props) => {
 
   const { infoUser } = useAppSelector((state) => state.user);
 
-  const staffForm = useForm<IFormStaff>({
+  const staffForm = useForm<IStaffForm>({
     defaultValues: initStaffForm,
-    resolver: yupResolver(staffSchema(tError)) as any,
+    resolver: yupResolver(createStaffSchema(tError)) as any,
   });
 
   const { tab: tabParam } = useGetSearchParams({
@@ -69,7 +59,7 @@ const UpdateForm = (props: Props) => {
 
   const { messageAntd } = useMessageAntd();
 
-  const [staff, setStaff] = useState<IStaff | null>(null);
+  const [staff, setStaff] = useState<IStaffResponse | null>(null);
   const [avartar, setAvartar] = useState<File | null>(null);
 
   const [loading, setLoading] = useState<{ getData: boolean; submit: boolean }>(
@@ -116,47 +106,27 @@ const UpdateForm = (props: Props) => {
       return false;
     }
 
-    return ability.can(
-      EPermisisonAction.UPDATE,
-      EPageRole.ADMIN_PAGE_MANAGE_USER,
-    );
+    return ability.can(EPermisisonAction.UPDATE, EPageRole.ADMIN_STAFF);
   };
 
   const handleGetStaff = async (id: string) => {
     onLoading("getData", true);
 
-    await getStaff(id)
-      .then((payload: IStaff) => {
-        const { codeArea, phone } = getPhoneNumberAndCodeArea(
-          payload.phoneNumber,
-        );
-
+    await apiStaffService
+      .staff(id)
+      .then((payload: IStaffResponse) => {
         staffForm.reset({
-          address: payload.address,
-          confirmPassword: "",
-          dateOfBirth: payload.dateOfBirth
-            ? dayjs(payload.dateOfBirth).format(DAY_DMY)
-            : "",
           email: payload.email,
-          endDate: payload.endDate
-            ? dayjs(payload.endDate).format(DAY_DMY)
-            : "",
-          startDate: payload.startDate
-            ? dayjs(payload.startDate).format(DAY_DMY)
-            : "",
-          fullName: payload.fullName,
-          gender: payload.gender,
-          isPasswordGenerated: ENUM_TYPE_SETUP_PASSWORD.EMAIL,
+          name: payload.name,
           status: payload.isActive
             ? ENUM_ACCOUNT_STATUS.ACTIVE
             : ENUM_ACCOUNT_STATUS.INACTIVE,
+          groupRole: payload.groupRoleId,
+          role: payload.roleId,
+          avatar: payload.avatar,
+          avatarFile: null,
           password: "",
-          groupRole: payload.groupIds[0],
-          roles: payload.roles[0],
-          phoneNumber: phone,
-          codeArea,
-          clientId: payload.clientId || "",
-          workLocationId: payload.workLocationId,
+          confirmPassword: "",
         });
         setStaff(payload);
         onLoading("getData", false);
@@ -170,68 +140,37 @@ const UpdateForm = (props: Props) => {
       });
   };
 
-
-  const onSubmit = async (values: IFormStaff) => {
-    const phoneNumber: string = values.phoneNumber
-      ? combinePhoneNumber(values.codeArea, values.phoneNumber)
-      : "";
-
-    const dataSend: IUpdateStaff = {
-      fullName: values.fullName,
-      roles: values.roles ? [values.roles] : [],
-      address: values.address,
-      gender: values.gender,
-      phoneNumber: phoneNumber,
-      workLocationId: values.workLocationId,
-      clientId: values.clientId,
+  const onSubmit = async (values: IStaffForm) => {
+    const dataSend: IUpdateStaffRequest = {
+      name: values.name,
+      role: values.role,
+      avatar: values.avatar,
     };
-
-    if (values.dateOfBirth) {
-      dataSend.dateOfBirth = dayjs(values.dateOfBirth, DAY_DMY).toISOString();
-    }
-
-    if (values.startDate) {
-      dataSend.startDate = dayjs(values.startDate, DAY_DMY).toISOString();
-    }
-
-    if (values.endDate) {
-      dataSend.endDate = dayjs(values.endDate, DAY_DMY).toISOString();
-    }
 
     onLoading("submit", true);
 
     try {
+      if (values.avatarFile) {
+        const newImage: string = await apiStaffService.uploadAvatar(
+          values.avatarFile,
+        )
+        values.avatar = newImage;
+
+        staffForm.setValue("avatarFile", null);
+      }
+
       // update infomation of staff
-      await updateStaff(staff.userId, dataSend);
+      await apiStaffService.update(staff.userId, dataSend);
 
       // update status of staff
       if (values.status === ENUM_ACCOUNT_STATUS.ACTIVE && !staff.isActive) {
-        await enableStaff(staff.userId);
+        await apiStaffService.enable(staff.userId);
         setStaff({ ...staff, isActive: true });
       }
 
       if (values.status === ENUM_ACCOUNT_STATUS.INACTIVE && staff.isActive) {
-        await disableStaff(staff.userId);
+        await apiStaffService.disable(staff.userId);
         setStaff({ ...staff, isActive: false });
-      }
-
-      // update avartar of staff
-      if (avartar) {
-        const fileName: string = staff.imageProfile
-          ? staff.imageProfile.fileName
-          : avartar.lastModified.toString();
-
-        const newUrl: string = await presignedUrlStaff(staff.userId, fileName);
-
-        if (!newUrl) return;
-
-        await axios.put(newUrl, avartar, {
-          headers: {
-            "Content-Type": avartar.type,
-          },
-        });
-
-        setAvartar(null);
       }
 
       onModal("submit", false);
@@ -250,20 +189,20 @@ const UpdateForm = (props: Props) => {
   };
 
   const tabs: TabsProps["items"] = [
-    {
-      key: "1",
-      label: t("tabs.detail"),
-      children: staff && (
-        <UpdateStaffForm
-          dataForm={staffForm}
-          data={staff}
-          isEdit={isEdit}
-          isOpenPasswordModal={modal.changePassword}
-          onModalChangePassword={(value) => onModal("changePassword", value)}
-          onChangeAvartar={onChangeAvartar}
-        />
-      ),
-    },
+    // {
+    //   key: "1",
+    //   label: t("tabs.detail"),
+    //   children: staff && (
+    //     <UpdateStaffForm
+    //       dataForm={staffForm}
+    //       data={staff}
+    //       isEdit={isEdit}
+    //       isOpenPasswordModal={modal.changePassword}
+    //       onModalChangePassword={(value) => onModal("changePassword", value)}
+    //       onChangeAvartar={onChangeAvartar}
+    //     />
+    //   ),
+    // },
   ];
 
   useEffect(() => {

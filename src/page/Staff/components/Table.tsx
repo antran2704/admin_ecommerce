@@ -61,45 +61,6 @@ const Table = (props: Props) => {
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const canDelete = (recordId: string, userId: string) => {
-    if (userId === "AC2512242171" && recordId !== userId) {
-      return true;
-    }
-
-    // Can not delete user with id AC2512242171 and current user
-    if (
-      recordId === "AC2512242171" ||
-      recordId === "AC2512246370" ||
-      recordId === userId
-    ) {
-      return false;
-    }
-
-    return ability.can(
-      EPermisisonAction.DELETE,
-      EPageRole.ADMIN_PAGE_MANAGE_USER,
-    );
-  };
-
-  const canEdit = (recordId: string, userId: string) => {
-    if (userId === "AC2512242171") {
-      return true;
-    }
-
-    if (recordId === userId) {
-      return true;
-    }
-
-    if (recordId === "AC2512246370" || recordId === "AC2512242171") {
-      return false;
-    }
-
-    return ability.can(
-      EPermisisonAction.UPDATE,
-      EPageRole.ADMIN_PAGE_MANAGE_USER,
-    );
-  };
-
   const onModalDelete = () => {
     if (isOpenDelete) {
       setSelectItem(null);
@@ -206,13 +167,19 @@ const Table = (props: Props) => {
                 <BtnView />
               </Link>
 
-              {canEdit(record.id, infoUser.userId) && (
+              {ability.can(
+                EPermisisonAction.UPDATE,
+                EPageRole.ADMIN_STAFF,
+              )&& (
                 <Link to={`/staffs/${record.id}?edit=1`}>
                   <BtnEdit />
                 </Link>
               )}
 
-              {canDelete(record.id, infoUser.userId) && (
+              {ability.can(
+                EPermisisonAction.DELETE,
+                EPageRole.ADMIN_STAFF,
+              ) && infoUser.userId !== record.id && (
                 <BtnTrash
                   onClick={() => {
                     setSelectItem(record);

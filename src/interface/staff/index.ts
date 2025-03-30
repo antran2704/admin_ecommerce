@@ -106,13 +106,6 @@ interface IFormStaff {
   clientId: string;
 }
 
-interface IStaffFilterOption {
-  group: boolean;
-  role: boolean;
-  createdAt: boolean;
-  status: boolean;
-}
-
 interface IStaffSearch extends ISearch {
   group?: string[];
   role?: string[];
@@ -124,7 +117,6 @@ interface IStaffSearch extends ISearch {
 
 export type {
   IStaff,
-  IStaffFilterOption,
   IStaffSearch,
   IStaffTable,
   ICreateStaff,

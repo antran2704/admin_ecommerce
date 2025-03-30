@@ -17,22 +17,22 @@ const CreateStaffForm = (props: Props) => {
     <div className="flex lg:flex-row flex-col items-start justify-between py-10 gap-10">
       <div className="mx-auto">
         <div className="flex flex-col items-center">
-          <Avartar
+          {/* <Avartar
             disabled={
               !ability.can(
                 EPermisisonAction.PRE_SIGNED_PUT_URL,
-                EPageRole.ADMIN_PAGE_MANAGE_USER,
+                EPageRole.ADMIN_STAFF,
               )
             }
             className="!rounded-full"
             onChangeImage={onChangeAvartar}
-          />
+          /> */}
         </div>
       </div>
 
       {/* Form */}
       <div className="xl:w-10/12 w-full px-5">
-        <InforForm form={dataForm} />
+        {/* <InforForm form={dataForm} /> */}
       </div>
     </div>
   );

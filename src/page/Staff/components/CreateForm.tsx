@@ -17,10 +17,10 @@ import useMessageAntd from "~/hooks/useMessageAntd";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import { combinePhoneNumber } from "~/helper/phoneNumber";
-import { initStaffForm } from "../common/staff";
-import { staffSchema } from "../schema/staff";
 import Tabs from "~/components/Core/Tabs";
 import CreateStaffForm from "./CreateStaffForm";
+import { initStaffForm } from "../common/staffForm";
+import { createStaffSchema } from "../schema/creatStaff.schema";
 
 const CreateForm = () => {
   const { t } = useTranslation("StaffPage");
@@ -32,7 +32,7 @@ const CreateForm = () => {
 
   const staffForm = useForm<IFormStaff>({
     defaultValues: initStaffForm,
-    resolver: yupResolver(staffSchema(tError)) as any,
+    resolver: yupResolver(createStaffSchema(tError)) as any,
   });
 
   const { messageAntd } = useMessageAntd();

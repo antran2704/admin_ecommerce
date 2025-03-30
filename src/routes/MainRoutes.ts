@@ -32,7 +32,7 @@ const MainRoutes: IRoute[] = [
     id: uuidv4(),
     href: PATH_NAME.PERMISSIONS,
     element: PermissionPage,
-    subject: EPageRole.ADMIN_PAGE_GROUP,
+    subject: EPageRole.ADMIN_GROUP_ROLE,
     action: EPermisisonAction.VIEW,
   },
 
@@ -41,21 +41,21 @@ const MainRoutes: IRoute[] = [
     id: uuidv4(),
     href: PATH_NAME.STAFFS,
     element: StaffPage,
-    subject: EPageRole.ADMIN_PAGE_MANAGE_USER,
+    subject: EPageRole.ADMIN_STAFF,
     action: EPermisisonAction.VIEW,
   },
   {
     id: uuidv4(),
     href: PATH_NAME.CREATE_STAFF,
     element: CreateStaffPage,
-    subject: EPageRole.ADMIN_PAGE_MANAGE_USER,
+    subject: EPageRole.ADMIN_STAFF,
     action: EPermisisonAction.CREATE,
   },
   {
     id: uuidv4(),
     href: `${PATH_NAME.STAFFS}/:staff_id`,
     element: UpdateStaffPage,
-    subject: EPageRole.ADMIN_PAGE_MANAGE_USER,
+    subject: EPageRole.ADMIN_STAFF,
     action: EPermisisonAction.VIEW,
   },
 ];

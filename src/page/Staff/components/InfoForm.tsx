@@ -4,22 +4,21 @@ import dayjs from "dayjs";
 import { useEffect } from "react";
 
 import { DAY_DMY } from "~/common/format";
-import { DateFilter, SelectFilter } from "~/components/Core";
-import { InputPassword, InputPhone, InputText } from "~/components/Core/Input";
-import {
-  ENUM_ACCOUNT_STATUS,
-  ENUM_GENDER,
-  ENUM_TYPE_SETUP_PASSWORD,
-} from "~/enum/user";
-import { IFormStaff, IStaff } from "~/interface/staff";
-import { useGroupRoles, useRoles } from "~/hooks/roles";
+import { SelectFilter } from "~/components/Core";
+import { InputPassword, InputText } from "~/components/Core/Input";
+import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
-import { IRoleResponse, IGroupRoleResponse } from "~/page/Permission/interfaces";
+import {
+  IRoleResponse,
+  IGroupRoleResponse,
+} from "~/page/Permission/interfaces";
+import { IStaffForm, IStaffResponse } from "../interfaces";
+import { useScrollGroupRoles, useScrollRoles } from "~/page/Permission/hooks";
 
 interface Props {
-  data?: IStaff;
-  form: UseFormReturn<IFormStaff, any, undefined>;
+  data?: IStaffResponse;
+  form: UseFormReturn<IStaffForm, any, undefined>;
   isEdit?: boolean;
 }
 
@@ -30,24 +29,21 @@ const InfoForm = (props: Props) => {
     formState: { errors },
     getValues,
     setValue,
-    watch,
   } = form;
 
   const { t } = useTranslation("StaffPage");
-  const { t: tCommon } = useTranslation("Common");
-  const { t: tFilter } = useTranslation("Filter");
   const { t: tError } = useTranslation("Error");
 
   // get group roles
-  const { groupRoles } = useGroupRoles();
+  const { groupRoles } = useScrollGroupRoles();
 
   // get roles
-  const { roles, setParameterRole } = useRoles();
+  const { roles, setParameterRoles } = useScrollRoles();
 
   useEffect(() => {
     if (!data) return;
 
-    setParameterRole({ groupRoleId: data.groupIds[0] });
+    setParameterRoles({ groupRoleId: data.groupRoleId });
   }, [data]);
 
   return (
@@ -69,197 +65,100 @@ const InfoForm = (props: Props) => {
         )}
 
         {/* Name */}
-        <div className="flex flex-col">
-          <Controller
-            name="fullName"
-            control={control}
-            render={({ field }) => (
-              <InputText
-                title={t("form.name")}
-                placeholder={tError("PLEASE_INPUT")}
-                required={true}
-                error={!!errors.fullName}
-                errorMessage={errors.fullName?.message}
-                sizeText="small"
-                disabled={!isEdit}
-                {...field}
-              />
-            )}
-          />
-        </div>
+        <Controller
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <InputText
+              title={t("form.name")}
+              placeholder={tError("PLEASE_INPUT")}
+              required={true}
+              error={!!errors.name}
+              errorMessage={errors.name?.message}
+              sizeText="small"
+              disabled={!isEdit}
+              {...field}
+            />
+          )}
+        />
 
         {/* Email */}
-        <div className="flex flex-col">
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <InputText
-                title={t("form.email")}
-                placeholder={tError("PLEASE_INPUT")}
-                required={true}
-                error={!!errors.email}
-                errorMessage={errors.email?.message}
-                sizeText="small"
-                disabled={!!data}
-                {...field}
-              />
-            )}
-          />
-        </div>
-
-        {/* Phone number */}
-        <div className="flex flex-col">
-          <Controller
-            name="phoneNumber"
-            control={control}
-            render={({ field }) => (
-              <InputPhone
-                title={t("form.phone")}
-                placeholder={tError("PLEASE_INPUT")}
-                error={!!errors.phoneNumber}
-                errorMessage={errors.phoneNumber?.message}
-                sizeText="small"
-                maxLength={11}
-                type="phoneNumber"
-                codeArea={watch("codeArea")}
-                onChangeCodeArea={(value) => setValue("codeArea", value)}
-                disabled={!isEdit}
-                {...field}
-              />
-            )}
-          />
-        </div>
-
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <InputText
+              title={t("form.email")}
+              placeholder={tError("PLEASE_INPUT")}
+              required={true}
+              error={!!errors.email}
+              errorMessage={errors.email?.message}
+              sizeText="small"
+              disabled={!!data}
+              {...field}
+            />
+          )}
+        />
       </div>
 
       {/* second column */}
       <div className="flex flex-col gap-4">
-        {/* Date of birth */}
-        <div className="flex flex-col">
-          <Controller
-            name="dateOfBirth"
-            control={control}
-            render={({ field: { value, onChange, ...rest } }) => (
-              <DateFilter
-                title={t("form.dateOfBirth")}
-                placeholder={tError("PLEASE_SELECT")}
-                error={!!errors.dateOfBirth}
-                errorMessage={errors.dateOfBirth?.message}
-                sizeText="small"
-                format={DAY_DMY}
-                value={value ? dayjs(value, DAY_DMY) : null}
-                onChange={(date) => onChange(date.format(DAY_DMY))}
-                disabled={!isEdit}
-                {...rest}
-              />
-            )}
-          />
-        </div>
-
-        {/* Gender */}
-        <div>
-          <Controller
-            name="gender"
-            control={control}
-            render={({ field }) => (
-              <SelectFilter
-                title={t("form.gender")}
-                placeholder={tError("PLEASE_SELECT")}
-                className="w-full"
-                options={[
-                  { label: tFilter("male"), value: ENUM_GENDER.MALE },
-                  { label: tFilter("female"), value: ENUM_GENDER.FEMALE },
-                ]}
-                error={!!errors.gender}
-                errorMessage={errors.gender?.message}
-                sizeText="small"
-                disabled={!isEdit}
-                {...field}
-              />
-            )}
-          />
-        </div>
-
-        {/* Address */}
-        <div className="flex flex-col">
-          <Controller
-            name="address"
-            control={control}
-            render={({ field }) => (
-              <InputText
-                title={t("form.address")}
-                placeholder={tError("PLEASE_INPUT")}
-                error={!!errors.address}
-                errorMessage={errors.address?.message}
-                sizeText="small"
-                disabled={!isEdit}
-                {...field}
-              />
-            )}
-          />
-        </div>
-
         {/*  Role group */}
-        <div className="flex flex-col">
-          <Controller
-            name="groupRole"
-            control={control}
-            render={({ field: { onChange, value, ...rest } }) => (
-              <SelectFilter
-                title={t("form.groupRole")}
-                placeholder={tError("PLEASE_SELECT")}
-                className="w-full"
-                options={groupRoles.map((role: IGroupRoleResponse) => ({
-                  label: role.name,
-                  value: role.groupRoleId,
-                }))}
-                error={!!errors.groupRole}
-                errorMessage={errors.groupRole?.message}
-                sizeText="small"
-                required={true}
-                onChange={(value) => {
-                  onChange(value);
-                  setValue("roles", "");
-                  setParameterRole({ groupRoleId: value });
-                }}
-                value={value || null}
-                disabled={!isEdit}
-                {...rest}
-              />
-            )}
-          />
-        </div>
+        <Controller
+          name="groupRole"
+          control={control}
+          render={({ field: { onChange, value, ...rest } }) => (
+            <SelectFilter
+              title={t("form.groupRole")}
+              placeholder={tError("PLEASE_SELECT")}
+              className="w-full"
+              options={groupRoles.map((role: IGroupRoleResponse) => ({
+                label: role.name,
+                value: role.groupRoleId,
+              }))}
+              error={!!errors.groupRole}
+              errorMessage={errors.groupRole?.message}
+              sizeText="small"
+              required={true}
+              onChange={(value) => {
+                onChange(value);
+                setValue("role", "");
+                setParameterRoles({ groupRoleId: value });
+              }}
+              value={value || null}
+              disabled={!isEdit}
+              {...rest}
+            />
+          )}
+        />
+
+        {/*  Role */}
+        <Controller
+          name="role"
+          control={control}
+          render={({ field: { value, ...rest } }) => (
+            <SelectFilter
+              title={t("form.role")}
+              placeholder={tError("PLEASE_SELECT")}
+              className="w-full"
+              options={roles.map((role: IRoleResponse) => ({
+                label: role.name,
+                value: role.roleId,
+              }))}
+              error={!!errors.role}
+              errorMessage={errors.role?.message}
+              sizeText="small"
+              required={true}
+              disabled={!getValues("groupRole") || !isEdit}
+              value={value || null}
+              {...rest}
+            />
+          )}
+        />
       </div>
 
       {/* third column */}
       <div className="flex flex-col gap-4">
-        {/*  Role */}
-        <div className="flex flex-col">
-          <Controller
-            name="roles"
-            control={control}
-            render={({ field: { value, ...rest } }) => (
-              <SelectFilter
-                title={t("form.role")}
-                placeholder={tError("PLEASE_SELECT")}
-                className="w-full"
-                options={roles.map((role: IRoleResponse) => ({
-                  label: role.name,
-                  value: role.roleId,
-                }))}
-                error={!!errors.roles}
-                errorMessage={errors.roles?.message}
-                sizeText="small"
-                required={true}
-                disabled={!getValues("groupRole") || !isEdit}
-                value={value || null}
-                {...rest}
-              />
-            )}
-          />
-        </div>
-
         {/*  Status */}
         {data && (
           <div className="flex flex-col">
@@ -289,11 +188,11 @@ const InfoForm = (props: Props) => {
                     !isEdit ||
                     !ability.can(
                       EPermisisonAction.ENABLE,
-                      EPageRole.ADMIN_PAGE_MANAGE_USER,
+                      EPageRole.ADMIN_STAFF,
                     ) ||
                     !ability.can(
                       EPermisisonAction.DISABLE,
-                      EPageRole.ADMIN_PAGE_MANAGE_USER,
+                      EPageRole.ADMIN_STAFF,
                     )
                   }
                   {...field}
@@ -303,132 +202,43 @@ const InfoForm = (props: Props) => {
           </div>
         )}
 
-        {/* Start - End date */}
-        <div className="grid xl:grid-cols-2 grid-cols-1 gap-4">
-          {/* Started at */}
-          <div className="flex flex-col">
-            <Controller
-              name="startDate"
-              control={control}
-              render={({ field: { value, onChange, ...rest } }) => (
-                <DateFilter
-                  title={t("form.startedAt")}
-                  placeholder={tError("PLEASE_SELECT")}
-                  error={!!errors.startDate}
-                  errorMessage={errors.startDate?.message}
-                  sizeText="small"
-                  format={DAY_DMY}
-                  value={value ? dayjs(value, DAY_DMY) : null}
-                  onChange={(date) => onChange(date.format(DAY_DMY))}
-                  allowClear={false}
-                  disabled={!isEdit}
-                  {...rest}
-                />
-              )}
-            />
-          </div>
-
-          {/* Ended at */}
-          <div className="flex flex-col">
-            <Controller
-              name="endDate"
-              control={control}
-              render={({ field: { value, onChange, ...rest } }) => (
-                <DateFilter
-                  title={t("form.endedAt")}
-                  placeholder={tError("PLEASE_SELECT")}
-                  error={!!errors.endDate}
-                  errorMessage={errors.endDate?.message}
-                  sizeText="small"
-                  format={DAY_DMY}
-                  value={value ? dayjs(value, DAY_DMY) : null}
-                  onChange={(date) => onChange(date.format(DAY_DMY))}
-                  allowClear={false}
-                  disabled={!isEdit}
-                  {...rest}
-                />
-              )}
-            />
-          </div>
+        {/* Create Password */}
+        <div className="flex flex-col">
+          <Controller
+            name="password"
+            control={control}
+            render={({ field }) => (
+              <InputPassword
+                title={t("form.createPassword")}
+                placeholder={tError("PLEASE_INPUT")}
+                error={!!errors.password}
+                errorMessage={errors.password?.message}
+                sizeText="small"
+                required
+                {...field}
+              />
+            )}
+          />
         </div>
 
-        {/*  Password */}
-        {!data && (
-          <div className="flex flex-col">
-            <Controller
-              name="isPasswordGenerated"
-              control={control}
-              render={({ field }) => (
-                <SelectFilter
-                  title={t("form.password")}
-                  placeholder={tError("PLEASE_SELECT")}
-                  className="w-full"
-                  options={[
-                    {
-                      label: tCommon("sendPasswordToEmail"),
-                      value: ENUM_TYPE_SETUP_PASSWORD.EMAIL,
-                    },
-                    {
-                      label: tCommon("manualSetupPassword"),
-                      value: ENUM_TYPE_SETUP_PASSWORD.MANUAL,
-                    },
-                  ]}
-                  error={!!errors.isPasswordGenerated}
-                  errorMessage={errors.isPasswordGenerated?.message}
-                  sizeText="small"
-                  required={true}
-                  defaultValue={ENUM_TYPE_SETUP_PASSWORD.EMAIL}
-                  {...field}
-                  value={watch("isPasswordGenerated")}
-                />
-              )}
-            />
-          </div>
-        )}
-
-        {/* Create Password */}
-        {getValues("isPasswordGenerated") ===
-          ENUM_TYPE_SETUP_PASSWORD.MANUAL && (
-          <div className="flex flex-col">
-            <Controller
-              name="password"
-              control={control}
-              render={({ field }) => (
-                <InputPassword
-                  title={t("form.createPassword")}
-                  placeholder={tError("PLEASE_INPUT")}
-                  error={!!errors.password}
-                  errorMessage={errors.password?.message}
-                  sizeText="small"
-                  required
-                  {...field}
-                />
-              )}
-            />
-          </div>
-        )}
-
         {/* Confirm Password */}
-        {getValues("isPasswordGenerated") ===
-          ENUM_TYPE_SETUP_PASSWORD.MANUAL && (
-          <div className="flex flex-col">
-            <Controller
-              name="confirmPassword"
-              control={control}
-              render={({ field }) => (
-                <InputPassword
-                  title={t("form.confirmPassword")}
-                  placeholder={tError("PLEASE_INPUT")}
-                  error={!!errors.confirmPassword}
-                  errorMessage={errors.confirmPassword?.message}
-                  sizeText="small"
-                  required
-                  {...field}
-                />
-              )}
-            />
-          </div>
-        )}
+        <div className="flex flex-col">
+          <Controller
+            name="confirmPassword"
+            control={control}
+            render={({ field }) => (
+              <InputPassword
+                title={t("form.confirmPassword")}
+                placeholder={tError("PLEASE_INPUT")}
+                error={!!errors.confirmPassword}
+                errorMessage={errors.confirmPassword?.message}
+                sizeText="small"
+                required
+                {...field}
+              />
+            )}
+          />
+        </div>
 
         {/* Created at */}
         {data && (

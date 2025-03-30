@@ -13,11 +13,11 @@ import { ModalConfirm } from "~/components/Modal";
 import CheckPassword from "~/components/Password/Check";
 import { checkPassword, getListCheckPassword } from "~/helper/auth";
 import { IChangePassword, ICheckPassword } from "~/interface/password";
-import { IStaff } from "~/interface/staff";
+import { IStaffResponse } from "../interfaces";
 
 interface Props {
   open: boolean;
-  staff: IStaff;
+  staff: IStaffResponse;
   onCancel: () => void;
 }
 

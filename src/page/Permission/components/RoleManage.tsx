@@ -166,15 +166,15 @@ const RoleManage = (props: Props) => {
         ability={{
           create: ability.can(
             EPermisisonAction.CREATE,
-            EPageRole.ADMIN_PAGE_ROLE,
+            EPageRole.ADMIN_ROLE,
           ),
           update: ability.can(
             EPermisisonAction.UPDATE,
-            EPageRole.ADMIN_PAGE_ROLE,
+            EPageRole.ADMIN_ROLE,
           ),
           delete: ability.can(
             EPermisisonAction.DELETE,
-            EPageRole.ADMIN_PAGE_ROLE,
+            EPageRole.ADMIN_ROLE,
           ),
         }}
         onSelectValue={onSelectRoleItem}

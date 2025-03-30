@@ -88,7 +88,7 @@ const TreePermissionManage = (props: Props) => {
         </h2>
 
         {selectRole &&
-          ability.can(EPermisisonAction.UPDATE, EPageRole.ADMIN_PAGE_ROLE) && (
+          ability.can(EPermisisonAction.UPDATE, EPageRole.ADMIN_ROLE) && (
             <Button
               onClick={() => onModal("update", true)}
               className="min-w-[100px]"
@@ -119,7 +119,7 @@ const TreePermissionManage = (props: Props) => {
             ability={{
               update: ability.can(
                 EPermisisonAction.UPDATE,
-                EPageRole.ADMIN_PAGE_ROLE,
+                EPageRole.ADMIN_ROLE,
               ),
             }}
             data={selectPermission}

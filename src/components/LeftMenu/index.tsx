@@ -61,19 +61,19 @@ const LeftMenu = () => {
         label: "Dashboard",
         onClick: () => onClickItem("/"),
       },
-      ability.can(EPermisisonAction.VIEW, EPageRole.ADMIN_PAGE_GROUP) && {
+      ability.can(EPermisisonAction.VIEW, EPageRole.ADMIN_GROUP_ROLE) && {
         key: PATH_NAME.PERMISSIONS,
         icon: sidebarIcons.permission,
         label: t("permission"),
         onClick: () => onClickItem("/permissions"),
       },
-      ability.can(EPermisisonAction.VIEW, EPageRole.ADMIN_PAGE_MANAGE_USER) && {
+      ability.can(EPermisisonAction.VIEW, EPageRole.ADMIN_STAFF) && {
         key: getPathName(PATH_NAME.STAFFS),
         icon: sidebarIcons.staff,
         label: t("staff"),
         onClick: () => onClickItem(PATH_NAME.STAFFS),
       },
-      ability.can(EPermisisonAction.VIEW, EPageRole.ADMIN_PAGE_CATEGORY) && {
+      ability.can(EPermisisonAction.VIEW, EPageRole.ADMIN_CATEGORY) && {
         key: getPathName(PATH_NAME.CATEGORIES),
         icon: sidebarIcons.category,
         label: t("category"),

@@ -14,7 +14,7 @@ interface IPaginationResponse {
 
 interface IResponseDataWithPagination<T> {
   data: T;
-  meta: IPaginationResponse;
+  pagination: IPaginationResponse;
 }
 
 export type { ErrorResponse, IResponseDataWithPagination, IPaginationResponse };

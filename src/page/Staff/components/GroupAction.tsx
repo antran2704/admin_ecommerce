@@ -354,7 +354,7 @@ const GroupAction = (props: Props) => {
 
         {ability.can(
           EPermisisonAction.CREATE,
-          EPageRole.ADMIN_PAGE_MANAGE_USER,
+          EPageRole.ADMIN_STAFF,
         ) && (
           <Link to={"/staffs/create"}>
             <BtnAdd className="font-semibold">{tCommon("create")}</BtnAdd>

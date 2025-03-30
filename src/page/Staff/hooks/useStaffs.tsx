@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getStaffs } from "~/api-client/staff";
+
+import { apiStaffService } from "~/api-client/staff";
 import { initPagination } from "~/common/pagination";
-import { EOrderType } from "~/enum/paramater";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import { parseQueryString } from "~/helper/url";
 import { IResponseDataWithPagination } from "~/interface";
 import { IPagination } from "~/interface/pagination";
-import { IStaff, IStaffSearch, IStaffTable } from "~/interface/staff";
+import { IGetStaffsRequest, IListStaffResponse, IStaffTable } from "~/page/Staff/interfaces";
 
-const useStaffs = (query?: Partial<IStaffSearch>) => {
+const useStaffs = (query?: Partial<IGetStaffsRequest>) => {
   const { t: tCommon } = useTranslation("Common");
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const [data, setData] = useState<IStaff[]>([]);
+  const [data, setData] = useState<IListStaffResponse[]>([]);
   const [dataTable, setDataTabel] = useState<IStaffTable[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -26,18 +26,18 @@ const useStaffs = (query?: Partial<IStaffSearch>) => {
     navigate(pathname + parseQueryString({ ...query, page, take }));
   };
 
-  const handleGetStaffs = async (paramater: Partial<IStaffSearch>) => {
+  const handleGetData = async (paramater: Partial<IGetStaffsRequest>) => {
     setLoading(true);
 
-    await getStaffs(paramater)
-      .then(({ data, meta }: IResponseDataWithPagination<IStaff[]>) => {
-        const dataTable: IStaffTable[] = data.map((staff: IStaff) => ({
+    await apiStaffService.staffs(paramater)
+      .then(({ data, pagination }: IResponseDataWithPagination<IListStaffResponse[]>) => {
+        const dataTable: IStaffTable[] = data.map((staff: IListStaffResponse) => ({
           id: staff.userId,
           key: staff.userId,
           email: staff.email,
-          name: staff.fullName ? staff.fullName : tCommon("noData"),
-          groupRole: staff.groups.join(", "),
-          role: staff.roleNames.join(", "),
+          name: staff.name ? staff.name : tCommon("noData"),
+          groupRole: staff.groupRole,
+          role: staff.role,
           createdAt: staff.createdAt,
           status: staff.isActive
             ? ENUM_ACCOUNT_STATUS.ACTIVE
@@ -47,9 +47,9 @@ const useStaffs = (query?: Partial<IStaffSearch>) => {
         setData(data);
         setDataTabel(dataTable);
         setPagination({
-          page: meta.page,
-          take: meta.take,
-          total: meta.total,
+          page: pagination.page,
+          take: pagination.take,
+          total: pagination.total,
         });
       })
       .catch((err) => err);
@@ -60,13 +60,13 @@ const useStaffs = (query?: Partial<IStaffSearch>) => {
   useEffect(() => {
     if (!query) return;
 
-    handleGetStaffs(query);
+    handleGetData(query);
   }, [query]);
 
   return {
     staffs: data,
     staffsTable: dataTable,
-    handleGetStaffs,
+    handleGetStaffs: handleGetData,
     onPaginationStaff: onPagination,
     paginationStaff: pagination,
     loadingStaff: loading,

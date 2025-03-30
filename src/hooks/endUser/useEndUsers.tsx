@@ -29,7 +29,7 @@ const useEndUser = (query?: Partial<IEndUserSearch> | null) => {
     setLoading(true);
 
     await getEndUsers(paramater)
-      .then(({ data, meta }: IResponseDataWithPagination<IEndUser[]>) => {
+      .then(({ data, pagination }: IResponseDataWithPagination<IEndUser[]>) => {
         const dataTable: IEndUserTable[] = data.map((staff: IEndUser) => ({
           id: staff.userId,
           key: staff.userId,
@@ -46,9 +46,9 @@ const useEndUser = (query?: Partial<IEndUserSearch> | null) => {
         setData(data);
         setDataTabel(dataTable);
         setPagination({
-          page: meta.page,
-          take: meta.take,
-          total: meta.total,
+          page: pagination.page,
+          take: pagination.take,
+          total: pagination.total,
         });
       })
       .catch((err) => err);

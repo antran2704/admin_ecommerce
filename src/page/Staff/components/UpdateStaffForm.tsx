@@ -1,11 +1,12 @@
 import { UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+
 import Avartar from "~/components/Avartar";
 import ChangePassword from "~/components/ChangePassword";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import { IFormStaff, IStaff } from "~/interface/staff";
-import { ChangePasswordStaffModal, InforForm } from "./index";
-import { useTranslation } from "react-i18next";
+import { ChangePasswordModal, InforForm } from "./index";
 
 interface Props {
   dataForm: UseFormReturn<IFormStaff, any, undefined>;
@@ -38,7 +39,7 @@ const UpdateStaffForm = (props: Props) => {
               disabled={
                 !ability.can(
                   EPermisisonAction.PRE_SIGNED_PUT_URL,
-                  EPageRole.ADMIN_PAGE_MANAGE_USER,
+                  EPageRole.ADMIN_STAFF,
                 ) || !isEdit
               }
               className="!rounded-full"
@@ -48,14 +49,14 @@ const UpdateStaffForm = (props: Props) => {
             {isEdit &&
               ability.can(
                 EPermisisonAction.CHANGE_PASSWORD,
-                EPageRole.ADMIN_PAGE_MANAGE_USER,
+                EPageRole.ADMIN_STAFF,
               ) && (
                 <ChangePassword onModal={() => onModalChangePassword(true)}>
-                  <ChangePasswordStaffModal
+                  {/* <ChangePasswordModal
                     staff={data}
                     open={isOpenPasswordModal}
                     onCancel={() => onModalChangePassword(false)}
-                  />
+                  /> */}
                 </ChangePassword>
               )}
           </div>
@@ -64,7 +65,7 @@ const UpdateStaffForm = (props: Props) => {
 
       {/* Form */}
       <div className="xl:w-10/12 w-full px-5">
-        <InforForm isEdit={isEdit} form={dataForm} data={data} />
+        {/* <InforForm isEdit={isEdit} form={dataForm} data={data} /> */}
       </div>
     </div>
   );
