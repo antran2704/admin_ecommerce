@@ -161,49 +161,44 @@ const InfoForm = (props: Props) => {
       <div className="flex flex-col gap-4">
         {/*  Status */}
         {data && (
-          <div className="flex flex-col">
-            <Controller
-              name="status"
-              control={control}
-              render={({ field }) => (
-                <SelectFilter
-                  title={t("form.status")}
-                  placeholder={tError("PLEASE_SELECT")}
-                  className="w-full"
-                  options={[
-                    {
-                      label: t("filter.active"),
-                      value: ENUM_ACCOUNT_STATUS.ACTIVE,
-                    },
-                    {
-                      label: t("filter.inactive"),
-                      value: ENUM_ACCOUNT_STATUS.INACTIVE,
-                    },
-                  ]}
-                  error={!!errors.status}
-                  errorMessage={errors.status?.message}
-                  sizeText="small"
-                  required={true}
-                  disabled={
-                    !isEdit ||
-                    !ability.can(
-                      EPermisisonAction.ENABLE,
-                      EPageRole.ADMIN_STAFF,
-                    ) ||
-                    !ability.can(
-                      EPermisisonAction.DISABLE,
-                      EPageRole.ADMIN_STAFF,
-                    )
-                  }
-                  {...field}
-                />
-              )}
-            />
-          </div>
+          <Controller
+            name="status"
+            control={control}
+            render={({ field }) => (
+              <SelectFilter
+                title={t("form.status")}
+                placeholder={tError("PLEASE_SELECT")}
+                className="w-full"
+                options={[
+                  {
+                    label: t("filter.active"),
+                    value: ENUM_ACCOUNT_STATUS.ACTIVE,
+                  },
+                  {
+                    label: t("filter.inactive"),
+                    value: ENUM_ACCOUNT_STATUS.INACTIVE,
+                  },
+                ]}
+                error={!!errors.status}
+                errorMessage={errors.status?.message}
+                sizeText="small"
+                required={true}
+                disabled={
+                  !isEdit ||
+                  !ability.can(
+                    EPermisisonAction.ENABLE,
+                    EPageRole.ADMIN_STAFF,
+                  ) ||
+                  !ability.can(EPermisisonAction.DISABLE, EPageRole.ADMIN_STAFF)
+                }
+                {...field}
+              />
+            )}
+          />
         )}
 
         {/* Create Password */}
-        <div className="flex flex-col">
+        {!data && (
           <Controller
             name="password"
             control={control}
@@ -219,10 +214,10 @@ const InfoForm = (props: Props) => {
               />
             )}
           />
-        </div>
+        )}
 
         {/* Confirm Password */}
-        <div className="flex flex-col">
+        {!data && (
           <Controller
             name="confirmPassword"
             control={control}
@@ -238,19 +233,17 @@ const InfoForm = (props: Props) => {
               />
             )}
           />
-        </div>
+        )}
 
         {/* Created at */}
         {data && (
-          <div className="flex flex-col">
-            <InputText
-              title={t("form.createdAt")}
-              placeholder={tError("PLEASE_INPUT")}
-              sizeText="small"
-              value={dayjs(data.createdAt).format(DAY_DMY)}
-              disabled
-            />
-          </div>
+          <InputText
+            title={t("form.createdAt")}
+            placeholder={tError("PLEASE_INPUT")}
+            sizeText="small"
+            value={dayjs(data.createdAt).format(DAY_DMY)}
+            disabled
+          />
         )}
       </div>
     </div>

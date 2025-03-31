@@ -19,10 +19,11 @@ import { ModalConfirm } from "~/components/Modal";
 import { FormFooter } from "~/components/Footer";
 import { UploadImage } from "~/components/Core";
 import { ETypeFile } from "~/enum/file";
-import { createStaffSchema } from "../schema/creatStaff.schema";
+import { updateStaffSchema } from "../schema/updateStaff.schema";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import ChangePassword from "~/components/ChangePassword";
+import MESSAGE_SUCCESS from "~/common/successMessage";
 
 const EditStaff = () => {
   const { t } = useTranslation("StaffPage");
@@ -47,7 +48,7 @@ const EditStaff = () => {
 
   const staffForm = useForm<IStaffForm>({
     defaultValues: initStaffForm,
-    resolver: yupResolver(createStaffSchema(tError)) as any,
+    resolver: yupResolver(updateStaffSchema(tError)) as any,
   });
 
 
@@ -100,7 +101,7 @@ const EditStaff = () => {
             : ENUM_ACCOUNT_STATUS.INACTIVE,
           groupRole: payload.groupRoleId,
           role: payload.roleId,
-          avatar: payload.avatar,
+          avatar: payload.avatar || "",
           avatarFile: null,
           password: "",
           confirmPassword: "",
@@ -131,7 +132,7 @@ const EditStaff = () => {
         const newImage: string = await apiStaffService.uploadAvatar(
           values.avatarFile,
         );
-        values.avatar = newImage;
+        dataSend.avatar = newImage;
 
         staffForm.setValue("avatarFile", null);
       }
@@ -151,11 +152,11 @@ const EditStaff = () => {
       }
 
       onModal("submit", false);
-      messageAntd.success(tSuccess("update"));
+      messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
 
-      if (message === "ADMIN_IS_EXISTED" || message === "OFFICE_NOT_FOUND") {
+      if (message === "ADMIN_IS_EXISTED") {
         messageAntd.error(tError(message));
       } else {
         messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
@@ -189,7 +190,7 @@ const EditStaff = () => {
                 className={clsx(
                   "lg:!w-[180px] border-dashed lg:min-w-[180px] lg:!h-[180px] min-w-[260px] w-[260px] !h-[260px] rounded-full",
                 )}
-                // disabled={!isEdit}
+                disabled={!isEdit}
                 onChangeImage={onChangeAvartar}
                 rules={[ETypeFile.JPEG, ETypeFile.PNG, ETypeFile.WEBP]}
               />
@@ -224,7 +225,7 @@ const EditStaff = () => {
           onOk={staffForm.handleSubmit(
             () => onModal("submit", true),
             () => {
-              messageAntd.error(tError(MESSAGE_ERROR.PLEASE_FILL_ALL_FIELDS));
+              messageAntd.error(tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS));
             },
           )}
           onCancel={onEdit}

@@ -17,6 +17,7 @@ import MESSAGE_ERROR from "~/common/errorMessage";
 import { handleCheckValidPassword } from "~/helper/auth";
 import { apiStaffService } from "~/api-client/staff";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
+import MESSAGE_SUCCESS from "~/common/successMessage";
 
 const CreateStaff = () => {
   const { t } = useTranslation("StaffPage");
@@ -65,20 +66,34 @@ const CreateStaff = () => {
     };
 
     try {
+      const isExitUser = await apiStaffService.isExitUser({
+        email: values.email,
+      });
+
+      if (isExitUser) {
+        messageAntd.error(tError("USER_EXISTED"));
+        return;
+      }
+
       if (values.avatarFile) {
         const newImage: string = await apiStaffService.uploadAvatar(
           values.avatarFile,
         );
-        values.avatar = newImage;
+        dataSend.avatar = newImage;
       }
 
       await apiStaffService.create(dataSend);
 
-      messageAntd.success(tSuccess("create"));
+      messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
       navigate("/staffs");
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
-      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+
+      if (message === "USER_EXISTED") {
+        messageAntd.error(tError("USER_EXISTED"));
+      } else {
+        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      }
     }
   };
 
@@ -99,7 +114,6 @@ const CreateStaff = () => {
               className={clsx(
                 "lg:!w-[180px] border-dashed lg:min-w-[180px] lg:!h-[180px] min-w-[260px] w-[260px] !h-[260px] rounded-full",
               )}
-              // disabled={!isEdit}
               onChangeImage={onChangeAvartar}
               rules={[ETypeFile.JPEG, ETypeFile.PNG, ETypeFile.WEBP]}
             />
@@ -116,7 +130,7 @@ const CreateStaff = () => {
         okText={tCommon("add")}
         cancelText={tCommon("cancel")}
         onOk={staffForm.handleSubmit(onSubmit, () => {
-          messageAntd.error(tError(MESSAGE_ERROR.PLEASE_FILL_ALL_FIELDS));
+          messageAntd.error(tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS));
         })}
         onCancel={() => navigate("/staffs")}
         cancelProps={{

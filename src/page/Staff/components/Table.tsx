@@ -8,18 +8,19 @@ import { ModalConfirm } from "~/components/Modal";
 import { TableCore } from "~/components/Core";
 
 import { IPagination } from "~/interface/pagination";
-import { IStaffTable } from "~/interface/staff";
 
 import { initPagination } from "~/common/pagination";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import { BtnEdit, BtnTrash, BtnView } from "~/components/Button";
 import { DAY_DMY } from "~/common/format";
 import MESSAGE_ERROR from "~/common/errorMessage";
-import { deleteStaff } from "~/api-client/staff";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import Status from "~/components/Status";
 import { useAppSelector } from "~/store/hooks";
+import { IStaffTable } from "../interfaces";
+import { apiStaffService } from "~/api-client/staff";
+import MESSAGE_SUCCESS from "~/common/successMessage";
 
 interface Props {
   items: IStaffTable[];
@@ -73,8 +74,8 @@ const Table = (props: Props) => {
     setLoadingDelete(true);
 
     try {
-      await deleteStaff(id);
-      messageApi.success(tSuccess("delete"));
+      await apiStaffService.delete(id);
+      messageApi.success(tSuccess(MESSAGE_SUCCESS.DELETED));
       onModalDelete();
       getData();
     } catch (error) {
@@ -167,26 +168,21 @@ const Table = (props: Props) => {
                 <BtnView />
               </Link>
 
-              {ability.can(
-                EPermisisonAction.UPDATE,
-                EPageRole.ADMIN_STAFF,
-              )&& (
+              {ability.can(EPermisisonAction.UPDATE, EPageRole.ADMIN_STAFF) && (
                 <Link to={`/staffs/${record.id}?edit=1`}>
                   <BtnEdit />
                 </Link>
               )}
 
-              {ability.can(
-                EPermisisonAction.DELETE,
-                EPageRole.ADMIN_STAFF,
-              ) && infoUser.userId !== record.id && (
-                <BtnTrash
-                  onClick={() => {
-                    setSelectItem(record);
-                    onModalDelete();
-                  }}
-                />
-              )}
+              {ability.can(EPermisisonAction.DELETE, EPageRole.ADMIN_STAFF) &&
+                infoUser.userId !== record.id && (
+                  <BtnTrash
+                    onClick={() => {
+                      setSelectItem(record);
+                      onModalDelete();
+                    }}
+                  />
+                )}
             </div>
           ),
           align: "center",

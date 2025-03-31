@@ -2,15 +2,15 @@ import clsx from "clsx";
 import { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { DateFilter, FilterCore, SelectFilter } from "~/components/Core";
+import { FilterCore } from "~/components/Core";
 import SelectItems from "~/components/Select/SelectItems";
 import { EOrderType } from "~/enum/paramater";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
-import { IStaffSearch } from "~/interface/staff";
+import { IGetStaffsRequest } from "../interfaces";
 
 interface Props {
-  filter?: IStaffSearch;
-  onFilter?: (newParamter: IStaffSearch) => void;
+  filter?: IGetStaffsRequest;
+  onFilter?: (newParamter: IGetStaffsRequest) => void;
 }
 
 const StaffFilter = (props: Props) => {
@@ -21,7 +21,7 @@ const StaffFilter = (props: Props) => {
 
   const [formFilter, setFormFilter] = useState<{
     // eslint-disable-next-line no-unused-vars
-    [x in keyof Partial<IStaffSearch>]: string | string[] | number;
+    [x in keyof Partial<IGetStaffsRequest>]: string | string[] | number;
   }>({});
 
   const onSelectStatus = (value: ENUM_ACCOUNT_STATUS[]) => {
@@ -32,7 +32,7 @@ const StaffFilter = (props: Props) => {
   };
 
   const onClearFilter = () => {
-    const newParams: Partial<IStaffSearch> = {
+    const newParams: Partial<IGetStaffsRequest> = {
       page: 1,
       take: 16,
       order: EOrderType.DESC,

@@ -1,31 +1,27 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { message } from "antd";
 import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { object, string } from "yup";
 
-import { changePasswordStaff } from "~/api-client/staff";
+import { apiStaffService } from "~/api-client/staff";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import { InputPassword } from "~/components/Core/Input";
 
 import { ModalConfirm } from "~/components/Modal";
 import CheckPassword from "~/components/Password/Check";
 import { checkPassword, getListCheckPassword } from "~/helper/auth";
-import { IChangePassword, ICheckPassword } from "~/interface/password";
-import { IStaffResponse } from "../interfaces";
+import { ICheckPassword } from "~/interface/password";
+import { IResetPasswordStaffForm, IStaffResponse } from "../interfaces";
+import { initResetPasswordStaffData } from "../common/resetPasswordForm";
+import { resetPasswordStaffFormSchema } from "../schema/resetPasswordForm.schema";
+import MESSAGE_SUCCESS from "~/common/successMessage";
+import useMessageAntd from "~/hooks/useMessageAntd";
 
 interface Props {
   open: boolean;
   staff: IStaffResponse;
   onCancel: () => void;
 }
-
-const initData: IChangePassword = {
-  confirmPassword: "",
-  newPassword: "",
-  password: "",
-};
 
 const ChangePasswordModal = (props: Props) => {
   const { staff, open, onCancel } = props;
@@ -35,13 +31,7 @@ const ChangePasswordModal = (props: Props) => {
   const { t: tSuccess } = useTranslation("Success");
   const { t: tError } = useTranslation("Error");
 
-  // validation project form
-  const schema = useMemo(() => {
-    return object().shape({
-      newPassword: string().required(tError("PLEASE_INPUT")),
-      confirmPassword: string().required(tError("PLEASE_INPUT")),
-    });
-  }, [i18n.resolvedLanguage]);
+  const { messageAntd } = useMessageAntd();
 
   const {
     control,
@@ -49,16 +39,14 @@ const ChangePasswordModal = (props: Props) => {
     handleSubmit,
     setError,
     reset,
-  } = useForm<IChangePassword>({
-    defaultValues: initData,
-    resolver: yupResolver(schema) as any,
+  } = useForm<IResetPasswordStaffForm>({
+    defaultValues: initResetPasswordStaffData,
+    resolver: yupResolver(resetPasswordStaffFormSchema(tError)) as any,
   });
 
   const [listValid, setListValid] = useState<number[]>([]);
 
   const [loading, setLoading] = useState<boolean>(false);
-
-  const [messageApi, contextHolder] = message.useMessage();
 
   const listCheck: ICheckPassword[] = useMemo(
     () => getListCheckPassword(tCommon),
@@ -82,7 +70,7 @@ const ChangePasswordModal = (props: Props) => {
     setListValid(newListValid);
   };
 
-  const onSubmitChangePassword = async (values: IChangePassword) => {
+  const onSubmitChangePassword = async (values: IResetPasswordStaffForm) => {
     const inValidPassword = checkPassword(values.newPassword);
 
     if (inValidPassword) {
@@ -92,7 +80,7 @@ const ChangePasswordModal = (props: Props) => {
 
     if (values.newPassword !== values.confirmPassword) {
       setError("confirmPassword", {
-        message: tError("CONFIRM_PASSWORD_INCORRECT"),
+        message: tError(MESSAGE_ERROR.CONFIRM_PASSWORD_INCORRECT),
       });
       return;
     }
@@ -100,16 +88,18 @@ const ChangePasswordModal = (props: Props) => {
     setLoading(true);
 
     try {
-      await changePasswordStaff(staff.userId, {
-        newPassword: values.newPassword,
-      }).then((res) => res);
+      await apiStaffService
+        .resetPassword(staff.userId, {
+          newPassword: values.newPassword,
+        })
+        .then((res) => res);
 
-      messageApi.success(tSuccess("update"));
+      messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
       onCancel();
       setListValid([]);
-      reset(initData);
+      reset(initResetPasswordStaffData);
     } catch (err) {
-      messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
 
     setLoading(false);
@@ -127,53 +117,48 @@ const ChangePasswordModal = (props: Props) => {
       okButtonProps={{
         loading,
         disabled: loading,
-      }}
-    >
+      }}>
       {/* Form change password */}
       <div className="flex flex-col py-5 gap-5">
-        <div className="flex flex-col">
-          <Controller
-            name="newPassword"
-            control={control}
-            render={({ field: { onChange, ...rest } }) => (
-              <InputPassword
-                title={t("changePasswordModal.newPassword")}
-                placeholder={tError("PLEASE_INPUT")}
-                error={!!errors.newPassword}
-                errorMessage={errors.newPassword?.message}
-                sizeText="small"
-                required={true}
-                onChange={(e) => {
-                  onChange(e);
-                  handleCheckValid(e.target.value);
-                }}
-                {...rest}
-              />
-            )}
-          />
-        </div>
-        <div className="flex flex-col">
-          <Controller
-            name="confirmPassword"
-            control={control}
-            render={({ field }) => (
-              <InputPassword
-                title={t("changePasswordModal.confirmPassword")}
-                placeholder={tError("PLEASE_INPUT")}
-                error={!!errors.confirmPassword}
-                errorMessage={errors.confirmPassword?.message}
-                sizeText="small"
-                required={true}
-                {...field}
-              />
-            )}
-          />
-        </div>
+        <Controller
+          name="newPassword"
+          control={control}
+          render={({ field: { onChange, ...rest } }) => (
+            <InputPassword
+              title={t("changePasswordModal.newPassword")}
+              placeholder={tError("PLEASE_INPUT")}
+              error={!!errors.newPassword}
+              errorMessage={errors.newPassword?.message}
+              sizeText="small"
+              required={true}
+              onChange={(e) => {
+                onChange(e);
+                handleCheckValid(e.target.value);
+              }}
+              onPressEnter={handleSubmit(onSubmitChangePassword)}
+              {...rest}
+            />
+          )}
+        />
+
+        <Controller
+          name="confirmPassword"
+          control={control}
+          render={({ field }) => (
+            <InputPassword
+              title={t("changePasswordModal.confirmPassword")}
+              placeholder={tError("PLEASE_INPUT")}
+              error={!!errors.confirmPassword}
+              errorMessage={errors.confirmPassword?.message}
+              sizeText="small"
+              required={true}
+              onPressEnter={handleSubmit(onSubmitChangePassword)}
+              {...field}
+            />
+          )}
+        />
 
         <CheckPassword listCheck={listCheck} listValid={listValid} />
-
-        {/* message Antd */}
-        {contextHolder}
       </div>
     </ModalConfirm>
   );
