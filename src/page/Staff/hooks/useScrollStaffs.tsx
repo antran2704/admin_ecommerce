@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { getStaffs } from "~/api-client/staff";
+import { apiStaffService } from "~/api-client/staff";
 
 import { initPagination } from "~/common/pagination";
 import { EOrderType } from "~/enum/paramater";
 import { IResponseDataWithPagination } from "~/interface";
 
 import { IPagination } from "~/interface/pagination";
-import { IStaff, IStaffSearch } from "~/interface/staff";
+import { IGetStaffsRequest, IListStaffResponse } from "~/page/Staff/interfaces";
 
-const useScrollStaffs = (query?: Partial<IStaffSearch> | null) => {
-  const [data, setData] = useState<IStaff[]>([]);
+const useScrollStaffs = (query?: Partial<IGetStaffsRequest> | null) => {
+  const [data, setData] = useState<IListStaffResponse[]>([]);
 
-  const [paramater, setParameter] = useState<IStaffSearch>(
+  const [paramater, setParameter] = useState<IGetStaffsRequest>(
     query !== null
       ? {
           page: 1,
@@ -28,22 +28,22 @@ const useScrollStaffs = (query?: Partial<IStaffSearch> | null) => {
     setParameter({ ...paramater, page });
   };
 
-  const resetData = (paramater: IStaffSearch) => {
+  const resetData = (paramater: IGetStaffsRequest) => {
     setData([]);
     setParameter(paramater);
     setPagination(initPagination);
   };
 
-  const getDataScroll = async (paramater: IStaffSearch) => {
+  const getDataScroll = async (paramater: IGetStaffsRequest) => {
     if (pagination.total && pagination.total <= data.length) return;
 
-    await getStaffs(paramater)
-      .then(({ data: services, meta }: IResponseDataWithPagination<IStaff[]>) => {
+    await apiStaffService.staffs(paramater)
+      .then(({ data: services, pagination }: IResponseDataWithPagination<IListStaffResponse[]>) => {
         setData([...data, ...services]);
         setPagination({
-          page: meta.page,
-          take: meta.take,
-          total: meta.total,
+          page: pagination.page,
+          take: pagination.take,
+          total: pagination.total,
         });
       })
       .catch((err) => err);

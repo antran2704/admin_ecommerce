@@ -159,15 +159,15 @@ const RoleGroupManage = (props: Props) => {
         ability={{
           create: ability.can(
             EPermisisonAction.CREATE,
-            EPageRole.ADMIN_PAGE_GROUP,
+            EPageRole.ADMIN_GROUP_ROLE,
           ),
           update: ability.can(
             EPermisisonAction.UPDATE,
-            EPageRole.ADMIN_PAGE_GROUP,
+            EPageRole.ADMIN_GROUP_ROLE,
           ),
           delete: ability.can(
             EPermisisonAction.DELETE,
-            EPageRole.ADMIN_PAGE_GROUP,
+            EPageRole.ADMIN_GROUP_ROLE,
           ),
         }}
         onSelectValue={onSelectValue}

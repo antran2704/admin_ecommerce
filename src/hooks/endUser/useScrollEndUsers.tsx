@@ -37,12 +37,12 @@ const useScrollEndUsers = (query?: Partial<IEndUserSearch> | null) => {
     if (pagination.total && pagination.total <= data.length) return;
 
     await getEndUsers(paramater)
-      .then(({ data: services, meta }: IResponseDataWithPagination<IEndUser[]>) => {
+      .then(({ data: services, pagination }: IResponseDataWithPagination<IEndUser[]>) => {
         setData([...data, ...services]);
         setPagination({
-          page: meta.page,
-          take: meta.take,
-          total: meta.total,
+          page: pagination.page,
+          take: pagination.take,
+          total: pagination.total,
         });
       })
       .catch((err) => err);

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { RoleGroupManage, RoleManage, TreePermissionManage } from "./index";
 import { useTranslation } from "react-i18next";
 
-import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import { IRoleResponse, IRoleItem } from "../interfaces";
@@ -57,9 +56,7 @@ const PermissionWrap = () => {
         setRoles(data);
         setListRole(payload.data);
       })
-      .catch((err) => {
-        const { statusCode } = hanldeErrorAxios(err);
-
+      .catch(() => {
         messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       });
   };

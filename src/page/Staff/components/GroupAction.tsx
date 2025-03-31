@@ -10,19 +10,19 @@ import PDFManager from "~/components/Pdf";
 import PDFRow from "~/components/Pdf/Row";
 import PDFText from "~/components/Pdf/Text";
 
-import { ICreateStaffBatch, IStaff, IStaffTable } from "~/interface/staff";
 import { DAY_DMY } from "~/common/format";
 import { createExcelFile, handleGetDataFromExcel } from "~/helper/file";
 import { ModalAlert } from "~/components/Modal";
 import { UploadFile } from "~/components/Core";
 import { ETypeFile } from "~/enum/file";
-import { createStaffBatch } from "~/api-client/staff";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import { combinePhoneNumber } from "~/helper/phoneNumber";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
+import { ICreateStaffBatch, IStaffResponse, IStaffTable } from "../interfaces";
+import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 
 interface Props {
   data: IStaffTable[];
@@ -100,17 +100,14 @@ const GroupAction = (props: Props) => {
   }, [data, i18n.resolvedLanguage]);
 
   const onExportTemplate = useCallback(() => {
-    createExcelFile<Partial<IStaff>>(
+    createExcelFile<Partial<IStaffTable>>(
       [
         {
-          fullName: "",
+          name: "",
           email: "",
-          phoneNumber: "",
-          dateOfBirth: "",
-          address: "",
-          startDate: "",
-          endDate: "",
-          clientId: "",
+          role: "",
+          groupRole: "",
+          status: "" as ENUM_ACCOUNT_STATUS,
         },
       ],
       "Template_nhan_vien",
@@ -213,7 +210,7 @@ const GroupAction = (props: Props) => {
     onLoading("submit", true);
 
     try {
-      await createStaffBatch(listCreateStaff);
+      // await createStaffBatch(listCreateStaff);
       handleResetUploadFile();
       handleGetData();
       onModal("importFile", false);
@@ -266,20 +263,20 @@ const GroupAction = (props: Props) => {
       {
         type: "divider",
       },
-      {
-        label: (
-          <BtnExportFile
-            size="middle"
-            type="link"
-            onClick={onExportTemplate}
-            className="text-gray-700 w-full justify-start"
-            classNames={{ icon: "!text-gray-700" }}
-          >
-            {tCommon("file.exportTemplate")}
-          </BtnExportFile>
-        ),
-        key: "3",
-      },
+      // {
+      //   label: (
+      //     <BtnExportFile
+      //       size="middle"
+      //       type="link"
+      //       onClick={onExportTemplate}
+      //       className="text-gray-700 w-full justify-start"
+      //       classNames={{ icon: "!text-gray-700" }}
+      //     >
+      //       {tCommon("file.exportTemplate")}
+      //     </BtnExportFile>
+      //   ),
+      //   key: "3",
+      // },
     ],
     [data, i18n.resolvedLanguage],
   );
@@ -354,7 +351,7 @@ const GroupAction = (props: Props) => {
 
         {ability.can(
           EPermisisonAction.CREATE,
-          EPageRole.ADMIN_PAGE_MANAGE_USER,
+          EPageRole.ADMIN_STAFF,
         ) && (
           <Link to={"/staffs/create"}>
             <BtnAdd className="font-semibold">{tCommon("create")}</BtnAdd>

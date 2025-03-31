@@ -10,12 +10,12 @@ import {
 const apiMeService = {
   getProfile: async (): Promise<IMeProfile> => {
     return await AxiosClient.get(
-      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admins/me",
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admin/me",
     ).then((res) => res.data);
   },
   getPermissions: async (): Promise<{ permissions: string[] }> => {
     return await AxiosClient.get(
-      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admins/me/permissions",
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admin/me/permissions",
     ).then((res) => res.data);
   },
   getRefreshToken: async (accessToken: string, refreshToken: string) => {
@@ -29,13 +29,13 @@ const apiMeService = {
   },
   update: async (payload: IUpdateMeRequest) => {
     return await AxiosClient.patch(
-      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admins/me",
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admin/me",
       payload,
     ).then((res) => res.data);
   },
   changePassword: async (payload: IChangePasswordMeRequest) => {
     return await AxiosClient.patch(
-      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admins/me/change-password",
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admin/me/change-password",
       payload,
     ).then((res) => res.data);
   },
@@ -44,7 +44,7 @@ const apiMeService = {
     formData.append("file", file);
 
     return await AxiosClient.post(
-      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admins/me/upload-avatar",
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admin/me/upload-avatar",
       formData,
       { headers: {
         "Content-Type": file.type,
