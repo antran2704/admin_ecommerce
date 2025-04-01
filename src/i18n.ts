@@ -23,6 +23,10 @@ import confirmOtpPageEn from "@assets/locales/en/confirmOtpPage.json";
 import staffPageVi from "@assets/locales/vi/staffPage.json";
 import staffPageEn from "@assets/locales/en/staffPage.json";
 
+// User Page
+import userPageVi from "@assets/locales/vi/userPage.json";
+import userPageEn from "@assets/locales/en/userPage.json";
+
 // Permission Page
 import permissionPageVi from "@assets/locales/vi/permissionPage.json";
 import permissionPageEn from "@assets/locales/en/permissionPage.json";
@@ -70,6 +74,7 @@ const resources = {
     ForgotPasswordPage: forgotPasswordPageEn,
     ConfirmOtpPage: confirmOtpPageEn,
     StaffPage: staffPageEn,
+    UserPage: userPageEn,
     PermissionPage: permissionPageEn,
     HomePage: homePageEn,
     AccountPage: accountPageEn,
@@ -87,6 +92,7 @@ const resources = {
     ForgotPasswordPage: forgotPasswordPageVi,
     ConfirmOtpPage: confirmOtpPageVi,
     StaffPage: staffPageVi,
+    UserPage: userPageVi,
     PermissionPage: permissionPageVi,
     HomePage: homePageVi,
     AccountPage: accountPageVi,

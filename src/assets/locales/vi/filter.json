@@ -22,5 +22,9 @@
   "to": "Đến",
   "male": "Nam",
   "female": "Nữ",
-  "searchResult": "Kết quả tìm kiếm"
+  "searchResult": "Kết quả tìm kiếm",
+  "status": {
+    "active": "Đang hoạt động",
+    "inactive": "Ngừng hoạt động"
+  }
 }

@@ -4,8 +4,8 @@ import clsx from "clsx";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import useWindowDimensions from "~/hooks/useWindowDimensions";
 
+import useWindowDimensions from "~/hooks/useWindowDimensions";
 import { useAppDispatch, useAppSelector } from "~/store/hooks";
 import { changeSidebar } from "~/store/slice/setting";
 
@@ -72,6 +72,12 @@ const LeftMenu = () => {
         icon: sidebarIcons.staff,
         label: t("staff"),
         onClick: () => onClickItem(PATH_NAME.STAFFS),
+      },
+      ability.can(EPermisisonAction.VIEW, EPageRole.ADMIN_USER) && {
+        key: getPathName(PATH_NAME.USERS),
+        icon: sidebarIcons.user,
+        label: t("user"),
+        onClick: () => onClickItem(PATH_NAME.USERS),
       },
       ability.can(EPermisisonAction.VIEW, EPageRole.ADMIN_CATEGORY) && {
         key: getPathName(PATH_NAME.CATEGORIES),

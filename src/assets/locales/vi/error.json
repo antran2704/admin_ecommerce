@@ -12,7 +12,7 @@
   "UPLOAD_FILE_ERROR": "Tải file lỗi",
   "UPLOAD_IMAGE_ERROR": "Tải ảnh lỗi",
   "INVALID_EMAIL": "Email không đúng định dạng",
-  "INVALID_PHONE": "Số điện thoại không hợp lệ",
+  "INVALID_PHONE": "Số điên thoại phải từ 9 - 14 số",
   "INVALID_FILE_FORMAT": "File không đúng định dạng",
   "OTP_INVALID": "OTP không hợp lệ",
   "PASSWORD_INCORRECT": "Mật số không đúng",

@@ -1,0 +1,59 @@
+{
+  "title": "Manager user",
+  "searchTitle": "Search with ID, Name, Email",
+  "filter": {
+    "department": "Department",
+    "role": "Role",
+    "createdAt": "Created At",
+    "status": "Status"
+  },
+  "provider": {
+    "google": "Google",
+    "facebook": "Facebook",
+    "system": "System"
+  },
+  "table": {
+    "id": "ID account",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone number",
+    "provider": "Provider",
+    "status": "Status",
+    "createdAt": "Created At"
+  },
+  "createTitle": "Create user",
+  "viewInfoTitle": "Infomation of user",
+  "editTitle": "Update user information",
+  "form": {
+    "userId": "ID account",
+    "name": "Name",
+    "email": "Email",
+    "provider": "Provider",
+    "status": "Status",
+    "phone": "Phone number",
+    "birthday": "Birthday",
+    "createdAt": "Created At",
+    "password": "Password",
+    "createPassword": "Create password",
+    "confirmPassword": "Confirm password"
+  },
+  "modalDelete": {
+    "title": "Delete user",
+    "subtitle": "Do you want delete user?"
+  },
+  "modalUploadFile": {
+    "title": "Upload File",
+    "description1": "Click or drag file to this area to upload",
+    "description2": "Support file format"
+  },
+  "modalUpdate": {
+    "title": "Update user",
+    "subtitle": "Do you want update user?"
+  },
+  "breadcrumb": {
+    "list": "List of user",
+    "viewInfo": "Infomation user",
+    "create": "Create user",
+    "update": "Update user"
+  }
+}

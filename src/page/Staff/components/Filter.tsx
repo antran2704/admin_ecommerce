@@ -13,7 +13,7 @@ interface Props {
   onFilter?: (newParamter: IGetStaffsRequest) => void;
 }
 
-const StaffFilter = (props: Props) => {
+const Filter = (props: Props) => {
   const { filter, onFilter } = props;
 
   const { t } = useTranslation("StaffPage");
@@ -122,13 +122,13 @@ const StaffFilter = (props: Props) => {
             </p>
             <div className="flex items-center md:flex-row flex-col gap-5">
               <div className="md:w-1/2 w-full">
-                <DateFilter
+                <DateSelect
                   placeholder={tCommon("placeholder.select")}
                   allowClear
                 />
               </div>
               <div className="md:w-1/2 w-full">
-                <DateFilter
+                <DateSelect
                   placeholder={tCommon("placeholder.select")}
                   allowClear
                 />
@@ -147,11 +147,11 @@ const StaffFilter = (props: Props) => {
           <SelectItems
             options={[
               {
-                label: t("filter.active"),
+                label: tFilter("status.active"),
                 value: ENUM_ACCOUNT_STATUS.ACTIVE,
               },
               {
-                label: t("filter.inactive"),
+                label: tFilter("status.inactive"),
                 value: ENUM_ACCOUNT_STATUS.INACTIVE,
               },
             ]}
@@ -164,4 +164,4 @@ const StaffFilter = (props: Props) => {
   );
 };
 
-export default StaffFilter;
+export default Filter;

@@ -19,14 +19,14 @@ import useMessageAntd from "~/hooks/useMessageAntd";
 
 interface Props {
   open: boolean;
-  staff: IStaffResponse;
+  data: IStaffResponse;
   onCancel: () => void;
 }
 
 const ChangePasswordModal = (props: Props) => {
-  const { staff, open, onCancel } = props;
+  const { data, open, onCancel } = props;
 
-  const { t, i18n } = useTranslation("AccountPage");
+  const { t, i18n } = useTranslation("StaffPage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tSuccess } = useTranslation("Success");
   const { t: tError } = useTranslation("Error");
@@ -89,7 +89,7 @@ const ChangePasswordModal = (props: Props) => {
 
     try {
       await apiStaffService
-        .resetPassword(staff.userId, {
+        .resetPassword(data.userId, {
           newPassword: values.newPassword,
         })
         .then((res) => res);

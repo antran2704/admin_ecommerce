@@ -25,6 +25,7 @@
     "sendPasswordToEmail": "Send password to email",
     "addAndExportPdf": "Add & Export PDF",
     "character": "character",
+    "action": "Action",
     "number": "number",
     "field": {
       "phone": "Phone",

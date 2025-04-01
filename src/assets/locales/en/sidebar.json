@@ -1,25 +1,7 @@
 {
   "permission": "Permission",
-  "report": "Report",
-  "block": "Building",
   "staff": "Staff",
-  "rentalUnit": "Tenant",
+  "user": "User",
   "category": "Category",
-  "services": "Services",
-  "extention": "Extention",
-  "package": "Package",
-  "contract": "Contract",
-  "booking": "Booking",
-  "price": "Price",
-  "additionalUtility": "Additional utility",
-  "card": "Card",
-  "park": "Park",
-  "lockDoor": "Lock door",
-  "ticket": "Ticket",
-  "news": "News",
-  "registerForm": "Register form",
-  "registerFormList": "Register list",
-  "registerRegulation": "Rule building",
-  "notification": "Notification",
-  "debt": "Debt"
+  "news": "News"
 }

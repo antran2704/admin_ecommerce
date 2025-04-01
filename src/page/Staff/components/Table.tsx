@@ -21,6 +21,7 @@ import { useAppSelector } from "~/store/hooks";
 import { IStaffTable } from "../interfaces";
 import { apiStaffService } from "~/api-client/staff";
 import MESSAGE_SUCCESS from "~/common/successMessage";
+import PATH_NAME from "~/routes/paths";
 
 interface Props {
   items: IStaffTable[];
@@ -46,6 +47,7 @@ const Table = (props: Props) => {
   } = props;
 
   const { t, i18n } = useTranslation("StaffPage");
+  const { t: tFilter } = useTranslation("Filter");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
@@ -136,8 +138,8 @@ const Table = (props: Props) => {
             <Status
               label={
                 value === ENUM_ACCOUNT_STATUS.ACTIVE
-                  ? t("filter.active")
-                  : t("filter.inactive")
+                  ? tFilter("status.active")
+                  : tFilter("status.inactive")
               }
               classNames={{
                 dot:
@@ -159,17 +161,17 @@ const Table = (props: Props) => {
           ),
         },
         {
-          title: t("table.action"),
+          title: tCommon("action"),
           width: 200,
           fixed: "right",
           render: (_, record: IStaffTable) => (
             <div className="flex items-center justify-center gap-2">
-              <Link to={`/staffs/${record.id}`}>
+              <Link to={PATH_NAME.UPDATE_STAFF(record.id)}>
                 <BtnView />
               </Link>
 
               {ability.can(EPermisisonAction.UPDATE, EPageRole.ADMIN_STAFF) && (
-                <Link to={`/staffs/${record.id}?edit=1`}>
+                <Link to={PATH_NAME.UPDATE_STAFF(record.id) + "?edit=1"}>
                   <BtnEdit />
                 </Link>
               )}
@@ -215,7 +217,7 @@ const Table = (props: Props) => {
         onRow={(record: IStaffTable) => {
           return {
             onDoubleClick: () => {
-              navigate(`/staffs/${record.id}`);
+              navigate(PATH_NAME.UPDATE_STAFF(record.id));
             },
           };
         }}

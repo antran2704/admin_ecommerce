@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 
 import { POINT_CURRENCY, VND_CURRENCY } from "~/common/currency";
 import MESSAGE_ERROR from "~/common/errorMessage";
-import { DateFilter, SelectFilter } from "~/components/Core";
+import { DateSelect, SelectFilter } from "~/components/Core";
 import FormField from "~/components/Core/Input/FormField";
 import { ENUM_CURRENCY } from "~/enum/currency";
 import { ENUM_DATE_FILTER } from "~/enum/filter";
@@ -115,7 +115,7 @@ const Filter = (props: Props) => {
 
         <div className="w-3/12">
           {filter.unitOfDate === ENUM_DATE_FILTER.YEAR && (
-            <DateFilter
+            <DateSelect
               title={t("filter.time")}
               sizeText="small"
               picker="year"
@@ -132,7 +132,7 @@ const Filter = (props: Props) => {
             />
           )}
           {filter.unitOfDate === ENUM_DATE_FILTER.MONTH && (
-            <DateFilter
+            <DateSelect
               title={t("filter.time")}
               sizeText="small"
               picker="month"
@@ -149,7 +149,7 @@ const Filter = (props: Props) => {
             />
           )}
           {filter.unitOfDate === ENUM_DATE_FILTER.DAY && (
-            <DateFilter
+            <DateSelect
               title={t("filter.time")}
               sizeText="small"
               placeholder={tError(MESSAGE_ERROR.PLEASE_SELECT)}

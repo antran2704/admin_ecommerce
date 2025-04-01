@@ -31,7 +31,7 @@ type Props = DatePickerProps &
     typeDisabledDate?: keyof typeof typeDisable;
   };
 
-const DateFilter = (props: Props, ref: LegacyRef<PickerRef>) => {
+const DateSelect = (props: Props, ref: LegacyRef<PickerRef>) => {
   const {
     title,
     className,
@@ -70,4 +70,4 @@ const DateFilter = (props: Props, ref: LegacyRef<PickerRef>) => {
   );
 };
 
-export default forwardRef(DateFilter);
+export default forwardRef(DateSelect);

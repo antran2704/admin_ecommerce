@@ -45,9 +45,9 @@ const StaffPage = () => {
 
   const {
     staffsTable,
-    paginationStaff,
-    loadingStaff,
-    onPaginationStaff,
+    paginationStaffs,
+    loadingStaffs,
+    onPaginationStaffs,
     handleGetStaffs,
   } = useStaffs(paramaterStaff);
   
@@ -98,11 +98,11 @@ const StaffPage = () => {
         <div className="py-10">
           <Table
             items={staffsTable}
-            pagination={paginationStaff}
-            loading={loadingStaff}
+            pagination={paginationStaffs}
+            loading={loadingStaffs}
             selectedRowKeys={selectedRowKeys}
             getData={() => handleGetStaffs(paramaterStaff)}
-            onPagination={onPaginationStaff}
+            onPagination={onPaginationStaffs}
             onSelectedRowKeys={onSelectedRowKeys}
             onSelectedRows={onSelectedRows}
           />

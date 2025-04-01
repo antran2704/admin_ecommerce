@@ -23,6 +23,7 @@ import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import { ICreateStaffBatch, IStaffResponse, IStaffTable } from "../interfaces";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
+import PATH_NAME from "~/routes/paths";
 
 interface Props {
   data: IStaffTable[];
@@ -353,7 +354,7 @@ const GroupAction = (props: Props) => {
           EPermisisonAction.CREATE,
           EPageRole.ADMIN_STAFF,
         ) && (
-          <Link to={"/staffs/create"}>
+          <Link to={PATH_NAME.CREATE_USER}>
             <BtnAdd className="font-semibold">{tCommon("create")}</BtnAdd>
           </Link>
         )}
