@@ -18,6 +18,7 @@ import { handleCheckValidPassword } from "~/helper/auth";
 import { apiStaffService } from "~/api-client/staff";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import MESSAGE_SUCCESS from "~/common/successMessage";
+import PATH_NAME from "~/routes/paths";
 
 const CreateStaff = () => {
   const { t } = useTranslation("StaffPage");
@@ -85,7 +86,7 @@ const CreateStaff = () => {
       await apiStaffService.create(dataSend);
 
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
-      navigate("/staffs");
+      navigate(PATH_NAME.STAFFS);
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
 
@@ -101,9 +102,9 @@ const CreateStaff = () => {
     <MainLayout
       titleText={t("createTitle")}
       className="bg-white"
-      backUrl="/staffs"
+      backUrl={PATH_NAME.STAFFS}
       listBreadcrumb={[
-        { title: t("breadcrumb.list"), href: "/staffs" },
+        { title: t("breadcrumb.list"), href: PATH_NAME.STAFFS },
         { title: t("breadcrumb.create") },
       ]}>
       <div className="flex lg:flex-row flex-col items-start justify-between py-10 gap-10">
@@ -132,7 +133,7 @@ const CreateStaff = () => {
         onOk={staffForm.handleSubmit(onSubmit, () => {
           messageAntd.error(tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS));
         })}
-        onCancel={() => navigate("/staffs")}
+        onCancel={() => navigate(PATH_NAME.STAFFS)}
         cancelProps={{
           disabled: staffForm.formState.isSubmitting,
         }}

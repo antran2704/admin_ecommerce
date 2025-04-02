@@ -67,9 +67,9 @@ const useStaffs = (query?: Partial<IGetStaffsRequest>) => {
     staffs: data,
     staffsTable: dataTable,
     handleGetStaffs: handleGetData,
-    onPaginationStaff: onPagination,
-    paginationStaff: pagination,
-    loadingStaff: loading,
+    onPaginationStaffs: onPagination,
+    paginationStaffs: pagination,
+    loadingStaffs: loading,
   };
 };
 

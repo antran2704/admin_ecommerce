@@ -18,6 +18,8 @@ export enum ENUM_USER_TYPE {
 export enum ENUM_ACCOUNT_STATUS {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
+  BANNED = "BANNED",
+  UNBAN = "UNBAN",
 }
 
 export enum ENUM_TYPE_SETUP_PASSWORD {

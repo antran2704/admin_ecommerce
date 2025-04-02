@@ -22,5 +22,11 @@
   "to": "To",
   "male": "Male",
   "female": "Female",
-  "searchResult": "Search result"
+  "searchResult": "Search result",
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "ban": "Ban account",
+    "unban": "Unban account"
+  }
 }

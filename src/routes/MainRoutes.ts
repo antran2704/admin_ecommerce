@@ -15,6 +15,11 @@ const StaffPage = lazy(() => import("~/page/Staff"));
 const CreateStaffPage = lazy(() => import("~/page/Staff/create"));
 const UpdateStaffPage = lazy(() => import("~/page/Staff/edit"));
 
+// User
+const UserPage = lazy(() => import("~/page/User"));
+const CreateUserPage = lazy(() => import("~/page/User/create"));
+const UpdateUserPage = lazy(() => import("~/page/User/edit"));
+
 const MainRoutes: IRoute[] = [
   {
     id: uuidv4(),
@@ -56,6 +61,29 @@ const MainRoutes: IRoute[] = [
     href: `${PATH_NAME.STAFFS}/:staff_id`,
     element: UpdateStaffPage,
     subject: EPageRole.ADMIN_STAFF,
+    action: EPermisisonAction.VIEW,
+  },
+
+  // User
+  {
+    id: uuidv4(),
+    href: PATH_NAME.USERS,
+    element: UserPage,
+    subject: EPageRole.ADMIN_USER,
+    action: EPermisisonAction.VIEW,
+  },
+  {
+    id: uuidv4(),
+    href: PATH_NAME.CREATE_USER,
+    element: CreateUserPage,
+    subject: EPageRole.ADMIN_USER,
+    action: EPermisisonAction.CREATE,
+  },
+  {
+    id: uuidv4(),
+    href: `${PATH_NAME.USERS}/:user_id`,
+    element: UpdateUserPage,
+    subject: EPageRole.ADMIN_USER,
     action: EPermisisonAction.VIEW,
   },
 ];

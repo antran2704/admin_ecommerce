@@ -1,0 +1,5 @@
+export enum ENUM_USER_PROVIDER {
+  SYSTEM = "SYSTEM",
+  GOOGLE = "GOOGLE",
+  FACEBOOK = "FACEBOOK",
+}

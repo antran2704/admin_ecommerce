@@ -32,6 +32,7 @@ const InfoForm = (props: Props) => {
   } = form;
 
   const { t } = useTranslation("StaffPage");
+  const { t: tFilter } = useTranslation("Filter");
   const { t: tError } = useTranslation("Error");
 
   // get group roles
@@ -171,11 +172,11 @@ const InfoForm = (props: Props) => {
                 className="w-full"
                 options={[
                   {
-                    label: t("filter.active"),
+                    label: tFilter("status.active"),
                     value: ENUM_ACCOUNT_STATUS.ACTIVE,
                   },
                   {
-                    label: t("filter.inactive"),
+                    label: tFilter("status.inactive"),
                     value: ENUM_ACCOUNT_STATUS.INACTIVE,
                   },
                 ]}

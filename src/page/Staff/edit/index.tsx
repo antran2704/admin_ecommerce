@@ -24,6 +24,7 @@ import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import ChangePassword from "~/components/ChangePassword";
 import MESSAGE_SUCCESS from "~/common/successMessage";
+import PATH_NAME from "~/routes/paths";
 
 const EditStaff = () => {
   const { t } = useTranslation("StaffPage");
@@ -113,7 +114,7 @@ const EditStaff = () => {
         const { statusCode } = hanldeErrorAxios(err);
 
         if (statusCode === 404) {
-          navigate("/staffs");
+          navigate(PATH_NAME.STAFFS);
         }
       });
   };
@@ -176,9 +177,9 @@ const EditStaff = () => {
     <MainLayout
       titleText={isEdit ? t("editTitle") : t("viewInfoTitle")}
       className="bg-white"
-      backUrl="/staffs"
+      backUrl={PATH_NAME.STAFFS}
       listBreadcrumb={[
-        { title: t("breadcrumb.list"), href: "/staffs" },
+        { title: t("breadcrumb.list"), href: PATH_NAME.STAFFS },
         { title: isEdit ? t("breadcrumb.update") : t("breadcrumb.viewInfo") },
       ]}>
       <div className="flex lg:flex-row flex-col items-start justify-between py-10 gap-10">
@@ -202,7 +203,7 @@ const EditStaff = () => {
                 ) && (
                   <ChangePassword onModal={() => onModal("changePassword", true)}>
                     <ChangePasswordModal
-                      staff={data}
+                      data={data}
                       open={modal.changePassword}
                       onCancel={() => onModal("changePassword", false)}
                     />

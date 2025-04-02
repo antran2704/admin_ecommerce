@@ -6,7 +6,12 @@ const PATH_NAME = {
   // STAFFS
   STAFFS: "/staffs",
   CREATE_STAFF: "/staffs/create",
-  UPDATE_STAFF: "/staffs/:id",
+  UPDATE_STAFF: (id: string) => `/staffs/${id}`,
+
+  // USERS
+  USERS: "/users",
+  CREATE_USER: "/users/create",
+  UPDATE_USER: (id: string) => `/users/${id}`,
 
   // CAREGORIES
   CATEGORIES: "/categories",

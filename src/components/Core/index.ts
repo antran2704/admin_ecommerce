@@ -3,7 +3,7 @@ export { default as TableCore } from "./Table";
 export { default as TabsCore } from "./Tabs";
 export { default as FilterCore } from "./Filter";
 export { default as SelectFilter } from "./Filter/Select";
-export { default as DateFilter } from "./Filter/Date";
+export { default as DateSelect } from "./Filter/Date";
 export { default as DateRangeFilter } from "./Filter/Date/Range";
 export { default as FromToFilter } from "./Filter/FromTo";
 export { default as UploadFile } from "./Upload/File";

@@ -1,0 +1,58 @@
+{
+  "title": "Quản lý người dùng",
+  "searchTitle": "Tìm kiếm ID, Tên người dùng, Email",
+  "filter": {
+    "createdAt": "Ngày tạo",
+    "status": "Trạng thái"
+  },
+  "provider": {
+    "google": "Google",
+    "facebook": "Facebook",
+    "system": "Hệ thống"
+  },
+  "table": {
+    "id": "ID tài khoản",
+    "name": "Tên người dùng",
+    "phone": "Số diện thoại",
+    "email": "Email",
+    "provider": "Nền tảng",
+    "status": "Trạng thái",
+    "createdAt": "Ngày tạo"
+  },
+  "createTitle": "Thêm mới người dùng",
+  "viewInfoTitle": "Thông tin người dùng",
+  "editTitle": "Cập nhật người dùng",
+  "form": {
+    "userId": "ID tài khoản",
+    "name": "Tên người dùng",
+    "email": "Email",
+    "provider": "Nền tảng",
+    "phone": "Số diện thoại",
+    "birthday": "Ngày sinh",
+    "status": "Trạng thái",
+    "ban": "Cấm tài khoản",
+    "createdAt": "Ngày tạo",
+    "password": "Mật khẩu",
+    "createPassword": "Đặt mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu"
+  },
+  "modalDelete": {
+    "title": "Xóa người dùng",
+    "subtitle": "Bạn muốn xóa người dùng?"
+  },
+  "modalUpdate": {
+    "title": "Cập nhật người dùng",
+    "subtitle": "Bạn muốn cập nhật thông tin người dùng?"
+  },
+  "changePasswordModal": {
+    "title": "Thay đổi mật khẩu",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận lại mật khẩu"
+  },
+  "breadcrumb": {
+    "list": "Danh sách người dùng",
+    "viewInfo": "Thông tin người dùng",
+    "create": "Thêm mới người dùng",
+    "update": "Cập nhật người dùng"
+  }
+}

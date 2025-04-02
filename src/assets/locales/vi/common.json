@@ -20,6 +20,7 @@
   "updating": "Đang cập nhật",
   "success": "Thành công",
   "noData": "Chưa có dữ liệu",
+  "action": "Thao tác",
   "changePassword": "Đổi mật khẩu",
   "manualSetupPassword": "Thiết lập mật khẩu thủ công",
   "sendPasswordToEmail": "Gửi mật khẩu tài khoản đến email",

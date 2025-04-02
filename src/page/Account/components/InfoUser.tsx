@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { DAY_DMY } from "~/common/format";
 import { InputText } from "~/components/Core/Input";
-import { DateFilter, SelectFilter } from "~/components/Core";
+import { DateSelect, SelectFilter } from "~/components/Core";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import { IProfileForm } from "../interfaces";
 
@@ -22,6 +22,7 @@ const InforUser = (props: Props) => {
   } = form;
 
   const { t } = useTranslation("AccountPage");
+  const { t: tFilter } = useTranslation("Filter");
   const { t: tError } = useTranslation("Error");
 
   return (
@@ -118,11 +119,11 @@ const InforUser = (props: Props) => {
                   className="w-full"
                   options={[
                     {
-                      label: t("filter.active"),
+                      label: tFilter("status.active"),
                       value: ENUM_ACCOUNT_STATUS.ACTIVE,
                     },
                     {
-                      label: t("filter.inactive"),
+                      label: tFilter("status.inactive"),
                       value: ENUM_ACCOUNT_STATUS.INACTIVE,
                     },
                   ]}
@@ -143,7 +144,7 @@ const InforUser = (props: Props) => {
               name="createdAt"
               control={control}
               render={({ field: { value, onChange, ...rest } }) => (
-                <DateFilter
+                <DateSelect
                   title={t("form.createdAt")}
                   placeholder={tError("PLEASE_SELECT")}
                   error={!!errors.createdAt}

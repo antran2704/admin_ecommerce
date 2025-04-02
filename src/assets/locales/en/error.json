@@ -12,7 +12,7 @@
   "UPLOAD_FILE_ERROR": "Upload file error",
   "UPLOAD_IMAGE_ERROR": "Upload image error",
   "INVALID_EMAIL": "Email is incorrect",
-  "INVALID_PHONE": "Phone is incorrect",
+  "INVALID_PHONE": "Phone number must be 9 - 14 digits",
   "INVALID_FILE_FORMAT": "File format is incorrect",
   "OTP_INVALID": "OTP is incorrect",
   "PASSWORD_INCORRECT": "Password is incorrect",
