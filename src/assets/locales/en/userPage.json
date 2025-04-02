@@ -30,11 +30,17 @@
     "email": "Email",
     "provider": "Provider",
     "status": "Status",
+    "ban": "Ban account",
     "phone": "Phone number",
     "birthday": "Birthday",
     "createdAt": "Created At",
     "password": "Password",
     "createPassword": "Create password",
+    "confirmPassword": "Confirm password"
+  },
+  "changePasswordModal": {
+    "title": "Change password",
+    "newPassword": "New password",
     "confirmPassword": "Confirm password"
   },
   "modalDelete": {

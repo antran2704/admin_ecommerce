@@ -21,8 +21,6 @@ const InfoForm = (props: Props) => {
   const {
     control,
     formState: { errors },
-    getValues,
-    setValue,
   } = form;
 
   const { t } = useTranslation("UserPage");
@@ -94,31 +92,29 @@ const InfoForm = (props: Props) => {
             <InputText
               title={t("form.phone")}
               placeholder={tError("PLEASE_INPUT")}
-              required={true}
               error={!!errors.phoneNumber}
               errorMessage={errors.phoneNumber?.message}
               sizeText="small"
               type="number"
               maxLength={14}
-              disabled={!!data}
+              disabled={!isEdit}
               {...field}
             />
           )}
         />
 
-         {/* Birthday */}
-         <Controller
+        {/* Birthday */}
+        <Controller
           name="birthday"
           control={control}
-          render={({ field: {value, onChange, ...rest} }) => (
+          render={({ field: { value, onChange, ...rest } }) => (
             <DateSelect
               title={t("form.birthday")}
               placeholder={tError("PLEASE_INPUT")}
-              required={true}
               error={!!errors.birthday}
               errorMessage={errors.birthday?.message}
               sizeText="small"
-              disabled={!!data}
+              disabled={!isEdit}
               format={DAY_DMY}
               value={value ? dayjs(value) : null}
               onChange={(value) => onChange(value.toISOString())}
@@ -126,6 +122,44 @@ const InfoForm = (props: Props) => {
             />
           )}
         />
+
+        {/*  Ban */}
+        {data && (
+          <Controller
+            name="banStatus"
+            control={control}
+            render={({ field }) => (
+              <SelectFilter
+                title={t("form.ban")}
+                placeholder={tError("PLEASE_SELECT")}
+                className="w-full"
+                options={[
+                  {
+                    label: tFilter("status.ban"),
+                    value: ENUM_ACCOUNT_STATUS.BANNED,
+                  },
+                  {
+                    label: tFilter("status.unban"),
+                    value: ENUM_ACCOUNT_STATUS.UNBAN,
+                  },
+                ]}
+                error={!!errors.status}
+                errorMessage={errors.status?.message}
+                sizeText="small"
+                required={true}
+                disabled={
+                  !isEdit ||
+                  !ability.can(
+                    EPermisisonAction.ENABLE,
+                    EPageRole.ADMIN_STAFF,
+                  ) ||
+                  !ability.can(EPermisisonAction.DISABLE, EPageRole.ADMIN_STAFF)
+                }
+                {...field}
+              />
+            )}
+          />
+        )}
       </div>
 
       {/* third column */}

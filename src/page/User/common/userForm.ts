@@ -10,7 +10,8 @@ const initUserForm: IUserForm = {
   confirmPassword: "",
   avatar: "",
   avatarFile: null,
-  status: ENUM_ACCOUNT_STATUS.ACTIVE
+  status: ENUM_ACCOUNT_STATUS.ACTIVE,
+  banStatus: ENUM_ACCOUNT_STATUS.UNBAN
 };
 
 export { initUserForm };

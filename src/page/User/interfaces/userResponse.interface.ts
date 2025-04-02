@@ -9,5 +9,6 @@ export interface IUserResponse {
   birthday: string;
   providers: IUserProviderResponse[];
   isActive: boolean;
+  isBan: boolean;
   createdAt: string;
 }

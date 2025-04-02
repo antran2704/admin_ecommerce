@@ -8,8 +8,11 @@ const updateUserSchema = (t: TFunction) => {
     email: string()
       .email(t(MESSAGE_ERROR.INVALID_EMAIL))
       .required(t(MESSAGE_ERROR.PLEASE_INPUT)),
-    role: string().required(t(MESSAGE_ERROR.PLEASE_SELECT)),
-    groupRole: string().required(t(MESSAGE_ERROR.PLEASE_SELECT)),
+    phoneNumber: string()
+      .trim()
+      .test("check-phoneNumber", t(MESSAGE_ERROR.INVALID_PHONE), (value) => {
+        return !value.trim() || value.trim().length >= 9;
+      }),
   });
 };
 

@@ -68,6 +68,16 @@ const apiUserService = {
       BASE_URL + API_VERSION.V1 + INTERNAL_PATH + `/users/${id}/disable`,
     ).then((res) => res.data);
   },
+  ban: async (id: string) => {
+    return await AxiosClient.patch(
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + `/users/${id}/ban`,
+    ).then((res) => res.data);
+  },
+  unban: async (id: string) => {
+    return await AxiosClient.patch(
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + `/users/${id}/unban`,
+    ).then((res) => res.data);
+  },
   delete: async (id: string) => {
     return await AxiosClient.delete(
       BASE_URL + API_VERSION.V1 + INTERNAL_PATH + `/users/${id}`,

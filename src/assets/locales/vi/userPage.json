@@ -30,6 +30,7 @@
     "phone": "Số diện thoại",
     "birthday": "Ngày sinh",
     "status": "Trạng thái",
+    "ban": "Cấm tài khoản",
     "createdAt": "Ngày tạo",
     "password": "Mật khẩu",
     "createPassword": "Đặt mật khẩu",
@@ -42,6 +43,11 @@
   "modalUpdate": {
     "title": "Cập nhật người dùng",
     "subtitle": "Bạn muốn cập nhật thông tin người dùng?"
+  },
+  "changePasswordModal": {
+    "title": "Thay đổi mật khẩu",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận lại mật khẩu"
   },
   "breadcrumb": {
     "list": "Danh sách người dùng",

@@ -26,13 +26,13 @@ import { initUserForm } from "../common/userForm";
 import { updateUserSchema } from "../schema/updateUser.schema";
 import { apiUserService } from "~/api-client/user";
 
-const EditStaff = () => {
-  const { t } = useTranslation("StaffPage");
+const EditPage = () => {
+  const { t } = useTranslation("UserPage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
 
-  const { staff_id } = useParams();
+  const { user_id } = useParams();
   const { edit: editParam } = useGetSearchParams<{
     edit: string;
   }>({
@@ -99,8 +99,11 @@ const EditStaff = () => {
           status: payload.isActive
             ? ENUM_ACCOUNT_STATUS.ACTIVE
             : ENUM_ACCOUNT_STATUS.INACTIVE,
-          birthday: payload.birthday,
-          phoneNumber: payload.phoneNumber,
+          banStatus: payload.isBan
+            ? ENUM_ACCOUNT_STATUS.BANNED
+            : ENUM_ACCOUNT_STATUS.UNBAN,
+          birthday: payload.birthday || "",
+          phoneNumber: payload.phoneNumber || "",
           avatar: payload.avatar || "",
           avatarFile: null,
           password: "",
@@ -152,6 +155,17 @@ const EditStaff = () => {
         setData({ ...data, isActive: false });
       }
 
+        // update ban status of staff
+        if (values.banStatus === ENUM_ACCOUNT_STATUS.BANNED && !data.isBan) {
+          await apiUserService.ban(data.userId);
+          setData({ ...data, isBan: true });
+        }
+  
+        if (values.banStatus === ENUM_ACCOUNT_STATUS.UNBAN && data.isBan) {
+          await apiUserService.unban(data.userId);
+          setData({ ...data, isBan: false });
+        }
+
       onModal("submit", false);
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
     } catch (err) {
@@ -168,10 +182,10 @@ const EditStaff = () => {
   };
 
   useEffect(() => {
-    if (!staff_id) return;
+    if (!user_id) return;
 
-    handleGetData(staff_id);
-  }, [staff_id]);
+    handleGetData(user_id);
+  }, [user_id]);
 
   return (
     <MainLayout
@@ -279,4 +293,4 @@ const EditStaff = () => {
   );
 };
 
-export default EditStaff;
+export default EditPage;

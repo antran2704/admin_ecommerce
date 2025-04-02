@@ -25,6 +25,8 @@
   "searchResult": "Search result",
   "status": {
     "active": "Active",
-    "inactive": "Inactive"
+    "inactive": "Inactive",
+    "ban": "Ban account",
+    "unban": "Unban account"
   }
 }

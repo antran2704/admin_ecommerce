@@ -25,6 +25,8 @@
   "searchResult": "Kết quả tìm kiếm",
   "status": {
     "active": "Đang hoạt động",
-    "inactive": "Ngừng hoạt động"
+    "inactive": "Ngừng hoạt động",
+    "ban": "Tài khoản bị cấm",
+    "unban": "Tài khoản không bị cấm"
   }
 }
