@@ -7,3 +7,4 @@ export * from "./categoryTable.interface";
 export * from "./categoryForm.interface";
 export * from "./childCategoryResponse.interface";
 export * from "./getChildrenCategoryRequest.interface";
+export * from "./getCategoriesByIndexRequest.interface"

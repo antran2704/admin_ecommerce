@@ -2,7 +2,7 @@ import { API_VERSION, BASE_URL } from "~/common/api";
 import AxiosClient from "~/config/axiosClient";
 import { INTERNAL_PATH } from "~/config/constants";
 import { parseQueryString } from "~/helper/url";
-import { ICreateCategoryRequest, IGetCategoriesRequest, IUpdateCategoryRequest } from "~/page/Category/interfaces";
+import { ICreateCategoryRequest, IGetCategoriesByIndexRequest, IGetCategoriesRequest, IUpdateCategoryRequest } from "~/page/Category/interfaces";
 
 const apiCategoryService = {
   categories: async (paramater: Partial<IGetCategoriesRequest>) => {
@@ -10,6 +10,13 @@ const apiCategoryService = {
 
     return await AxiosClient.get(
       BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admin/categories" + parseParamater,
+    ).then((res) => res.data);
+  },
+  categoriesByIndex: async (paramater: Partial<IGetCategoriesByIndexRequest>) => {
+    const parseParamater = parseQueryString(paramater);
+
+    return await AxiosClient.get(
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admin/categories/follow-index" + parseParamater,
     ).then((res) => res.data);
   },
   category: async (id: string) => {

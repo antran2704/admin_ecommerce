@@ -2,7 +2,7 @@ import { ICategoryForm } from "../interfaces";
 
 const initCategoryForm: ICategoryForm = {
   title: "",
-  parentId: "",
+  parentId: null,
   slug: "",
   thumbnailUrl: "",
   thumbnailFile: null,

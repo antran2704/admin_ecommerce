@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import clsx from "clsx";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -77,23 +76,15 @@ const EditPage = () => {
     });
   };
 
-  const onChangeAvartar = (file: File | null) => {
-    if (!file) {
-      form.setValue("thumbnailUrl", "");
-    }
-
-    form.setValue("thumbnailFile", file);
-  };
-
   const handleGetData = async (id: string) => {
     onLoading("getData", true);
 
-    await apiCategoryService  
+    await apiCategoryService
       .category(id)
       .then((payload: ICategoryResponse) => {
         form.reset({
           title: payload.categoryName,
-          parentId: payload.categoryParentId,
+          parentId: payload.categoryParentId || "root",
           slug: payload.categorySlug,
           thumbnailUrl: payload.categoryThumbnail,
           thumbnailFile: null,
@@ -105,7 +96,7 @@ const EditPage = () => {
         const { statusCode } = hanldeErrorAxios(err);
 
         if (statusCode === 404) {
-          navigate(PATH_NAME.USERS);
+          navigate(PATH_NAME.CATEGORIES);
         }
       });
   };
@@ -113,9 +104,8 @@ const EditPage = () => {
   const onSubmit = async (values: ICategoryForm) => {
     const dataSend: IUpdateCategoryRequest = {
       categoryName: values.title,
-      categoryParentId: values.parentId,
+      categoryParentId: values.parentId === "root" ? null : values.parentId,
       categorySlug: values.slug,
-      categoryThumbnail: values.thumbnailUrl,
     };
 
     onLoading("submit", true);
@@ -157,32 +147,14 @@ const EditPage = () => {
     <MainLayout
       titleText={isEdit ? t("editTitle") : t("viewInfoTitle")}
       className="bg-white"
-      backUrl={PATH_NAME.USERS}
+      backUrl={PATH_NAME.CATEGORIES}
       listBreadcrumb={[
-        { title: t("breadcrumb.list"), href: PATH_NAME.USERS },
+        { title: t("breadcrumb.list"), href: PATH_NAME.CATEGORIES },
         { title: isEdit ? t("breadcrumb.update") : t("breadcrumb.viewInfo") },
       ]}>
-      <div className="flex lg:flex-row flex-col items-start justify-between py-10 gap-10">
-        <div className="mx-auto">
-          {data && (
-            <div className="flex flex-col items-center">
-              {/* <UploadImage
-                src={form.watch("avatar")}
-                className={clsx(
-                  "lg:!w-[180px] border-dashed lg:min-w-[180px] lg:!h-[180px] min-w-[260px] w-[260px] !h-[260px] rounded-full",
-                )}
-                disabled={!isEdit}
-                onChangeImage={onChangeAvartar}
-                rules={[ETypeFile.JPEG, ETypeFile.PNG, ETypeFile.WEBP]}
-              /> */}
-            </div>
-          )}
-        </div>
-
-        {/* Form */}
-        <div className="xl:w-10/12 w-full px-5">
-          <InforForm isEdit={isEdit} form={form} data={data} />
-        </div>
+      {/* Form */}
+      <div className="w-full p-5">
+        {data && <InforForm isEdit={isEdit} form={form} data={data} />}
       </div>
 
       {isEdit && (

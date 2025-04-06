@@ -102,14 +102,14 @@ const MainRoutes: IRoute[] = [
   },
   {
     id: uuidv4(),
-    href: PATH_NAME.CREATE_USER,
+    href: PATH_NAME.CREATE_CATEGORY,
     element: CreateCategoryPage,
     subject: EPageRole.ADMIN_CATEGORY,
     action: EPermisisonAction.CREATE,
   },
   {
     id: uuidv4(),
-    href: `${PATH_NAME.USERS}/:user_id`,
+    href: `${PATH_NAME.CATEGORIES}/:user_id`,
     element: UpdateCategoryPage,
     subject: EPageRole.ADMIN_CATEGORY,
     action: EPermisisonAction.VIEW,

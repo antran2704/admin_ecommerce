@@ -20,6 +20,8 @@
     "name": "Tên danh mục",
     "child": "Danh mục con",
     "thumbnail": "Hình ảnh",
+    "parent": "Danh mục cha",
+    "root": "Danh mục chính",
     "slug": "Slug",
     "createdAt": "Ngày tạo"
   },
@@ -38,6 +40,7 @@
     "update": "Cập nhật danh mục"
   },
   "error": {
-    "CATEGORY_NAME_EXISTED": "Tên danh mục đã tồn tại"
+    "CATEGORY_NAME_EXISTED": "Tên danh mục đã tồn tại",
+    "GET_CHILDREN_CATEGORY_ERROR": "Lấy danh mục con bị lỗi"
   }
 }

@@ -1,6 +1,6 @@
 export interface IUpdateCategoryRequest {
   categoryName: string;
   categoryParentId: string;
-  categoryThumbnail: string;
+  categoryThumbnail?: string;
   categorySlug: string;
 }

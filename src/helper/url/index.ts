@@ -14,12 +14,13 @@ const decodeUrl = (value: string) => {
 
 const stringToSlug = (str: string) => {
   return str
-    .toLowerCase()
-    .trim()
-    .replace(/-/g, "-")
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .toLowerCase() // convert to lowercase
+    .normalize("NFD") // sperate character of vietnamese
+    .replace(/[\u0300-\u036f]/g, "") // remove character of vietnamese
+    .replace(/đ/g, "d") // convert đ -> d
+    .replace(/[^a-z0-9\s-]/g, "") // remove special character
+    .trim() // remove space
+    .replace(/\s+/g, "-"); // replace space with -
 };
 
 const slugToString = (str: string) => {

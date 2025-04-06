@@ -21,6 +21,8 @@
     "child": "Child category",
     "thumbnail": "Thumbnail",
     "slug": "Slug",
+    "root": "Root category",
+    "parent": "Parent category",
     "createdAt": "Created At"
   },
   "modalDelete": {
@@ -38,6 +40,7 @@
     "update": "Update category"
   },
   "error": {
-    "CATEGORY_NAME_EXISTED": "Category name existed"
+    "CATEGORY_NAME_EXISTED": "Category name existed",
+    "GET_CHILDREN_CATEGORY_ERROR": "Get children category error"
   }
 }

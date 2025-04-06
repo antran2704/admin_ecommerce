@@ -15,6 +15,7 @@ import { ICategoryForm, ICreateCategoryRequest } from "../interfaces";
 import { initCategoryForm } from "../common/categoryForm";
 import { categoryFormSchema } from "../schema/categoryForm.schema";
 import { apiCategoryService } from "~/api-client/category";
+import { stringToSlug } from "~/helper/url";
 
 const CreatePage = () => {
   const { t } = useTranslation("CategoryPage");
@@ -31,19 +32,11 @@ const CreatePage = () => {
 
   const { messageAntd } = useMessageAntd();
 
-  const onChangeAvartar = (file: File | null) => {
-    if (!file) {
-      form.setValue("thumbnailUrl", "");
-    }
-
-    form.setValue("thumbnailFile", file);
-  };
-
   const onSubmit = async (values: ICategoryForm) => {
     const dataSend: ICreateCategoryRequest = {
       categoryName: values.title,
       categoryParentId: values.parentId,
-      categorySlug: values.slug,
+      categorySlug: stringToSlug(values.slug),
       categoryThumbnail: values.thumbnailUrl,
     };
 
@@ -53,12 +46,14 @@ const CreatePage = () => {
           values.thumbnailFile,
         );
         dataSend.categoryThumbnail = newImage;
+
+        form.setValue("thumbnailFile", null);
       }
 
       await apiCategoryService.create(dataSend);
 
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
-      navigate(PATH_NAME.USERS);
+      navigate(PATH_NAME.CATEGORIES);
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
 
@@ -74,29 +69,14 @@ const CreatePage = () => {
     <MainLayout
       titleText={t("createTitle")}
       className="bg-white"
-      backUrl={PATH_NAME.USERS}
+      backUrl={PATH_NAME.CATEGORIES}
       listBreadcrumb={[
-        { title: t("breadcrumb.list"), href: PATH_NAME.USERS },
+        { title: t("breadcrumb.list"), href: PATH_NAME.CATEGORIES },
         { title: t("breadcrumb.create") },
       ]}>
-      <div className="flex lg:flex-row flex-col items-start justify-between py-10 gap-10">
-        <div className="mx-auto">
-          <div className="flex flex-col items-center">
-            {/* <UploadImage
-              src={form.watch("avatar")}
-              className={clsx(
-                "lg:!w-[180px] border-dashed lg:min-w-[180px] lg:!h-[180px] min-w-[260px] w-[260px] !h-[260px] rounded-full",
-              )}
-              onChangeImage={onChangeAvartar}
-              rules={[ETypeFile.JPEG, ETypeFile.PNG, ETypeFile.WEBP]}
-            /> */}
-          </div>
-        </div>
-
-        {/* Form */}
-        <div className="xl:w-10/12 w-full px-5">
-          <InforForm form={form} />
-        </div>
+      {/* Form */}
+      <div className="w-full p-5">
+        <InforForm form={form} />
       </div>
 
       <FormFooter
