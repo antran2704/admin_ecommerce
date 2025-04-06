@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { initPagination } from "~/common/pagination";
@@ -11,8 +10,6 @@ import { IGetUsersRequest, IListUserResponse, IUserTable } from "../interfaces";
 import { apiUserService } from "~/api-client/user";
 
 const useUsers = (query?: Partial<IGetUsersRequest>) => {
-  const { t: tCommon } = useTranslation("Common");
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -36,7 +33,7 @@ const useUsers = (query?: Partial<IGetUsersRequest>) => {
           key: x.userId,
           email: x.email,
           phoneNumber: x.phoneNumber,
-          name: x.name ? x.name : tCommon("noData"),
+          name: x.name,
           providers: x.providers.map((provider) => provider.provider),
           createdAt: x.createdAt,
           status: x.isActive

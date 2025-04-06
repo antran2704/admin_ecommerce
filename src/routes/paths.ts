@@ -15,6 +15,8 @@ const PATH_NAME = {
 
   // CAREGORIES
   CATEGORIES: "/categories",
+  CREATE_CATEGORY: "/categories/create",
+  UPDATE_CATEGORY: (id: string) => `/categories/${id}`,
 
   // NEWS
   NEWS: "/news",

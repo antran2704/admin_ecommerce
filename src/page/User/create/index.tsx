@@ -45,7 +45,6 @@ const CreatePage = () => {
   };
 
   const onSubmit = async (values: IUserForm) => {
-    console.log("values:::", values)
     const { inValid } = handleCheckValidPassword(values.password, tCommon);
 
     if (inValid.length) {

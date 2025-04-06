@@ -202,7 +202,7 @@ const RoleManage = (props: Props) => {
             render={({ field }) => (
               <InputText
                 title={t("form.name")}
-                placeholder={tError("PLEASE_INPUT")}
+                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                 required={true}
                 error={!!errors.name}
                 errorMessage={errors.name?.message}

@@ -20,6 +20,11 @@ const UserPage = lazy(() => import("~/page/User"));
 const CreateUserPage = lazy(() => import("~/page/User/create"));
 const UpdateUserPage = lazy(() => import("~/page/User/edit"));
 
+// Category
+const CategoryPage = lazy(() => import("~/page/Category"));
+const CreateCategoryPage = lazy(() => import("~/page/Category/create"));
+const UpdateCategoryPage = lazy(() => import("~/page/Category/edit"));
+
 const MainRoutes: IRoute[] = [
   {
     id: uuidv4(),
@@ -84,6 +89,29 @@ const MainRoutes: IRoute[] = [
     href: `${PATH_NAME.USERS}/:user_id`,
     element: UpdateUserPage,
     subject: EPageRole.ADMIN_USER,
+    action: EPermisisonAction.VIEW,
+  },
+
+  // Category
+  {
+    id: uuidv4(),
+    href: PATH_NAME.CATEGORIES,
+    element: CategoryPage,
+    subject: EPageRole.ADMIN_CATEGORY,
+    action: EPermisisonAction.VIEW,
+  },
+  {
+    id: uuidv4(),
+    href: PATH_NAME.CREATE_USER,
+    element: CreateCategoryPage,
+    subject: EPageRole.ADMIN_CATEGORY,
+    action: EPermisisonAction.CREATE,
+  },
+  {
+    id: uuidv4(),
+    href: `${PATH_NAME.USERS}/:user_id`,
+    element: UpdateCategoryPage,
+    subject: EPageRole.ADMIN_CATEGORY,
     action: EPermisisonAction.VIEW,
   },
 ];

@@ -39,7 +39,7 @@ const sidebarIcons: { [x: string]: JSX.Element } = {
   ),
   user: (
     <div className="wrap__menu-icon">
-      <FaRegUser className="menu__icon !size-6 min-w-6" />
+      <FaRegUser className="menu__icon !size-5 min-w-5" />
     </div>
   ),
   category: (

@@ -15,6 +15,7 @@ import {
 } from "~/page/Permission/interfaces";
 import { IStaffForm, IStaffResponse } from "../interfaces";
 import { useScrollGroupRoles, useScrollRoles } from "~/page/Permission/hooks";
+import MESSAGE_ERROR from "~/common/errorMessage";
 
 interface Props {
   data?: IStaffResponse;
@@ -56,7 +57,7 @@ const InfoForm = (props: Props) => {
           <div className="flex flex-col">
             <InputText
               title={t("form.userId")}
-              placeholder={tError("PLEASE_INPUT")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               required={true}
               sizeText="small"
               value={data.userId}
@@ -72,7 +73,7 @@ const InfoForm = (props: Props) => {
           render={({ field }) => (
             <InputText
               title={t("form.name")}
-              placeholder={tError("PLEASE_INPUT")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               required={true}
               error={!!errors.name}
               errorMessage={errors.name?.message}
@@ -90,7 +91,7 @@ const InfoForm = (props: Props) => {
           render={({ field }) => (
             <InputText
               title={t("form.email")}
-              placeholder={tError("PLEASE_INPUT")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               required={true}
               error={!!errors.email}
               errorMessage={errors.email?.message}
@@ -206,7 +207,7 @@ const InfoForm = (props: Props) => {
             render={({ field }) => (
               <InputPassword
                 title={t("form.createPassword")}
-                placeholder={tError("PLEASE_INPUT")}
+                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                 error={!!errors.password}
                 errorMessage={errors.password?.message}
                 sizeText="small"
@@ -225,7 +226,7 @@ const InfoForm = (props: Props) => {
             render={({ field }) => (
               <InputPassword
                 title={t("form.confirmPassword")}
-                placeholder={tError("PLEASE_INPUT")}
+                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                 error={!!errors.confirmPassword}
                 errorMessage={errors.confirmPassword?.message}
                 sizeText="small"
@@ -240,7 +241,7 @@ const InfoForm = (props: Props) => {
         {data && (
           <InputText
             title={t("form.createdAt")}
-            placeholder={tError("PLEASE_INPUT")}
+            placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
             sizeText="small"
             value={dayjs(data.createdAt).format(DAY_DMY)}
             disabled
