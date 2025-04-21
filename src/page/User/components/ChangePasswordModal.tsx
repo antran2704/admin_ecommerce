@@ -126,7 +126,7 @@ const ChangePasswordModal = (props: Props) => {
           render={({ field: { onChange, ...rest } }) => (
             <InputPassword
               title={t("changePasswordModal.newPassword")}
-              placeholder={tError("PLEASE_INPUT")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               error={!!errors.newPassword}
               errorMessage={errors.newPassword?.message}
               sizeText="small"
@@ -147,7 +147,7 @@ const ChangePasswordModal = (props: Props) => {
           render={({ field }) => (
             <InputPassword
               title={t("changePasswordModal.confirmPassword")}
-              placeholder={tError("PLEASE_INPUT")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               error={!!errors.confirmPassword}
               errorMessage={errors.confirmPassword?.message}
               sizeText="small"

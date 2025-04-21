@@ -1,0 +1,46 @@
+{
+  "title": "Quản lý danh mục",
+  "searchTitle": "Tìm kiếm ID, Tên danh mục",
+  "filter": {
+    "createdAt": "Ngày tạo"
+  },
+  "table": {
+    "id": "ID danh mục",
+    "name": "Tên danh mục",
+    "child": "Danh mục con",
+    "thumbnail": "Hình ảnh",
+    "slug": "Slug",
+    "createdAt": "Ngày tạo"
+  },
+  "createTitle": "Thêm mới danh mục",
+  "viewInfoTitle": "Thông tin danh mục",
+  "editTitle": "Cập nhật danh mục",
+  "form": {
+    "id": "ID danh mục",
+    "name": "Tên danh mục",
+    "child": "Danh mục con",
+    "thumbnail": "Hình ảnh",
+    "parent": "Danh mục cha",
+    "root": "Danh mục chính",
+    "slug": "Slug",
+    "createdAt": "Ngày tạo"
+  },
+  "modalDelete": {
+    "title": "Xóa danh mục",
+    "subtitle": "Bạn muốn xóa danh mục?"
+  },
+  "modalUpdate": {
+    "title": "Cập nhật danh mục",
+    "subtitle": "Bạn muốn cập nhật thông tin danh mục?"
+  },
+  "breadcrumb": {
+    "list": "Danh sách danh mục",
+    "viewInfo": "Thông tin danh mục",
+    "create": "Thêm mới danh mục",
+    "update": "Cập nhật danh mục"
+  },
+  "error": {
+    "CATEGORY_NAME_EXISTED": "Tên danh mục đã tồn tại",
+    "GET_CHILDREN_CATEGORY_ERROR": "Lấy danh mục con bị lỗi"
+  }
+}

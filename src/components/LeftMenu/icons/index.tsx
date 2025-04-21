@@ -1,4 +1,6 @@
 import { FaRegUser } from "react-icons/fa";
+import { IoFileTrayStackedOutline } from "react-icons/io5";
+import { BiCategory } from "react-icons/bi";
 
 import dashboardImg from "~/assets/images/Sidebar/dashboard.png";
 import permissionImg from "~/assets/images/Sidebar/permission.png";
@@ -44,12 +46,12 @@ const sidebarIcons: { [x: string]: JSX.Element } = {
   ),
   category: (
     <div className="wrap__menu-icon">
-      <img
-        src={categoryImg}
-        alt="icon sidebar"
-        title="icon sidebar"
-        className="menu__icon object-contain"
-      />
+      <BiCategory className="menu__icon !size-6 min-w-6" />
+    </div>
+  ),
+  variantType: (
+    <div className="wrap__menu-icon">
+      <IoFileTrayStackedOutline className="menu__icon !size-6 min-w-6" />
     </div>
   ),
   news: (

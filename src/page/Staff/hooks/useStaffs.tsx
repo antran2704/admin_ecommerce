@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { apiStaffService } from "~/api-client/staff";
@@ -11,8 +10,6 @@ import { IPagination } from "~/interface/pagination";
 import { IGetStaffsRequest, IListStaffResponse, IStaffTable } from "~/page/Staff/interfaces";
 
 const useStaffs = (query?: Partial<IGetStaffsRequest>) => {
-  const { t: tCommon } = useTranslation("Common");
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -35,7 +32,7 @@ const useStaffs = (query?: Partial<IGetStaffsRequest>) => {
           id: staff.userId,
           key: staff.userId,
           email: staff.email,
-          name: staff.name ? staff.name : tCommon("noData"),
+          name: staff.name,
           groupRole: staff.groupRole,
           role: staff.role,
           createdAt: staff.createdAt,

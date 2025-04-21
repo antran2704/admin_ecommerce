@@ -15,6 +15,13 @@ const PATH_NAME = {
 
   // CAREGORIES
   CATEGORIES: "/categories",
+  CREATE_CATEGORY: "/categories/create",
+  UPDATE_CATEGORY: (id: string) => `/categories/${id}`,
+
+  // VARIANT TYPES
+  VARIANT_TYPES: "/variant-types",
+  CREATE_VARIANT_TYPE: "/variant-types/create",
+  UPDATE_VARIANT_TYPE: (id: string) => `/variant-types/${id}`,
 
   // NEWS
   NEWS: "/news",

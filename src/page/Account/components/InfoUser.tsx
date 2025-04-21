@@ -7,6 +7,7 @@ import { InputText } from "~/components/Core/Input";
 import { DateSelect, SelectFilter } from "~/components/Core";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import { IProfileForm } from "../interfaces";
+import MESSAGE_ERROR from "~/common/errorMessage";
 
 interface Props {
   isEdit: boolean;
@@ -37,7 +38,7 @@ const InforUser = (props: Props) => {
             render={({ field }) => (
               <InputText
                 title={t("form.name")}
-                placeholder={tError("PLEASE_INPUT")}
+                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                 required={true}
                 error={!!errors.name}
                 errorMessage={errors.name?.message}
@@ -55,7 +56,7 @@ const InforUser = (props: Props) => {
             render={({ field }) => (
               <InputText
                 title={t("form.email")}
-                placeholder={tError("PLEASE_INPUT")}
+                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                 required={true}
                 disabled
                 error={!!errors.email}
@@ -76,7 +77,7 @@ const InforUser = (props: Props) => {
             render={({ field }) => (
               <InputText
                 title={t("form.roleGroup")}
-                placeholder={tError("PLEASE_INPUT")}
+                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                 required={true}
                 disabled
                 error={!!errors.groupRole}
@@ -93,7 +94,7 @@ const InforUser = (props: Props) => {
             render={({ field }) => (
               <InputText
                 title={t("form.role")}
-                placeholder={tError("PLEASE_INPUT")}
+                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                 required={true}
                 disabled
                 error={!!errors.role}

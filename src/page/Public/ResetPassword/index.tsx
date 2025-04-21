@@ -43,8 +43,8 @@ const SetupForgotPassword = () => {
   // validation project form
   const schema = useMemo(() => {
     return object().shape({
-      password: string().required(tError("PLEASE_INPUT")),
-      confirmPassword: string().required(tError("PLEASE_INPUT")),
+      password: string().required(tError(MESSAGE_ERROR.PLEASE_INPUT)),
+      confirmPassword: string().required(tError(MESSAGE_ERROR.PLEASE_INPUT)),
     });
   }, [i18n.resolvedLanguage]);
 
@@ -169,7 +169,7 @@ const SetupForgotPassword = () => {
               render={({ field: { onChange, ...rest } }) => (
                 <InputPassword
                   title={tCommon("field.password")}
-                  placeholder={tError("PLEASE_INPUT")}
+                  placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                   className="!py-2"
                   error={!!errors.password}
                   errorMessage={errors.password?.message}
@@ -198,7 +198,7 @@ const SetupForgotPassword = () => {
                 <InputPassword
                   title={tCommon("field.rePassword")}
                   className="!py-2"
-                  placeholder={tError("PLEASE_INPUT")}
+                  placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                   error={!!errors.confirmPassword}
                   errorMessage={errors.confirmPassword?.message}
                   sizeText="small"

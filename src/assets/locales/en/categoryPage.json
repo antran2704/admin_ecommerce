@@ -1,0 +1,46 @@
+{
+  "title": "Manage category",
+  "searchTitle": "Search with ID, name",
+  "filter": {
+    "createdAt": "Created At"
+  },
+  "table": {
+    "id": "ID category",
+    "name": "Name",
+    "child": "Child category",
+    "thumbnail": "Thumbnail",
+    "slug": "Slug",
+    "createdAt": "Created At"
+  },
+  "createTitle": "Create category",
+  "viewInfoTitle": "Infomation of category",
+  "editTitle": "Update category",
+  "form": {
+    "id": "ID category",
+    "name": "Name",
+    "child": "Child category",
+    "thumbnail": "Thumbnail",
+    "slug": "Slug",
+    "root": "Root category",
+    "parent": "Parent category",
+    "createdAt": "Created At"
+  },
+  "modalDelete": {
+    "title": "Delete category",
+    "subtitle": "Do you want to delete category?"
+  },
+  "modalUpdate": {
+    "title": "Update infomation of category",
+    "subtitle": "Do you want to update category?"
+  },
+  "breadcrumb": {
+    "list": "List of category",
+    "viewInfo": "Infomation of category",
+    "create": "Create category",
+    "update": "Update category"
+  },
+  "error": {
+    "CATEGORY_NAME_EXISTED": "Category name existed",
+    "GET_CHILDREN_CATEGORY_ERROR": "Get children category error"
+  }
+}

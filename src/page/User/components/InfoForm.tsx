@@ -9,6 +9,7 @@ import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import { IUserForm, IUserResponse } from "../interfaces";
+import MESSAGE_ERROR from "~/common/errorMessage";
 
 interface Props {
   data?: IUserResponse;
@@ -36,7 +37,7 @@ const InfoForm = (props: Props) => {
           <div className="flex flex-col">
             <InputText
               title={t("form.userId")}
-              placeholder={tError("PLEASE_INPUT")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               required={true}
               sizeText="small"
               value={data.userId}
@@ -52,7 +53,7 @@ const InfoForm = (props: Props) => {
           render={({ field }) => (
             <InputText
               title={t("form.name")}
-              placeholder={tError("PLEASE_INPUT")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               required={true}
               error={!!errors.name}
               errorMessage={errors.name?.message}
@@ -70,7 +71,7 @@ const InfoForm = (props: Props) => {
           render={({ field }) => (
             <InputText
               title={t("form.email")}
-              placeholder={tError("PLEASE_INPUT")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               required={true}
               error={!!errors.email}
               errorMessage={errors.email?.message}
@@ -91,7 +92,7 @@ const InfoForm = (props: Props) => {
           render={({ field }) => (
             <InputText
               title={t("form.phone")}
-              placeholder={tError("PLEASE_INPUT")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               error={!!errors.phoneNumber}
               errorMessage={errors.phoneNumber?.message}
               sizeText="small"
@@ -110,7 +111,7 @@ const InfoForm = (props: Props) => {
           render={({ field: { value, onChange, ...rest } }) => (
             <DateSelect
               title={t("form.birthday")}
-              placeholder={tError("PLEASE_INPUT")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               error={!!errors.birthday}
               errorMessage={errors.birthday?.message}
               sizeText="small"
@@ -210,7 +211,7 @@ const InfoForm = (props: Props) => {
             render={({ field }) => (
               <InputPassword
                 title={t("form.createPassword")}
-                placeholder={tError("PLEASE_INPUT")}
+                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                 error={!!errors.password}
                 errorMessage={errors.password?.message}
                 sizeText="small"
@@ -229,7 +230,7 @@ const InfoForm = (props: Props) => {
             render={({ field }) => (
               <InputPassword
                 title={t("form.confirmPassword")}
-                placeholder={tError("PLEASE_INPUT")}
+                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
                 error={!!errors.confirmPassword}
                 errorMessage={errors.confirmPassword?.message}
                 sizeText="small"
@@ -244,7 +245,7 @@ const InfoForm = (props: Props) => {
         {data && (
           <InputText
             title={t("form.createdAt")}
-            placeholder={tError("PLEASE_INPUT")}
+            placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
             sizeText="small"
             value={dayjs(data.createdAt).format(DAY_DMY)}
             disabled

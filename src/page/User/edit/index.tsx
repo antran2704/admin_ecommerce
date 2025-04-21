@@ -259,7 +259,7 @@ const EditPage = () => {
           okText={tCommon("update")}
           cancelText={tCommon("cancel")}
           onOk={onEdit}
-          onCancel={() => navigate("/staffs")}
+          onCancel={() => navigate(PATH_NAME.USERS)}
           okProps={
             {
               // className: !canEditForm(staffId, infoUser.userId) && "hidden",
