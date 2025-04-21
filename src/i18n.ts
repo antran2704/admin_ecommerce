@@ -28,7 +28,7 @@ import userPageVi from "@assets/locales/vi/userPage.json";
 import userPageEn from "@assets/locales/en/userPage.json";
 
 // Category Page
-import categoryPageVi from "@assets/locales/vi/categoryPage.json";  
+import categoryPageVi from "@assets/locales/vi/categoryPage.json";
 import categoryPageEn from "@assets/locales/en/categoryPage.json";
 
 // Permission Page
@@ -42,6 +42,10 @@ import homePageEn from "@assets/locales/en/homePage.json";
 // Account Page
 import accountPageVi from "@assets/locales/vi/accountPage.json";
 import accountPageEn from "@assets/locales/en/accountPage.json";
+
+// Variant Type Page
+import variantTypePageVi from "@assets/locales/vi/variantTypePage.json";
+import variantTypePageEn from "@assets/locales/en/variantTypePage.json";
 
 // Sidebar
 import sidebarVi from "@assets/locales/vi/sidebar.json";
@@ -83,6 +87,7 @@ const resources = {
     PermissionPage: permissionPageEn,
     HomePage: homePageEn,
     AccountPage: accountPageEn,
+    VariantTypePage: variantTypePageEn,
     Permission: permissionEn,
     Sidebar: sidebarEn,
     Navbar: navbarEn,
@@ -102,6 +107,7 @@ const resources = {
     PermissionPage: permissionPageVi,
     HomePage: homePageVi,
     AccountPage: accountPageVi,
+    VariantTypePage: variantTypePageVi,
     Permission: permissionVi,
     Sidebar: sidebarVi,
     Navbar: navbarVi,

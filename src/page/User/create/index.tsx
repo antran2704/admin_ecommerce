@@ -136,7 +136,7 @@ const CreatePage = () => {
         onOk={form.handleSubmit(onSubmit, () => {
           messageAntd.error(tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS));
         })}
-        onCancel={() => navigate("/staffs")}
+        onCancel={() => navigate(PATH_NAME.STAFFS)}
         cancelProps={{
           disabled: form.formState.isSubmitting,
         }}

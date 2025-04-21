@@ -25,6 +25,11 @@ const CategoryPage = lazy(() => import("~/page/Category"));
 const CreateCategoryPage = lazy(() => import("~/page/Category/create"));
 const UpdateCategoryPage = lazy(() => import("~/page/Category/edit"));
 
+// Variant type
+const VariantTypePage = lazy(() => import("~/page/VariantType"));
+const CreateVariantTypePage = lazy(() => import("~/page/VariantType/create"));
+const UpdateVariantTypePage = lazy(() => import("~/page/VariantType/edit"));
+
 const MainRoutes: IRoute[] = [
   {
     id: uuidv4(),
@@ -109,9 +114,32 @@ const MainRoutes: IRoute[] = [
   },
   {
     id: uuidv4(),
-    href: `${PATH_NAME.CATEGORIES}/:user_id`,
+    href: `${PATH_NAME.CATEGORIES}/:category_id`,
     element: UpdateCategoryPage,
     subject: EPageRole.ADMIN_CATEGORY,
+    action: EPermisisonAction.VIEW,
+  },
+
+  // Variant type
+  {
+    id: uuidv4(),
+    href: PATH_NAME.VARIANT_TYPES,
+    element: VariantTypePage,
+    subject: EPageRole.ADMIN_VARIANT_TYPE,
+    action: EPermisisonAction.VIEW,
+  },
+  {
+    id: uuidv4(),
+    href: PATH_NAME.CREATE_VARIANT_TYPE,
+    element: CreateVariantTypePage,
+    subject: EPageRole.ADMIN_VARIANT_TYPE,
+    action: EPermisisonAction.CREATE,
+  },
+  {
+    id: uuidv4(),
+    href: `${PATH_NAME.VARIANT_TYPES}/:variant_type_id`,
+    element: UpdateVariantTypePage,
+    subject: EPageRole.ADMIN_VARIANT_TYPE,
     action: EPermisisonAction.VIEW,
   },
 ];

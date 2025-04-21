@@ -29,7 +29,7 @@ const EditPage = () => {
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
 
-  const { user_id } = useParams();
+  const { category_id } = useParams();
   const { edit: editParam } = useGetSearchParams<{
     edit: string;
   }>({
@@ -138,10 +138,10 @@ const EditPage = () => {
   };
 
   useEffect(() => {
-    if (!user_id) return;
+    if (!category_id) return;
 
-    handleGetData(user_id);
-  }, [user_id]);
+    handleGetData(category_id);
+  }, [category_id]);
 
   return (
     <MainLayout
@@ -182,7 +182,7 @@ const EditPage = () => {
           okText={tCommon("update")}
           cancelText={tCommon("cancel")}
           onOk={onEdit}
-          onCancel={() => navigate("/staffs")}
+          onCancel={() => navigate(PATH_NAME.CATEGORIES)}
           okProps={
             {
               // className: !canEditForm(staffId, infoUser.userId) && "hidden",
