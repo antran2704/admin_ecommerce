@@ -9,6 +9,10 @@
     "name": "Tên biến thể",
     "createdAt": "Ngày tạo"
   },
+  "tabs": {
+    "detail": "Chi tiết",
+    "variantTypeValues": "Biến thể con"
+  },
   "createTitle": "Thêm mới biến thể",
   "viewInfoTitle": "Thông tin biến thể",
   "editTitle": "Cập nhật biến thể",

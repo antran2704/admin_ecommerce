@@ -18,8 +18,6 @@ const InfoForm = (props: Props) => {
   const {
     control,
     formState: { errors },
-    setValue,
-    getValues,
   } = form;
 
   const { t } = useTranslation("VariantTypePage");

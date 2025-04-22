@@ -1,0 +1,38 @@
+{
+  "title": "Manage variant type value",
+  "searchTitle": "Search with ID, name",
+  "filter": {
+    "createdAt": "Created At"
+  },
+  "table": {
+    "id": "ID variant type value",
+    "name": "Name",
+    "createdAt": "Created At"
+  },
+  "createTitle": "Create variant type value",
+  "viewInfoTitle": "Infomation of variant type value",
+  "editTitle": "Update variant type value",
+  "form": {
+    "id": "ID variant type value",
+    "name": "Name",
+    "createdAt": "Created At"
+  },
+  "modalDelete": {
+    "title": "Delete variant type value",
+    "subtitle": "Do you want to delete variant type value?"
+  },
+  "modalUpdate": {
+    "title": "Update infomation of variant type value",
+    "subtitle": "Do you want to update variant type value?"
+  },
+  "breadcrumb": {
+    "list": "List of variant type value",
+    "viewInfo": "Infomation of variant type value",
+    "create": "Create variant type value",
+    "update": "Update variant type value"
+  },
+  "error": {
+    "VARIANT_VALUE_NAME_EXISTED": "Variant type value name existed",
+    "VARIANT_VALUE_EXISTED": "Variant type value existed"
+  }
+}

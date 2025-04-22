@@ -9,6 +9,10 @@
     "name": "Name",
     "createdAt": "Created At"
   },
+  "tabs": {
+    "detail": "Detail",
+    "variantTypeValues": "Variant type values"
+  },
   "createTitle": "Create variant type",
   "viewInfoTitle": "Infomation of variant type",
   "editTitle": "Update variant type",
