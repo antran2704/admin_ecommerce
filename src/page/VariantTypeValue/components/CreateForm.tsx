@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { MainLayout } from "~/layout";
 import { InforForm } from "../components";
 import { FormFooter } from "~/components/Footer";
 import useMessageAntd from "~/hooks/useMessageAntd";
@@ -11,41 +10,51 @@ import MESSAGE_ERROR from "~/common/errorMessage";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
-import { ICreateVariantTypeRequest, IVariantTypeForm } from "../interfaces";
-import { initVariantTypeForm } from "../common/variantTypeForm";
-import { variantTypeFormSchema } from "../schema/variantTypeForm.schema";
-import { apiVariantTypeService } from "~/api-client/variantType";
+import {
+  ICreateVariantTypeValueRequest,
+  IVariantTypeValueForm,
+} from "../interfaces";
+import { initVariantTypeValueForm } from "../common/variantTypeForm";
+import { variantTypeValueFormSchema } from "../schema/variantTypeValueForm.schema";
+import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
 
-const CreatePage = () => {
-  const { t } = useTranslation("VariantTypePage");
+interface Props {
+  variantTypeId: string;
+}
+
+const CreateForm = (props: Props) => {
+  const { variantTypeId } = props;
+
+  const { t } = useTranslation("VariantTypeValuePage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
 
   const navigate = useNavigate();
 
-  const form = useForm<IVariantTypeForm>({
-    defaultValues: initVariantTypeForm,
-    resolver: yupResolver(variantTypeFormSchema(tError)) as any,
+  const form = useForm<IVariantTypeValueForm>({
+    defaultValues: initVariantTypeValueForm,
+    resolver: yupResolver(variantTypeValueFormSchema(tError)) as any,
   });
 
   const { messageAntd } = useMessageAntd();
 
-  const onSubmit = async (values: IVariantTypeForm) => {
-    const dataSend: ICreateVariantTypeRequest = {
-      variantTypeName: values.title,
+  const onSubmit = async (values: IVariantTypeValueForm) => {
+    const dataSend: ICreateVariantTypeValueRequest = {
+      variantTypeId,
+      variantValueName: values.title,
     };
 
     try {
-      await apiVariantTypeService.create(dataSend);
+      await apiVariantTypeValueService.create(dataSend);
 
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
       navigate(PATH_NAME.VARIANT_TYPES);
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
 
-      if (message === "VARIANT_TYPE_NAME_EXISTED") {
-        messageAntd.error(t("error.VARIANT_TYPE_NAME_EXISTED"));
+      if (message === "VARIANT_VALUE_NAME_EXISTED") {
+        messageAntd.error(t("error.VARIANT_VALUE_NAME_EXISTED"));
       } else {
         messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       }
@@ -53,14 +62,7 @@ const CreatePage = () => {
   };
 
   return (
-    <MainLayout
-      titleText={t("createTitle")}
-      className="bg-white"
-      backUrl={PATH_NAME.VARIANT_TYPES}
-      listBreadcrumb={[
-        { title: t("breadcrumb.list"), href: PATH_NAME.VARIANT_TYPES },
-        { title: t("breadcrumb.create") },
-      ]}>
+    <div>
       {/* Form */}
       <div className="w-full p-5">
         <InforForm form={form} />
@@ -81,8 +83,8 @@ const CreatePage = () => {
           disabled: form.formState.isSubmitting,
         }}
       />
-    </MainLayout>
+    </div>
   );
 };
 
-export default CreatePage;
+export default CreateForm;

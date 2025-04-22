@@ -1,2 +1,2 @@
-export { default as useCategories } from "./useVariantTypes";
-export { default as useScrollCategories } from "./useScrollVariantType";
+export { default as useVariantTypeValues } from "./useVariantTypeValues";
+export { default as useScrollVariantTypeValues } from "./useScrollVariantTypeValues";

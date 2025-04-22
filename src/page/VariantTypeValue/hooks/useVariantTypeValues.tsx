@@ -5,19 +5,16 @@ import { initPagination } from "~/common/pagination";
 import { parseQueryString } from "~/helper/url";
 import { IResponseDataWithPagination } from "~/interface";
 import { IPagination } from "~/interface/pagination";
-import {
-  IGetVariantTypesRequest,
-  IVariantTypeResponse,
-  IVariantTypeTable,
-} from "../interfaces";
-import { apiVariantTypeService } from "~/api-client/variantType";
+import { IGetVariantTypeValuesRequest, IVariantTypeValueResponse, IVariantTypeValueTable } from "../interfaces";
+import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
 
-const useVariantTypes = (query?: Partial<IGetVariantTypesRequest>) => {
+
+const useVariantTypes = (query?: Partial<IGetVariantTypeValuesRequest>) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const [data, setData] = useState<IVariantTypeResponse[]>([]);
-  const [dataTable, setDataTabel] = useState<IVariantTypeTable[]>([]);
+  const [data, setData] = useState<IVariantTypeValueResponse[]>([]);
+  const [dataTable, setDataTabel] = useState<IVariantTypeValueTable[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const [pagination, setPagination] = useState<IPagination>(initPagination);
@@ -26,21 +23,21 @@ const useVariantTypes = (query?: Partial<IGetVariantTypesRequest>) => {
     navigate(pathname + parseQueryString({ ...query, page, take }));
   };
 
-  const handleGetData = async (paramater: Partial<IGetVariantTypesRequest>) => {
+  const handleGetData = async (paramater: Partial<IGetVariantTypeValuesRequest>) => {
     setLoading(true);
 
-    await apiVariantTypeService
-      .variantTypes(paramater)
+    await apiVariantTypeValueService
+      .variantTypeValues(paramater)
       .then(
         ({
           data,
           pagination,
-        }: IResponseDataWithPagination<IVariantTypeResponse[]>) => {
-          const dataTable: IVariantTypeTable[] = data.map(
-            (x: IVariantTypeResponse) => ({
-              id: x.variantTypeId,
-              key: x.variantTypeId,
-              title: x.variantTypeName,
+        }: IResponseDataWithPagination<IVariantTypeValueResponse[]>) => {
+          const dataTable: IVariantTypeValueTable[] = data.map(
+            (x: IVariantTypeValueResponse) => ({
+              id: x.variantTypeValueId,
+              key: x.variantTypeValueId,
+              title: x.variantTypeValueName,
               createdAt: x.createdAt,
             }),
           );
@@ -66,12 +63,12 @@ const useVariantTypes = (query?: Partial<IGetVariantTypesRequest>) => {
   }, [query]);
 
   return {
-    variantTypes: data,
-    variantTypeTables: dataTable,
-    handleGetVariantTypes: handleGetData,
-    onPaginationVariantTypes: onPagination,
-    paginationVariantTypes: pagination,
-    loadingVariantTypes: loading,
+    variantTypeValues: data,
+    variantTypeValueTables: dataTable,
+    handleGetVariantTypeValues: handleGetData,
+    onPaginationVariantTypeValues: onPagination,
+    paginationVariantTypeValues: pagination,
+    loadingVariantTypeValues: loading,
   };
 };
 

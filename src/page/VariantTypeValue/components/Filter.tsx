@@ -3,11 +3,11 @@ import { useTranslation } from "react-i18next";
 
 import { FilterCore } from "~/components/Core";
 import { EOrderType } from "~/enum/paramater";
-import { IGetVariantTypesRequest } from "../interfaces";
+import { IGetVariantTypeValuesRequest } from "../interfaces";
 
 interface Props {
-  filter?: IGetVariantTypesRequest;
-  onFilter?: (newParamter: IGetVariantTypesRequest) => void;
+  filter?: Partial<IGetVariantTypeValuesRequest>;
+  onFilter?: (newParamter: Partial<IGetVariantTypeValuesRequest>) => void;
 }
 
 const Filter = (props: Props) => {
@@ -17,11 +17,11 @@ const Filter = (props: Props) => {
 
   const [formFilter, setFormFilter] = useState<{
     // eslint-disable-next-line no-unused-vars
-    [x in keyof Partial<IGetVariantTypesRequest>]: string | string[] | number;
+    [x in keyof Partial<IGetVariantTypeValuesRequest>]: string | string[] | number;
   }>({});
 
   const onClearFilter = () => {
-    const newParams: Partial<IGetVariantTypesRequest> = {
+    const newParams: Partial<IGetVariantTypeValuesRequest> = {
       page: 1,
       take: 16,
       order: EOrderType.DESC,

@@ -14,16 +14,16 @@ import { createExcelFile } from "~/helper/file";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import PATH_NAME from "~/routes/paths";
-import { IVariantTypeTable } from "../interfaces";
+import { IVariantTypeValueTable } from "../interfaces";
 
 interface Props {
-  data: IVariantTypeTable[];
+  data: IVariantTypeValueTable[];
 }
 
 const GroupAction = (props: Props) => {
   const { data = [] } = props;
 
-  const { t } = useTranslation("VariantTypePage");
+  const { t } = useTranslation("VariantTypeValuePage");
   const { t: tCommon, i18n } = useTranslation("Common");
 
   const [modal, setModal] = useState<{ pdf: boolean }>({
@@ -35,13 +35,13 @@ const GroupAction = (props: Props) => {
   };
 
   const onExportExcel = useCallback(() => {
-    const dataParse: Partial<IVariantTypeTable>[] = data.map((item) => ({
+    const dataParse: Partial<IVariantTypeValueTable>[] = data.map((item) => ({
       id: item.id,
       title: item.title,
       createdAt: dayjs(item.createdAt).format(DAY_DMY),
     }));
 
-    createExcelFile<Partial<IVariantTypeTable>>(
+    createExcelFile<Partial<IVariantTypeValueTable>>(
       dataParse,
       "Danh_sach_bien_the",
       "Danh_sach_bien_the",

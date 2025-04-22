@@ -18,18 +18,18 @@ import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import { useAppSelector } from "~/store/hooks";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
-import { IVariantTypeTable } from "../interfaces";
-import { apiVariantTypeService } from "~/api-client/variantType";
+import { IVariantTypeValueTable } from "../interfaces";
+import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
 
 interface Props {
-  items: IVariantTypeTable[];
+  items: IVariantTypeValueTable[];
   pagination?: IPagination;
   loading?: boolean;
   selectedRowKeys?: React.Key[];
   getData: () => void;
   onPagination: (nextPage: number, pageSize: number) => void;
   onSelectedRowKeys?: (selected: React.Key[]) => void;
-  onSelectedRows?: (selectedRows: IVariantTypeTable[]) => void;
+  onSelectedRows?: (selectedRows: IVariantTypeValueTable[]) => void;
 }
 
 const Table = (props: Props) => {
@@ -44,7 +44,7 @@ const Table = (props: Props) => {
     onSelectedRows,
   } = props;
 
-  const { t, i18n } = useTranslation("VariantTypePage");
+  const { t, i18n } = useTranslation("VariantTypeValuePage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
@@ -53,8 +53,8 @@ const Table = (props: Props) => {
 
   const { infoUser } = useAppSelector((state) => state.user);
 
-  const [listItem, setListItem] = useState<IVariantTypeTable[]>([]);
-  const [selectItem, setSelectItem] = useState<IVariantTypeTable | null>(null);
+  const [listItem, setListItem] = useState<IVariantTypeValueTable[]>([]);
+  const [selectItem, setSelectItem] = useState<IVariantTypeValueTable | null>(null);
 
   const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
   const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
@@ -73,7 +73,7 @@ const Table = (props: Props) => {
     setLoadingDelete(true);
 
     try {
-      await apiVariantTypeService.delete(id);
+      await apiVariantTypeValueService.delete(id);
       messageApi.success(tSuccess(MESSAGE_SUCCESS.DELETED));
       onModalDelete();
       getData();
@@ -85,8 +85,8 @@ const Table = (props: Props) => {
   };
 
   // columnt table
-  const columns: TableColumnsType<IVariantTypeTable> =
-    useMemo((): TableColumnsType<IVariantTypeTable> => {
+  const columns: TableColumnsType<IVariantTypeValueTable> =
+    useMemo((): TableColumnsType<IVariantTypeValueTable> => {
       return [
         {
           title: t("table.id"),
@@ -115,7 +115,7 @@ const Table = (props: Props) => {
           title: tCommon("action"),
           width: 200,
           fixed: "right",
-          render: (_, record: IVariantTypeTable) => (
+          render: (_, record: IVariantTypeValueTable) => (
             <div className="flex items-center justify-center gap-2">
               <Link to={PATH_NAME.UPDATE_VARIANT_TYPE(record.id)}>
                 <BtnView />
@@ -165,7 +165,7 @@ const Table = (props: Props) => {
             items_per_page: `/ ${tCommon("pagination.page") as string}`,
           },
         }}
-        onRow={(record: IVariantTypeTable) => {
+        onRow={(record: IVariantTypeValueTable) => {
           return {
             onDoubleClick: () => {
               navigate(PATH_NAME.UPDATE_VARIANT_TYPE(record.id));
@@ -176,7 +176,7 @@ const Table = (props: Props) => {
           selectedRowKeys,
           onChange: (
             selectedRowKeys: React.Key[],
-            selectedRows: IVariantTypeTable[],
+            selectedRows: IVariantTypeValueTable[],
           ) => {
             onSelectedRowKeys(selectedRowKeys);
             onSelectedRows(selectedRows);

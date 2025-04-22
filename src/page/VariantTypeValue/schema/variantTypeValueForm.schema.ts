@@ -2,10 +2,10 @@ import { TFunction } from "i18next";
 import { object, string } from "yup";
 import MESSAGE_ERROR from "~/common/errorMessage";
 
-const variantTypeFormSchema = (t: TFunction) => {
+const variantTypeValueFormSchema = (t: TFunction) => {
   return object().shape({
     title: string().required(t(MESSAGE_ERROR.PLEASE_INPUT)),
   });
 };
 
-export { variantTypeFormSchema };
+export { variantTypeValueFormSchema };

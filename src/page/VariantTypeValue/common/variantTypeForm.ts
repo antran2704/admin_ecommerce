@@ -1,7 +1,7 @@
-import { IVariantTypeForm } from "../interfaces";
+import { IVariantTypeValueForm } from "../interfaces";
 
-const initVariantTypeForm: IVariantTypeForm = {
+const initVariantTypeValueForm: IVariantTypeValueForm = {
   title: "",
 };
 
-export { initVariantTypeForm };
+export { initVariantTypeValueForm };

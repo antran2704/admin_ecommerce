@@ -5,11 +5,11 @@ import dayjs from "dayjs";
 import { DAY_DMY } from "~/common/format";
 import { InputText } from "~/components/Core/Input";
 import MESSAGE_ERROR from "~/common/errorMessage";
-import { IVariantTypeForm, IVariantTypeResponse } from "../interfaces";
+import { IVariantTypeValueForm, IVariantTypeValueResponse } from "../interfaces";
 
 interface Props {
-  data?: IVariantTypeResponse;
-  form: UseFormReturn<IVariantTypeForm, any, undefined>;
+  data?: IVariantTypeValueResponse;
+  form: UseFormReturn<IVariantTypeValueForm, any, undefined>;
   isEdit?: boolean;
 }
 
@@ -20,7 +20,7 @@ const InfoForm = (props: Props) => {
     formState: { errors },
   } = form;
 
-  const { t } = useTranslation("VariantTypePage");
+  const { t } = useTranslation("VariantTypeValuePage");
   const { t: tError } = useTranslation("Error");
 
   return (
@@ -35,7 +35,7 @@ const InfoForm = (props: Props) => {
               placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
               required={true}
               sizeText="small"
-              value={data.variantTypeId}
+              value={data.variantTypeValueId}
               disabled
             />
           </div>

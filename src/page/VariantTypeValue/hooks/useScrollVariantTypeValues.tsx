@@ -5,20 +5,21 @@ import { EOrderType } from "~/enum/paramater";
 import { IResponseDataWithPagination } from "~/interface";
 
 import { IPagination } from "~/interface/pagination";
-import { IGetVariantTypesRequest, IVariantTypeResponse } from "../interfaces";
-import { apiVariantTypeService } from "~/api-client/variantType";
+import { IGetVariantTypeValuesRequest, IVariantTypeValueResponse } from "../interfaces";
+import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
 
-const useScrollVariantTypes = (
-  query?: Partial<IGetVariantTypesRequest> | null,
+const useScrollVariantTypeValues = (
+  query?: Partial<IGetVariantTypeValuesRequest> | null,
 ) => {
-  const [data, setData] = useState<IVariantTypeResponse[]>([]);
+  const [data, setData] = useState<IVariantTypeValueResponse[]>([]);
 
-  const [paramater, setParameter] = useState<IGetVariantTypesRequest>(
+  const [paramater, setParameter] = useState<IGetVariantTypeValuesRequest>(
     query !== null
       ? {
           page: 1,
           take: 16,
           order: EOrderType.DESC,
+          variantTypeId: "",
           ...query,
         }
       : null,
@@ -30,22 +31,22 @@ const useScrollVariantTypes = (
     setParameter({ ...paramater, page });
   };
 
-  const resetData = (paramater: IGetVariantTypesRequest) => {
+  const resetData = (paramater: IGetVariantTypeValuesRequest) => {
     setData([]);
     setParameter(paramater);
     setPagination(initPagination);
   };
 
-  const getDataScroll = async (paramater: IGetVariantTypesRequest) => {
+  const getDataScroll = async (paramater: IGetVariantTypeValuesRequest) => {
     if (pagination.total && pagination.total <= data.length) return;
 
-    await apiVariantTypeService
-      .variantTypes(paramater)
+    await apiVariantTypeValueService
+      .variantTypeValues(paramater)
       .then(
         ({
           data: services,
           pagination,
-        }: IResponseDataWithPagination<IVariantTypeResponse[]>) => {
+        }: IResponseDataWithPagination<IVariantTypeValueResponse[]>) => {
           setData([...data, ...services]);
           setPagination({
             page: pagination.page,
@@ -64,11 +65,11 @@ const useScrollVariantTypes = (
   }, [paramater]);
 
   return {
-    variantTypes: data,
-    paramaterVariantTypes: paramater,
-    resetVariantTypes: resetData,
-    onPaginationVariantTypes: onPagination,
+    variantTypeValues: data,
+    paramaterVariantTypeValues: paramater,
+    resetVariantTypeValues: resetData,
+    onPaginationVariantTypeValues: onPagination,
   };
 };
 
-export default useScrollVariantTypes;
+export default useScrollVariantTypeValues;

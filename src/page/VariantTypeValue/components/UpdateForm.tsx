@@ -14,17 +14,13 @@ import { ModalConfirm } from "~/components/Modal";
 import { FormFooter } from "~/components/Footer";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
-import {
-  IUpdateVariantTypeRequest,
-  IVariantTypeForm,
-  IVariantTypeResponse,
-} from "../interfaces";
-import { initVariantTypeForm } from "../common/variantTypeForm";
-import { variantTypeFormSchema } from "../schema/variantTypeForm.schema";
-import { apiVariantTypeService } from "~/api-client/variantType";
+import { IUpdateVariantTypeValueRequest, IVariantTypeValueForm, IVariantTypeValueResponse } from "../interfaces";
+import { initVariantTypeValueForm } from "../common/variantTypeForm";
+import { variantTypeValueFormSchema } from "../schema/variantTypeValueForm.schema";
+import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
 
-const EditPage = () => {
-  const { t } = useTranslation("VariantTypePage");
+const UpdateForm = () => {
+  const { t } = useTranslation("VariantTypeValuePage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
@@ -44,14 +40,14 @@ const EditPage = () => {
     setIsEdit(!isEdit);
   };
 
-  const form = useForm<IVariantTypeForm>({
-    defaultValues: initVariantTypeForm,
-    resolver: yupResolver(variantTypeFormSchema(tError)) as any,
+  const form = useForm<IVariantTypeValueForm>({
+    defaultValues: initVariantTypeValueForm,
+    resolver: yupResolver(variantTypeValueFormSchema(tError)) as any,
   });
 
   const { messageAntd } = useMessageAntd();
 
-  const [data, setData] = useState<IVariantTypeResponse | null>(null);
+  const [data, setData] = useState<IVariantTypeValueResponse | null>(null);
 
   const [loading, setLoading] = useState<{ getData: boolean; submit: boolean }>(
     { getData: false, submit: false },
@@ -79,11 +75,11 @@ const EditPage = () => {
   const handleGetData = async (id: string) => {
     onLoading("getData", true);
 
-    await apiVariantTypeService
-      .variantType(id)
-      .then((payload: IVariantTypeResponse) => {
+    await apiVariantTypeValueService
+      .variantTypeValue(id)
+      .then((payload: IVariantTypeValueResponse) => {
         form.reset({
-          title: payload.variantTypeName,
+          title: payload.variantTypeValueName,
         });
         setData(payload);
         onLoading("getData", false);
@@ -97,23 +93,23 @@ const EditPage = () => {
       });
   };
 
-  const onSubmit = async (values: IVariantTypeForm) => {
-    const dataSend: IUpdateVariantTypeRequest = {
-      variantTypeName: values.title,
+  const onSubmit = async (values: IVariantTypeValueForm) => {
+    const dataSend: IUpdateVariantTypeValueRequest = {
+      variantValueName: values.title,
     };
 
     onLoading("submit", true);
 
     try {
-      await apiVariantTypeService.update(data.variantTypeId, dataSend);
+      await apiVariantTypeValueService.update(data.variantTypeValueId, dataSend);
 
       onModal("submit", false);
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
 
-      if (message === "VARIANT_TYPE_NAME_EXISTED") {
-        messageAntd.error(t("error.VARIANT_TYPE_NAME_EXISTED"));
+      if (message === "VARIANT_VALUE_NAME_EXISTED") {
+        messageAntd.error(t("error.VARIANT_VALUE_NAME_EXISTED"));
       } else {
         messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       }
@@ -196,4 +192,4 @@ const EditPage = () => {
   );
 };
 
-export default EditPage;
+export default UpdateForm;

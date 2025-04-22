@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { TabsProps } from "antd";
 
@@ -10,6 +10,7 @@ import PATH_NAME from "~/routes/paths";
 import { TabsCore } from "~/components/Core";
 import { parseQueryString } from "~/helper/url";
 import EditForm from "../components/EditForm";
+import VariantTypeValueManage from "~/page/VariantTypeValue";
 
 const EditPage = () => {
   const { t, i18n } = useTranslation("VariantTypePage");
@@ -21,6 +22,8 @@ const EditPage = () => {
     edit: "string",
     tab: "string",
   });
+
+const { variant_type_id } = useParams();
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -45,7 +48,7 @@ const EditPage = () => {
       {
         key: "variant-type-value",
         label: t("tabs.variantTypeValues"),
-        // children: <FloorManage buildingId={building_id} />,
+        children: <VariantTypeValueManage variantTypeId={variant_type_id} />,
       },
     ];
   }, [i18n.resolvedLanguage, isEdit]);

@@ -1,4 +1,4 @@
-export interface IVariantTypeTable {
+export interface IVariantTypeValueTable {
   key: React.Key;
   id: string;
   title: string;
