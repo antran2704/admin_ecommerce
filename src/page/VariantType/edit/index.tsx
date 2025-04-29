@@ -1,42 +1,32 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { TabsProps } from "antd";
 
 import { MainLayout } from "~/layout";
-import { InforForm } from "../components";
 import useGetSearchParams from "~/hooks/useGetSearchParams";
-import useMessageAntd from "~/hooks/useMessageAntd";
-import hanldeErrorAxios from "~/helper/handleErrorAxios";
-import MESSAGE_ERROR from "~/common/errorMessage";
-import { ModalConfirm } from "~/components/Modal";
-import { FormFooter } from "~/components/Footer";
-import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
-import {
-  IUpdateVariantTypeRequest,
-  IVariantTypeForm,
-  IVariantTypeResponse,
-} from "../interfaces";
-import { initVariantTypeForm } from "../common/variantTypeForm";
-import { variantTypeFormSchema } from "../schema/variantTypeForm.schema";
-import { apiVariantTypeService } from "~/api-client/variantType";
+
+import { TabsCore } from "~/components/Core";
+import { parseQueryString } from "~/helper/url";
+import EditForm from "../components/EditForm";
+import VariantTypeValueManage from "~/page/VariantTypeValue";
 
 const EditPage = () => {
-  const { t } = useTranslation("VariantTypePage");
-  const { t: tCommon } = useTranslation("Common");
-  const { t: tError } = useTranslation("Error");
-  const { t: tSuccess } = useTranslation("Success");
+  const { t, i18n } = useTranslation("VariantTypePage");
 
-  const { variant_type_id } = useParams();
-  const { edit: editParam } = useGetSearchParams<{
+  const { edit: editParam, tab: tabParam } = useGetSearchParams<{
     edit: string;
+    tab: string;
   }>({
     edit: "string",
+    tab: "string",
   });
 
+const { variant_type_id } = useParams();
+
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const [isEdit, setIsEdit] = useState<boolean>(editParam ? true : false);
 
@@ -44,89 +34,24 @@ const EditPage = () => {
     setIsEdit(!isEdit);
   };
 
-  const form = useForm<IVariantTypeForm>({
-    defaultValues: initVariantTypeForm,
-    resolver: yupResolver(variantTypeFormSchema(tError)) as any,
-  });
-
-  const { messageAntd } = useMessageAntd();
-
-  const [data, setData] = useState<IVariantTypeResponse | null>(null);
-
-  const [loading, setLoading] = useState<{ getData: boolean; submit: boolean }>(
-    { getData: false, submit: false },
-  );
-
-  const [modal, setModal] = useState<{
-    changePassword: boolean;
-    submit: boolean;
-  }>({ changePassword: false, submit: false });
-
-  const onModal = (type: keyof typeof modal, value: boolean) => {
-    setModal({
-      ...modal,
-      [type]: value,
-    });
+  const onTabChange = (key: string) => {
+    navigate(pathname + parseQueryString({ tab: key }));
   };
 
-  const onLoading = (type: keyof typeof loading, value: boolean) => {
-    setLoading({
-      ...loading,
-      [type]: value,
-    });
-  };
-
-  const handleGetData = async (id: string) => {
-    onLoading("getData", true);
-
-    await apiVariantTypeService
-      .variantType(id)
-      .then((payload: IVariantTypeResponse) => {
-        form.reset({
-          title: payload.variantTypeName,
-        });
-        setData(payload);
-        onLoading("getData", false);
-      })
-      .catch((err) => {
-        const { statusCode } = hanldeErrorAxios(err);
-
-        if (statusCode === 404) {
-          navigate(PATH_NAME.VARIANT_TYPES);
-        }
-      });
-  };
-
-  const onSubmit = async (values: IVariantTypeForm) => {
-    const dataSend: IUpdateVariantTypeRequest = {
-      variantTypeName: values.title,
-    };
-
-    onLoading("submit", true);
-
-    try {
-      await apiVariantTypeService.update(data.variantTypeId, dataSend);
-
-      onModal("submit", false);
-      messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
-    } catch (err) {
-      const { message } = hanldeErrorAxios(err);
-
-      if (message === "VARIANT_TYPE_NAME_EXISTED") {
-        messageAntd.error(t("error.VARIANT_TYPE_NAME_EXISTED"));
-      } else {
-        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
-      }
-    }
-
-    onLoading("submit", false);
-  };
-
-  useEffect(() => {
-    if (!variant_type_id) return;
-
-    handleGetData(variant_type_id);
-  }, [variant_type_id]);
+  const tabs: TabsProps["items"] = useMemo((): TabsProps["items"] => {
+    return [
+      {
+        key: "detail",
+        label: t("tabs.detail"),
+        children: <EditForm isEdit={isEdit} onEdit={onEdit} />,
+      },
+      {
+        key: "variant-type-value",
+        label: t("tabs.variantTypeValues"),
+        children: <VariantTypeValueManage variantTypeId={variant_type_id} />,
+      },
+    ];
+  }, [i18n.resolvedLanguage, isEdit]);
 
   return (
     <MainLayout
@@ -139,59 +64,12 @@ const EditPage = () => {
       ]}>
       {/* Form */}
       <div className="w-full p-5">
-        {data && <InforForm isEdit={isEdit} form={form} data={data} />}
+        <TabsCore
+          activeKey={tabParam ? (tabParam as string) : "detail"}
+          items={tabs}
+          onChange={onTabChange}
+        />
       </div>
-
-      {isEdit && (
-        <FormFooter
-          okText={tCommon("save")}
-          cancelText={tCommon("cancel")}
-          onOk={form.handleSubmit(
-            () => onModal("submit", true),
-            () => {
-              messageAntd.error(
-                tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS),
-              );
-            },
-          )}
-          onCancel={onEdit}
-          okProps={{
-            loading: loading.submit,
-            disabled: loading.submit,
-          }}
-        />
-      )}
-
-      {!isEdit && (
-        <FormFooter
-          okText={tCommon("update")}
-          cancelText={tCommon("cancel")}
-          onOk={onEdit}
-          onCancel={() => navigate(PATH_NAME.VARIANT_TYPES)}
-        />
-      )}
-
-      {/* Modal Disable Collection */}
-      <ModalConfirm
-        title={t("modalUpdate.title")}
-        subtitle={t("modalUpdate.subtitle")}
-        open={modal.submit}
-        onCancel={() => {
-          if (loading.submit) return;
-          onModal("submit", false);
-        }}
-        onOk={form.handleSubmit(onSubmit)}
-        okText={tCommon("confirm")}
-        cancelText={tCommon("goBack")}
-        destroyOnClose={true}
-        cancelButtonProps={{
-          disabled: loading.submit,
-        }}
-        okButtonProps={{
-          loading: loading.submit,
-          disabled: loading.submit,
-        }}
-      />
     </MainLayout>
   );
 };

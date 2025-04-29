@@ -1,0 +1,38 @@
+{
+  "title": "Quản lý biến thể con",
+  "searchTitle": "Tìm kiếm ID, Tên biến thể con",
+  "filter": {
+    "createdAt": "Ngày tạo"
+  },
+  "table": {
+    "id": "ID biến thể con",
+    "name": "Tên biến thể con",
+    "createdAt": "Ngày tạo"
+  },
+  "createTitle": "Thêm mới biến thể con",
+  "viewInfoTitle": "Thông tin biến thể con",
+  "editTitle": "Cập nhật biến thể con",
+  "form": {
+    "id": "ID biến thể con",
+    "name": "Tên biến thể con",
+    "createdAt": "Ngày tạo"
+  },
+  "modalDelete": {
+    "title": "Xóa biến thể con",
+    "subtitle": "Bạn muốn xóa biến thể con?"
+  },
+  "modalUpdate": {
+    "title": "Cập nhật biến thể con",
+    "subtitle": "Bạn muốn cập nhật thông tin biến thể con?"
+  },
+  "breadcrumb": {
+    "list": "Danh sách biến thể con",
+    "viewInfo": "Thông tin biến thể con",
+    "create": "Thêm mới biến thể con",
+    "update": "Cập nhật biến thể con"
+  },
+  "error": {
+    "VARIANT_VALUE_NAME_EXISTED": "Tên biến thể con đã tồn tại",
+    "VARIANT_VALUE_EXISTED": "Biến thể con đã tồn tại"
+  }
+}
