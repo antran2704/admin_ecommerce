@@ -1,15 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { InforForm } from "../components";
-import { FormFooter } from "~/components/Footer";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import MESSAGE_SUCCESS from "~/common/successMessage";
-import PATH_NAME from "~/routes/paths";
 import {
   ICreateVariantTypeValueRequest,
   IVariantTypeValueForm,
@@ -17,20 +14,22 @@ import {
 import { initVariantTypeValueForm } from "../common/variantTypeForm";
 import { variantTypeValueFormSchema } from "../schema/variantTypeValueForm.schema";
 import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
+import { ModalAlert } from "~/components/Modal";
 
 interface Props {
   variantTypeId: string;
+  openModal: boolean;
+  onCloseModal: () => void;
+  refreshData: () => void;
 }
 
 const CreateForm = (props: Props) => {
-  const { variantTypeId } = props;
+  const { variantTypeId, openModal, onCloseModal, refreshData } = props;
 
   const { t } = useTranslation("VariantTypeValuePage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
-
-  const navigate = useNavigate();
 
   const form = useForm<IVariantTypeValueForm>({
     defaultValues: initVariantTypeValueForm,
@@ -47,9 +46,10 @@ const CreateForm = (props: Props) => {
 
     try {
       await apiVariantTypeValueService.create(dataSend);
-
+      onCloseModal();
+      refreshData();
+      form.reset(initVariantTypeValueForm);
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
-      navigate(PATH_NAME.VARIANT_TYPES);
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
 
@@ -62,28 +62,21 @@ const CreateForm = (props: Props) => {
   };
 
   return (
-    <div>
-      {/* Form */}
-      <div className="w-full p-5">
-        <InforForm form={form} />
-      </div>
-
-      <FormFooter
-        okText={tCommon("add")}
-        cancelText={tCommon("cancel")}
-        onOk={form.handleSubmit(onSubmit, () => {
-          messageAntd.error(tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS));
-        })}
-        onCancel={() => navigate(PATH_NAME.VARIANT_TYPES)}
-        cancelProps={{
-          disabled: form.formState.isSubmitting,
-        }}
-        okProps={{
-          loading: form.formState.isSubmitting,
-          disabled: form.formState.isSubmitting,
-        }}
-      />
-    </div>
+    <ModalAlert
+      title={t("createTitle")}
+      open={openModal}
+      alignBottom="right"
+      destroyOnClose={true}
+      width={"50%"}
+      okText={tCommon("add")}
+      onCancel={onCloseModal}
+      onOk={form.handleSubmit(onSubmit)}
+      okButtonProps={{
+        loading: form.formState.isSubmitting,
+        disabled: form.formState.isSubmitting,
+      }}>
+      <InforForm form={form} onSubmit={onSubmit} />
+    </ModalAlert>
   );
 };
 

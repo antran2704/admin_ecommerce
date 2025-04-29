@@ -5,26 +5,31 @@ import dayjs from "dayjs";
 import { DAY_DMY } from "~/common/format";
 import { InputText } from "~/components/Core/Input";
 import MESSAGE_ERROR from "~/common/errorMessage";
-import { IVariantTypeValueForm, IVariantTypeValueResponse } from "../interfaces";
+import {
+  IVariantTypeValueForm,
+  IVariantTypeValueResponse,
+} from "../interfaces";
 
 interface Props {
   data?: IVariantTypeValueResponse;
   form: UseFormReturn<IVariantTypeValueForm, any, undefined>;
   isEdit?: boolean;
+  onSubmit: (values: IVariantTypeValueForm) => void;
 }
 
 const InfoForm = (props: Props) => {
-  const { form, data, isEdit = true } = props;
+  const { form, data, isEdit = true, onSubmit } = props;
   const {
     control,
     formState: { errors },
+    handleSubmit
   } = form;
 
   const { t } = useTranslation("VariantTypeValuePage");
   const { t: tError } = useTranslation("Error");
 
   return (
-    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 py-2 gap-14">
+    <div className="grid md:grid-cols-2 grid-cols-1 py-2 gap-14">
       {/* first column */}
       <div className="flex flex-col gap-4">
         {/* Id */}
@@ -42,50 +47,26 @@ const InfoForm = (props: Props) => {
         )}
 
         {/* Name */}
-        {!data && (
-          <Controller
-            name="title"
-            control={control}
-            render={({ field }) => (
-              <InputText
-                title={t("form.name")}
-                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
-                required={true}
-                error={!!errors.title}
-                errorMessage={errors.title?.message}
-                sizeText="small"
-                disabled={!isEdit}
-                {...field}
-              />
-            )}
-          />
-        )}
+        <Controller
+          name="title"
+          control={control}
+          render={({ field }) => (
+            <InputText
+              title={t("form.name")}
+              placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
+              required={true}
+              error={!!errors.title}
+              errorMessage={errors.title?.message}
+              sizeText="small"
+              disabled={!isEdit}
+              onPressEnter={handleSubmit(onSubmit)}
+              {...field}
+            />
+          )}
+        />
       </div>
 
       {/* second column */}
-      <div className="flex flex-col gap-4">
-        {/* Name */}
-        {data && (
-          <Controller
-            name="title"
-            control={control}
-            render={({ field }) => (
-              <InputText
-                title={t("form.name")}
-                placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
-                required={true}
-                error={!!errors.title}
-                errorMessage={errors.title?.message}
-                sizeText="small"
-                disabled={!isEdit}
-                {...field}
-              />
-            )}
-          />
-        )}
-      </div>
-
-      {/* third column */}
       <div className="flex flex-col gap-4">
         {/* Created at */}
         {data && (

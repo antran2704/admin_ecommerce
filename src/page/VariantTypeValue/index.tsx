@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import { InputSearch } from "~/components/Core/Input";
 import { Filter, GroupAction, Table } from "./components";
@@ -13,6 +13,8 @@ import {
   IVariantTypeValueTable,
 } from "./interfaces";
 import { useVariantTypeValues } from "./hooks";
+import CreateForm from "./components/CreateForm";
+import UpdateForm from "./components/UpdateForm";
 
 interface Props {
   variantTypeId: string;
@@ -23,29 +25,31 @@ const VariantTypeValueManage = (props: Props) => {
   const { t } = useTranslation("VariantTypeValuePage");
 
   const navigate = useNavigate();
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
 
   const {
     order: orderPageParam,
     page: currentPageParam,
     take: pageSizeParam,
     search: searchTextParam,
-    tab: tabParam
+    tab: tabParam,
   } = useGetSearchParams<Partial<IGetVariantTypeValuesRequest>>({
     order: "string",
     page: "number",
     take: "number",
     search: "string",
-    tab: "string"
+    tab: "string",
   });
 
-  const [paramater, setParamater] = useState<Partial<IGetVariantTypeValuesRequest>>({
+  const [paramater, setParamater] = useState<
+    Partial<IGetVariantTypeValuesRequest>
+  >({
     page: currentPageParam ? Number(currentPageParam) : 1,
     take: pageSizeParam ? Number(pageSizeParam) : 16,
     order: (orderPageParam as EOrderType) || EOrderType.DESC,
     search: (searchTextParam as string) || "",
     variantTypeId,
-    tab: tabParam as string
+    tab: tabParam as string,
   });
 
   const {
@@ -58,6 +62,28 @@ const VariantTypeValueManage = (props: Props) => {
 
   const { selectedRows, selectedRowKeys, onSelectedRows, onSelectedRowKeys } =
     useSelectTableRows<IVariantTypeValueTable>();
+
+  const [seletedItem, setSelectedItem] =
+    useState<IVariantTypeValueTable | null>(null);
+
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+
+  const [modal, setModal] = useState<{ create: boolean; update: boolean }>({
+    create: false,
+    update: false,
+  });
+
+  const onModal = (key: keyof typeof modal, value: boolean) => {
+    setModal({ ...modal, [key]: value });
+  };
+
+  const onEdit = (value: boolean) => {
+    setIsEdit(value);
+  };
+
+  const onSelectedItem = (item: IVariantTypeValueTable) => {
+    setSelectedItem(item);
+  };
 
   const onChangeSearch = (value: string) => {
     const newParams: Partial<IGetVariantTypeValuesRequest> = {
@@ -91,6 +117,7 @@ const VariantTypeValueManage = (props: Props) => {
         </div>
         <GroupAction
           data={selectedRows.length > 0 ? selectedRows : variantTypeValueTables}
+          onOpenModal={() => onModal("create", true)}
         />
       </div>
 
@@ -104,8 +131,33 @@ const VariantTypeValueManage = (props: Props) => {
           onPagination={onPaginationVariantTypeValues}
           onSelectedRowKeys={onSelectedRowKeys}
           onSelectedRows={onSelectedRows}
+          onEdit={onEdit}
+          onSelectItem={(value) => {
+            onSelectedItem(value);
+            onModal("update", true);
+          }}
         />
       </div>
+
+      {/* Create form */}
+      <CreateForm
+        variantTypeId={variantTypeId}
+        openModal={modal.create}
+        onCloseModal={() => onModal("create", false)}
+        refreshData={() => handleGetVariantTypeValues(paramater)}
+      />
+
+      {/* Update form */}
+      {seletedItem && (
+        <UpdateForm
+          variantTypeValueId={seletedItem.id}
+          openModal={modal.update}
+          isEdit={isEdit}
+          onCloseModal={() => onModal("update", false)}
+          refreshData={() => handleGetVariantTypeValues(paramater)}
+          onEdit={onEdit}
+        />
+      )}
     </div>
   );
 };

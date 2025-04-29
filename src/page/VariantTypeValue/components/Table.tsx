@@ -1,6 +1,5 @@
 import { TableColumnsType, message } from "antd";
 import { memo, useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 
@@ -17,7 +16,6 @@ import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import { useAppSelector } from "~/store/hooks";
 import MESSAGE_SUCCESS from "~/common/successMessage";
-import PATH_NAME from "~/routes/paths";
 import { IVariantTypeValueTable } from "../interfaces";
 import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
 
@@ -30,6 +28,8 @@ interface Props {
   onPagination: (nextPage: number, pageSize: number) => void;
   onSelectedRowKeys?: (selected: React.Key[]) => void;
   onSelectedRows?: (selectedRows: IVariantTypeValueTable[]) => void;
+  onSelectItem: (item: IVariantTypeValueTable) => void;
+  onEdit: (value: boolean) => void;
 }
 
 const Table = (props: Props) => {
@@ -42,6 +42,8 @@ const Table = (props: Props) => {
     onPagination,
     onSelectedRowKeys,
     onSelectedRows,
+    onSelectItem,
+    onEdit,
   } = props;
 
   const { t, i18n } = useTranslation("VariantTypeValuePage");
@@ -49,12 +51,12 @@ const Table = (props: Props) => {
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
 
-  const navigate = useNavigate();
-
   const { infoUser } = useAppSelector((state) => state.user);
 
   const [listItem, setListItem] = useState<IVariantTypeValueTable[]>([]);
-  const [selectItem, setSelectItem] = useState<IVariantTypeValueTable | null>(null);
+  const [selectItem, setSelectItem] = useState<IVariantTypeValueTable | null>(
+    null,
+  );
 
   const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
   const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
@@ -117,17 +119,24 @@ const Table = (props: Props) => {
           fixed: "right",
           render: (_, record: IVariantTypeValueTable) => (
             <div className="flex items-center justify-center gap-2">
-              <Link to={PATH_NAME.UPDATE_VARIANT_TYPE(record.id)}>
-                <BtnView />
-              </Link>
+              <BtnView onClick={() => onSelectItem(record)} />
 
-              {ability.can(EPermisisonAction.UPDATE, EPageRole.ADMIN_VARIANT_TYPE) && (
-                <Link to={PATH_NAME.UPDATE_VARIANT_TYPE(record.id) + "?edit=1"}>
-                  <BtnEdit />
-                </Link>
+              {ability.can(
+                EPermisisonAction.UPDATE,
+                EPageRole.ADMIN_VARIANT_TYPE_VALUE,
+              ) && (
+                <BtnEdit
+                  onClick={() => {
+                    onSelectItem(record);
+                    onEdit(true);
+                  }}
+                />
               )}
 
-              {ability.can(EPermisisonAction.DELETE, EPageRole.ADMIN_VARIANT_TYPE) &&
+              {ability.can(
+                EPermisisonAction.DELETE,
+                EPageRole.ADMIN_VARIANT_TYPE,
+              ) &&
                 infoUser.userId !== record.id && (
                   <BtnTrash
                     onClick={() => {
@@ -168,7 +177,7 @@ const Table = (props: Props) => {
         onRow={(record: IVariantTypeValueTable) => {
           return {
             onDoubleClick: () => {
-              navigate(PATH_NAME.UPDATE_VARIANT_TYPE(record.id));
+              onSelectItem(record);
             },
           };
         }}

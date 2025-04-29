@@ -1,7 +1,6 @@
 import { Dropdown, MenuProps } from "antd";
 import { Fragment, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 
 import { BtnAdd, BtnExportFile } from "~/components/Button";
@@ -13,15 +12,15 @@ import { DAY_DMY } from "~/common/format";
 import { createExcelFile } from "~/helper/file";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
-import PATH_NAME from "~/routes/paths";
 import { IVariantTypeValueTable } from "../interfaces";
 
 interface Props {
   data: IVariantTypeValueTable[];
+  onOpenModal: () => void;
 }
 
 const GroupAction = (props: Props) => {
-  const { data = [] } = props;
+  const { data = [], onOpenModal } = props;
 
   const { t } = useTranslation("VariantTypeValuePage");
   const { t: tCommon, i18n } = useTranslation("Common");
@@ -43,8 +42,8 @@ const GroupAction = (props: Props) => {
 
     createExcelFile<Partial<IVariantTypeValueTable>>(
       dataParse,
-      "Danh_sach_bien_the",
-      "Danh_sach_bien_the",
+      "Danh_sach_bien_the_con",
+      "Danh_sach_bien_the_con",
       [
         {
           header: t("table.id"),
@@ -105,24 +104,28 @@ const GroupAction = (props: Props) => {
         {/* Show PDF */}
         <PDFManager
           show={modal.pdf}
-          header={[
-            t("table.id"),
-            t("table.name"),
-            t("table.createdAt"),
-          ].map((item, index) => (
-            <PDFText
-              key={index}
-              value={item}
-              style={{ width: "calc(100% / 7)%", textAlign: "center" }}
-            />
-          ))}
+          header={[t("table.id"), t("table.name"), t("table.createdAt")].map(
+            (item, index) => (
+              <PDFText
+                key={index}
+                value={item}
+                style={{ width: "calc(100% / 7)%", textAlign: "center" }}
+              />
+            ),
+          )}
           onClose={() => onModal("pdf", false)}>
           {data.map((item, index) => (
             <PDFRow
               key={index}
               style={{ padding: "6 0", borderBottom: "1px solid #303032" }}>
-              <PDFText value={item.id} style={{ width: "calc(100% / 7)%", textAlign: "center" }} />
-              <PDFText value={item.title} style={{ width: "calc(100% / 7)%" }} />
+              <PDFText
+                value={item.id}
+                style={{ width: "calc(100% / 7)%", textAlign: "center" }}
+              />
+              <PDFText
+                value={item.title}
+                style={{ width: "calc(100% / 7)%" }}
+              />
               <PDFText
                 value={dayjs(item.createdAt).format(DAY_DMY)}
                 style={{ width: "calc(100% / 7)%", textAlign: "center" }}
@@ -131,11 +134,10 @@ const GroupAction = (props: Props) => {
           ))}
         </PDFManager>
 
-        {ability.can(EPermisisonAction.CREATE, EPageRole.ADMIN_VARIANT_TYPE) && (
-          <Link to={PATH_NAME.CREATE_VARIANT_TYPE}>
-            <BtnAdd className="font-semibold">{tCommon("create")}</BtnAdd>
-          </Link>
-        )}
+        {ability.can(
+          EPermisisonAction.CREATE,
+          EPageRole.ADMIN_VARIANT_TYPE_VALUE,
+        ) && <BtnAdd className="font-semibold" onClick={onOpenModal}>{tCommon("create")}</BtnAdd>}
       </div>
     </Fragment>
   );

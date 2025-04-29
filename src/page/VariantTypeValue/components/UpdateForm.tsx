@@ -1,44 +1,47 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { MainLayout } from "~/layout";
 import { InforForm } from "../components";
-import useGetSearchParams from "~/hooks/useGetSearchParams";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import MESSAGE_ERROR from "~/common/errorMessage";
-import { ModalConfirm } from "~/components/Modal";
+import { ModalAlert, ModalConfirm } from "~/components/Modal";
 import { FormFooter } from "~/components/Footer";
 import MESSAGE_SUCCESS from "~/common/successMessage";
-import PATH_NAME from "~/routes/paths";
-import { IUpdateVariantTypeValueRequest, IVariantTypeValueForm, IVariantTypeValueResponse } from "../interfaces";
+import {
+  IUpdateVariantTypeValueRequest,
+  IVariantTypeValueForm,
+  IVariantTypeValueResponse,
+} from "../interfaces";
 import { initVariantTypeValueForm } from "../common/variantTypeForm";
 import { variantTypeValueFormSchema } from "../schema/variantTypeValueForm.schema";
 import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
 
-const UpdateForm = () => {
+interface Props {
+  variantTypeValueId: string;
+  openModal: boolean;
+  isEdit: boolean;
+  onCloseModal: () => void;
+  refreshData: () => void;
+  onEdit: (value: boolean) => void;
+}
+
+const UpdateForm = (props: Props) => {
+  const {
+    variantTypeValueId,
+    openModal,
+    isEdit,
+    onCloseModal,
+    refreshData,
+    onEdit,
+  } = props;
+
   const { t } = useTranslation("VariantTypeValuePage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
-
-  const { variant_type_id } = useParams();
-  const { edit: editParam } = useGetSearchParams<{
-    edit: string;
-  }>({
-    edit: "string",
-  });
-
-  const navigate = useNavigate();
-
-  const [isEdit, setIsEdit] = useState<boolean>(editParam ? true : false);
-
-  const onEdit = () => {
-    setIsEdit(!isEdit);
-  };
 
   const form = useForm<IVariantTypeValueForm>({
     defaultValues: initVariantTypeValueForm,
@@ -88,12 +91,14 @@ const UpdateForm = () => {
         const { statusCode } = hanldeErrorAxios(err);
 
         if (statusCode === 404) {
-          navigate(PATH_NAME.VARIANT_TYPES);
+          onCloseModal();
         }
       });
   };
 
   const onSubmit = async (values: IVariantTypeValueForm) => {
+    if (!form.formState.isDirty) return;
+
     const dataSend: IUpdateVariantTypeValueRequest = {
       variantValueName: values.title,
     };
@@ -101,9 +106,15 @@ const UpdateForm = () => {
     onLoading("submit", true);
 
     try {
-      await apiVariantTypeValueService.update(data.variantTypeValueId, dataSend);
+      await apiVariantTypeValueService.update(
+        data.variantTypeValueId,
+        dataSend,
+      );
 
       onModal("submit", false);
+      onCloseModal();
+      onEdit(false);
+      refreshData();
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
@@ -119,27 +130,35 @@ const UpdateForm = () => {
   };
 
   useEffect(() => {
-    if (!variant_type_id) return;
+    if (!variantTypeValueId) return;
 
-    handleGetData(variant_type_id);
-  }, [variant_type_id]);
+    handleGetData(variantTypeValueId);
+  }, [variantTypeValueId]);
 
   return (
-    <MainLayout
-      titleText={isEdit ? t("editTitle") : t("viewInfoTitle")}
-      className="bg-white"
-      backUrl={PATH_NAME.VARIANT_TYPES}
-      listBreadcrumb={[
-        { title: t("breadcrumb.list"), href: PATH_NAME.VARIANT_TYPES },
-        { title: isEdit ? t("breadcrumb.update") : t("breadcrumb.viewInfo") },
-      ]}>
-      {/* Form */}
-      <div className="w-full p-5">
-        {data && <InforForm isEdit={isEdit} form={form} data={data} />}
-      </div>
+    <ModalAlert
+      title={isEdit ? t("editTitle") : t("viewInfoTitle")}
+      open={openModal}
+      alignBottom="right"
+      destroyOnClose={true}
+      width={"50%"}
+      footer={null}
+      onCancel={() => {
+        onCloseModal();
+        onEdit(false);
+      }}>
+      {data && (
+        <InforForm
+          isEdit={isEdit}
+          form={form}
+          data={data}
+          onSubmit={onSubmit}
+        />
+      )}
 
       {isEdit && (
         <FormFooter
+          className="pt-5 pb-0 px-0"
           okText={tCommon("save")}
           cancelText={tCommon("cancel")}
           onOk={form.handleSubmit(
@@ -150,20 +169,23 @@ const UpdateForm = () => {
               );
             },
           )}
-          onCancel={onEdit}
+          onCancel={() => {
+            onEdit(false);
+          }}
           okProps={{
             loading: loading.submit,
-            disabled: loading.submit,
+            disabled: loading.submit || !form.formState.isDirty,
           }}
         />
       )}
 
       {!isEdit && (
         <FormFooter
+          className="pt-5 pb-0 px-0"
           okText={tCommon("update")}
           cancelText={tCommon("cancel")}
-          onOk={onEdit}
-          onCancel={() => navigate(PATH_NAME.VARIANT_TYPES)}
+          onOk={() => onEdit(true)}
+          onCancel={onCloseModal}
         />
       )}
 
@@ -188,7 +210,7 @@ const UpdateForm = () => {
           disabled: loading.submit,
         }}
       />
-    </MainLayout>
+    </ModalAlert>
   );
 };
 
