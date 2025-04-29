@@ -7,7 +7,11 @@ import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import { parseQueryString } from "~/helper/url";
 import { IResponseDataWithPagination } from "~/interface";
 import { IPagination } from "~/interface/pagination";
-import { IGetStaffsRequest, IListStaffResponse, IStaffTable } from "~/page/Staff/interfaces";
+import {
+  IGetStaffsRequest,
+  IListStaffResponse,
+  IStaffTable,
+} from "~/page/Staff/interfaces";
 
 const useStaffs = (query?: Partial<IGetStaffsRequest>) => {
   const navigate = useNavigate();
@@ -26,29 +30,37 @@ const useStaffs = (query?: Partial<IGetStaffsRequest>) => {
   const handleGetData = async (paramater: Partial<IGetStaffsRequest>) => {
     setLoading(true);
 
-    await apiStaffService.staffs(paramater)
-      .then(({ data, pagination }: IResponseDataWithPagination<IListStaffResponse[]>) => {
-        const dataTable: IStaffTable[] = data.map((staff: IListStaffResponse) => ({
-          id: staff.userId,
-          key: staff.userId,
-          email: staff.email,
-          name: staff.name,
-          groupRole: staff.groupRole,
-          role: staff.role,
-          createdAt: staff.createdAt,
-          status: staff.isActive
-            ? ENUM_ACCOUNT_STATUS.ACTIVE
-            : ENUM_ACCOUNT_STATUS.INACTIVE,
-        }));
+    await apiStaffService
+      .staffs(paramater)
+      .then(
+        ({
+          data,
+          pagination,
+        }: IResponseDataWithPagination<IListStaffResponse[]>) => {
+          const dataTable: IStaffTable[] = data.map(
+            (staff: IListStaffResponse) => ({
+              id: staff.userId,
+              key: staff.userId,
+              email: staff.email,
+              name: staff.name,
+              groupRole: staff.groupRole,
+              role: staff.role,
+              createdAt: staff.createdAt,
+              status: staff.isActive
+                ? ENUM_ACCOUNT_STATUS.ACTIVE
+                : ENUM_ACCOUNT_STATUS.INACTIVE,
+            }),
+          );
 
-        setData(data);
-        setDataTabel(dataTable);
-        setPagination({
-          page: pagination.page,
-          take: pagination.take,
-          total: pagination.total,
-        });
-      })
+          setData(data);
+          setDataTabel(dataTable);
+          setPagination({
+            page: pagination.page,
+            take: pagination.take,
+            total: pagination.total,
+          });
+        },
+      )
       .catch((err) => err);
 
     setLoading(false);

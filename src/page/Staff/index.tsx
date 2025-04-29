@@ -50,7 +50,7 @@ const StaffPage = () => {
     onPaginationStaffs,
     handleGetStaffs,
   } = useStaffs(paramaterStaff);
-  
+
   const { selectedRows, selectedRowKeys, onSelectedRows, onSelectedRowKeys } =
     useSelectTableRows<IStaffTable>();
 

@@ -38,15 +38,21 @@ const useScrollRoles = (query?: Partial<IGetRolesRequest> | null) => {
   const getDataScroll = async (paramater: IGetRolesRequest) => {
     if (pagination.total && pagination.total <= data.length) return;
 
-    await apiRoleService.getRoles(paramater)
-      .then(({ data: services, pagination }: IResponseDataWithPagination<IRoleResponse[]>) => {
-        setData([...data, ...services]);
-        setPagination({
-          page: pagination.page,
-          take: pagination.take,
-          total: pagination.total,
-        });
-      })
+    await apiRoleService
+      .getRoles(paramater)
+      .then(
+        ({
+          data: services,
+          pagination,
+        }: IResponseDataWithPagination<IRoleResponse[]>) => {
+          setData([...data, ...services]);
+          setPagination({
+            page: pagination.page,
+            take: pagination.take,
+            total: pagination.total,
+          });
+        },
+      )
       .catch((err) => err);
   };
 

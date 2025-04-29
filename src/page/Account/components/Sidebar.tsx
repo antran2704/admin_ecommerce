@@ -17,7 +17,7 @@ interface Props {
 
 const SidebarAccount = (props: Props) => {
   const { isEdit, form } = props;
-  const {setValue} = form;
+  const { setValue } = form;
   const { infoUser } = useAppSelector((state) => state.user);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -29,7 +29,7 @@ const SidebarAccount = (props: Props) => {
   const handleChangeImage = async (file: File | null) => {
     if (!file) {
       setValue("avatar", "");
-    } 
+    }
 
     setValue("avatarFile", file);
   };

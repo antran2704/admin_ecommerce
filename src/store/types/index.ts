@@ -1,4 +1,9 @@
-import { Action, ThunkAction, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
+import {
+  Action,
+  ThunkAction,
+  ThunkDispatch,
+  UnknownAction,
+} from "@reduxjs/toolkit";
 import { store } from "../index";
 
 // Infer the type of `store`

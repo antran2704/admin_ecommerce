@@ -350,10 +350,7 @@ const GroupAction = (props: Props) => {
           ))}
         </PDFManager>
 
-        {ability.can(
-          EPermisisonAction.CREATE,
-          EPageRole.ADMIN_STAFF,
-        ) && (
+        {ability.can(EPermisisonAction.CREATE, EPageRole.ADMIN_STAFF) && (
           <Link to={PATH_NAME.CREATE_USER}>
             <BtnAdd className="font-semibold">{tCommon("create")}</BtnAdd>
           </Link>

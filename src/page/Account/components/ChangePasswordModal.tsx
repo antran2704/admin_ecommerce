@@ -125,7 +125,8 @@ const ChangePasswordModal = (props: Props) => {
       okButtonProps={{
         loading,
         disabled: loading,
-      }}>
+      }}
+    >
       {/* Form change password */}
       <div className="flex flex-col py-5 gap-5">
         <div className="flex flex-col">

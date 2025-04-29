@@ -13,9 +13,4 @@ interface IConfirmForgotPasswordOtp {
   otp: string;
 }
 
-
-export type {
-  ILogin,
-  IAuthToken,
-  IConfirmForgotPasswordOtp,
-};
+export type { ILogin, IAuthToken, IConfirmForgotPasswordOtp };

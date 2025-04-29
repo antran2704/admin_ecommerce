@@ -73,7 +73,8 @@ const CreatePage = () => {
       listBreadcrumb={[
         { title: t("breadcrumb.list"), href: PATH_NAME.CATEGORIES },
         { title: t("breadcrumb.create") },
-      ]}>
+      ]}
+    >
       {/* Form */}
       <div className="w-full p-5">
         <InforForm form={form} />

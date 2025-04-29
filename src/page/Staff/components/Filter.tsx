@@ -56,7 +56,8 @@ const Filter = (props: Props) => {
       filter={formFilter}
       onClearFilter={onClearFilter}
       onFilter={handleFilter}
-      width={600}>
+      width={600}
+    >
       <Fragment>
         {/* group */}
         {/* <div className="w-full">
@@ -141,7 +142,8 @@ const Filter = (props: Props) => {
           <p
             className={clsx(
               "pb-2 text-base text-gray-700 dark:text-gray-700 font-medium",
-            )}>
+            )}
+          >
             {t("filter.status")}
           </p>
           <SelectItems

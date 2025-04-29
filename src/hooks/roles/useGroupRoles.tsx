@@ -7,7 +7,8 @@ const useGroupRoles = (query?: ISearch) => {
   const [groupRoles, setGroupRoles] = useState<IGroupRoleResponse[]>([]);
 
   const handleGetGroupRoles = async (paramater: ISearch) => {
-    await apiGroupRoleService.roleGroups(paramater)
+    await apiGroupRoleService
+      .roleGroups(paramater)
       .then((res: IGroupRoleResponse[]) => setGroupRoles(res))
       .catch((err) => err);
   };

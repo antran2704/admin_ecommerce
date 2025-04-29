@@ -43,7 +43,7 @@
       }
     },
     {
-      "files": ["src/enum/**/*.ts", "src/interface/**/*.ts"],
+      "files": ["src/enum/**/*.ts", "src/**/enums/*.ts", "src/interface/**/*.ts"],
       "rules": {
         "no-unused-vars": "off"
       }

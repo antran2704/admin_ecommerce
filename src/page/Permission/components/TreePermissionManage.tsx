@@ -58,7 +58,8 @@ const TreePermissionManage = (props: Props) => {
 
     onLoading("update", true);
 
-    await apiPermissionService.update(selectRole, {permissions: parseValues})
+    await apiPermissionService
+      .update(selectRole, { permissions: parseValues })
       .then(() => {
         handleGetRoles();
         onModal("update", false);

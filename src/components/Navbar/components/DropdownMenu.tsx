@@ -68,9 +68,7 @@ const DropdownMenu = (props: Props) => {
                 src={infoUser.avatar}
               />
             )}
-            {!infoUser.avatar && (
-              <FaRegUser className="size-6 min-w-6 " />
-            )}
+            {!infoUser.avatar && <FaRegUser className="size-6 min-w-6 " />}
             <p className="text-sm font-semibold text-[#2B2B2B]">
               {t("account")}
               <span className="block text-xs text-gray-200">

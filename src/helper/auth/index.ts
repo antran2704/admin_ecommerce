@@ -6,9 +6,9 @@ const setAuthToken = (key: string, token: string) => {
 };
 
 const getAuthToken = (key: string): string | null => {
-  const value = localStorage.getItem(key)
+  const value = localStorage.getItem(key);
 
-  if(!value || value === "undefined") return null
+  if (!value || value === "undefined") return null;
 
   return JSON.parse(value);
 };

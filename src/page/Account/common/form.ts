@@ -9,7 +9,7 @@ const initProfileForm: IProfileForm = {
   groupRole: "",
   status: ENUM_ACCOUNT_STATUS.ACTIVE,
   avatarFile: null,
-  createdAt: ""
+  createdAt: "",
 };
 
 export { initProfileForm };

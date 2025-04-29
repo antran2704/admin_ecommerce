@@ -5,9 +5,12 @@ import { initPagination } from "~/common/pagination";
 import { parseQueryString } from "~/helper/url";
 import { IResponseDataWithPagination } from "~/interface";
 import { IPagination } from "~/interface/pagination";
-import { IGetVariantTypeValuesRequest, IVariantTypeValueResponse, IVariantTypeValueTable } from "../interfaces";
+import {
+  IGetVariantTypeValuesRequest,
+  IVariantTypeValueResponse,
+  IVariantTypeValueTable,
+} from "../interfaces";
 import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
-
 
 const useVariantTypes = (query?: Partial<IGetVariantTypeValuesRequest>) => {
   const navigate = useNavigate();
@@ -23,7 +26,9 @@ const useVariantTypes = (query?: Partial<IGetVariantTypeValuesRequest>) => {
     navigate(pathname + parseQueryString({ ...query, page, take }));
   };
 
-  const handleGetData = async (paramater: Partial<IGetVariantTypeValuesRequest>) => {
+  const handleGetData = async (
+    paramater: Partial<IGetVariantTypeValuesRequest>,
+  ) => {
     setLoading(true);
 
     await apiVariantTypeValueService

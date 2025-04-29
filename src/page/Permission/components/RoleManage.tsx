@@ -11,7 +11,12 @@ import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import useMessageAntd from "~/hooks/useMessageAntd";
-import { ICreateRoleRequest, IRoleResponse, IRoleForm, IRoleItem } from "../interfaces";
+import {
+  ICreateRoleRequest,
+  IRoleResponse,
+  IRoleForm,
+  IRoleItem,
+} from "../interfaces";
 import { initRoleForm } from "../common/roleForm";
 import { roleFormSchema } from "../schemas/roleForm.schema";
 import apiRoleService from "~/api-client/role/role";
@@ -86,7 +91,7 @@ const RoleManage = (props: Props) => {
 
     await apiRoleService
       .update(id, {
-        name: value
+        name: value,
       })
       .then(() => {
         messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
@@ -94,7 +99,7 @@ const RoleManage = (props: Props) => {
       .catch((err) => {
         const { message } = hanldeErrorAxios(err);
 
-        if(message === "ROLE_NAME_IS_EXISTED") {
+        if (message === "ROLE_NAME_IS_EXISTED") {
           messageAntd.error(t("error.ROLE_NAME_IS_EXISTED"));
         } else {
           messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
@@ -118,11 +123,12 @@ const RoleManage = (props: Props) => {
     const dataSend: ICreateRoleRequest = {
       groupRoleId: values.groupId,
       name: values.name,
-    }
+    };
 
     onLoading("create", true);
 
-    await apiRoleService.create(dataSend)
+    await apiRoleService
+      .create(dataSend)
       .then(() => {
         handleGetRoles();
         onModal("create", false);
@@ -132,7 +138,7 @@ const RoleManage = (props: Props) => {
       .catch((err) => {
         const { message } = hanldeErrorAxios(err);
 
-        if(message === "ROLE_NAME_IS_EXISTED") {
+        if (message === "ROLE_NAME_IS_EXISTED") {
           messageAntd.error(t("error.ROLE_NAME_IS_EXISTED"));
         } else {
           messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
@@ -164,18 +170,9 @@ const RoleManage = (props: Props) => {
         selectedValue={selectedValue}
         showBtnAdd={!!selectedGroup}
         ability={{
-          create: ability.can(
-            EPermisisonAction.CREATE,
-            EPageRole.ADMIN_ROLE,
-          ),
-          update: ability.can(
-            EPermisisonAction.UPDATE,
-            EPageRole.ADMIN_ROLE,
-          ),
-          delete: ability.can(
-            EPermisisonAction.DELETE,
-            EPageRole.ADMIN_ROLE,
-          ),
+          create: ability.can(EPermisisonAction.CREATE, EPageRole.ADMIN_ROLE),
+          update: ability.can(EPermisisonAction.UPDATE, EPageRole.ADMIN_ROLE),
+          delete: ability.can(EPermisisonAction.DELETE, EPageRole.ADMIN_ROLE),
         }}
         onSelectValue={onSelectRoleItem}
         onModalAdd={() => onModal("create", true)}
@@ -194,7 +191,8 @@ const RoleManage = (props: Props) => {
         okButtonProps={{
           loading: loading.create,
           disabled: loading.create,
-        }}>
+        }}
+      >
         <div className="pb-5">
           <Controller
             name="name"

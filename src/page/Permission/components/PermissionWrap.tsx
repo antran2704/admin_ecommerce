@@ -46,7 +46,8 @@ const PermissionWrap = () => {
   };
 
   const handleGetRoles = async (groupId: string) => {
-    await apiRoleService.getRoles({ groupRoleId: groupId })
+    await apiRoleService
+      .getRoles({ groupRoleId: groupId })
       .then((payload: IResponseDataWithPagination<IRoleResponse[]>) => {
         const data: IRoleItem[] = payload.data.map((item: IRoleResponse) => ({
           id: item.roleId,

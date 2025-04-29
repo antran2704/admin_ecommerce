@@ -72,7 +72,8 @@ const InfoForm = (props: Props) => {
               title={t("form.thumbnail")}
               required
               error={!!errors.thumbnailUrl}
-              errorMessage={errors.thumbnailUrl?.message}>
+              errorMessage={errors.thumbnailUrl?.message}
+            >
               <UploadImage
                 src={getValues("thumbnailUrl")}
                 disabled={!isEdit}

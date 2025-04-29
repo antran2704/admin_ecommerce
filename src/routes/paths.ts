@@ -23,6 +23,11 @@ const PATH_NAME = {
   CREATE_VARIANT_TYPE: "/variant-types/create",
   UPDATE_VARIANT_TYPE: (id: string) => `/variant-types/${id}`,
 
+  // PRODUCTS
+  PRODUCTS: "/products",
+  CREATE_PRODUCT: "/products/create",
+  UPDATE_PRODUCT: (id: string) => `/products/${id}`,
+
   // NEWS
   NEWS: "/news",
   CREATE_NEWS: "/news/create",

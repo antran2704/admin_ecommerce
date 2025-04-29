@@ -74,7 +74,8 @@ const CreateForm = (props: Props) => {
       okButtonProps={{
         loading: form.formState.isSubmitting,
         disabled: form.formState.isSubmitting,
-      }}>
+      }}
+    >
       <InforForm form={form} onSubmit={onSubmit} />
     </ModalAlert>
   );

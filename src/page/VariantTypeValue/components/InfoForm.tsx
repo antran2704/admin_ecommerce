@@ -22,7 +22,7 @@ const InfoForm = (props: Props) => {
   const {
     control,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
   } = form;
 
   const { t } = useTranslation("VariantTypeValuePage");

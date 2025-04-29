@@ -3,10 +3,7 @@ import { API_VERSION, BASE_URL } from "~/common/api";
 import AxiosClient from "~/config/axiosClient";
 
 import { INTERNAL_PATH } from "~/config/constants";
-import {
-  IConfirmForgotPasswordOtp,
-  ILogin,
-} from "~/interface/auth";
+import { IConfirmForgotPasswordOtp, ILogin } from "~/interface/auth";
 import {
   IForgotPasswordOtpResponse,
   IForgotPasswordRequest,
@@ -30,7 +27,10 @@ const apiAuthService = {
     body: IForgotPasswordRequest,
   ): Promise<boolean> => {
     return await axios
-      .post(BASE_URL + API_VERSION.V1 + "/auth/admin/is-in-forgot-password", body)
+      .post(
+        BASE_URL + API_VERSION.V1 + "/auth/admin/is-in-forgot-password",
+        body,
+      )
       .then((res) => res.data);
   },
   confirmForgotPasswordOtp: async (body: IConfirmForgotPasswordOtp) => {
@@ -44,12 +44,7 @@ const apiAuthService = {
 
   resetPassword: async (body: IResetPasswordRequest) => {
     return await axios
-      .post(
-        BASE_URL +
-          API_VERSION.V1 +
-          "/auth/admin/reset-password",
-        body,
-      )
+      .post(BASE_URL + API_VERSION.V1 + "/auth/admin/reset-password", body)
       .then((res) => res.data);
   },
   logout: async () => {

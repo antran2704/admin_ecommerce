@@ -9,9 +9,7 @@ import { ChartCore } from "~/components/Core";
 import { MONTHS } from "~/constants/datetime";
 import { ENUM_CURRENCY } from "~/enum/currency";
 import { ENUM_DATE_FILTER } from "~/enum/filter";
-import {
-  IDashboardFilter,
-} from "~/interface/dashboard";
+import { IDashboardFilter } from "~/interface/dashboard";
 import { DAY_DMY } from "~/common/format";
 
 const options: ChartOptions<"line"> = {
@@ -58,7 +56,6 @@ interface Props {
 const InComeLineChart = (props: Props) => {
   const { filter } = props;
   const { t } = useTranslation("HomePage");
-
 
   const [data, setData] = useState<ChartData<"line", any[], unknown>>({
     labels: [],

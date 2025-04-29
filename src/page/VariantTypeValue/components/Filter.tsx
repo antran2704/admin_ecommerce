@@ -17,7 +17,10 @@ const Filter = (props: Props) => {
 
   const [formFilter, setFormFilter] = useState<{
     // eslint-disable-next-line no-unused-vars
-    [x in keyof Partial<IGetVariantTypeValuesRequest>]: string | string[] | number;
+    [x in keyof Partial<IGetVariantTypeValuesRequest>]:
+      | string
+      | string[]
+      | number;
   }>({});
 
   const onClearFilter = () => {
@@ -45,10 +48,9 @@ const Filter = (props: Props) => {
       filter={formFilter}
       onClearFilter={onClearFilter}
       onFilter={handleFilter}
-      width={600}>
-      <Fragment>
-       
-      </Fragment>
+      width={600}
+    >
+      <Fragment></Fragment>
     </FilterCore>
   );
 };

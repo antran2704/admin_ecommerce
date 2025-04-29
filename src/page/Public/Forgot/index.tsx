@@ -113,7 +113,8 @@ const ForgotPage = () => {
         onClick={handleSubmit(onSubmit)}
         loading={isSubmit}
         disabled={!isValid}
-        className="w-full 2xl:!py-6 !py-5 !flex items-center justify-center !text-lg !font-semibold">
+        className="w-full 2xl:!py-6 !py-5 !flex items-center justify-center !text-lg !font-semibold"
+      >
         {tCommon("continute")}
       </Button>
     </div>

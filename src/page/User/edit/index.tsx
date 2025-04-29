@@ -155,16 +155,16 @@ const EditPage = () => {
         setData({ ...data, isActive: false });
       }
 
-        // update ban status of staff
-        if (values.banStatus === ENUM_ACCOUNT_STATUS.BANNED && !data.isBan) {
-          await apiUserService.ban(data.userId);
-          setData({ ...data, isBan: true });
-        }
-  
-        if (values.banStatus === ENUM_ACCOUNT_STATUS.UNBAN && data.isBan) {
-          await apiUserService.unban(data.userId);
-          setData({ ...data, isBan: false });
-        }
+      // update ban status of staff
+      if (values.banStatus === ENUM_ACCOUNT_STATUS.BANNED && !data.isBan) {
+        await apiUserService.ban(data.userId);
+        setData({ ...data, isBan: true });
+      }
+
+      if (values.banStatus === ENUM_ACCOUNT_STATUS.UNBAN && data.isBan) {
+        await apiUserService.unban(data.userId);
+        setData({ ...data, isBan: false });
+      }
 
       onModal("submit", false);
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
@@ -195,7 +195,8 @@ const EditPage = () => {
       listBreadcrumb={[
         { title: t("breadcrumb.list"), href: PATH_NAME.USERS },
         { title: isEdit ? t("breadcrumb.update") : t("breadcrumb.viewInfo") },
-      ]}>
+      ]}
+    >
       <div className="flex lg:flex-row flex-col items-start justify-between py-10 gap-10">
         <div className="mx-auto">
           {data && (
@@ -216,7 +217,8 @@ const EditPage = () => {
                   EPageRole.ADMIN_STAFF,
                 ) && (
                   <ChangePassword
-                    onModal={() => onModal("changePassword", true)}>
+                    onModal={() => onModal("changePassword", true)}
+                  >
                     <ChangePasswordModal
                       data={data}
                       open={modal.changePassword}

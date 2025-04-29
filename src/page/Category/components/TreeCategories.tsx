@@ -40,7 +40,7 @@ const TreeCategories = (props: Props) => {
     [],
   );
   const [disableIds, setDisableIds] = useState<string[]>([]);
-  
+
   //   Get parent categories
   const parentCategoriesParamater: IGetCategoriesByIndexRequest = useMemo(
     (): IGetCategoriesByIndexRequest => ({
@@ -157,7 +157,8 @@ const TreeCategories = (props: Props) => {
           sizeText="small"
           title={t("form.parent")}
           error={!!errors.parentId}
-          errorMessage={errors.parentId?.message}>
+          errorMessage={errors.parentId?.message}
+        >
           <TreeSelect
             size="large"
             treeDataSimpleMode

@@ -2,7 +2,13 @@ import { API_VERSION, BASE_URL } from "~/common/api";
 import AxiosClient from "~/config/axiosClient";
 import { INTERNAL_PATH } from "~/config/constants";
 import { parseQueryString } from "~/helper/url";
-import { ICreateUserRequest, IGetUsersRequest, IIsExitUserRequest, IResetPasswordUserRequest, IUpdateUserRequest } from "~/page/User/interfaces";
+import {
+  ICreateUserRequest,
+  IGetUsersRequest,
+  IIsExitUserRequest,
+  IResetPasswordUserRequest,
+  IUpdateUserRequest,
+} from "~/page/User/interfaces";
 
 const apiUserService = {
   users: async (paramater: Partial<IGetUsersRequest>) => {
