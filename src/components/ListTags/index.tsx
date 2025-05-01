@@ -84,7 +84,7 @@ const ListTag = (props: Props, ref: LegacyRef<InputRef>) => {
                 e.preventDefault();
                 handleClose(tag);
               }}
-              className="flex items-center text-sm !text-white bg-green-500 px-4 py-1 my-1 rounded-xl gap-2"
+              className="flex items-center text-sm !text-white bg-primary-color px-4 py-1 my-1 rounded-xl gap-2"
             >
               {tag}
             </Tag>

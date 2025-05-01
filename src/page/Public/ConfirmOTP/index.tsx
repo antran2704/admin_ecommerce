@@ -167,7 +167,7 @@ const ForgotOtpPage = () => {
           <h2 className="2xl:text-base text-sm font-semibold text-center">
             {t("description")}
           </h2>
-          <p className="2xl:text-base text-sm text-center font-semibold text-green-500 my-1">
+          <p className="2xl:text-base text-sm text-center font-semibold text-primary-color my-1">
             {decodeEmail}
           </p>
         </div>
@@ -205,7 +205,7 @@ const ForgotOtpPage = () => {
               "block text-sm text-center font-medium cursor-pointer",
               [
                 isExpired
-                  ? "text-green-500 hover:underline"
+                  ? "text-primary-color hover:underline"
                   : "text-gray-200 pointer-events-none",
               ],
             )}

@@ -142,9 +142,9 @@ const LeftMenu = () => {
               )}
             >
               {collapsed ? (
-                <IoIosArrowForward className="size-6 text-lg text-green-500" />
+                <IoIosArrowForward className="size-6 text-lg text-primary-color" />
               ) : (
-                <IoIosArrowBack className="size-6 text-lg text-green-500" />
+                <IoIosArrowBack className="size-6 text-lg text-primary-color" />
               )}
             </Button>
           </div>

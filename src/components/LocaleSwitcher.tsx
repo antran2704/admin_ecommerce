@@ -13,7 +13,7 @@ export default function LocaleSwitcher() {
     <div>
       <button
         className={clsx(
-          "md:text-sm sm:text-sm text-xs text-[#202020] hover:underline hover:text-green-500",
+          "md:text-sm sm:text-sm text-xs text-[#202020] hover:underline hover:text-primary-color",
           i18n.resolvedLanguage === "en" ? "block" : "hidden",
         )}
         onClick={() => onChangeLanguage("vi")}
@@ -22,7 +22,7 @@ export default function LocaleSwitcher() {
       </button>
       <button
         className={clsx(
-          "md:text-sm sm:text-sm text-xs text-[#202020] hover:underline hover:text-green-500",
+          "md:text-sm sm:text-sm text-xs text-[#202020] hover:underline hover:text-primary-color",
           i18n.resolvedLanguage === "vi" ? "block" : "hidden",
         )}
         onClick={() => onChangeLanguage("en")}

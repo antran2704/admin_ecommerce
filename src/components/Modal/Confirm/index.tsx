@@ -39,7 +39,7 @@ const ModalConfirm = (props: Props) => {
               <BiSolidError className="text-3xl text-yellow-500" />
             )}
             {type === "info" && (
-              <FaInfoCircle className="text-3xl text-green-500" />
+              <FaInfoCircle className="text-3xl text-primary-color" />
             )}
             {type === "error" && (
               <MdOutlineError className="text-3xl text-red-500" />
@@ -75,7 +75,7 @@ const ModalConfirm = (props: Props) => {
             type === "danger" &&
               "!bg-text-yellow-500 hover:!bg-text-yellow-600",
           ],
-          [type === "info" && "!bg-green-500 hover:!bg-green-600"],
+          [type === "info" && "!bg-primary-color hover:!bg-green-600"],
           [type === "error" && "!bg-red-500 hover:!bg-red-600"],
           okButtonProps?.className,
         ),

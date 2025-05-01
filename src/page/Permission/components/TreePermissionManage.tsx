@@ -84,7 +84,7 @@ const TreePermissionManage = (props: Props) => {
       ])}
     >
       <div className="flex items-center justify-between pb-2 border-b border-b-gray-200/50">
-        <h2 className="md:text-lg text-base font-medium text-green-500 px-2">
+        <h2 className="md:text-lg text-base font-medium text-primary-color px-2">
           {t("feature")}
         </h2>
 

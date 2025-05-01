@@ -45,7 +45,7 @@ const SelectItem = ({
           "text-sm font-medium px-5 py-2 border rounded-md cursor-pointer select-none",
           [
             value?.includes(data.value)
-              ? "border-green-500 text-green-500 "
+              ? "border-primary-color text-primary-color "
               : "border-gray-300 text-gray-300 ",
           ],
           [data.disabled && "pointer-events-none opacity-50"],
@@ -64,7 +64,7 @@ const SelectItem = ({
         "text-sm font-medium px-5 py-2 border rounded-md cursor-pointer select-none",
         [
           value === data.value
-            ? "border-green-500 text-green-500 "
+            ? "border-primary-color text-primary-color "
             : "border-gray-300 text-gray-300 ",
         ],
         [data.disabled && "pointer-events-none opacity-50"],

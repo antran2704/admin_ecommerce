@@ -8,7 +8,7 @@ const BtnAdd = (props: ButtonProps) => {
       type="text"
       icon={
         <IoMdAddCircleOutline
-          className={clsx("text-xl text-green-500", props.classNames?.icon)}
+          className={clsx("text-xl text-primary-color", props.classNames?.icon)}
         />
       }
       size="large"

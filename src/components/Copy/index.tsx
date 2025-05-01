@@ -30,7 +30,7 @@ const Copy = (props: Props) => {
     <div
       onClick={onClick}
       className={clsx(
-        "flex items-center cursor-pointer hover:text-green-500 transition-all ease-linear duration-75 gap-2",
+        "flex items-center cursor-pointer hover:text-primary-color transition-all ease-linear duration-75 gap-2",
         classNames?.wrap,
       )}
     >

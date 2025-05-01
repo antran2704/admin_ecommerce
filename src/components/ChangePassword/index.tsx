@@ -16,7 +16,7 @@ const ChangePassword = (props: Props) => {
     <Fragment>
       <p
         onClick={onModal}
-        className="flex items-center font-medium text-sm hover:text-green-500 mx-auto mt-4 cursor-pointer gap-2"
+        className="flex items-center font-medium text-sm hover:text-primary-color mx-auto mt-4 cursor-pointer gap-2"
       >
         <img
           src={changePasswordImage}

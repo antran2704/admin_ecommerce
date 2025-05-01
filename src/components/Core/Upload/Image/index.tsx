@@ -186,7 +186,7 @@ const UploadImageCompoent = (
           {/* Show if loading */}
           {loading && (
             <div className="absolute w-full h-full top-0 flex items-center justify-center bg-gray-500/40 rounded-lg border z-10">
-              <LoadingOutlined className="text-green-500 text-3xl" />
+              <LoadingOutlined className="text-primary-color text-3xl" />
             </div>
           )}
         </Upload>

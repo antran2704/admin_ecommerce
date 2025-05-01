@@ -5,7 +5,9 @@ const BtnFilter = (props: ButtonProps) => {
   return (
     <Button
       type="text"
-      icon={<LuListFilter className="2xl:text-3xl text-2xl text-green-500" />}
+      icon={
+        <LuListFilter className="2xl:text-3xl text-2xl text-primary-color" />
+      }
       {...props}
     >
       {props.children}

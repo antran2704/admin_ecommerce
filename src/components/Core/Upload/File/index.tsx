@@ -121,7 +121,7 @@ const UploadFileComponent = (
         beforeUpload={() => false}
         iconRender={() => (
           <div className="flex items-center justify-center translate-y-1/2">
-            <FaFile className="text-2xl text-green-500" />
+            <FaFile className="text-2xl text-primary-color" />
           </div>
         )}
         onRemove={(file: UploadFileType) => handleRemove(file)}
@@ -135,7 +135,7 @@ const UploadFileComponent = (
         className={clsx(
           "group w-full h-full border border-gray-200 border-dashed rounded-lg transition-all ease-linear duration-100",
           [fileList.length && "p-2"],
-          [!disable && "hover:border-green-500 "],
+          [!disable && "hover:border-primary-color "],
           [error && "border-red-500"],
           className,
         )}
@@ -147,7 +147,11 @@ const UploadFileComponent = (
             className={clsx(
               "flex flex-col items-center justify-center px-6 py-3 gap-2",
               [maxFile && fileList.length >= maxFile && "hidden"],
-              [disable ? "pointer-events-none" : "group-hover:text-green-500 "],
+              [
+                disable
+                  ? "pointer-events-none"
+                  : "group-hover:text-primary-color ",
+              ],
             )}
           >
             <img src={UploadIcon} alt="upload" />
@@ -159,7 +163,11 @@ const UploadFileComponent = (
           <button
             className={clsx(
               "flex flex-col items-center justify-center px-6 py-3 gap-2",
-              [disable ? "pointer-events-none" : "group-hover:text-green-500 "],
+              [
+                disable
+                  ? "pointer-events-none"
+                  : "group-hover:text-primary-color ",
+              ],
             )}
           >
             <img src={UploadIcon} alt="upload" />

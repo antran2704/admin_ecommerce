@@ -394,7 +394,7 @@ const GroupAction = (props: Props) => {
                 </p>
                 <p className="text-sm text-center text-gray-400 mt-2">
                   {t("modalUploadFile.description2")}{" "}
-                  <span className="text-green-500">.xlsx</span>
+                  <span className="text-primary-color">.xlsx</span>
                 </p>
               </div>
             }

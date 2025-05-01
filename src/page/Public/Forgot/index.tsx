@@ -83,7 +83,7 @@ const ForgotPage = () => {
           />
         </Link>
 
-        <h1 className="2xl:text-3xl md:text-2xl text-xl font-bold text-green-500 mb-10 mt-6">
+        <h1 className="2xl:text-3xl md:text-2xl text-xl font-bold text-primary-color mb-10 mt-6">
           {t("title")}
         </h1>
 

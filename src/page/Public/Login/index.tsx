@@ -100,7 +100,7 @@ const LoginPage = () => {
       </Link>
 
       <div>
-        <h1 className="2xl:text-3xl md:text-2xl text-xl font-bold text-green-500 mb-3 2xl:mt-10 mt-5">
+        <h1 className="2xl:text-3xl md:text-2xl text-xl font-bold text-primary-color mb-3 2xl:mt-10 mt-5">
           {t("title")}
         </h1>
         {/* Form */}
