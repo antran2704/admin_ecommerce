@@ -123,17 +123,14 @@ const Table = (props: Props) => {
 
               {ability.can(
                 EPermisisonAction.UPDATE,
-                EPageRole.ADMIN_VARIANT_TYPE,
+                EPageRole.ADMIN_PRODUCT,
               ) && (
                 <Link to={PATH_NAME.UPDATE_PRODUCT(record.id) + "?edit=1"}>
                   <BtnEdit />
                 </Link>
               )}
 
-              {ability.can(
-                EPermisisonAction.DELETE,
-                EPageRole.ADMIN_VARIANT_TYPE,
-              ) &&
+              {ability.can(EPermisisonAction.DELETE, EPageRole.ADMIN_PRODUCT) &&
                 infoUser.userId !== record.id && (
                   <BtnTrash
                     onClick={() => {

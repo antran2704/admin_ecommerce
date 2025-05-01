@@ -1,0 +1,56 @@
+{
+  "title": "Manage product",
+  "searchTitle": "Search with ID, name",
+  "filter": {
+    "createdAt": "Created At"
+  },
+  "table": {
+    "id": "ID product",
+    "name": "Name",
+    "thumbnail": "Thumbnail",
+    "basePrice": "Base price",
+    "promotionPrice": "Promotion price",
+    "stock": "Stock",
+    "category": "Category",
+    "status": "Status",
+    "createdAt": "Created At"
+  },
+  "tabs": {
+    "detail": "Detail",
+    "variantProduct": "Variant product"
+  },
+  "createTitle": "Create product",
+  "viewInfoTitle": "Infomation of product",
+  "editTitle": "Update product",
+  "form": {
+    "id": "ID product",
+    "name": "Name",
+    "description": "Description",
+    "thumbnail": "Thumbnail",
+    "gallery": "Gallery",
+    "category": "Category",
+    "subcategories": "Subcategories",
+    "basePrice": "Base price",
+    "promotionPrice": "Promotion price",
+    "stock": "Stock",
+    "status": "Status",
+    "createdAt": "Created At"
+  },
+  "modalDelete": {
+    "title": "Delete product",
+    "subtitle": "Do you want to delete product?"
+  },
+  "modalUpdate": {
+    "title": "Update infomation of product",
+    "subtitle": "Do you want to update product?"
+  },
+  "breadcrumb": {
+    "list": "List of product",
+    "viewInfo": "Infomation of product",
+    "create": "Create product",
+    "update": "Update product"
+  },
+  "error": {
+    "PRODUCT_NOT_FOUND": "Product not found"
+  }
+}

@@ -91,6 +91,12 @@ const LeftMenu = () => {
         label: t("variantType"),
         onClick: () => onClickItem(PATH_NAME.VARIANT_TYPES),
       },
+      ability.can(EPermisisonAction.VIEW, EPageRole.ADMIN_PRODUCT) && {
+        key: getPathName(PATH_NAME.PRODUCTS),
+        icon: sidebarIcons.product,
+        label: t("product"),
+        onClick: () => onClickItem(PATH_NAME.PRODUCTS),
+      },
       ability.can(EPermisisonAction.VIEW, EPageRole.ADMIN_PAGE_NEWS) && {
         key: getPathName(PATH_NAME.NEWS),
         icon: sidebarIcons.news,

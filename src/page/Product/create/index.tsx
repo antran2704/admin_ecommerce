@@ -39,7 +39,7 @@ const CreatePage = () => {
       // await apiProductService.create(dataSend);
 
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
-      navigate(PATH_NAME.VARIANT_TYPES);
+      navigate(PATH_NAME.PRODUCTS);
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
 
@@ -55,9 +55,9 @@ const CreatePage = () => {
     <MainLayout
       titleText={t("createTitle")}
       className="bg-white"
-      backUrl={PATH_NAME.VARIANT_TYPES}
+      backUrl={PATH_NAME.PRODUCTS}
       listBreadcrumb={[
-        { title: t("breadcrumb.list"), href: PATH_NAME.VARIANT_TYPES },
+        { title: t("breadcrumb.list"), href: PATH_NAME.PRODUCTS },
         { title: t("breadcrumb.create") },
       ]}
     >
@@ -72,7 +72,7 @@ const CreatePage = () => {
         onOk={form.handleSubmit(onSubmit, () => {
           messageAntd.error(tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS));
         })}
-        onCancel={() => navigate(PATH_NAME.VARIANT_TYPES)}
+        onCancel={() => navigate(PATH_NAME.PRODUCTS)}
         cancelProps={{
           disabled: form.formState.isSubmitting,
         }}

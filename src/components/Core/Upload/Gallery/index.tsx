@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Image, Upload } from "antd";
 import type { UploadFile, UploadProps } from "antd";
@@ -13,13 +13,12 @@ import "./Gallery.scss";
 interface Props {
   data: UploadFile[];
   maxFile?: number;
-  disable?: boolean;
+  disabled?: boolean;
   error?: boolean;
   rules?: ETypeFile[];
   fileSize?: number;
   className?: string;
-  title?: string;
-  onChangeFile?: (file: UploadFile | null) => void;
+  onChangeFile?: (file: UploadFile[] | null) => void;
   onRemoveFile?: (file: UploadFile | null) => void;
 }
 
@@ -28,11 +27,10 @@ const UploadGallery = ({
   data,
   maxFile,
   fileSize = 2, //MB
-  disable = false,
+  disabled = false,
   error,
-  rules = [],
   className,
-  title,
+  rules = [],
   onRemoveFile,
 }: Props) => {
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -68,21 +66,17 @@ const UploadGallery = ({
 
     // update link for new file
     const newFileList = [...fileList];
+    const newFile: UploadFile = info.fileList[info.fileList.length - 1];
 
     newFileList.push({
-      uid: info.file.uid,
-      lastModified: info.file.lastModified,
-      lastModifiedDate: info.file.lastModifiedDate,
-      name: info.file.name,
-      size: info.file.size,
-      type: info.file.type,
+      ...newFile,
       url: URL.createObjectURL(info.file as any),
     });
 
     setFileList(newFileList);
 
     if (onChangeFile) {
-      onChangeFile(info.file);
+      onChangeFile(newFileList);
     }
   };
 
@@ -97,25 +91,21 @@ const UploadGallery = ({
     </button>
   );
   return (
-    <div className={clsx("w-full h-full", className)}>
-      {title && (
-        <p
-          className={clsx("text-base pb-2 dark:text-darkInput", [
-            error && "text-error",
-          ])}
-        >
-          {title}
-        </p>
-      )}
+    <div className="w-full h-full">
       <Upload
         listType="picture-card"
-        rootClassName={clsx("gallery relative w-full h-full", [
-          maxFile && fileList.length >= maxFile && "disabled",
-        ])}
+        rootClassName={clsx(
+          "gallery relative flex items-center justify-center w-full h-full",
+          [
+            maxFile && fileList.length >= maxFile && "disabled",
+            [error && "border-red-400 hover:border-red-400"],
+            className,
+          ],
+        )}
         fileList={fileList}
         beforeUpload={() => false}
         onPreview={handlePreview}
-        disabled={disable}
+        disabled={disabled}
         onRemove={handleRemove}
         onChange={handleChange}
       >

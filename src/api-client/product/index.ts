@@ -37,7 +37,7 @@ const apiProductService = {
       data,
     ).then((res) => res.data);
   },
-  uploadThumbnail: async (file: File) => {
+  uploadImage: async (file: File) => {
     const formData: FormData = new FormData();
     formData.append("file", file);
 
@@ -45,7 +45,7 @@ const apiProductService = {
       BASE_URL +
         API_VERSION.V1 +
         INTERNAL_PATH +
-        "/admin/products/upload-thumbnail",
+        "/admin/products/upload-image",
       formData,
       {
         headers: {
