@@ -95,10 +95,10 @@ const UploadGallery = ({
       <Upload
         listType="picture-card"
         rootClassName={clsx(
-          "gallery relative flex items-center justify-center w-full h-full",
+          "gallery flex items-center justify-center w-full h-full",
           [
             maxFile && fileList.length >= maxFile && "disabled",
-            [error && "border-red-400 hover:border-red-400"],
+            [error && "error"],
             className,
           ],
         )}

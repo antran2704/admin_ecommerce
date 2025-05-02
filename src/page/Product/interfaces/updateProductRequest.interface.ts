@@ -7,6 +7,6 @@ export interface IUpdateProductRequest {
   promotionPrice: number;
   stock: number;
   isActive: boolean;
-  mainCategoryId: string;
+  mainCategory: string;
   subCategories: string[];
 }

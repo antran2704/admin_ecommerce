@@ -8,12 +8,12 @@ import { InforForm } from "../components";
 import { FormFooter } from "~/components/Footer";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import MESSAGE_ERROR from "~/common/errorMessage";
-import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
 import { initProductForm } from "../common/productForm";
 import { productFormSchema } from "../schema/productForm.schema";
-import { IProductForm } from "../interfaces";
+import { ICreateProductRequest, IProductForm } from "../interfaces";
+import { apiProductService } from "~/api-client/product";
 
 const CreatePage = () => {
   const { t } = useTranslation("ProductPage");
@@ -31,23 +31,45 @@ const CreatePage = () => {
   const { messageAntd } = useMessageAntd();
 
   const onSubmit = async (values: IProductForm) => {
-    // const dataSend: ICreateProductRequest = {
-
-    // };
+    const dataSend: ICreateProductRequest = {
+      productName: values.title,
+      description: values.description,
+      basePrice: values.basePrice,
+      promotionPrice: values.promotionPrice,
+      stock: values.stock,
+      mainCategory: values.mainCategory,
+      subCategories: values.subCategories,
+      isActive: values.isActive,
+      thumbnail: "",
+      gallery: [],
+    };
 
     try {
-      // await apiProductService.create(dataSend);
+      if (values.thumbnailFile) {
+        const newImage: string = await apiProductService.uploadImage(
+          values.thumbnailFile,
+        );
+        dataSend.thumbnail = newImage;
+
+        form.setValue("thumbnailFile", null);
+      }
+
+      if (values.gallery.length > 0) {
+        for (let i = 0; i < values.gallery.length; i++) {
+          const newImage: string = await apiProductService.uploadImage(
+            values.gallery[i].file,
+          );
+          dataSend.gallery.push(newImage);
+        }
+      }
+
+      await apiProductService.create(dataSend);
 
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
       navigate(PATH_NAME.PRODUCTS);
     } catch (err) {
-      const { message } = hanldeErrorAxios(err);
-
-      if (message === "VARIANT_TYPE_NAME_EXISTED") {
-        messageAntd.error(t("error.VARIANT_TYPE_NAME_EXISTED"));
-      } else {
-        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
-      }
+      // const { message } = hanldeErrorAxios(err);
+      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
   };
 

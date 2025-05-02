@@ -28,6 +28,7 @@ const InfoForm = (props: Props) => {
     setValue,
     getValues,
     watch,
+    clearErrors,
   } = form;
 
   const { t } = useTranslation("CategoryPage");
@@ -88,6 +89,7 @@ const InfoForm = (props: Props) => {
                   }
 
                   onChange(file);
+                  clearErrors("thumbnailUrl");
                 }}
                 rules={[ETypeFile.JPEG, ETypeFile.PNG, ETypeFile.WEBP]}
                 error={!!errors.thumbnailUrl}
