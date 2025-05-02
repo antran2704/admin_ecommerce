@@ -20,6 +20,10 @@ import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
 import { IProductTable } from "../interfaces";
 import { apiProductService } from "~/api-client/product";
+import { NO_IMAGE } from "~/common/image";
+import { formatBigNumber } from "~/helper/format";
+import { ENUM_PRODUCT_STATUS } from "../enums";
+import { getProductStatusTitle } from "../helpers/getStatusTitle";
 
 interface Props {
   items: IProductTable[];
@@ -44,7 +48,7 @@ const Table = (props: Props) => {
     onSelectedRows,
   } = props;
 
-  const { t, i18n } = useTranslation("VariantTypePage");
+  const { t, i18n } = useTranslation("ProductPage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
@@ -94,11 +98,61 @@ const Table = (props: Props) => {
           className: "cursor-pointer",
         },
         {
+          title: t("table.thumbnail"),
+          dataIndex: "thumbnail",
+          align: "center",
+          className: "cursor-pointer",
+          render: (value: string) => (
+            <img
+              src={value ? value : NO_IMAGE}
+              className="w-20 min-w-20 rounded-md object-cover object-center mx-auto"
+            />
+          ),
+        },
+        {
           title: t("table.name"),
           dataIndex: "title",
           className: "cursor-pointer",
           render: (value: string) => (
-            <span>{value ? value : tCommon("noData")}</span>
+            <span className="block w-[200px]">
+              {value ? value : tCommon("noData")}
+            </span>
+          ),
+        },
+        {
+          title: t("table.basePrice"),
+          dataIndex: "basePrice",
+          align: "center",
+          className: "cursor-pointer",
+          render: (value: number) => (
+            <span>{value ? formatBigNumber(value) : 0}</span>
+          ),
+        },
+        {
+          title: t("table.promotionPrice"),
+          dataIndex: "promotionPrice",
+          align: "center",
+          className: "cursor-pointer",
+          render: (value: number) => (
+            <span>{value ? formatBigNumber(value) : 0}</span>
+          ),
+        },
+        {
+          title: t("table.stock"),
+          dataIndex: "stock",
+          align: "center",
+          className: "cursor-pointer",
+          render: (value: number) => (
+            <span>{value ? formatBigNumber(value) : 0}</span>
+          ),
+        },
+        {
+          title: t("table.status"),
+          dataIndex: "status",
+          align: "center",
+          className: "cursor-pointer",
+          render: (value: ENUM_PRODUCT_STATUS) => (
+            <span>{getProductStatusTitle(t, value)}</span>
           ),
         },
         {

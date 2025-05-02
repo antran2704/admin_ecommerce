@@ -4,6 +4,10 @@
   "filter": {
     "createdAt": "Created At"
   },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
   "table": {
     "id": "ID product",
     "name": "Name",
@@ -51,6 +55,8 @@
     "update": "Update product"
   },
   "error": {
-    "PRODUCT_NOT_FOUND": "Product not found"
+    "PRODUCT_NOT_FOUND": "Product not found",
+    "PRODUCT_WAS_DISABLED": "Product was disabled",
+    "PRODUCT_WAS_ENABLED": "Product was enabled"
   }
 }

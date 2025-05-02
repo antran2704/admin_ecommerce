@@ -4,6 +4,10 @@
   "filter": {
     "createdAt": "Ngày tạo"
   },
+  "status": {
+    "active": "Đang hoạt động",
+    "inactive": "Ngừng hoạt động"
+  },
   "table": {
     "id": "ID sản phẩm",
     "name": "Tên sản phẩm",
@@ -51,6 +55,8 @@
     "update": "Cập nhật sản phẩm"
   },
   "error": {
-    "PRODUCT_NOT_FOUND": "Sản phẩm không tồn tại"
+    "PRODUCT_NOT_FOUND": "Sản phẩm không tồn tại",
+    "PRODUCT_WAS_DISABLED": "Sản phẩm đang ngừng hoạt động",
+    "PRODUCT_WAS_ENABLED": "Sản phẩm đang đang hoạt động"
   }
 }

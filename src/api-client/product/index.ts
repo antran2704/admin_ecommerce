@@ -61,12 +61,18 @@ const apiProductService = {
   },
   enable: async (id: string) => {
     return await AxiosClient.patch(
-      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + `/products/${id}/enable`,
+      BASE_URL +
+        API_VERSION.V1 +
+        INTERNAL_PATH +
+        `/admin/products/${id}/enable`,
     ).then((res) => res.data);
   },
   disable: async (id: string) => {
     return await AxiosClient.patch(
-      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + `/products/${id}/disable`,
+      BASE_URL +
+        API_VERSION.V1 +
+        INTERNAL_PATH +
+        `/admin/products/${id}/disable`,
     ).then((res) => res.data);
   },
 };

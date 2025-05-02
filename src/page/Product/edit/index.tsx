@@ -10,10 +10,9 @@ import PATH_NAME from "~/routes/paths";
 import { TabsCore } from "~/components/Core";
 import { parseQueryString } from "~/helper/url";
 import EditForm from "../components/EditForm";
-import VariantTypeValueManage from "~/page/VariantTypeValue";
 
 const EditPage = () => {
-  const { t, i18n } = useTranslation("VariantTypePage");
+  const { t, i18n } = useTranslation("ProductPage");
 
   const { edit: editParam, tab: tabParam } = useGetSearchParams<{
     edit: string;
@@ -23,7 +22,7 @@ const EditPage = () => {
     tab: "string",
   });
 
-  const { variant_type_id } = useParams();
+  const { product_id } = useParams();
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -46,9 +45,9 @@ const EditPage = () => {
         children: <EditForm isEdit={isEdit} onEdit={onEdit} />,
       },
       {
-        key: "variant-type-value",
-        label: t("tabs.variantTypeValues"),
-        children: <VariantTypeValueManage variantTypeId={variant_type_id} />,
+        key: "variant-product",
+        label: t("tabs.variantProduct"),
+        // children: <VariantTypeValueManage variantTypeId={variant_type_id} />,
       },
     ];
   }, [i18n.resolvedLanguage, isEdit]);
@@ -57,9 +56,9 @@ const EditPage = () => {
     <MainLayout
       titleText={isEdit ? t("editTitle") : t("viewInfoTitle")}
       className="bg-white"
-      backUrl={PATH_NAME.VARIANT_TYPES}
+      backUrl={PATH_NAME.PRODUCTS}
       listBreadcrumb={[
-        { title: t("breadcrumb.list"), href: PATH_NAME.VARIANT_TYPES },
+        { title: t("breadcrumb.list"), href: PATH_NAME.PRODUCTS },
         { title: isEdit ? t("breadcrumb.update") : t("breadcrumb.viewInfo") },
       ]}
     >

@@ -47,7 +47,7 @@ const useProducts = (query?: Partial<IGetProductsRequest>) => {
               stock: x.stock,
               basePrice: x.basePrice,
               promotionPrice: x.promotionPrice,
-              isActive: x.isActive
+              status: x.isActive
                 ? ENUM_PRODUCT_STATUS.ACTIVE
                 : ENUM_PRODUCT_STATUS.INACTIVE,
               createdAt: x.createdAt,

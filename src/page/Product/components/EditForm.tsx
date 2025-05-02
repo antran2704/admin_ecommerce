@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { RcFile } from "antd/es/upload";
 
 import { InforForm } from ".";
 import useMessageAntd from "~/hooks/useMessageAntd";
@@ -14,9 +15,10 @@ import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
 import { initProductForm } from "../common/productForm";
 import { productFormSchema } from "../schema/productForm.schema";
-import { IProductForm } from "../interfaces";
+import { IProductForm, IUpdateProductRequest } from "../interfaces";
 import { IProductResponse } from "../interfaces/productResponse.interface";
 import { apiProductService } from "~/api-client/product";
+import { convertToUploadFile } from "~/helper/file";
 
 interface Props {
   isEdit: boolean;
@@ -31,7 +33,7 @@ const EditForm = (props: Props) => {
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
 
-  const { variant_type_id } = useParams();
+  const { product_id } = useParams();
   const navigate = useNavigate();
 
   const form = useForm<IProductForm>({
@@ -72,9 +74,27 @@ const EditForm = (props: Props) => {
     await apiProductService
       .product(id)
       .then((payload: IProductResponse) => {
-        form.reset({
+        const newDataForm: IProductForm = {
           title: payload.productName,
-        });
+          description: payload.description,
+          basePrice: payload.basePrice,
+          promotionPrice: payload.promotionPrice,
+          stock: payload.stock,
+          mainCategory: payload.mainCategoryId,
+          subCategories: payload.subCategories.map((item) => item.categoryId),
+          isActive: payload.isActive,
+          thumbnailFile: null,
+          thumbnailUrl: payload.thumbnail,
+          gallery: payload.gallery.map((item) => ({
+            file: convertToUploadFile(item, {
+              type: "old",
+              thumbUrl: item,
+            }) as RcFile,
+            url: item,
+          })),
+        };
+
+        form.reset(newDataForm);
         setData(payload);
         onLoading("getData", false);
       })
@@ -82,30 +102,96 @@ const EditForm = (props: Props) => {
         const { statusCode } = hanldeErrorAxios(err);
 
         if (statusCode === 404) {
-          navigate(PATH_NAME.VARIANT_TYPES);
+          messageAntd.error(t("error.PRODUCT_NOT_FOUND"));
+          navigate(PATH_NAME.PRODUCTS);
         }
       });
   };
 
   const onSubmit = async (values: IProductForm) => {
-    // const dataSend: IUpdateProductRequest = {
-    //   productName: values.title,
-    // };
+    const dataSend: IUpdateProductRequest = {
+      productName: values.title,
+      description: values.description,
+      basePrice: values.basePrice,
+      promotionPrice: values.promotionPrice,
+      stock: values.stock,
+      mainCategory: values.mainCategory,
+      subCategories: values.subCategories,
+    };
 
     onLoading("submit", true);
 
     try {
-      // await apiVariantTypeService.update(data.variantTypeId, dataSend);
+      if (values.thumbnailFile) {
+        const newImage: string = await apiProductService.uploadImage(
+          values.thumbnailFile,
+        );
+        dataSend.thumbnail = newImage;
+      }
 
+      if (values.gallery.length > 0) {
+        dataSend.gallery = [];
+
+        for (let i = 0; i < values.gallery.length; i++) {
+          const file = values.gallery[i].file as RcFile;
+
+          if (file.type === "old") {
+            dataSend.gallery.push(values.gallery[i].url);
+            continue;
+          }
+
+          const newImage: string = await apiProductService.uploadImage(
+            values.gallery[i].file,
+          );
+          form.setValue(`gallery.${i}.url`, newImage);
+          dataSend.gallery.push(newImage);
+        }
+      }
+
+      await apiProductService.update(data.productId, dataSend);
+
+      const newData: IProductResponse = {
+        ...data,
+      };
+
+      if (!values.isActive && data.isActive) {
+        await apiProductService.disable(data.productId);
+        newData.isActive = false;
+      }
+
+      if (values.isActive && !data.isActive) {
+        await apiProductService.enable(data.productId);
+        newData.isActive = true;
+      }
+
+      form.setValue("thumbnailFile", null);
+      form.setValue(
+        "gallery",
+        values.gallery.map((item) => ({
+          file: convertToUploadFile(item.url, {
+            type: "old",
+            thumbUrl: item.url,
+          }) as RcFile,
+          url: item.url,
+        })),
+      );
+      setData(newData);
       onModal("submit", false);
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
 
-      if (message === "VARIANT_TYPE_NAME_EXISTED") {
-        messageAntd.error(t("error.VARIANT_TYPE_NAME_EXISTED"));
-      } else {
-        messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      switch (message) {
+        case "PRODUCT_WAS_DISABLED":
+          messageAntd.error(t("error.PRODUCT_WAS_DISABLED"));
+          break;
+
+        case "PRODUCT_WAS_ENABLED":
+          messageAntd.error(t("error.PRODUCT_WAS_ENABLED"));
+          break;
+
+        default:
+          messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       }
     }
 
@@ -113,10 +199,10 @@ const EditForm = (props: Props) => {
   };
 
   useEffect(() => {
-    if (!variant_type_id) return;
+    if (!product_id) return;
 
-    handleGetData(variant_type_id);
-  }, [variant_type_id]);
+    handleGetData(product_id);
+  }, [product_id]);
 
   return (
     <Fragment>
@@ -148,7 +234,7 @@ const EditForm = (props: Props) => {
           okText={tCommon("update")}
           cancelText={tCommon("cancel")}
           onOk={onEdit}
-          onCancel={() => navigate(PATH_NAME.VARIANT_TYPES)}
+          onCancel={() => navigate(PATH_NAME.PRODUCTS)}
         />
       )}
 

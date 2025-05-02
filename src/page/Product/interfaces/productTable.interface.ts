@@ -8,7 +8,7 @@ export interface IProductTable {
   basePrice: number;
   promotionPrice: number;
   stock: number;
-  isActive: ENUM_PRODUCT_STATUS;
+  status: ENUM_PRODUCT_STATUS;
   mainCategoryName: string;
   createdAt: string;
 }
