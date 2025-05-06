@@ -1,17 +1,17 @@
 import { Controller, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
+import clsx from "clsx";
+import { useEffect } from "react";
 
 import { DAY_DMY } from "~/common/format";
 import { InputText } from "~/components/Core/Input";
 import { ICategoryForm, ICategoryResponse } from "../interfaces";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import { UploadImage } from "~/components/Core";
-import clsx from "clsx";
 import { ETypeFile } from "~/enum/file";
 import FormField from "~/components/Core/Input/FormField";
 import { stringToSlug } from "~/helper/url";
-import { useEffect } from "react";
 import TreeCategories from "./TreeCategories";
 
 interface Props {
@@ -28,6 +28,7 @@ const InfoForm = (props: Props) => {
     setValue,
     getValues,
     watch,
+    clearErrors,
   } = form;
 
   const { t } = useTranslation("CategoryPage");
@@ -72,7 +73,8 @@ const InfoForm = (props: Props) => {
               title={t("form.thumbnail")}
               required
               error={!!errors.thumbnailUrl}
-              errorMessage={errors.thumbnailUrl?.message}>
+              errorMessage={errors.thumbnailUrl?.message}
+            >
               <UploadImage
                 src={getValues("thumbnailUrl")}
                 disabled={!isEdit}
@@ -87,8 +89,10 @@ const InfoForm = (props: Props) => {
                   }
 
                   onChange(file);
+                  clearErrors("thumbnailUrl");
                 }}
                 rules={[ETypeFile.JPEG, ETypeFile.PNG, ETypeFile.WEBP]}
+                error={!!errors.thumbnailUrl}
               />
             </FormField>
           )}

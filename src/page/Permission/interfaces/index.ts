@@ -24,5 +24,5 @@ export type {
   IUpdateRoleRequest,
   IRoleForm,
   IRoleItem,
-  IUpdatePermissionRequest
+  IUpdatePermissionRequest,
 };

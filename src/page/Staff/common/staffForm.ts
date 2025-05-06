@@ -10,7 +10,7 @@ const initStaffForm: IStaffForm = {
   confirmPassword: "",
   avatar: "",
   avatarFile: null,
-  status: ENUM_ACCOUNT_STATUS.ACTIVE
+  status: ENUM_ACCOUNT_STATUS.ACTIVE,
 };
 
 export { initStaffForm };

@@ -58,7 +58,7 @@ const SetupForgotPassword = () => {
     resolver: yupResolver(schema) as any,
   });
 
-  const {messageAntd} = useMessageAntd();
+  const { messageAntd } = useMessageAntd();
 
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -125,9 +125,9 @@ const SetupForgotPassword = () => {
       await apiAuthService.resetPassword(dataSend);
       navigate("/login");
     } catch (err) {
-      const {message} = hanldeErrorAxios(err)
+      const { message } = hanldeErrorAxios(err);
 
-      if(message === "OTP_INVALID") {
+      if (message === "OTP_INVALID") {
         setMessage(tError(MESSAGE_ERROR.OTP_INVALID));
       } else {
         messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
@@ -161,7 +161,8 @@ const SetupForgotPassword = () => {
           className={clsx(
             { "opacity-40": loading },
             "w-full flex flex-col gap-3",
-          )}>
+          )}
+        >
           <div>
             <Controller
               name="password"
@@ -232,7 +233,8 @@ const SetupForgotPassword = () => {
         type="primary"
         loading={loading}
         onClick={handleSubmit(onSubmit)}
-        className="w-full !py-6 !flex items-center justify-center !text-lg !font-semibold">
+        className="w-full !py-6 !flex items-center justify-center !text-lg !font-semibold"
+      >
         {tCommon("confirm")}
       </Button>
     </div>

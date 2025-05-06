@@ -69,14 +69,14 @@ const LoginPage = () => {
 
       navigate("/");
     } catch (err) {
-      const {message} = hanldeErrorAxios(err);
+      const { message } = hanldeErrorAxios(err);
 
       if (message === "EMAIL_OR_PASSWORD_INCORRECT") {
         setMessage(t("error.EMAIL_OR_PASSWORD_INCORRECT"));
         setValue("password", "");
       }
-      
-      if(message === "USER_NOT_FOUND") {
+
+      if (message === "USER_NOT_FOUND") {
         setMessage(tError(MESSAGE_ERROR.USER_NOT_EXISTED));
       }
 
@@ -100,7 +100,7 @@ const LoginPage = () => {
       </Link>
 
       <div>
-        <h1 className="2xl:text-3xl md:text-2xl text-xl font-bold text-green-500 mb-3 2xl:mt-10 mt-5">
+        <h1 className="2xl:text-3xl md:text-2xl text-xl font-bold text-primary-color mb-3 2xl:mt-10 mt-5">
           {t("title")}
         </h1>
         {/* Form */}
@@ -108,7 +108,8 @@ const LoginPage = () => {
           className={clsx(
             { "opacity-40": loading },
             "w-full flex flex-col gap-3",
-          )}>
+          )}
+        >
           <Controller
             name="email"
             control={control}
@@ -156,7 +157,8 @@ const LoginPage = () => {
             type="primary"
             onClick={handleSubmit(onSubmit)}
             loading={loading}
-            className="w-full 2xl:!py-6 !py-5 !flex items-center justify-center !text-lg !font-semibold">
+            className="w-full 2xl:!py-6 !py-5 !flex items-center justify-center !text-lg !font-semibold"
+          >
             {t("title")}
           </Button>
         </div>
@@ -165,7 +167,8 @@ const LoginPage = () => {
       <div className="flex justify-center items-center pt-5">
         <Link
           to={"/forgot"}
-          className="font-normal hover:underline text-green-300 text-base">
+          className="font-normal hover:underline text-green-300 text-base"
+        >
           {t("btn.forgotPassword")}
         </Link>
       </div>
@@ -177,7 +180,8 @@ const LoginPage = () => {
         open={modal.banned}
         onCancel={() => onModal("banned", false)}
         closeIcon={null}
-        footer={null}>
+        footer={null}
+      >
         <div className="flex flex-col items-center justify-center h-[200px]">
           <p className="text-base font-semibold text-center text-gray-700">
             {t("bannedModal.title")}

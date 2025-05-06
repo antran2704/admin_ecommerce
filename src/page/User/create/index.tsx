@@ -109,7 +109,8 @@ const CreatePage = () => {
       listBreadcrumb={[
         { title: t("breadcrumb.list"), href: PATH_NAME.USERS },
         { title: t("breadcrumb.create") },
-      ]}>
+      ]}
+    >
       <div className="flex lg:flex-row flex-col items-start justify-between py-10 gap-10">
         <div className="mx-auto">
           <div className="flex flex-col items-center">

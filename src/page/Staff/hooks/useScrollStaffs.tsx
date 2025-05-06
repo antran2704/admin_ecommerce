@@ -37,15 +37,21 @@ const useScrollStaffs = (query?: Partial<IGetStaffsRequest> | null) => {
   const getDataScroll = async (paramater: IGetStaffsRequest) => {
     if (pagination.total && pagination.total <= data.length) return;
 
-    await apiStaffService.staffs(paramater)
-      .then(({ data: services, pagination }: IResponseDataWithPagination<IListStaffResponse[]>) => {
-        setData([...data, ...services]);
-        setPagination({
-          page: pagination.page,
-          take: pagination.take,
-          total: pagination.total,
-        });
-      })
+    await apiStaffService
+      .staffs(paramater)
+      .then(
+        ({
+          data: services,
+          pagination,
+        }: IResponseDataWithPagination<IListStaffResponse[]>) => {
+          setData([...data, ...services]);
+          setPagination({
+            page: pagination.page,
+            take: pagination.take,
+            total: pagination.total,
+          });
+        },
+      )
       .catch((err) => err);
   };
 

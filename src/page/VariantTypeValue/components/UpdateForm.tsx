@@ -146,7 +146,8 @@ const UpdateForm = (props: Props) => {
       onCancel={() => {
         onCloseModal();
         onEdit(false);
-      }}>
+      }}
+    >
       {data && (
         <InforForm
           isEdit={isEdit}

@@ -3,12 +3,16 @@ interface IForgotPasswordForm {
 }
 
 interface IForgotPasswordRequest {
-    email: string;
-  }
+  email: string;
+}
 
 interface IForgotPasswordOtpResponse {
   otp: string;
   expireAt: string;
 }
 
-export type { IForgotPasswordForm, IForgotPasswordRequest, IForgotPasswordOtpResponse };
+export type {
+  IForgotPasswordForm,
+  IForgotPasswordRequest,
+  IForgotPasswordOtpResponse,
+};

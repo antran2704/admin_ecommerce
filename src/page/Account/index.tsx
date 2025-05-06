@@ -62,10 +62,12 @@ const AccountPage = () => {
 
     try {
       if (values.avatarFile) {
-        const newImage: string = await apiMeService.uploadAvatar(values.avatarFile);
+        const newImage: string = await apiMeService.uploadAvatar(
+          values.avatarFile,
+        );
         values.avatar = newImage;
 
-        profileForm.setValue("avatarFile", null)
+        profileForm.setValue("avatarFile", null);
       }
 
       const dataSend: IUpdateMeRequest = {
@@ -108,7 +110,8 @@ const AccountPage = () => {
       className="bg-white"
       listBreadcrumb={[
         { title: isEdit ? t("breadcrumb.update") : t("breadcrumb.viewInfo") },
-      ]}>
+      ]}
+    >
       <div>
         <div className="flex lg:flex-row flex-col items-start justify-between py-10 gap-10">
           <div className="mx-auto">
@@ -129,7 +132,8 @@ const AccountPage = () => {
                 size="large"
                 type={"default"}
                 onClick={onEdit}
-                className="w-[170px]">
+                className="w-[170px]"
+              >
                 {tCommon("cancel")}
               </Button>
               <Button
@@ -138,7 +142,8 @@ const AccountPage = () => {
                 onClick={() => onModal("submit", true)}
                 loading={loading.submit}
                 disabled={loading.submit}
-                className="w-[170px]">
+                className="w-[170px]"
+              >
                 {tCommon("save")}
               </Button>
             </div>
@@ -150,14 +155,16 @@ const AccountPage = () => {
                 size="large"
                 type={"default"}
                 href="/"
-                className="w-[170px]">
+                className="w-[170px]"
+              >
                 {tCommon("goBack")}
               </Button>
               <Button
                 size="large"
                 type="primary"
                 onClick={onEdit}
-                className="w-[170px]">
+                className="w-[170px]"
+              >
                 {tCommon("update")}
               </Button>
             </div>

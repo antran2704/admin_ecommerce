@@ -83,7 +83,7 @@ const ForgotPage = () => {
           />
         </Link>
 
-        <h1 className="2xl:text-3xl md:text-2xl text-xl font-bold text-green-500 mb-10 mt-6">
+        <h1 className="2xl:text-3xl md:text-2xl text-xl font-bold text-primary-color mb-10 mt-6">
           {t("title")}
         </h1>
 
@@ -113,7 +113,8 @@ const ForgotPage = () => {
         onClick={handleSubmit(onSubmit)}
         loading={isSubmit}
         disabled={!isValid}
-        className="w-full 2xl:!py-6 !py-5 !flex items-center justify-center !text-lg !font-semibold">
+        className="w-full 2xl:!py-6 !py-5 !flex items-center justify-center !text-lg !font-semibold"
+      >
         {tCommon("continute")}
       </Button>
     </div>

@@ -1,6 +1,6 @@
 export interface IUpdateUserRequest {
-    name: string;
-    avatar: string;
-    phoneNumber: string;
-    birthday: string;
+  name: string;
+  avatar: string;
+  phoneNumber: string;
+  birthday: string;
 }

@@ -151,7 +151,8 @@ const EditPage = () => {
       listBreadcrumb={[
         { title: t("breadcrumb.list"), href: PATH_NAME.CATEGORIES },
         { title: isEdit ? t("breadcrumb.update") : t("breadcrumb.viewInfo") },
-      ]}>
+      ]}
+    >
       {/* Form */}
       <div className="w-full p-5">
         {data && <InforForm isEdit={isEdit} form={form} data={data} />}

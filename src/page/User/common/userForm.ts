@@ -11,7 +11,7 @@ const initUserForm: IUserForm = {
   avatar: "",
   avatarFile: null,
   status: ENUM_ACCOUNT_STATUS.ACTIVE,
-  banStatus: ENUM_ACCOUNT_STATUS.UNBAN
+  banStatus: ENUM_ACCOUNT_STATUS.UNBAN,
 };
 
 export { initUserForm };

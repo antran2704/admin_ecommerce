@@ -43,11 +43,11 @@ const Notification = () => {
       dropdownRender={() => (
         <div className="w-[500px] bg-white p-5 rounded-lg shadow-lg ">
           <div className="flex items-center justify-between gap-5">
-            <p className="text-base font-semibold text-green-500">
+            <p className="text-base font-semibold text-primary-color">
               {t("notification")}
             </p>
 
-            <IoCheckmarkDone className="text-2xl text-green-500 cursor-pointer" />
+            <IoCheckmarkDone className="text-2xl text-primary-color cursor-pointer" />
           </div>
           <ul className="scroll flex flex-col pt-5 2xl:max-h-[600px] max-h-[400px] overflow-y-auto gap-3">
             {exampleData.map((item) => (

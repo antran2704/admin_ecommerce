@@ -1,0 +1,183 @@
+import { Dropdown, MenuProps } from "antd";
+import { Fragment, useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import dayjs from "dayjs";
+
+import { BtnAdd, BtnExportFile } from "~/components/Button";
+import PDFManager from "~/components/Pdf";
+import PDFRow from "~/components/Pdf/Row";
+import PDFText from "~/components/Pdf/Text";
+
+import { DAY_DMY } from "~/common/format";
+import { createExcelFile } from "~/helper/file";
+import ability from "~/context/ability";
+import { EPageRole, EPermisisonAction } from "~/enum/constants";
+import PATH_NAME from "~/routes/paths";
+import { IProductTable } from "../interfaces";
+import { formatBigNumber } from "~/helper/format";
+
+interface Props {
+  data: IProductTable[];
+}
+
+const GroupAction = (props: Props) => {
+  const { data = [] } = props;
+
+  const { t } = useTranslation("ProductPage");
+  const { t: tCommon, i18n } = useTranslation("Common");
+
+  const [modal, setModal] = useState<{ pdf: boolean }>({
+    pdf: false,
+  });
+
+  const onModal = (key: keyof typeof modal, value: boolean) => {
+    setModal({ ...modal, [key]: value });
+  };
+
+  const onExportExcel = useCallback(() => {
+    const dataParse: Partial<IProductTable>[] = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      mainCategoryName: item.mainCategoryName,
+      basePrice: item.basePrice,
+      promotionPrice: item.promotionPrice,
+      stock: item.stock,
+      createdAt: dayjs(item.createdAt).format(DAY_DMY),
+    }));
+
+    createExcelFile<Partial<IProductTable>>(
+      dataParse,
+      "Danh_sach_san_pham",
+      "Danh_sach_san_pham",
+      [
+        {
+          header: t("table.id"),
+          key: "id",
+          width: 20,
+        },
+        { header: t("table.name"), key: "name", width: 20 },
+        { header: t("table.category"), key: "mainCategoryName", width: 20 },
+        { header: t("table.basePrice"), key: "basePrice", width: 20 },
+        { header: t("table.promotionPrice"), key: "promotionPrice", width: 20 },
+        { header: t("table.stock"), key: "stock", width: 20 },
+        { header: t("table.createdAt"), key: "createdAt", width: 20 },
+      ],
+    );
+  }, [data, i18n.resolvedLanguage]);
+
+  const items: MenuProps["items"] = useMemo(
+    (): MenuProps["items"] => [
+      {
+        label: (
+          <BtnExportFile
+            onClick={onExportExcel}
+            size="middle"
+            type="link"
+            className="text-gray-700 w-full justify-start"
+          >
+            {tCommon("file.exportExcel")}
+          </BtnExportFile>
+        ),
+        key: "0",
+      },
+      {
+        type: "divider",
+      },
+      {
+        label: (
+          <BtnExportFile
+            size="middle"
+            type="link"
+            className="text-gray-700 w-full justify-start"
+            onClick={() => onModal("pdf", true)}
+            color="text-red-700"
+          >
+            {tCommon("file.exportPdf")}
+          </BtnExportFile>
+        ),
+        key: "1",
+      },
+    ],
+    [data, i18n.resolvedLanguage],
+  );
+
+  return (
+    <Fragment>
+      <div className="flex items-center gap-2">
+        <Dropdown menu={{ items }} trigger={["click"]} placement="bottomRight">
+          <div>
+            <BtnExportFile className="font-semibold">
+              {tCommon("file.exportFile")}
+            </BtnExportFile>
+          </div>
+        </Dropdown>
+
+        {/* Show PDF */}
+        <PDFManager
+          show={modal.pdf}
+          header={[
+            t("table.id"),
+            t("table.name"),
+            t("table.category"),
+            t("table.basePrice"),
+            t("table.promotionPrice"),
+            t("table.stock"),
+            t("table.createdAt"),
+          ].map((item, index) => (
+            <PDFText
+              key={index}
+              value={item}
+              style={{ width: "calc(100% / 7)%", textAlign: "center" }}
+            />
+          ))}
+          onClose={() => onModal("pdf", false)}
+        >
+          {data.map((item, index) => (
+            <PDFRow
+              key={index}
+              style={{ padding: "6 0", borderBottom: "1px solid #303032" }}
+            >
+              <PDFText
+                value={item.id}
+                style={{ width: "calc(100% / 7)%", textAlign: "center" }}
+              />
+              <PDFText
+                value={item.title}
+                style={{ width: "calc(100% / 7)%" }}
+              />
+              <PDFText
+                value={item.mainCategoryName}
+                style={{ width: "calc(100% / 7)%" }}
+              />
+              <PDFText
+                value={formatBigNumber(item.basePrice)}
+                style={{ width: "calc(100% / 7)%" }}
+              />
+              <PDFText
+                value={formatBigNumber(item.promotionPrice)}
+                style={{ width: "calc(100% / 7)%" }}
+              />
+              <PDFText
+                value={formatBigNumber(item.stock)}
+                style={{ width: "calc(100% / 7)%" }}
+              />
+              <PDFText
+                value={dayjs(item.createdAt).format(DAY_DMY)}
+                style={{ width: "calc(100% / 7)%", textAlign: "center" }}
+              />
+            </PDFRow>
+          ))}
+        </PDFManager>
+
+        {ability.can(EPermisisonAction.CREATE, EPageRole.ADMIN_PRODUCT) && (
+          <Link to={PATH_NAME.CREATE_PRODUCT}>
+            <BtnAdd className="font-semibold">{tCommon("create")}</BtnAdd>
+          </Link>
+        )}
+      </div>
+    </Fragment>
+  );
+};
+
+export default GroupAction;

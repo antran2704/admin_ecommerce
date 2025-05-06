@@ -64,7 +64,8 @@ const GroupAction = (props: Props) => {
             onClick={onExportExcel}
             size="middle"
             type="link"
-            className="text-gray-700 w-full justify-start">
+            className="text-gray-700 w-full justify-start"
+          >
             {tCommon("file.exportExcel")}
           </BtnExportFile>
         ),
@@ -80,7 +81,8 @@ const GroupAction = (props: Props) => {
             type="link"
             className="text-gray-700 w-full justify-start"
             onClick={() => onModal("pdf", true)}
-            color="text-red-700">
+            color="text-red-700"
+          >
             {tCommon("file.exportPdf")}
           </BtnExportFile>
         ),
@@ -113,11 +115,13 @@ const GroupAction = (props: Props) => {
               />
             ),
           )}
-          onClose={() => onModal("pdf", false)}>
+          onClose={() => onModal("pdf", false)}
+        >
           {data.map((item, index) => (
             <PDFRow
               key={index}
-              style={{ padding: "6 0", borderBottom: "1px solid #303032" }}>
+              style={{ padding: "6 0", borderBottom: "1px solid #303032" }}
+            >
               <PDFText
                 value={item.id}
                 style={{ width: "calc(100% / 7)%", textAlign: "center" }}
@@ -137,7 +141,11 @@ const GroupAction = (props: Props) => {
         {ability.can(
           EPermisisonAction.CREATE,
           EPageRole.ADMIN_VARIANT_TYPE_VALUE,
-        ) && <BtnAdd className="font-semibold" onClick={onOpenModal}>{tCommon("create")}</BtnAdd>}
+        ) && (
+          <BtnAdd className="font-semibold" onClick={onOpenModal}>
+            {tCommon("create")}
+          </BtnAdd>
+        )}
       </div>
     </Fragment>
   );

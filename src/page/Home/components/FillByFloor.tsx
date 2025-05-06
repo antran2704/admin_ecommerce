@@ -53,9 +53,8 @@ const FillByFloor = (props: Props) => {
               type: "bullets",
               dynamicBullets: true,
             }}
-            modules={[Pagination]}>
-            
-          </Swiper>
+            modules={[Pagination]}
+          ></Swiper>
         </div>
 
         <ul className="flex flex-col w-fit mt-5 ml-auto gap-2">

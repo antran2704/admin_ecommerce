@@ -74,7 +74,8 @@ const CategoryPage = () => {
     <MainLayout
       titleText={t("title")}
       className="bg-white"
-      listBreadcrumb={[{ title: t("breadcrumb.list") }]}>
+      listBreadcrumb={[{ title: t("breadcrumb.list") }]}
+    >
       <div className="py-5">
         <div className="flex items-center justify-between">
           <div className="3xl:w-3/12 w-4/12 flex items-center gap-4">

@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { v4 as uuidv4 } from "uuid";
+
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import { IRoute } from "~/interface/route";
 import PATH_NAME from "./paths";
@@ -29,6 +30,11 @@ const UpdateCategoryPage = lazy(() => import("~/page/Category/edit"));
 const VariantTypePage = lazy(() => import("~/page/VariantType"));
 const CreateVariantTypePage = lazy(() => import("~/page/VariantType/create"));
 const UpdateVariantTypePage = lazy(() => import("~/page/VariantType/edit"));
+
+// Product
+const ProductPage = lazy(() => import("~/page/Product"));
+const CreateProductPage = lazy(() => import("~/page/Product/create"));
+const UpdateProductPage = lazy(() => import("~/page/Product/edit"));
 
 const MainRoutes: IRoute[] = [
   {
@@ -140,6 +146,29 @@ const MainRoutes: IRoute[] = [
     href: `${PATH_NAME.VARIANT_TYPES}/:variant_type_id`,
     element: UpdateVariantTypePage,
     subject: EPageRole.ADMIN_VARIANT_TYPE,
+    action: EPermisisonAction.VIEW,
+  },
+
+  // Product
+  {
+    id: uuidv4(),
+    href: PATH_NAME.PRODUCTS,
+    element: ProductPage,
+    subject: EPageRole.ADMIN_PRODUCT,
+    action: EPermisisonAction.VIEW,
+  },
+  {
+    id: uuidv4(),
+    href: PATH_NAME.CREATE_PRODUCT,
+    element: CreateProductPage,
+    subject: EPageRole.ADMIN_PRODUCT,
+    action: EPermisisonAction.CREATE,
+  },
+  {
+    id: uuidv4(),
+    href: `${PATH_NAME.PRODUCTS}/:product_id`,
+    element: UpdateProductPage,
+    subject: EPageRole.ADMIN_PRODUCT,
     action: EPermisisonAction.VIEW,
   },
 ];

@@ -52,7 +52,6 @@ const EditStaff = () => {
     resolver: yupResolver(updateStaffSchema(tError)) as any,
   });
 
-
   const { messageAntd } = useMessageAntd();
 
   const [data, setData] = useState<IStaffResponse | null>(null);
@@ -181,7 +180,8 @@ const EditStaff = () => {
       listBreadcrumb={[
         { title: t("breadcrumb.list"), href: PATH_NAME.STAFFS },
         { title: isEdit ? t("breadcrumb.update") : t("breadcrumb.viewInfo") },
-      ]}>
+      ]}
+    >
       <div className="flex lg:flex-row flex-col items-start justify-between py-10 gap-10">
         <div className="mx-auto">
           {data && (
@@ -201,7 +201,9 @@ const EditStaff = () => {
                   EPermisisonAction.CHANGE_PASSWORD,
                   EPageRole.ADMIN_STAFF,
                 ) && (
-                  <ChangePassword onModal={() => onModal("changePassword", true)}>
+                  <ChangePassword
+                    onModal={() => onModal("changePassword", true)}
+                  >
                     <ChangePasswordModal
                       data={data}
                       open={modal.changePassword}
@@ -226,7 +228,9 @@ const EditStaff = () => {
           onOk={staffForm.handleSubmit(
             () => onModal("submit", true),
             () => {
-              messageAntd.error(tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS));
+              messageAntd.error(
+                tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS),
+              );
             },
           )}
           onCancel={onEdit}

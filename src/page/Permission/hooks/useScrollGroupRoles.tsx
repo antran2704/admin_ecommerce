@@ -37,15 +37,21 @@ const useScrollGroupRoles = (query?: Partial<ISearch> | null) => {
   const getDataScroll = async (paramater: ISearch) => {
     if (pagination.total && pagination.total <= data.length) return;
 
-    await apiGroupRoleService.roleGroups(paramater)
-      .then(({ data: services, pagination }: IResponseDataWithPagination<IGroupRoleResponse[]>) => {
-        setData([...data, ...services]);
-        setPagination({
-          page: pagination.page,
-          take: pagination.take,
-          total: pagination.total,
-        });
-      })
+    await apiGroupRoleService
+      .roleGroups(paramater)
+      .then(
+        ({
+          data: services,
+          pagination,
+        }: IResponseDataWithPagination<IGroupRoleResponse[]>) => {
+          setData([...data, ...services]);
+          setPagination({
+            page: pagination.page,
+            take: pagination.take,
+            total: pagination.total,
+          });
+        },
+      )
       .catch((err) => err);
   };
 

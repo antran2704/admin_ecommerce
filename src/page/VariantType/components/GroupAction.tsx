@@ -65,7 +65,8 @@ const GroupAction = (props: Props) => {
             onClick={onExportExcel}
             size="middle"
             type="link"
-            className="text-gray-700 w-full justify-start">
+            className="text-gray-700 w-full justify-start"
+          >
             {tCommon("file.exportExcel")}
           </BtnExportFile>
         ),
@@ -81,7 +82,8 @@ const GroupAction = (props: Props) => {
             type="link"
             className="text-gray-700 w-full justify-start"
             onClick={() => onModal("pdf", true)}
-            color="text-red-700">
+            color="text-red-700"
+          >
             {tCommon("file.exportPdf")}
           </BtnExportFile>
         ),
@@ -105,24 +107,30 @@ const GroupAction = (props: Props) => {
         {/* Show PDF */}
         <PDFManager
           show={modal.pdf}
-          header={[
-            t("table.id"),
-            t("table.name"),
-            t("table.createdAt"),
-          ].map((item, index) => (
-            <PDFText
-              key={index}
-              value={item}
-              style={{ width: "calc(100% / 7)%", textAlign: "center" }}
-            />
-          ))}
-          onClose={() => onModal("pdf", false)}>
+          header={[t("table.id"), t("table.name"), t("table.createdAt")].map(
+            (item, index) => (
+              <PDFText
+                key={index}
+                value={item}
+                style={{ width: "calc(100% / 7)%", textAlign: "center" }}
+              />
+            ),
+          )}
+          onClose={() => onModal("pdf", false)}
+        >
           {data.map((item, index) => (
             <PDFRow
               key={index}
-              style={{ padding: "6 0", borderBottom: "1px solid #303032" }}>
-              <PDFText value={item.id} style={{ width: "calc(100% / 7)%", textAlign: "center" }} />
-              <PDFText value={item.title} style={{ width: "calc(100% / 7)%" }} />
+              style={{ padding: "6 0", borderBottom: "1px solid #303032" }}
+            >
+              <PDFText
+                value={item.id}
+                style={{ width: "calc(100% / 7)%", textAlign: "center" }}
+              />
+              <PDFText
+                value={item.title}
+                style={{ width: "calc(100% / 7)%" }}
+              />
               <PDFText
                 value={dayjs(item.createdAt).format(DAY_DMY)}
                 style={{ width: "calc(100% / 7)%", textAlign: "center" }}
@@ -131,7 +139,10 @@ const GroupAction = (props: Props) => {
           ))}
         </PDFManager>
 
-        {ability.can(EPermisisonAction.CREATE, EPageRole.ADMIN_VARIANT_TYPE) && (
+        {ability.can(
+          EPermisisonAction.CREATE,
+          EPageRole.ADMIN_VARIANT_TYPE,
+        ) && (
           <Link to={PATH_NAME.CREATE_VARIANT_TYPE}>
             <BtnAdd className="font-semibold">{tCommon("create")}</BtnAdd>
           </Link>

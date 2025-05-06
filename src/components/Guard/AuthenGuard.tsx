@@ -58,7 +58,7 @@ const AuthenGuard = ({ children }: { children: ReactNode }) => {
 
     const accessToken = getAuthToken("accessToken");
     const refreshToken = getAuthToken("refreshToken");
-    
+
     if (!accessToken || !refreshToken) {
       removeAuthToken();
       navigate("/login");
@@ -70,7 +70,7 @@ const AuthenGuard = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     } catch (error) {
       const { message } = hanldeErrorAxios(error);
-      if(message === "USER_WAS_DISABLED" || message === "USER_NOT_FOUND") {
+      if (message === "USER_WAS_DISABLED" || message === "USER_NOT_FOUND") {
         removeAuthToken();
       }
 

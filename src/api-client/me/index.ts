@@ -46,9 +46,11 @@ const apiMeService = {
     return await AxiosClient.post(
       BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admin/me/upload-avatar",
       formData,
-      { headers: {
-        "Content-Type": file.type,
-      },}
+      {
+        headers: {
+          "Content-Type": file.type,
+        },
+      },
     ).then((res) => res.data);
   },
 };

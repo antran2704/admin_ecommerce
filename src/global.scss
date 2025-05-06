@@ -108,6 +108,7 @@ $gray-950: #0c0c0c;
 
 //  font family
 $primary-font: "Be Vietnam Pro";
+$primary-color: $green-500;
 
 @mixin scroll {
   &::-webkit-scrollbar-thumb {
@@ -293,7 +294,7 @@ body {
 // Overide css Select component antd
 .ant-select-outlined {
   &:hover .ant-select-selector {
-    border-color: $green-500 !important;
+    border-color: $primary-color !important;
   }
 }
 
@@ -346,7 +347,7 @@ body {
 }
 
 .ant-btn-primary {
-  background-color: $green-500;
+  background-color: $primary-color;
 
   &:not(:disabled):not(.ant-btn-disabled):hover {
     background-color: $green-600;
@@ -375,13 +376,13 @@ body {
   border-color: $green-300 !important;
 
   &:hover {
-    border-color: $green-500 !important;
+    border-color: $primary-color !important;
   }
 }
 
 .ant-tree-checkbox {
   & .ant-tree-checkbox-inner:after {
-    border: 2px solid $green-500 !important;
+    border: 2px solid $primary-color !important;
     border-top: 0 !important;
     border-left: 0 !important;
   }
@@ -416,11 +417,11 @@ body {
 // Overide css Radio component antd
 .ant-radio-wrapper {
   .ant-radio-checked::after {
-    border: 1px solid $green-500;
+    border: 1px solid $primary-color;
   }
 
   &:hover .ant-radio-inner {
-    border: 1px solid $green-500;
+    border: 1px solid $primary-color;
   }
 
   &:hover .ant-radio-disabled .ant-radio-inner {
@@ -428,8 +429,8 @@ body {
   }
 
   .ant-radio-checked .ant-radio-inner {
-    background-color: $green-500;
-    border: 1px solid $green-500;
+    background-color: $primary-color;
+    border: 1px solid $primary-color;
   }
 
   .ant-radio-checked.ant-radio-disabled .ant-radio-inner {
@@ -439,8 +440,8 @@ body {
 }
 // Overide css Pagination component antd
 .ant-pagination-item-active {
-  background-color: $green-500 !important;
-  border-color: $green-500 !important;
+  background-color: $primary-color !important;
+  border-color: $primary-color !important;
 
   a {
     color: white !important;
@@ -458,18 +459,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $green-500;
+    background-color: $primary-color;
     border-radius: 999px;
     margin: 0 auto;
 
     &::before {
-      border: 1px solid $green-500;
+      border: 1px solid $primary-color;
     }
   }
 
   .ant-picker-cell-in-view.ant-picker-cell-today
     .ant-picker-cell-inner::before {
-    border: 1px solid $green-500;
+    border: 1px solid $primary-color;
     border-radius: 999px;
   }
 }
@@ -478,16 +479,16 @@ body {
 .ant-dropdown-menu {
   .ant-dropdown-menu-item-selected {
     background-color: $green-50 !important;
-    color: $green-500 !important;
+    color: $primary-color !important;
   }
 }
 
 // Overide css switch component antd
 .ant-switch.ant-switch-checked {
-  background-color: $green-500;
+  background-color: $primary-color;
 
   &:hover {
-    background-color: $green-500 !important;
+    background-color: $primary-color !important;
   }
 }
 
@@ -545,7 +546,7 @@ body {
   }
 
   .swiper-pagination-bullet-active {
-    background-color: $green-500;
+    background-color: $primary-color;
   }
 }
 

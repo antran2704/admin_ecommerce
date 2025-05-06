@@ -1,0 +1,62 @@
+{
+  "title": "Quản lý sản phẩm",
+  "searchTitle": "Tìm kiếm ID, Tên sản phẩm",
+  "filter": {
+    "createdAt": "Ngày tạo"
+  },
+  "status": {
+    "active": "Đang hoạt động",
+    "inactive": "Ngừng hoạt động"
+  },
+  "table": {
+    "id": "ID sản phẩm",
+    "name": "Tên sản phẩm",
+    "thumbnail": "Hình ảnh",
+    "basePrice": "Giá bán",
+    "promotionPrice": "Giá khuyến mãi",
+    "stock": "Số lượng",
+    "category": "Danh mục",
+    "status": "Trạng thái",
+    "createdAt": "Ngày tạo"
+  },
+  "tabs": {
+    "detail": "Chi tiết",
+    "variantProduct": "Sản phẩm con"
+  },
+  "createTitle": "Thêm mới sản phẩm",
+  "viewInfoTitle": "Thông tin sản phẩm",
+  "editTitle": "Cập nhật sản phẩm",
+  "form": {
+    "id": "ID sản phẩm",
+    "name": "Tên sản phẩm",
+    "description": "Mô tả",
+    "thumbnail": "Hình ảnh",
+    "gallery": "Danh sách ảnh",
+    "category": "Danh mục",
+    "subcategories": "Danh mục con",
+    "basePrice": "Giá bán",
+    "promotionPrice": "Giá khuyến mãi",
+    "stock": "Số lượng",
+    "status": "Trạng thái",
+    "createdAt": "Ngày tạo"
+  },
+  "modalDelete": {
+    "title": "Xóa sản phẩm",
+    "subtitle": "Bạn muốn xóa sản phẩm?"
+  },
+  "modalUpdate": {
+    "title": "Cập nhật sản phẩm",
+    "subtitle": "Bạn muốn cập nhật thông tin sản phẩm?"
+  },
+  "breadcrumb": {
+    "list": "Danh sách sản phẩm",
+    "viewInfo": "Thông tin sản phẩm",
+    "create": "Thêm mới sản phẩm",
+    "update": "Cập nhật sản phẩm"
+  },
+  "error": {
+    "PRODUCT_NOT_FOUND": "Sản phẩm không tồn tại",
+    "PRODUCT_WAS_DISABLED": "Sản phẩm đang ngừng hoạt động",
+    "PRODUCT_WAS_ENABLED": "Sản phẩm đang đang hoạt động"
+  }
+}

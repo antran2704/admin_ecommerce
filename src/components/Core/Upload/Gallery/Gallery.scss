@@ -1,13 +1,25 @@
+@import "../../../../global.scss";
+
 // custom gallery
 .gallery {
   .ant-upload-select {
-    width: 160px !important;
-    height: 160px !important;
+    width: 100px !important;
+    height: 100px !important;
+    background-color: $green-50 !important;
+    border: 2px dashed #d9d9d9 !important;
+
+    &:hover {
+      border: 2px dashed $primary-color !important;
+    }
+  }
+
+  &.error .ant-upload.ant-upload-select:hover {
+    border-color: #f04e23 !important;
   }
 
   .ant-upload-list-item-container {
-    width: 160px !important;
-    height: 160px !important;
+    width: 100px !important;
+    height: 100px !important;
   }
 
   .ant-upload-list {

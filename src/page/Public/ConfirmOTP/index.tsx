@@ -167,7 +167,7 @@ const ForgotOtpPage = () => {
           <h2 className="2xl:text-base text-sm font-semibold text-center">
             {t("description")}
           </h2>
-          <p className="2xl:text-base text-sm text-center font-semibold text-green-500 my-1">
+          <p className="2xl:text-base text-sm text-center font-semibold text-primary-color my-1">
             {decodeEmail}
           </p>
         </div>
@@ -201,7 +201,15 @@ const ForgotOtpPage = () => {
           {t("noReceiveCode")}
           <span
             onClick={handleResendOTP}
-            className={clsx("block text-sm text-center font-medium cursor-pointer", [isExpired ? "text-green-500 hover:underline" : "text-gray-200 pointer-events-none"])}>
+            className={clsx(
+              "block text-sm text-center font-medium cursor-pointer",
+              [
+                isExpired
+                  ? "text-primary-color hover:underline"
+                  : "text-gray-200 pointer-events-none",
+              ],
+            )}
+          >
             {t("resend")}
           </span>
         </p>
@@ -212,7 +220,8 @@ const ForgotOtpPage = () => {
         type="primary"
         loading={loading}
         disabled={isExpired || !!message}
-        className="w-full !py-6 !flex items-center justify-center !text-lg !font-semibold">
+        className="w-full !py-6 !flex items-center justify-center !text-lg !font-semibold"
+      >
         {tCommon("continute")}
       </Button>
 

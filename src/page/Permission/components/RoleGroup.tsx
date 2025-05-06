@@ -46,7 +46,7 @@ const RoleGroup = (props: Props) => {
 
   return (
     <div className="px-5 pb-5 pt-8 bg-white rounded-lg">
-      <h2 className="md:text-lg text-base font-medium text-green-500 pb-2 px-2 border-b border-b-gray-200/50">
+      <h2 className="md:text-lg text-base font-medium text-primary-color pb-2 px-2 border-b border-b-gray-200/50">
         {title}
       </h2>
 
@@ -85,7 +85,7 @@ const RoleGroup = (props: Props) => {
           size="large"
           className="mt-2"
           onClick={onModalAdd}
-          icon={<IoMdAddCircleOutline className="text-xl text-green-500" />}
+          icon={<IoMdAddCircleOutline className="text-xl text-primary-color" />}
         >
           {tCommon("add")}
         </Button>

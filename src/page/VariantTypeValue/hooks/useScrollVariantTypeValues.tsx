@@ -5,7 +5,10 @@ import { EOrderType } from "~/enum/paramater";
 import { IResponseDataWithPagination } from "~/interface";
 
 import { IPagination } from "~/interface/pagination";
-import { IGetVariantTypeValuesRequest, IVariantTypeValueResponse } from "../interfaces";
+import {
+  IGetVariantTypeValuesRequest,
+  IVariantTypeValueResponse,
+} from "../interfaces";
 import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
 
 const useScrollVariantTypeValues = (

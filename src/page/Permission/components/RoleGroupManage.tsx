@@ -187,7 +187,8 @@ const RoleGroupManage = (props: Props) => {
         okButtonProps={{
           loading: loading.create,
           disabled: loading.create,
-        }}>
+        }}
+      >
         <div className="pb-5">
           <Controller
             name="name"

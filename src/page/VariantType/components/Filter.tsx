@@ -45,10 +45,9 @@ const Filter = (props: Props) => {
       filter={formFilter}
       onClearFilter={onClearFilter}
       onFilter={handleFilter}
-      width={600}>
-      <Fragment>
-       
-      </Fragment>
+      width={600}
+    >
+      <Fragment></Fragment>
     </FilterCore>
   );
 };

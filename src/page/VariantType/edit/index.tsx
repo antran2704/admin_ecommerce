@@ -23,7 +23,7 @@ const EditPage = () => {
     tab: "string",
   });
 
-const { variant_type_id } = useParams();
+  const { variant_type_id } = useParams();
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -61,7 +61,8 @@ const { variant_type_id } = useParams();
       listBreadcrumb={[
         { title: t("breadcrumb.list"), href: PATH_NAME.VARIANT_TYPES },
         { title: isEdit ? t("breadcrumb.update") : t("breadcrumb.viewInfo") },
-      ]}>
+      ]}
+    >
       {/* Form */}
       <div className="w-full p-5">
         <TabsCore

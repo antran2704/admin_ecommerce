@@ -53,19 +53,19 @@ const PublicLayout = () => {
         <LocaleSwitcher />
         <Link
           to={"/"}
-          className="md:text-sm sm:text-sm text-xs text-[#202020] hover:underline hover:text-green-500"
+          className="md:text-sm sm:text-sm text-xs text-[#202020] hover:underline hover:text-primary-color"
         >
           Cookie
         </Link>
         <Link
           to={"/"}
-          className="md:text-sm sm:text-sm text-xs text-[#202020] hover:underline hover:text-green-500"
+          className="md:text-sm sm:text-sm text-xs text-[#202020] hover:underline hover:text-primary-color"
         >
           Điều khoản
         </Link>
         <Link
           to={"/"}
-          className="md:text-sm sm:text-sm text-xs text-[#202020] hover:underline hover:text-green-500"
+          className="md:text-sm sm:text-sm text-xs text-[#202020] hover:underline hover:text-primary-color"
         >
           Riêng tư
         </Link>

@@ -144,13 +144,19 @@ const Table = (props: Props) => {
                 <BtnView />
               </Link>
 
-              {ability.can(EPermisisonAction.UPDATE, EPageRole.ADMIN_CATEGORY) && (
+              {ability.can(
+                EPermisisonAction.UPDATE,
+                EPageRole.ADMIN_CATEGORY,
+              ) && (
                 <Link to={PATH_NAME.UPDATE_CATEGORY(record.id) + "?edit=1"}>
                   <BtnEdit />
                 </Link>
               )}
 
-              {ability.can(EPermisisonAction.DELETE, EPageRole.ADMIN_CATEGORY) &&
+              {ability.can(
+                EPermisisonAction.DELETE,
+                EPageRole.ADMIN_CATEGORY,
+              ) &&
                 infoUser.userId !== record.id && (
                   <BtnTrash
                     onClick={() => {

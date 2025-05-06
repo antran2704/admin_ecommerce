@@ -37,15 +37,21 @@ const useScrollCategories = (query?: Partial<IGetCategoriesRequest> | null) => {
   const getDataScroll = async (paramater: IGetCategoriesRequest) => {
     if (pagination.total && pagination.total <= data.length) return;
 
-    await apiCategoryService.categories(paramater)
-      .then(({ data: services, pagination }: IResponseDataWithPagination<IListCategoryResponse[]>) => {
-        setData([...data, ...services]);
-        setPagination({
-          page: pagination.page,
-          take: pagination.take,
-          total: pagination.total,
-        });
-      })
+    await apiCategoryService
+      .categories(paramater)
+      .then(
+        ({
+          data: services,
+          pagination,
+        }: IResponseDataWithPagination<IListCategoryResponse[]>) => {
+          setData([...data, ...services]);
+          setPagination({
+            page: pagination.page,
+            take: pagination.take,
+            total: pagination.total,
+          });
+        },
+      )
       .catch((err) => err);
   };
 

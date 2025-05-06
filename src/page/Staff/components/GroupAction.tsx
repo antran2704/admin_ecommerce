@@ -350,10 +350,7 @@ const GroupAction = (props: Props) => {
           ))}
         </PDFManager>
 
-        {ability.can(
-          EPermisisonAction.CREATE,
-          EPageRole.ADMIN_STAFF,
-        ) && (
+        {ability.can(EPermisisonAction.CREATE, EPageRole.ADMIN_STAFF) && (
           <Link to={PATH_NAME.CREATE_USER}>
             <BtnAdd className="font-semibold">{tCommon("create")}</BtnAdd>
           </Link>
@@ -397,7 +394,7 @@ const GroupAction = (props: Props) => {
                 </p>
                 <p className="text-sm text-center text-gray-400 mt-2">
                   {t("modalUploadFile.description2")}{" "}
-                  <span className="text-green-500">.xlsx</span>
+                  <span className="text-primary-color">.xlsx</span>
                 </p>
               </div>
             }

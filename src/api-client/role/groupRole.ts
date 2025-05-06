@@ -3,14 +3,21 @@ import AxiosClient from "~/config/axiosClient";
 import { INTERNAL_PATH } from "~/config/constants";
 import { parseQueryString } from "~/helper/url";
 import { ISearch } from "~/interface";
-import { ICreateGroupRoleRequest, IUpdateGroupRoleRequest } from "~/page/Permission/interfaces";
+import {
+  ICreateGroupRoleRequest,
+  IUpdateGroupRoleRequest,
+} from "~/page/Permission/interfaces";
 
 const apiGroupRoleService = {
   roleGroups: async (paramater?: ISearch) => {
     const parseParamater = parseQueryString(paramater);
-  
+
     return await AxiosClient.get(
-      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/group-roles" + parseParamater,
+      BASE_URL +
+        API_VERSION.V1 +
+        INTERNAL_PATH +
+        "/group-roles" +
+        parseParamater,
     ).then((res) => res.data);
   },
   create: async (data: ICreateGroupRoleRequest) => {
@@ -31,6 +38,5 @@ const apiGroupRoleService = {
     ).then((res) => res.data);
   },
 };
-
 
 export { apiGroupRoleService };

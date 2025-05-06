@@ -185,22 +185,20 @@ const convertToImageFile = (fileData: IFile): Partial<File> => {
 };
 
 // Convert file data to Document File type
-const convertToDocumentFile = (
-  fileData: IFile,
+const convertToUploadFile = (
+  url: string,
   options?: Partial<UploadFile>,
-): Partial<UploadFile> => {
+): UploadFile => {
   const defaultNameFile = "Document";
 
-  if (fileData) {
+  if (url) {
     return {
       size: 0,
       type: "old", //set old for check file new or old when update
       uid: uuidv4(),
       name: defaultNameFile,
-      lastModified: isNaN(Number(fileData.fileName))
-        ? 0
-        : Number(fileData.fileName),
-      url: fileData.url,
+      lastModified: 0,
+      url,
       ...options,
     };
   }
@@ -243,7 +241,7 @@ export {
   createExcelFileWithMultipleTypeData,
   resolveFileUrl,
   convertToImageFile,
-  convertToDocumentFile,
+  convertToUploadFile,
   getLastModifiedOfFile,
   updateImageFileTypeToOld,
   updateDocumentFileTypeToOld,

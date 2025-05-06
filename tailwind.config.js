@@ -73,7 +73,9 @@ export default {
         "gray-800": "#1D1D1E",
         "gray-900": "#131314",
         "gray-950": "#0C0C0C",
-        "gray-1000": "#F4F4F4"
+        "gray-1000": "#F4F4F4",
+
+        "primary-color": "#007A54",
       },
     },
     screens: {
