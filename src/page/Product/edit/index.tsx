@@ -10,6 +10,7 @@ import PATH_NAME from "~/routes/paths";
 import { TabsCore } from "~/components/Core";
 import { parseQueryString } from "~/helper/url";
 import EditForm from "../components/EditForm";
+import VariantProductManage from "../components/VariantProductManage";
 
 const EditPage = () => {
   const { t, i18n } = useTranslation("ProductPage");
@@ -47,7 +48,7 @@ const EditPage = () => {
       {
         key: "variant-product",
         label: t("tabs.variantProduct"),
-        // children: <VariantTypeValueManage variantTypeId={variant_type_id} />,
+        children: <VariantProductManage />,
       },
     ];
   }, [i18n.resolvedLanguage, isEdit]);
@@ -65,7 +66,8 @@ const EditPage = () => {
       {/* Form */}
       <div className="w-full p-5">
         <TabsCore
-          activeKey={tabParam ? (tabParam as string) : "detail"}
+          // activeKey={tabParam ? (tabParam as string) : "detail"}
+          defaultActiveKey="variant-product"
           items={tabs}
           onChange={onTabChange}
         />
