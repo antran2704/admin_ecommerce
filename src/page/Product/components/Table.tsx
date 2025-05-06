@@ -120,6 +120,16 @@ const Table = (props: Props) => {
           ),
         },
         {
+          title: t("table.category"),
+          dataIndex: "mainCategoryName",
+          className: "cursor-pointer",
+          render: (value: string) => (
+            <span className="block w-[200px]">
+              {value ? value : tCommon("noData")}
+            </span>
+          ),
+        },
+        {
           title: t("table.basePrice"),
           dataIndex: "basePrice",
           align: "center",

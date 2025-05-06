@@ -6,3 +6,5 @@ export * from "./productTable.interface";
 export * from "./productForm.interface";
 export * from "./subCategoryProduct.interface";
 export * from "./optionProduct.interface";
+export * from "./varaintProductTable.interface";
+export * from "./getVariantProductsRequest.interface";
