@@ -8,3 +8,4 @@ export * from "./subCategoryProduct.interface";
 export * from "./optionProduct.interface";
 export * from "./varaintProductTable.interface";
 export * from "./getVariantProductsRequest.interface";
+export * from "./updateProductContext.interface";

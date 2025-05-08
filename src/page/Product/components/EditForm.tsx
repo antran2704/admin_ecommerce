@@ -19,16 +19,15 @@ import { IProductForm, IUpdateProductRequest } from "../interfaces";
 import { IProductResponse } from "../interfaces/productResponse.interface";
 import { apiProductService } from "~/api-client/product";
 import { convertToUploadFile } from "~/helper/file";
+import { useProductContext } from "../hooks";
 
 interface Props {
   isEdit: boolean;
-  product: IProductResponse | null;
-  setProduct: (data: IProductResponse) => void;
   onEdit: () => void;
 }
 
 const EditForm = (props: Props) => {
-  const { product, isEdit, setProduct, onEdit } = props;
+  const { isEdit, onEdit } = props;
 
   const { t } = useTranslation("ProductPage");
   const { t: tCommon } = useTranslation("Common");
@@ -36,6 +35,8 @@ const EditForm = (props: Props) => {
   const { t: tSuccess } = useTranslation("Success");
 
   const navigate = useNavigate();
+
+  const { product, setProduct } = useProductContext();
 
   const form = useForm<IProductForm>({
     defaultValues: initProductForm,

@@ -1,15 +1,8 @@
 import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Divider } from "antd";
+import { Divider } from "antd";
 
-import SelectVariant from "./SelectVariant";
-import SelectVariantValue from "./SelectVariantValue";
-import { ISelectVariantProductForm } from "../interfaces/selectVariantForm.interface";
-import { initSelectVariantForm } from "../common/selectVariantForm";
-import { selectVariantFormSchema } from "../schema/selectVariantForm.schema";
 import { InputSearch } from "~/components/Core/Input";
 import useGetSearchParams from "~/hooks/useGetSearchParams";
 import {
@@ -22,17 +15,10 @@ import Filter from "./VariantFilter";
 import GroupAction from "./VariantGroupAction";
 import { useSelectTableRows } from "~/hooks/table";
 import Table from "./VariantTable";
-import { IProductResponse } from "../interfaces/productResponse.interface";
+import VariantProductGenerator from "./VariantProductGenerator";
 
-interface Props {
-  product: IProductResponse | null;
-}
-
-const VariantProductManage = (props: Props) => {
-  const { product } = props;
-
+const VariantProductManage = () => {
   const { t } = useTranslation("VariantProductPage");
-  const { t: tError } = useTranslation("Error");
 
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
@@ -59,11 +45,6 @@ const VariantProductManage = (props: Props) => {
     };
   }, [search]);
 
-  const form = useForm<ISelectVariantProductForm>({
-    defaultValues: initSelectVariantForm,
-    resolver: yupResolver(selectVariantFormSchema(tError)) as any,
-  });
-
   const { selectedRows, selectedRowKeys, onSelectedRows, onSelectedRowKeys } =
     useSelectTableRows<IVariantProductTable>();
 
@@ -84,35 +65,12 @@ const VariantProductManage = (props: Props) => {
     navigate(pathname + parseQueryString(newParams));
   };
 
-  const onSubmit = (data: ISelectVariantProductForm) => {
-    console.log(data);
-  };
-
   return (
     <div className="py-5">
-      <div className="flex items-center flex-wrap gap-5">
-        <div className="flex-1 grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5">
-          <SelectVariant form={form} />
+      <VariantProductGenerator />
 
-          {form.watch("variants").map((variant) => (
-            <SelectVariantValue
-              key={variant.value}
-              variantTypeId={variant.value as string}
-              variantTypeName={variant.label as string}
-              form={form}
-            />
-          ))}
-        </div>
-        <Button
-          size="large"
-          type="primary"
-          disabled={!form.watch("variants").length}
-          onClick={form.handleSubmit(onSubmit)}
-        >
-          Generate
-        </Button>
-      </div>
       <Divider />
+
       <div className="flex items-center justify-between mt-5">
         <div className="3xl:w-3/12 w-4/12 flex items-center gap-4">
           <InputSearch

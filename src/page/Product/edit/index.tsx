@@ -16,6 +16,7 @@ import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import { apiProductService } from "~/api-client/product";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import useLoading from "~/hooks/useLoading";
+import { UpdateProductProvider } from "../contexts";
 
 const EditPage = () => {
   const { t, i18n } = useTranslation("ProductPage");
@@ -71,19 +72,12 @@ const EditPage = () => {
     {
       key: "detail",
       label: t("tabs.detail"),
-      children: (
-        <EditForm
-          isEdit={isEdit}
-          product={data}
-          setProduct={setData}
-          onEdit={onEdit}
-        />
-      ),
+      children: <EditForm isEdit={isEdit} onEdit={onEdit} />,
     },
     {
       key: "variant-product",
       label: t("tabs.variantProduct"),
-      children: <VariantProductManage product={data} />,
+      children: <VariantProductManage />,
     },
   ];
 
@@ -104,16 +98,18 @@ const EditPage = () => {
       ]}
     >
       {/* Form */}
-      <LoadingLayout loading={loading.getData}>
-        <div className="w-full p-5">
-          <TabsCore
-            // activeKey={tabParam ? (tabParam as string) : "detail"}
-            defaultActiveKey="variant-product"
-            items={tabs}
-            onChange={onTabChange}
-          />
-        </div>
-      </LoadingLayout>
+      <UpdateProductProvider value={{ product: data, setProduct: setData }}>
+        <LoadingLayout loading={loading.getData}>
+          <div className="w-full p-5">
+            <TabsCore
+              // activeKey={tabParam ? (tabParam as string) : "detail"}
+              defaultActiveKey="variant-product"
+              items={tabs}
+              onChange={onTabChange}
+            />
+          </div>
+        </LoadingLayout>
+      </UpdateProductProvider>
     </MainLayout>
   );
 };
