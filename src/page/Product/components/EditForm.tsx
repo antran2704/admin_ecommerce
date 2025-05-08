@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,18 +22,19 @@ import { convertToUploadFile } from "~/helper/file";
 
 interface Props {
   isEdit: boolean;
+  product: IProductResponse | null;
+  setProduct: (data: IProductResponse) => void;
   onEdit: () => void;
 }
 
 const EditForm = (props: Props) => {
-  const { isEdit, onEdit } = props;
+  const { product, isEdit, setProduct, onEdit } = props;
 
   const { t } = useTranslation("ProductPage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
 
-  const { product_id } = useParams();
   const navigate = useNavigate();
 
   const form = useForm<IProductForm>({
@@ -43,11 +44,11 @@ const EditForm = (props: Props) => {
 
   const { messageAntd } = useMessageAntd();
 
-  const [data, setData] = useState<IProductResponse | null>(null);
+  // const [data, setData] = useState<IProductResponse | null>(null);
 
-  const [loading, setLoading] = useState<{ getData: boolean; submit: boolean }>(
-    { getData: false, submit: false },
-  );
+  const [loading, setLoading] = useState<{ submit: boolean }>({
+    submit: false,
+  });
 
   const [modal, setModal] = useState<{
     changePassword: boolean;
@@ -68,44 +69,68 @@ const EditForm = (props: Props) => {
     });
   };
 
-  const handleGetData = async (id: string) => {
-    onLoading("getData", true);
+  // const handleGetData = async (id: string) => {
+  //   onLoading("getData", true);
 
-    await apiProductService
-      .product(id)
-      .then((payload: IProductResponse) => {
-        const newDataForm: IProductForm = {
-          title: payload.productName,
-          description: payload.description,
-          basePrice: payload.basePrice,
-          promotionPrice: payload.promotionPrice,
-          stock: payload.stock,
-          mainCategory: payload.mainCategoryId,
-          subCategories: payload.subCategories.map((item) => item.categoryId),
-          isActive: payload.isActive,
-          thumbnailFile: null,
-          thumbnailUrl: payload.thumbnail,
-          gallery: payload.gallery.map((item) => ({
-            file: convertToUploadFile(item, {
-              type: "old",
-              thumbUrl: item,
-            }) as RcFile,
-            url: item,
-          })),
-        };
+  //   await apiProductService
+  //     .product(id)
+  //     .then((payload: IProductResponse) => {
+  //       const newDataForm: IProductForm = {
+  //         title: payload.productName,
+  //         description: payload.description,
+  //         basePrice: payload.basePrice,
+  //         promotionPrice: payload.promotionPrice,
+  //         stock: payload.stock,
+  //         mainCategory: payload.mainCategoryId,
+  //         subCategories: payload.subCategories.map((item) => item.categoryId),
+  //         isActive: payload.isActive,
+  //         thumbnailFile: null,
+  //         thumbnailUrl: payload.thumbnail,
+  //         gallery: payload.gallery.map((item) => ({
+  //           file: convertToUploadFile(item, {
+  //             type: "old",
+  //             thumbUrl: item,
+  //           }) as RcFile,
+  //           url: item,
+  //         })),
+  //       };
 
-        form.reset(newDataForm);
-        setData(payload);
-        onLoading("getData", false);
-      })
-      .catch((err) => {
-        const { statusCode } = hanldeErrorAxios(err);
+  //       form.reset(newDataForm);
+  //       setData(payload);
+  //       onLoading("getData", false);
+  //     })
+  //     .catch((err) => {
+  //       const { statusCode } = hanldeErrorAxios(err);
 
-        if (statusCode === 404) {
-          messageAntd.error(t("error.PRODUCT_NOT_FOUND"));
-          navigate(PATH_NAME.PRODUCTS);
-        }
-      });
+  //       if (statusCode === 404) {
+  //         messageAntd.error(t("error.PRODUCT_NOT_FOUND"));
+  //         navigate(PATH_NAME.PRODUCTS);
+  //       }
+  //     });
+  // };
+
+  const handleFillForm = (payload: IProductResponse) => {
+    const newDataForm: IProductForm = {
+      title: payload.productName,
+      description: payload.description,
+      basePrice: payload.basePrice,
+      promotionPrice: payload.promotionPrice,
+      stock: payload.stock,
+      mainCategory: payload.mainCategoryId,
+      subCategories: payload.subCategories.map((item) => item.categoryId),
+      isActive: payload.isActive,
+      thumbnailFile: null,
+      thumbnailUrl: payload.thumbnail,
+      gallery: payload.gallery.map((item) => ({
+        file: convertToUploadFile(item, {
+          type: "old",
+          thumbUrl: item,
+        }) as RcFile,
+        url: item,
+      })),
+    };
+
+    form.reset(newDataForm);
   };
 
   const onSubmit = async (values: IProductForm) => {
@@ -148,19 +173,19 @@ const EditForm = (props: Props) => {
         }
       }
 
-      await apiProductService.update(data.productId, dataSend);
+      await apiProductService.update(product.productId, dataSend);
 
       const newData: IProductResponse = {
-        ...data,
+        ...product,
       };
 
-      if (!values.isActive && data.isActive) {
-        await apiProductService.disable(data.productId);
+      if (!values.isActive && product.isActive) {
+        await apiProductService.disable(product.productId);
         newData.isActive = false;
       }
 
-      if (values.isActive && !data.isActive) {
-        await apiProductService.enable(data.productId);
+      if (values.isActive && !product.isActive) {
+        await apiProductService.enable(product.productId);
         newData.isActive = true;
       }
 
@@ -175,7 +200,7 @@ const EditForm = (props: Props) => {
           url: item.url,
         })),
       );
-      setData(newData);
+      setProduct(newData);
       onModal("submit", false);
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
     } catch (err) {
@@ -198,16 +223,22 @@ const EditForm = (props: Props) => {
     onLoading("submit", false);
   };
 
-  useEffect(() => {
-    if (!product_id) return;
+  // useEffect(() => {
+  //   if (!product_id) return;
 
-    handleGetData(product_id);
-  }, [product_id]);
+  //   handleGetData(product_id);
+  // }, [product_id]);
+
+  useEffect(() => {
+    if (!product) return;
+
+    handleFillForm(product);
+  }, [product]);
 
   return (
     <Fragment>
       <div className="py-5">
-        {data && <InforForm isEdit={isEdit} form={form} data={data} />}
+        {product && <InforForm isEdit={isEdit} form={form} data={product} />}
       </div>
       {isEdit && (
         <FormFooter

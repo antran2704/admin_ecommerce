@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { TabsProps } from "antd";
 
-import { MainLayout } from "~/layout";
+import { LoadingLayout, MainLayout } from "~/layout";
 import useGetSearchParams from "~/hooks/useGetSearchParams";
 import PATH_NAME from "~/routes/paths";
 
@@ -11,6 +11,11 @@ import { TabsCore } from "~/components/Core";
 import { parseQueryString } from "~/helper/url";
 import EditForm from "../components/EditForm";
 import VariantProductManage from "../components/VariantProductManage";
+import { IProductResponse } from "../interfaces/productResponse.interface";
+import hanldeErrorAxios from "~/helper/handleErrorAxios";
+import { apiProductService } from "~/api-client/product";
+import useMessageAntd from "~/hooks/useMessageAntd";
+import useLoading from "~/hooks/useLoading";
 
 const EditPage = () => {
   const { t, i18n } = useTranslation("ProductPage");
@@ -24,11 +29,15 @@ const EditPage = () => {
   });
 
   const { product_id } = useParams();
+  const { messageAntd } = useMessageAntd();
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const [isEdit, setIsEdit] = useState<boolean>(editParam ? true : false);
+  const [data, setData] = useState<IProductResponse | null>(null);
+
+  const { loading, onLoading } = useLoading({ getData: true });
 
   const onEdit = () => {
     setIsEdit(!isEdit);
@@ -38,20 +47,51 @@ const EditPage = () => {
     navigate(pathname + parseQueryString({ tab: key }));
   };
 
-  const tabs: TabsProps["items"] = useMemo((): TabsProps["items"] => {
-    return [
-      {
-        key: "detail",
-        label: t("tabs.detail"),
-        children: <EditForm isEdit={isEdit} onEdit={onEdit} />,
-      },
-      {
-        key: "variant-product",
-        label: t("tabs.variantProduct"),
-        children: <VariantProductManage />,
-      },
-    ];
-  }, [i18n.resolvedLanguage, isEdit]);
+  const handleGetData = async (id: string) => {
+    onLoading({ getData: true });
+
+    await apiProductService
+      .product(id)
+      .then((payload: IProductResponse) => {
+        setData(payload);
+      })
+      .catch((err) => {
+        const { statusCode } = hanldeErrorAxios(err);
+
+        if (statusCode === 404) {
+          messageAntd.error(t("error.PRODUCT_NOT_FOUND"));
+          navigate(PATH_NAME.PRODUCTS);
+        }
+      });
+
+    onLoading({ getData: false });
+  };
+
+  const tabs: TabsProps["items"] = [
+    {
+      key: "detail",
+      label: t("tabs.detail"),
+      children: (
+        <EditForm
+          isEdit={isEdit}
+          product={data}
+          setProduct={setData}
+          onEdit={onEdit}
+        />
+      ),
+    },
+    {
+      key: "variant-product",
+      label: t("tabs.variantProduct"),
+      children: <VariantProductManage product={data} />,
+    },
+  ];
+
+  useEffect(() => {
+    if (!product_id) return;
+
+    handleGetData(product_id);
+  }, [product_id]);
 
   return (
     <MainLayout
@@ -64,14 +104,16 @@ const EditPage = () => {
       ]}
     >
       {/* Form */}
-      <div className="w-full p-5">
-        <TabsCore
-          // activeKey={tabParam ? (tabParam as string) : "detail"}
-          defaultActiveKey="variant-product"
-          items={tabs}
-          onChange={onTabChange}
-        />
-      </div>
+      <LoadingLayout loading={loading.getData}>
+        <div className="w-full p-5">
+          <TabsCore
+            // activeKey={tabParam ? (tabParam as string) : "detail"}
+            defaultActiveKey="variant-product"
+            items={tabs}
+            onChange={onTabChange}
+          />
+        </div>
+      </LoadingLayout>
     </MainLayout>
   );
 };

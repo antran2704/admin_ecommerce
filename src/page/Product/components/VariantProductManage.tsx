@@ -22,8 +22,15 @@ import Filter from "./VariantFilter";
 import GroupAction from "./VariantGroupAction";
 import { useSelectTableRows } from "~/hooks/table";
 import Table from "./VariantTable";
+import { IProductResponse } from "../interfaces/productResponse.interface";
 
-const VariantProductManage = () => {
+interface Props {
+  product: IProductResponse | null;
+}
+
+const VariantProductManage = (props: Props) => {
+  const { product } = props;
+
   const { t } = useTranslation("VariantProductPage");
   const { t: tError } = useTranslation("Error");
 
