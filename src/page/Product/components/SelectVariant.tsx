@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { SelectFilter } from "~/components/Core";
 import { EOrderType } from "~/enum/paramater";
 import { useScrollVariantTypes } from "~/page/VariantType/hooks";
-import { ISelectVariantProductForm } from "../interfaces/selectVariantForm.interface";
+import { ISelectVariantProductForm } from "../../VariantProduct/interfaces/selectVariantForm.interface";
 
 interface Props {
   form: UseFormReturn<ISelectVariantProductForm, any, undefined>;

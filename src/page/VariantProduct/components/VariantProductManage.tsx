@@ -11,10 +11,10 @@ import {
 } from "../interfaces";
 import { EOrderType } from "~/enum/paramater";
 import { parseQueryString } from "~/helper/url";
-import Filter from "./VariantFilter";
-import GroupAction from "./VariantGroupAction";
+import Filter from "./Filter";
+import GroupAction from "./GroupAction";
 import { useSelectTableRows } from "~/hooks/table";
-import Table from "./VariantTable";
+import Table from "./Table";
 import VariantProductGenerator from "./VariantProductGenerator";
 
 const VariantProductManage = () => {

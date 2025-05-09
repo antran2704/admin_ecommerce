@@ -6,7 +6,7 @@ import MESSAGE_ERROR from "~/common/errorMessage";
 import { SelectFilter } from "~/components/Core";
 import { EOrderType } from "~/enum/paramater";
 import { useScrollVariantTypeValues } from "~/page/VariantTypeValue/hooks";
-import { ISelectVariantProductForm } from "../interfaces/selectVariantForm.interface";
+import { ISelectVariantProductForm } from "../../VariantProduct/interfaces/selectVariantForm.interface";
 
 interface Props {
   variantTypeId: string;

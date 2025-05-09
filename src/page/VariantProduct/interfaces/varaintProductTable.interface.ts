@@ -1,4 +1,4 @@
-import { ENUM_PRODUCT_STATUS } from "../enums";
+import { ENUM_PRODUCT_STATUS } from "../../Product/enums";
 
 export interface IVariantProductTable {
   key: React.Key;

@@ -10,7 +10,7 @@ import PATH_NAME from "~/routes/paths";
 import { TabsCore } from "~/components/Core";
 import { parseQueryString } from "~/helper/url";
 import EditForm from "../components/EditForm";
-import VariantProductManage from "../components/VariantProductManage";
+import VariantProductManage from "../../VariantProduct/components/VariantProductManage";
 import { IProductResponse } from "../interfaces/productResponse.interface";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
 import { apiProductService } from "~/api-client/product";

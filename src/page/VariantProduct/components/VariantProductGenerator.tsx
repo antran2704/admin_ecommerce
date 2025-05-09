@@ -4,12 +4,13 @@ import { useTranslation } from "react-i18next";
 import { Button } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 
-import SelectVariant from "./SelectVariant";
-import SelectVariantValue from "./SelectVariantValue";
+import SelectVariant from "../../Product/components/SelectVariant";
+import SelectVariantValue from "../../Product/components/SelectVariantValue";
 import { initSelectVariantForm } from "../common/selectVariantForm";
-import { selectVariantFormSchema } from "../schema/selectVariantForm.schema";
+import { selectVariantFormSchema } from "../../Product/schema/selectVariantForm.schema";
 import { ISelectVariantProductForm } from "../interfaces/selectVariantForm.interface";
-import { useProductContext } from "../hooks";
+import { useProductContext } from "../../Product/hooks";
+import { ICreateVariantProductRequest } from "../interfaces/createVariantProductRequest.interface";
 
 const VariantProductGenerator = () => {
   const { t: tError } = useTranslation("Error");

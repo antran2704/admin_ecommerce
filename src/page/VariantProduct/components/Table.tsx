@@ -22,8 +22,8 @@ import { IVariantProductTable } from "../interfaces";
 import { apiProductService } from "~/api-client/product";
 import { NO_IMAGE } from "~/common/image";
 import { formatBigNumber } from "~/helper/format";
-import { ENUM_PRODUCT_STATUS } from "../enums";
-import { getProductStatusTitle } from "../helpers/getStatusTitle";
+import { ENUM_PRODUCT_STATUS } from "../../Product/enums";
+import { getProductStatusTitle } from "../../Product/helpers/getStatusTitle";
 
 interface Props {
   items: IVariantProductTable[];
