@@ -16,12 +16,16 @@ import GroupAction from "./GroupAction";
 import { useSelectTableRows } from "~/hooks/table";
 import Table from "./Table";
 import VariantProductGenerator from "./VariantProductGenerator";
+import { useProductContext } from "~/page/Product/hooks";
+import { useVariantProducts } from "../hooks";
 
 const VariantProductManage = () => {
   const { t } = useTranslation("VariantProductPage");
 
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
+
+  const { product } = useProductContext();
 
   const {
     order: orderPageParam,
@@ -42,8 +46,17 @@ const VariantProductManage = () => {
       take: pageSizeParam ? Number(pageSizeParam) : 16,
       order: (orderPageParam as EOrderType) || EOrderType.DESC,
       search: (searchTextParam as string) || "",
+      productId: product.productId,
     };
   }, [search]);
+
+  const {
+    variantProductTables,
+    loadingVariantProducts,
+    paginationVariantProducts,
+    onPaginationVariantProducts,
+    handleGetVariantProducts,
+  } = useVariantProducts(paramater);
 
   const { selectedRows, selectedRowKeys, onSelectedRows, onSelectedRowKeys } =
     useSelectTableRows<IVariantProductTable>();
@@ -67,7 +80,9 @@ const VariantProductManage = () => {
 
   return (
     <div className="py-5">
-      <VariantProductGenerator />
+      <VariantProductGenerator
+        onRefresh={() => handleGetVariantProducts(paramater)}
+      />
 
       <Divider />
 
@@ -80,17 +95,19 @@ const VariantProductManage = () => {
           />
           <Filter filter={paramater} onFilter={onFilter} />
         </div>
-        <GroupAction data={selectedRows.length > 0 ? selectedRows : []} />
+        <GroupAction
+          data={selectedRows.length > 0 ? selectedRows : variantProductTables}
+        />
       </div>
 
       <div className="py-10">
         <Table
-          items={[]}
-          //   pagination={paginationProducts}
-          //   loading={loadingProducts}
+          items={variantProductTables}
+          pagination={paginationVariantProducts}
+          loading={loadingVariantProducts}
           selectedRowKeys={selectedRowKeys}
-          getData={() => {}}
-          onPagination={() => {}}
+          getData={() => handleGetVariantProducts(paramater)}
+          onPagination={onPaginationVariantProducts}
           onSelectedRowKeys={onSelectedRowKeys}
           onSelectedRows={onSelectedRows}
         />

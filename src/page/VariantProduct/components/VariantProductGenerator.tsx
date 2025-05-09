@@ -4,16 +4,29 @@ import { useTranslation } from "react-i18next";
 import { Button } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 
-import SelectVariant from "../../Product/components/SelectVariant";
-import SelectVariantValue from "../../Product/components/SelectVariantValue";
+import SelectVariant from "./SelectVariant";
+import SelectVariantValue from "./SelectVariantValue";
 import { initSelectVariantForm } from "../common/selectVariantForm";
 import { selectVariantFormSchema } from "../../Product/schema/selectVariantForm.schema";
 import { ISelectVariantProductForm } from "../interfaces/selectVariantForm.interface";
 import { useProductContext } from "../../Product/hooks";
 import { ICreateVariantProductRequest } from "../interfaces/createVariantProductRequest.interface";
+import { apiVariantProductService } from "~/api-client/variantProduct";
+import useMessageAntd from "~/hooks/useMessageAntd";
+import MESSAGE_ERROR from "~/common/errorMessage";
+import MESSAGE_SUCCESS from "~/common/successMessage";
 
-const VariantProductGenerator = () => {
+interface Props {
+  onRefresh: () => void;
+}
+
+const VariantProductGenerator = (props: Props) => {
+  const { onRefresh } = props;
+
   const { t: tError } = useTranslation("Error");
+  const { t: tSuccess } = useTranslation("Success");
+
+  const { messageAntd } = useMessageAntd();
 
   const { product } = useProductContext();
 
@@ -39,33 +52,60 @@ const VariantProductGenerator = () => {
     }
   };
 
-  const handleGenerateVariants = () => {
-    const variantValues = form.getValues("variantValues");
+  const handleGenerateVariants = (
+    data: ISelectVariantProductForm,
+  ): ICreateVariantProductRequest[] => {
+    const variantValues = data.variantValues;
 
-    const result = [];
+    const variantProducts: ICreateVariantProductRequest[] = [];
     const variantValue = Object.values(variantValues)[0];
+
     for (let j = 0; j < variantValue.length; j++) {
-      result.push(
-        handleRecursion(
-          Object.values(variantValues).slice(1),
-          [variantValue[j]],
-          (result: DefaultOptionType[]) => {
-            console.log(
-              "result:::",
-              product.productName +
-                " " +
-                result.map((item) => item.label).join("/"),
-            );
-          },
-        ),
+      handleRecursion(
+        Object.values(variantValues).slice(1),
+        [variantValue[j]],
+        (result: DefaultOptionType[]) => {
+          const productName =
+            product.productName +
+            " " +
+            result.map((item) => item.label).join("/");
+
+          const variantValueIds = result.map((item) => item.value) as string[];
+
+          const newVaraintProduct: ICreateVariantProductRequest = {
+            productId: product.productId,
+            variantProductName: productName,
+            basePrice: 0,
+            promotionPrice: 0,
+            isActive: true,
+            stock: 0,
+            thumbnail: "",
+            variantValueIds: variantValueIds,
+          };
+
+          variantProducts.push(newVaraintProduct);
+        },
       );
     }
 
-    // console.log("result", result);
+    return variantProducts;
   };
 
-  const onSubmit = (data: ISelectVariantProductForm) => {
-    handleGenerateVariants();
+  const onSubmit = async (data: ISelectVariantProductForm) => {
+    const variantProducts: ICreateVariantProductRequest[] =
+      handleGenerateVariants(data);
+
+    try {
+      for (const variantProduct of variantProducts) {
+        await apiVariantProductService.create(variantProduct);
+      }
+
+      messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
+
+      onRefresh();
+    } catch (error) {
+      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+    }
   };
 
   return (

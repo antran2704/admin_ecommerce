@@ -19,7 +19,7 @@ import useLoading from "~/hooks/useLoading";
 import { UpdateProductProvider } from "../contexts";
 
 const EditPage = () => {
-  const { t, i18n } = useTranslation("ProductPage");
+  const { t } = useTranslation("ProductPage");
 
   const { edit: editParam, tab: tabParam } = useGetSearchParams<{
     edit: string;

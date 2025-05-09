@@ -10,7 +10,7 @@ import { TableCore } from "~/components/Core";
 import { IPagination } from "~/interface/pagination";
 
 import { initPagination } from "~/common/pagination";
-import { BtnEdit, BtnTrash, BtnView } from "~/components/Button";
+import { BtnEdit, BtnTrash } from "~/components/Button";
 import { DAY_DMY } from "~/common/format";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import ability from "~/context/ability";
@@ -19,11 +19,11 @@ import { useAppSelector } from "~/store/hooks";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
 import { IVariantProductTable } from "../interfaces";
-import { apiProductService } from "~/api-client/product";
 import { NO_IMAGE } from "~/common/image";
 import { formatBigNumber } from "~/helper/format";
 import { ENUM_PRODUCT_STATUS } from "../../Product/enums";
 import { getProductStatusTitle } from "../../Product/helpers/getStatusTitle";
+import { apiVariantProductService } from "~/api-client/variantProduct";
 
 interface Props {
   items: IVariantProductTable[];
@@ -79,7 +79,7 @@ const Table = (props: Props) => {
     setLoadingDelete(true);
 
     try {
-      await apiProductService.delete(id);
+      await apiVariantProductService.delete(id);
       messageApi.success(tSuccess(MESSAGE_SUCCESS.DELETED));
       onModalDelete();
       getData();
@@ -173,10 +173,6 @@ const Table = (props: Props) => {
           fixed: "right",
           render: (_, record: IVariantProductTable) => (
             <div className="flex items-center justify-center gap-2">
-              <Link to={PATH_NAME.UPDATE_PRODUCT(record.id)}>
-                <BtnView />
-              </Link>
-
               {ability.can(
                 EPermisisonAction.UPDATE,
                 EPageRole.ADMIN_PRODUCT,

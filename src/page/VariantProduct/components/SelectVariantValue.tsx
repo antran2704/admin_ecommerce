@@ -12,8 +12,6 @@ interface Props {
   variantTypeId: string;
   variantTypeName: string;
   form: UseFormReturn<ISelectVariantProductForm, any, undefined>;
-  // value: DefaultOptionType[];
-  // onChange: (variantTypeId: string, value: DefaultOptionType[]) => void;
 }
 
 const SelectVariantValue = (props: Props) => {

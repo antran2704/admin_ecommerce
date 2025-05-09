@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { SelectFilter } from "~/components/Core";
 import { EOrderType } from "~/enum/paramater";
 import { useScrollVariantTypes } from "~/page/VariantType/hooks";
-import { ISelectVariantProductForm } from "../../VariantProduct/interfaces/selectVariantForm.interface";
+import { ISelectVariantProductForm } from "../interfaces/selectVariantForm.interface";
 
 interface Props {
   form: UseFormReturn<ISelectVariantProductForm, any, undefined>;
@@ -17,6 +17,8 @@ const SelectVariant = (props: Props) => {
   const {
     control,
     formState: { errors },
+    setValue,
+    getValues,
   } = form;
 
   const { t } = useTranslation("VariantProductPage");
@@ -27,6 +29,19 @@ const SelectVariant = (props: Props) => {
       take: 50,
       order: EOrderType.DESC,
     });
+
+  const onChangeSelect = (options: DefaultOptionType[]) => {
+    const oldVariantValues = getValues("variantValues");
+    const newVariantValues = {};
+
+    for (const option of options) {
+      if (oldVariantValues[option.value]) {
+        newVariantValues[option.value] = oldVariantValues[option.value];
+      }
+    }
+
+    setValue("variantValues", newVariantValues);
+  };
 
   return (
     <Controller
@@ -47,7 +62,10 @@ const SelectVariant = (props: Props) => {
           mode="multiple"
           error={!!errors.variants}
           errorMessage={errors.variants?.message}
-          onChange={(_, option: DefaultOptionType[]) => onChange(option)}
+          onChange={(_, options: DefaultOptionType[]) => {
+            onChangeSelect(options);
+            onChange(options);
+          }}
           scrollVitual
           onScrollVitual={() =>
             onPaginationVariantTypes(paramaterVariantTypes.page + 1)
