@@ -20,6 +20,7 @@ import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
 import { IVariantTypeTable } from "../interfaces";
 import { apiVariantTypeService } from "~/api-client/variantType";
+import hanldeErrorAxios from "~/helper/handleErrorAxios";
 
 interface Props {
   items: IVariantTypeTable[];
@@ -78,7 +79,13 @@ const Table = (props: Props) => {
       onModalDelete();
       getData();
     } catch (error) {
-      messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      const { message } = hanldeErrorAxios(error);
+
+      if (message === "VARIANT_TYPE_IS_USED") {
+        messageApi.error(t("error.VARIANT_TYPE_IS_USED"));
+      } else {
+        messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      }
     }
 
     setLoadingDelete(false);

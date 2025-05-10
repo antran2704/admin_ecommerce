@@ -33,6 +33,7 @@
   },
   "error": {
     "VARIANT_VALUE_NAME_EXISTED": "Tên biến thể con đã tồn tại",
-    "VARIANT_VALUE_EXISTED": "Biến thể con đã tồn tại"
+    "VARIANT_VALUE_EXISTED": "Biến thể con đã tồn tại",
+    "VARIANT_VALUE_IS_USED": "Biến thể con đang được sử dụng"
   }
 }

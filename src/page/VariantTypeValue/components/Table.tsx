@@ -18,6 +18,7 @@ import { useAppSelector } from "~/store/hooks";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import { IVariantTypeValueTable } from "../interfaces";
 import { apiVariantTypeValueService } from "~/api-client/variantTypeValue";
+import hanldeErrorAxios from "~/helper/handleErrorAxios";
 
 interface Props {
   items: IVariantTypeValueTable[];
@@ -80,7 +81,13 @@ const Table = (props: Props) => {
       onModalDelete();
       getData();
     } catch (error) {
-      messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      const { message } = hanldeErrorAxios(error);
+
+      if (message === "VARIANT_VALUE_IS_USED") {
+        messageApi.error(t("error.VARIANT_VALUE_IS_USED"));
+      } else {
+        messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      }
     }
 
     setLoadingDelete(false);

@@ -33,6 +33,7 @@
   },
   "error": {
     "VARIANT_VALUE_NAME_EXISTED": "Variant type value name existed",
-    "VARIANT_VALUE_EXISTED": "Variant type value existed"
+    "VARIANT_VALUE_EXISTED": "Variant type value existed",
+    "VARIANT_VALUE_IS_USED": "Variant type value is used"
   }
 }
