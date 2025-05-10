@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
 import { Button } from "antd";
 import { DefaultOptionType } from "antd/es/select";
+import { useEffect } from "react";
 
 import SelectVariant from "./SelectVariant";
 import SelectVariantValue from "./SelectVariantValue";
@@ -95,7 +96,13 @@ const VariantProductGenerator = (props: Props) => {
     const variantProducts: ICreateVariantProductRequest[] =
       handleGenerateVariants(data);
 
+    const dirtyFields = form.formState.dirtyFields;
+
     try {
+      if (dirtyFields?.variants && product.options.length > 0) {
+        await apiVariantProductService.deleteAll(product.productId);
+      }
+
       for (const variantProduct of variantProducts) {
         await apiVariantProductService.create(variantProduct);
       }
@@ -107,6 +114,28 @@ const VariantProductGenerator = (props: Props) => {
       messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
   };
+
+  useEffect(() => {
+    if (!product) return;
+
+    const variants = product.options.map((option) => ({
+      label: option.name,
+      value: option.id,
+    }));
+
+    const variantValues = product.options.reduce(
+      (acc, option) => {
+        acc[option.id] = option.values.map((value) => ({
+          label: value.name,
+          value: value.id,
+        }));
+        return acc;
+      },
+      {} as Record<string, DefaultOptionType[]>,
+    );
+
+    form.reset({ variants, variantValues });
+  }, [product]);
 
   return (
     <div className="flex items-center flex-wrap gap-5">

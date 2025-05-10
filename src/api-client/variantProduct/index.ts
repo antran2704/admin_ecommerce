@@ -51,6 +51,14 @@ const apiVariantProductService = {
         `/admin/variant-products/${id}`,
     ).then((res) => res.data);
   },
+  deleteAll: async (productId: string) => {
+    return await AxiosClient.delete(
+      BASE_URL +
+        API_VERSION.V1 +
+        INTERNAL_PATH +
+        `/admin/variant-products/${productId}/all`,
+    ).then((res) => res.data);
+  },
   enable: async (id: string) => {
     return await AxiosClient.patch(
       BASE_URL +
