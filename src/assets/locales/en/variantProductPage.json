@@ -47,6 +47,11 @@
     "title": "Update infomation of variant product",
     "subtitle": "Do you want to update variant product?"
   },
+  "modalGenerate": {
+    "title": "Create list of variant product",
+    "subtitle": "Do you want create list of variant product?",
+    "clearAll": "Warning: All old variant products will be deleted"
+  },
   "error": {
     "VARIANT_PRODUCT_NOT_FOUND": "Variant product not found",
     "VARIANT_PRODUCT_WAS_DISABLED": "Variant product was disabled",

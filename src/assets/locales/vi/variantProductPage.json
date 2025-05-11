@@ -47,6 +47,11 @@
     "title": "Cập nhật sản phẩm con",
     "subtitle": "Bạn muốn cập nhật thông tin sản phẩm con?"
   },
+  "modalGenerate": {
+    "title": "Tạo danh sách sản phẩm con",
+    "subtitle": "Bạn muốn tạo sản danh sách phẩm con?",
+    "clearAll": "Chú ý: Tất cả các sản phẩm con cũ sẽ bị xóa"
+  },
   "error": {
     "VARIANT_PRODUCT_NOT_FOUND": "Sản phẩm con không tồn tại",
     "VARIANT_PRODUCT_WAS_DISABLED": "Sản phẩm con đang ngừng hoạt động",

@@ -492,6 +492,13 @@ body {
   }
 }
 
+// Overide css Modal component antd
+.ant-modal {
+  & .ant-modal-footer {
+    margin-top: 32px;
+  }
+}
+
 // Overide css Swiper package
 .swiper {
   overflow: visible;

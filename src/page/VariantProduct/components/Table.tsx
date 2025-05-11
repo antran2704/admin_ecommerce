@@ -1,6 +1,6 @@
 import { TableColumnsType, message } from "antd";
 import { memo, useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 
@@ -176,11 +176,7 @@ const Table = (props: Props) => {
               {ability.can(
                 EPermisisonAction.UPDATE,
                 EPageRole.ADMIN_PRODUCT,
-              ) && (
-                <Link to={PATH_NAME.UPDATE_PRODUCT(record.id) + "?edit=1"}>
-                  <BtnEdit />
-                </Link>
-              )}
+              ) && <BtnEdit />}
 
               {ability.can(EPermisisonAction.DELETE, EPageRole.ADMIN_PRODUCT) &&
                 infoUser.userId !== record.id && (

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import { useEffect, useState } from "react";
 
@@ -16,6 +16,9 @@ import { apiVariantProductService } from "~/api-client/variantProduct";
 import useMessageAntd from "~/hooks/useMessageAntd";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import MESSAGE_SUCCESS from "~/common/successMessage";
+import { ModalConfirm } from "~/components/Modal";
+import useLoading from "~/hooks/useLoading";
+import useModal from "~/hooks/useModal";
 
 interface Props {
   onRefresh: () => void;
@@ -24,6 +27,8 @@ interface Props {
 const VariantProductGenerator = (props: Props) => {
   const { onRefresh } = props;
 
+  const { t } = useTranslation("VariantProductPage");
+  const { t: tCommon } = useTranslation("Common");
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
 
@@ -36,7 +41,21 @@ const VariantProductGenerator = (props: Props) => {
     resolver: yupResolver(selectVariantFormSchema(tError)) as any,
   });
 
+  const { loading, onLoading } = useLoading({ generate: false });
+  const { modal, onModal } = useModal({ generate: false });
+
   const [removeVariantValues, setRemoveVariantValues] = useState<string[]>([]);
+
+  const isClearAll = () => {
+    const dirtyFields = form.formState.dirtyFields;
+    return dirtyFields?.variants && product.options.length > 0;
+  };
+
+  const isRemoveFollowVariantValues = () => {
+    const dirtyFields = form.formState.dirtyFields;
+
+    return !dirtyFields?.variants && removeVariantValues.length > 0;
+  };
 
   const handleRecursion = (
     items: DefaultOptionType[][],
@@ -95,19 +114,21 @@ const VariantProductGenerator = (props: Props) => {
   };
 
   const onSubmit = async (data: ISelectVariantProductForm) => {
+    onModal({ generate: false });
+
     const variantProducts: ICreateVariantProductRequest[] =
       handleGenerateVariants(data);
 
-    const dirtyFields = form.formState.dirtyFields;
+    onLoading({ generate: true });
 
     try {
       // Delete all variant products if variant types are changed
-      if (dirtyFields?.variants && product.options.length > 0) {
+      if (isClearAll()) {
         await apiVariantProductService.deleteAll(product.productId);
       }
 
       // Remove variant values if they are not selected
-      if (!dirtyFields?.variants && removeVariantValues.length > 0) {
+      if (isRemoveFollowVariantValues()) {
         await apiVariantProductService.removeFollowVariantValues(
           product.productId,
           { variantValueIds: removeVariantValues },
@@ -123,9 +144,15 @@ const VariantProductGenerator = (props: Props) => {
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.CREATED));
 
       onRefresh();
+      form.reset({
+        variants: data.variants,
+        variantValues: data.variantValues,
+      });
     } catch (error) {
       messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
+
+    onLoading({ generate: false });
   };
 
   useEffect(() => {
@@ -169,11 +196,36 @@ const VariantProductGenerator = (props: Props) => {
       <Button
         size="large"
         type="primary"
-        disabled={!form.watch("variants").length}
-        onClick={form.handleSubmit(onSubmit)}
+        disabled={!form.formState.isDirty}
+        onClick={() => onModal({ generate: true })}
       >
         Generate
       </Button>
+
+      {loading.generate && <Spin fullscreen spinning size="large" />}
+
+      {/* Modal Delete Project */}
+      <ModalConfirm
+        title={t("modalGenerate.title")}
+        subtitle={t("modalGenerate.subtitle")}
+        open={modal.generate}
+        type="info"
+        okButtonProps={{
+          loading: loading.generate,
+          disabled: loading.generate,
+        }}
+        onCancel={() => onModal({ generate: false })}
+        onOk={form.handleSubmit(onSubmit)}
+        okText={tCommon("confirm")}
+        cancelText={tCommon("goBack")}
+        destroyOnClose={true}
+      >
+        {isClearAll() && (
+          <p className="text-base font-medium text-red-500">
+            {t("modalGenerate.clearAll")}
+          </p>
+        )}
+      </ModalConfirm>
     </div>
   );
 };
