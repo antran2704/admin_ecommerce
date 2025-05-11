@@ -12,10 +12,18 @@ interface Props {
   variantTypeId: string;
   variantTypeName: string;
   form: UseFormReturn<ISelectVariantProductForm, any, undefined>;
+  removeVariantValues: string[];
+  setRemoveVariantValues: (value: string[]) => void;
 }
 
 const SelectVariantValue = (props: Props) => {
-  const { variantTypeId, variantTypeName, form } = props;
+  const {
+    variantTypeId,
+    variantTypeName,
+    form,
+    removeVariantValues,
+    setRemoveVariantValues,
+  } = props;
 
   const {
     control,
@@ -39,6 +47,22 @@ const SelectVariantValue = (props: Props) => {
       : null,
   );
 
+  const onDeselect = (value: string) => {
+    const isExited = removeVariantValues.find((item) => item === value);
+
+    if (!isExited) {
+      setRemoveVariantValues([...removeVariantValues, value]);
+    }
+  };
+
+  const onChangeSelect = (value: string[]) => {
+    const newRemoveVariantValues = removeVariantValues.filter(
+      (item) => !value.includes(item),
+    );
+
+    setRemoveVariantValues(newRemoveVariantValues);
+  };
+
   return (
     <Controller
       name={`variantValues.${variantTypeId}`}
@@ -60,7 +84,11 @@ const SelectVariantValue = (props: Props) => {
             (!value || !value.length) && !!errors.variantValues?.root?.message
           }
           errorMessage={errors.variantValues?.root?.message}
-          onChange={(_, option: DefaultOptionType[]) => onChange(option)}
+          onChange={(values: string[], option: DefaultOptionType[]) => {
+            onChange(option);
+            onChangeSelect(values);
+          }}
+          onDeselect={onDeselect}
           scrollVitual
           onScrollVitual={() =>
             onPaginationVariantTypeValues(paramaterVariantTypeValues.page + 1)

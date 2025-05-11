@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
 import { Button } from "antd";
 import { DefaultOptionType } from "antd/es/select";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import SelectVariant from "./SelectVariant";
 import SelectVariantValue from "./SelectVariantValue";
@@ -35,6 +35,8 @@ const VariantProductGenerator = (props: Props) => {
     defaultValues: initSelectVariantForm,
     resolver: yupResolver(selectVariantFormSchema(tError)) as any,
   });
+
+  const [removeVariantValues, setRemoveVariantValues] = useState<string[]>([]);
 
   const handleRecursion = (
     items: DefaultOptionType[][],
@@ -99,8 +101,19 @@ const VariantProductGenerator = (props: Props) => {
     const dirtyFields = form.formState.dirtyFields;
 
     try {
+      // Delete all variant products if variant types are changed
       if (dirtyFields?.variants && product.options.length > 0) {
         await apiVariantProductService.deleteAll(product.productId);
+      }
+
+      // Remove variant values if they are not selected
+      if (!dirtyFields?.variants && removeVariantValues.length > 0) {
+        await apiVariantProductService.removeFollowVariantValues(
+          product.productId,
+          { variantValueIds: removeVariantValues },
+        );
+
+        setRemoveVariantValues([]);
       }
 
       for (const variantProduct of variantProducts) {
@@ -148,6 +161,8 @@ const VariantProductGenerator = (props: Props) => {
             variantTypeId={variant.value as string}
             variantTypeName={variant.label as string}
             form={form}
+            removeVariantValues={removeVariantValues}
+            setRemoveVariantValues={setRemoveVariantValues}
           />
         ))}
       </div>

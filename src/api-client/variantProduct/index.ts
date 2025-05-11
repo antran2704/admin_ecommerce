@@ -5,6 +5,7 @@ import { parseQueryString } from "~/helper/url";
 import {
   ICreateVariantProductRequest,
   IGetVariantProductsRequest,
+  IRemoveVariantProductFollowValuesRequest,
   IUpdateVariantProductRequest,
 } from "~/page/VariantProduct/interfaces";
 
@@ -40,6 +41,18 @@ const apiVariantProductService = {
         API_VERSION.V1 +
         INTERNAL_PATH +
         `/admin/variant-products/${id}`,
+      data,
+    ).then((res) => res.data);
+  },
+  removeFollowVariantValues: async (
+    productId: string,
+    data: IRemoveVariantProductFollowValuesRequest,
+  ) => {
+    return await AxiosClient.post(
+      BASE_URL +
+        API_VERSION.V1 +
+        INTERNAL_PATH +
+        `/admin/variant-products/${productId}/remove-follow-variant-values`,
       data,
     ).then((res) => res.data);
   },
