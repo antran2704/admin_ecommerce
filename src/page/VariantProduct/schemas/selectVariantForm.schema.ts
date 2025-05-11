@@ -4,7 +4,6 @@ import MESSAGE_ERROR from "~/common/errorMessage";
 
 const selectVariantFormSchema = (t: TFunction) => {
   return object().shape({
-    // variants: array().min(1, t(MESSAGE_ERROR.PLEASE_SELECT)),
     variantValues: object().test(
       "each-array-not-empty",
       t(MESSAGE_ERROR.PLEASE_SELECT),

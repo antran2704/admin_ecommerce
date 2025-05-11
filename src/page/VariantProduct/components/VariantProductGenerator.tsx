@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import SelectVariant from "./SelectVariant";
 import SelectVariantValue from "./SelectVariantValue";
 import { initSelectVariantForm } from "../common/selectVariantForm";
-import { selectVariantFormSchema } from "../../Product/schema/selectVariantForm.schema";
+import { selectVariantFormSchema } from "../schemas/selectVariantForm.schema";
 import { ISelectVariantProductForm } from "../interfaces/selectVariantForm.interface";
 import { useProductContext } from "../../Product/hooks";
 import { ICreateVariantProductRequest } from "../interfaces/createVariantProductRequest.interface";

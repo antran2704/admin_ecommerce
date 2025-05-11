@@ -11,7 +11,7 @@ import MESSAGE_ERROR from "~/common/errorMessage";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
 import { initProductForm } from "../common/productForm";
-import { productFormSchema } from "../schema/productForm.schema";
+import { productFormSchema } from "../schemas/productForm.schema";
 import { ICreateProductRequest, IProductForm } from "../interfaces";
 import { apiProductService } from "~/api-client/product";
 

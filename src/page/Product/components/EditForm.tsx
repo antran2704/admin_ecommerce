@@ -14,7 +14,7 @@ import { FormFooter } from "~/components/Footer";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
 import { initProductForm } from "../common/productForm";
-import { productFormSchema } from "../schema/productForm.schema";
+import { productFormSchema } from "../schemas/productForm.schema";
 import { IProductForm, IUpdateProductRequest } from "../interfaces";
 import { IProductResponse } from "../interfaces/productResponse.interface";
 import { apiProductService } from "~/api-client/product";

@@ -5,3 +5,4 @@ export * from "./updateVariantProductRequest.interface";
 export * from "./selectVariantForm.interface";
 export * from "./varaintProductTable.interface";
 export * from "./removeVariantProductFollowValuesRequest.interface";
+export * from "./variantProductForm.interface";
