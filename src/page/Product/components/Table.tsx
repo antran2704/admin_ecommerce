@@ -1,4 +1,4 @@
-import { TableColumnsType, message } from "antd";
+import { TableColumnsType } from "antd";
 import { memo, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -24,6 +24,7 @@ import { NO_IMAGE } from "~/common/image";
 import { formatBigNumber } from "~/helper/format";
 import { ENUM_PRODUCT_STATUS } from "../enums";
 import { getProductStatusTitle } from "../helpers/getStatusTitle";
+import useMessageAntd from "~/hooks/useMessageAntd";
 
 interface Props {
   items: IProductTable[];
@@ -63,7 +64,7 @@ const Table = (props: Props) => {
   const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
   const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
 
-  const [messageApi, contextHolder] = message.useMessage();
+  const { messageAntd } = useMessageAntd();
 
   const onModalDelete = () => {
     if (isOpenDelete) {
@@ -78,11 +79,11 @@ const Table = (props: Props) => {
 
     try {
       await apiProductService.delete(id);
-      messageApi.success(tSuccess(MESSAGE_SUCCESS.DELETED));
+      messageAntd.success(tSuccess(MESSAGE_SUCCESS.DELETED));
       onModalDelete();
       getData();
     } catch (error) {
-      messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
 
     setLoadingDelete(false);
@@ -269,9 +270,6 @@ const Table = (props: Props) => {
         cancelText={tCommon("goBack")}
         destroyOnClose={true}
       />
-
-      {/* message Antd */}
-      {contextHolder}
     </div>
   );
 };

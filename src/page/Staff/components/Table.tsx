@@ -1,4 +1,4 @@
-import { TableColumnsType, message } from "antd";
+import { TableColumnsType } from "antd";
 import { memo, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -22,6 +22,7 @@ import { IStaffTable } from "../interfaces";
 import { apiStaffService } from "~/api-client/staff";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
+import useMessageAntd from "~/hooks/useMessageAntd";
 
 interface Props {
   items: IStaffTable[];
@@ -62,7 +63,7 @@ const Table = (props: Props) => {
   const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
   const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
 
-  const [messageApi, contextHolder] = message.useMessage();
+  const { messageAntd } = useMessageAntd();
 
   const onModalDelete = () => {
     if (isOpenDelete) {
@@ -77,11 +78,11 @@ const Table = (props: Props) => {
 
     try {
       await apiStaffService.delete(id);
-      messageApi.success(tSuccess(MESSAGE_SUCCESS.DELETED));
+      messageAntd.success(tSuccess(MESSAGE_SUCCESS.DELETED));
       onModalDelete();
       getData();
     } catch (error) {
-      messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
 
     setLoadingDelete(false);
@@ -251,9 +252,6 @@ const Table = (props: Props) => {
         cancelText={tCommon("goBack")}
         destroyOnClose={true}
       />
-
-      {/* message Antd */}
-      {contextHolder}
     </div>
   );
 };
