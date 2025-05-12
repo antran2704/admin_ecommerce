@@ -103,7 +103,7 @@ const EditPage = () => {
           <div className="w-full p-5">
             <TabsCore
               // activeKey={tabParam ? (tabParam as string) : "detail"}
-              defaultActiveKey="detail"
+              defaultActiveKey="variant-product"
               items={tabs}
               onChange={onTabChange}
             />

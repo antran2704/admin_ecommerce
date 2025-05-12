@@ -1,9 +1,10 @@
-import { TableColumnsType, message } from "antd";
+import { Switch, TableColumnsType, Tag } from "antd";
 import { memo, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import clsx from "clsx";
 
 import { ModalConfirm } from "~/components/Modal";
 import { TableCore } from "~/components/Core";
@@ -18,14 +19,22 @@ import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
 import { useAppSelector } from "~/store/hooks";
 import MESSAGE_SUCCESS from "~/common/successMessage";
-import { IVariantProductForm, IVariantProductTable } from "../interfaces";
+import {
+  IUpdateVariantProductRequest,
+  IVariantProductForm,
+  IVariantProductTable,
+} from "../interfaces";
 import { NO_IMAGE } from "~/common/image";
 import { formatBigNumber } from "~/helper/format";
 import { ENUM_PRODUCT_STATUS } from "../../Product/enums";
 import { getProductStatusTitle } from "../../Product/helpers/getStatusTitle";
 import { apiVariantProductService } from "~/api-client/variantProduct";
 import { variantProductFormSchema } from "../schemas/variantProductForm.schema";
-import { InputTextArea } from "~/components/Core/Input";
+import { InputNumber, InputTextArea } from "~/components/Core/Input";
+import useMessageAntd from "~/hooks/useMessageAntd";
+import useLoading from "~/hooks/useLoading";
+import useModal from "~/hooks/useModal";
+import { useProductContext } from "~/page/Product/hooks";
 
 interface Props {
   items: IVariantProductTable[];
@@ -42,7 +51,7 @@ const Table = (props: Props) => {
   const {
     items,
     pagination = initPagination,
-    loading = false,
+    loading: loadingProp = false,
     selectedRowKeys,
     getData,
     onPagination,
@@ -57,11 +66,16 @@ const Table = (props: Props) => {
 
   const { infoUser } = useAppSelector((state) => state.user);
 
+  const { product } = useProductContext();
+
+  const { messageAntd } = useMessageAntd();
+
   const {
     control,
-    formState: { errors },
+    formState: { errors, dirtyFields },
     reset,
     getValues,
+    setValue,
     handleSubmit,
   } = useForm<IVariantProductForm>({
     defaultValues: {},
@@ -73,32 +87,24 @@ const Table = (props: Props) => {
     null,
   );
 
-  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
-  const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
+  const { loading, onLoading } = useLoading({ delete: false });
 
-  const [messageApi, contextHolder] = message.useMessage();
-
-  const onModalDelete = () => {
-    if (isOpenDelete) {
-      setSelectItem(null);
-    }
-
-    setIsOpenDelete(!isOpenDelete);
-  };
+  const { modal, onModal } = useModal({ delete: false, selectImage: false });
 
   const handleDelete = async (id: string) => {
-    setLoadingDelete(true);
+    onLoading({ delete: true });
 
     try {
       await apiVariantProductService.delete(id);
-      messageApi.success(tSuccess(MESSAGE_SUCCESS.DELETED));
-      onModalDelete();
+      messageAntd.success(tSuccess(MESSAGE_SUCCESS.DELETED));
+      onModal({ delete: false });
+      setSelectItem(null);
       getData();
     } catch (error) {
-      messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
 
-    setLoadingDelete(false);
+    onLoading({ delete: false });
   };
 
   const onEdit = (record: IVariantProductTable) => {
@@ -116,10 +122,89 @@ const Table = (props: Props) => {
     reset({ ...getValues(), ...newFormItem });
   };
 
-  const onSave = (record: IVariantProductTable, value: IVariantProductForm) => {
+  const onSelectImage = (value: string) => {
+    const newFormData = { ...getValues(selectItem.id), thumbnailUrl: value };
+
+    setValue(selectItem.id, newFormData, { shouldDirty: true });
+    setSelectItem(null);
+    onModal({ selectImage: false });
+  };
+
+  const resetRowTable = (
+    record: IVariantProductTable,
+    value: IVariantProductForm,
+  ) => {
+    const index = listItem.findIndex((item) => item.id === record.id);
+    const newListItem = [...listItem];
+    newListItem[index] = {
+      ...newListItem[index],
+      title: value[record.id].title,
+      thumbnail: value[record.id].thumbnailUrl,
+      basePrice: value[record.id].basePrice,
+      promotionPrice: value[record.id].promotionPrice,
+      stock: value[record.id].stock,
+      status: value[record.id].isActive
+        ? ENUM_PRODUCT_STATUS.ACTIVE
+        : ENUM_PRODUCT_STATUS.INACTIVE,
+    };
+
+    setListItem(newListItem);
+  };
+
+  const onSave = async (
+    record: IVariantProductTable,
+    value: IVariantProductForm,
+  ) => {
     const dataForm = { ...value };
 
-    reset({ ...dataForm, [record.id]: null });
+    // Dont call API if haven't any change
+    if (!dirtyFields[record.id]) {
+      reset({ ...dataForm, [record.id]: null });
+      return;
+    }
+
+    const dataFormItem = dataForm[record.id];
+    const dataSend: IUpdateVariantProductRequest = {
+      variantProductName: dataFormItem.title,
+      thumbnail: dataFormItem.thumbnailUrl,
+      basePrice: dataFormItem.basePrice,
+      promotionPrice: dataFormItem.promotionPrice,
+      stock: dataFormItem.stock,
+    };
+
+    try {
+      await apiVariantProductService.update(record.id, dataSend);
+
+      if (
+        dataFormItem.isActive &&
+        record.status === ENUM_PRODUCT_STATUS.INACTIVE
+      ) {
+        await apiVariantProductService.enable(record.id);
+      }
+
+      if (
+        !dataFormItem.isActive &&
+        record.status === ENUM_PRODUCT_STATUS.ACTIVE
+      ) {
+        await apiVariantProductService.disable(record.id);
+      }
+
+      resetRowTable(record, dataForm);
+      messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
+      reset({ ...dataForm, [record.id]: null });
+    } catch (error) {
+      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+    }
+  };
+
+  const getStatusEl = (value: ENUM_PRODUCT_STATUS) => {
+    if (value === ENUM_PRODUCT_STATUS.ACTIVE) {
+      return <Tag color="success">{getProductStatusTitle(t, value)}</Tag>;
+    }
+
+    if (value === ENUM_PRODUCT_STATUS.INACTIVE) {
+      return <Tag color="error">{getProductStatusTitle(t, value)}</Tag>;
+    }
   };
 
   // columnt table
@@ -129,24 +214,46 @@ const Table = (props: Props) => {
         {
           title: t("table.id"),
           dataIndex: "id",
-          className: "cursor-pointer",
         },
         {
           title: t("table.thumbnail"),
           dataIndex: "thumbnail",
           align: "center",
-          className: "cursor-pointer",
-          render: (value: string) => (
-            <img
-              src={value ? value : NO_IMAGE}
-              className="w-20 min-w-20 rounded-md object-cover object-center mx-auto"
-            />
-          ),
+          render: (value: string, record) => {
+            if (getValues(record.id)) {
+              return (
+                <Controller
+                  name={`${record.id}.thumbnailUrl`}
+                  control={control}
+                  render={({ field: { value: valueForm } }) => (
+                    <img
+                      src={valueForm ? valueForm : NO_IMAGE}
+                      onClick={() => {
+                        setSelectItem(record);
+                        onModal({ selectImage: true });
+                      }}
+                      className={clsx(
+                        "w-20 min-w-20 rounded-md object-cover object-center mx-auto cursor-pointer",
+                      )}
+                    />
+                  )}
+                />
+              );
+            }
+
+            return (
+              <img
+                src={value ? value : NO_IMAGE}
+                className={clsx(
+                  "w-20 min-w-20 rounded-md object-cover object-center mx-auto",
+                )}
+              />
+            );
+          },
         },
         {
           title: t("table.name"),
           dataIndex: "title",
-          className: "cursor-pointer",
           render: (value: string, record) => {
             if (getValues(record.id)) {
               return (
@@ -181,37 +288,112 @@ const Table = (props: Props) => {
           title: t("table.basePrice"),
           dataIndex: "basePrice",
           align: "center",
-          className: "cursor-pointer",
-          render: (value: number) => (
-            <span>{value ? formatBigNumber(value) : 0}</span>
-          ),
+          render: (value: number, record) => {
+            if (getValues(record.id)) {
+              return (
+                <Controller
+                  name={`${record.id}.basePrice`}
+                  control={control}
+                  render={({ field: { value, onChange, ...rest } }) => (
+                    <InputNumber
+                      className="w-[200px]"
+                      placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
+                      value={!!value ? formatBigNumber(value) : 0}
+                      maximum={999999999}
+                      error={!!errors[record.id]?.basePrice}
+                      errorMessage={errors[record.id]?.basePrice?.message}
+                      onChangeValue={(value: number) => onChange(value)}
+                      {...rest}
+                    />
+                  )}
+                />
+              );
+            }
+
+            return <span>{value ? formatBigNumber(value) : 0}</span>;
+          },
         },
         {
           title: t("table.promotionPrice"),
           dataIndex: "promotionPrice",
           align: "center",
-          className: "cursor-pointer",
-          render: (value: number) => (
-            <span>{value ? formatBigNumber(value) : 0}</span>
-          ),
+          render: (value: number, record) => {
+            if (getValues(record.id)) {
+              return (
+                <Controller
+                  name={`${record.id}.promotionPrice`}
+                  control={control}
+                  render={({ field: { value, onChange, ...rest } }) => (
+                    <InputNumber
+                      className="w-[200px]"
+                      placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
+                      value={!!value ? formatBigNumber(value) : 0}
+                      maximum={999999999}
+                      error={!!errors[record.id]?.promotionPrice}
+                      errorMessage={errors[record.id]?.promotionPrice?.message}
+                      onChangeValue={(value: number) => onChange(value)}
+                      {...rest}
+                    />
+                  )}
+                />
+              );
+            }
+
+            return <span>{value ? formatBigNumber(value) : 0}</span>;
+          },
         },
         {
           title: t("table.stock"),
           dataIndex: "stock",
           align: "center",
-          className: "cursor-pointer",
-          render: (value: number) => (
-            <span>{value ? formatBigNumber(value) : 0}</span>
-          ),
+          render: (value: number, record) => {
+            if (getValues(record.id)) {
+              return (
+                <Controller
+                  name={`${record.id}.stock`}
+                  control={control}
+                  render={({ field: { value, onChange, ...rest } }) => (
+                    <InputNumber
+                      className="w-[200px]"
+                      placeholder={tError(MESSAGE_ERROR.PLEASE_INPUT)}
+                      value={!!value ? formatBigNumber(value) : 0}
+                      maximum={999999999}
+                      error={!!errors[record.id]?.stock}
+                      errorMessage={errors[record.id]?.stock?.message}
+                      onChangeValue={(value: number) => onChange(value)}
+                      {...rest}
+                    />
+                  )}
+                />
+              );
+            }
+
+            return <span>{value ? formatBigNumber(value) : 0}</span>;
+          },
         },
         {
           title: t("table.status"),
           dataIndex: "status",
           align: "center",
-          className: "cursor-pointer",
-          render: (value: ENUM_PRODUCT_STATUS) => (
-            <span>{getProductStatusTitle(t, value)}</span>
-          ),
+          render: (value: ENUM_PRODUCT_STATUS, record) => {
+            if (getValues(record.id)) {
+              return (
+                <Controller
+                  name={`${record.id}.isActive`}
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <Switch
+                      className="w-fit"
+                      checked={value}
+                      onChange={onChange}
+                    />
+                  )}
+                />
+              );
+            }
+
+            return getStatusEl(value);
+          },
         },
         {
           title: t("table.createdAt"),
@@ -245,7 +427,7 @@ const Table = (props: Props) => {
                   <BtnTrash
                     onClick={() => {
                       setSelectItem(record);
-                      onModalDelete();
+                      onModal({ delete: true });
                     }}
                   />
                 )}
@@ -265,7 +447,7 @@ const Table = (props: Props) => {
       <TableCore
         columns={columns}
         dataSource={listItem}
-        loading={loading}
+        loading={loadingProp}
         paginationOptions={{
           pageSize: pagination.take,
           current: pagination.page,
@@ -296,21 +478,51 @@ const Table = (props: Props) => {
       <ModalConfirm
         title={t("modalDelete.title")}
         subtitle={t("modalDelete.subtitle")}
-        open={isOpenDelete}
+        open={modal.delete}
         type="error"
         okButtonProps={{
-          loading: loadingDelete,
-          disabled: loadingDelete,
+          loading: loading.delete,
+          disabled: loading.delete,
         }}
-        onCancel={onModalDelete}
+        onCancel={() => onModal({ delete: false })}
         onOk={() => handleDelete(selectItem.id as string)}
         okText={tCommon("confirm")}
         cancelText={tCommon("goBack")}
         destroyOnClose={true}
       />
 
-      {/* message Antd */}
-      {contextHolder}
+      {/* Modal Select Image */}
+      <ModalConfirm
+        title={t("modalSelectImage.title")}
+        className="xl:!w-1/3 md:!w-1/2"
+        open={modal.selectImage}
+        type="info"
+        onCancel={() => onModal({ selectImage: false })}
+        cancelText={tCommon("goBack")}
+        okButtonProps={{
+          hidden: true,
+        }}
+        destroyOnClose={true}
+      >
+        {selectItem && (
+          <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 mt-5 gap-5">
+            {product.gallery.map((url, index) => (
+              <img
+                key={index}
+                src={url}
+                onClick={() => onSelectImage(url)}
+                className={clsx(
+                  "rounded-md object-cover object-center cursor-pointer border-2 hover:border-primary-color",
+                  [
+                    getValues(selectItem.id).thumbnailUrl === url &&
+                      "border-primary-color",
+                  ],
+                )}
+              />
+            ))}
+          </div>
+        )}
+      </ModalConfirm>
     </div>
   );
 };

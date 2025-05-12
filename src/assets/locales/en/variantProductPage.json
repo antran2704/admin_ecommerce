@@ -52,6 +52,9 @@
     "subtitle": "Do you want create list of variant product?",
     "clearAll": "Warning: All old variant products will be deleted"
   },
+  "modalSelectImage": {
+    "title": "Select image"
+  },
   "error": {
     "VARIANT_PRODUCT_NOT_FOUND": "Variant product not found",
     "VARIANT_PRODUCT_WAS_DISABLED": "Variant product was disabled",

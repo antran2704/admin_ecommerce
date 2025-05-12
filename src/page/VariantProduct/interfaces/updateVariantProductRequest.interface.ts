@@ -4,5 +4,4 @@ export interface IUpdateVariantProductRequest {
   basePrice: number;
   promotionPrice: number;
   stock: number;
-  isActive: boolean;
 }
