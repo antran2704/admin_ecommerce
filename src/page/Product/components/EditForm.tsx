@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RcFile } from "antd/es/upload";
@@ -20,6 +20,8 @@ import { IProductResponse } from "../interfaces/productResponse.interface";
 import { apiProductService } from "~/api-client/product";
 import { convertToUploadFile } from "~/helper/file";
 import { useProductContext } from "../hooks";
+import useLoading from "~/hooks/useLoading";
+import useModal from "~/hooks/useModal";
 
 interface Props {
   isEdit: boolean;
@@ -45,70 +47,12 @@ const EditForm = (props: Props) => {
 
   const { messageAntd } = useMessageAntd();
 
-  // const [data, setData] = useState<IProductResponse | null>(null);
-
-  const [loading, setLoading] = useState<{ submit: boolean }>({
+  const { loading, onLoading } = useLoading({
+    getData: true,
     submit: false,
   });
 
-  const [modal, setModal] = useState<{
-    changePassword: boolean;
-    submit: boolean;
-  }>({ changePassword: false, submit: false });
-
-  const onModal = (type: keyof typeof modal, value: boolean) => {
-    setModal({
-      ...modal,
-      [type]: value,
-    });
-  };
-
-  const onLoading = (type: keyof typeof loading, value: boolean) => {
-    setLoading({
-      ...loading,
-      [type]: value,
-    });
-  };
-
-  // const handleGetData = async (id: string) => {
-  //   onLoading("getData", true);
-
-  //   await apiProductService
-  //     .product(id)
-  //     .then((payload: IProductResponse) => {
-  //       const newDataForm: IProductForm = {
-  //         title: payload.productName,
-  //         description: payload.description,
-  //         basePrice: payload.basePrice,
-  //         promotionPrice: payload.promotionPrice,
-  //         stock: payload.stock,
-  //         mainCategory: payload.mainCategoryId,
-  //         subCategories: payload.subCategories.map((item) => item.categoryId),
-  //         isActive: payload.isActive,
-  //         thumbnailFile: null,
-  //         thumbnailUrl: payload.thumbnail,
-  //         gallery: payload.gallery.map((item) => ({
-  //           file: convertToUploadFile(item, {
-  //             type: "old",
-  //             thumbUrl: item,
-  //           }) as RcFile,
-  //           url: item,
-  //         })),
-  //       };
-
-  //       form.reset(newDataForm);
-  //       setData(payload);
-  //       onLoading("getData", false);
-  //     })
-  //     .catch((err) => {
-  //       const { statusCode } = hanldeErrorAxios(err);
-
-  //       if (statusCode === 404) {
-  //         messageAntd.error(t("error.PRODUCT_NOT_FOUND"));
-  //         navigate(PATH_NAME.PRODUCTS);
-  //       }
-  //     });
-  // };
+  const { modal, onModal } = useModal({ submit: false });
 
   const handleFillForm = (payload: IProductResponse) => {
     const newDataForm: IProductForm = {
@@ -132,6 +76,8 @@ const EditForm = (props: Props) => {
     };
 
     form.reset(newDataForm);
+
+    onLoading({ getData: false });
   };
 
   const onSubmit = async (values: IProductForm) => {
@@ -145,7 +91,7 @@ const EditForm = (props: Props) => {
       subCategories: values.subCategories,
     };
 
-    onLoading("submit", true);
+    onLoading({ submit: true });
 
     try {
       if (values.thumbnailFile) {
@@ -202,7 +148,7 @@ const EditForm = (props: Props) => {
         })),
       );
       setProduct(newData);
-      onModal("submit", false);
+      onModal({ submit: false });
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
@@ -221,32 +167,28 @@ const EditForm = (props: Props) => {
       }
     }
 
-    onLoading("submit", false);
+    onLoading({ submit: false });
   };
 
-  // useEffect(() => {
-  //   if (!product_id) return;
-
-  //   handleGetData(product_id);
-  // }, [product_id]);
-
   useEffect(() => {
-    if (!product) return;
+    if (!product || !loading.getData) return;
 
     handleFillForm(product);
-  }, [product]);
+  }, [product, loading]);
 
   return (
     <Fragment>
       <div className="py-5">
-        {product && <InforForm isEdit={isEdit} form={form} data={product} />}
+        {!loading.getData && (
+          <InforForm isEdit={isEdit} form={form} data={product} />
+        )}
       </div>
       {isEdit && (
         <FormFooter
           okText={tCommon("save")}
           cancelText={tCommon("cancel")}
           onOk={form.handleSubmit(
-            () => onModal("submit", true),
+            () => onModal({ submit: true }),
             () => {
               messageAntd.error(
                 tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS),
@@ -277,7 +219,7 @@ const EditForm = (props: Props) => {
         open={modal.submit}
         onCancel={() => {
           if (loading.submit) return;
-          onModal("submit", false);
+          onModal({ submit: false });
         }}
         onOk={form.handleSubmit(onSubmit)}
         okText={tCommon("confirm")}
