@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
-import { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Fragment, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RcFile } from "antd/es/upload";
@@ -14,11 +14,14 @@ import { FormFooter } from "~/components/Footer";
 import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
 import { initProductForm } from "../common/productForm";
-import { productFormSchema } from "../schema/productForm.schema";
+import { productFormSchema } from "../schemas/productForm.schema";
 import { IProductForm, IUpdateProductRequest } from "../interfaces";
 import { IProductResponse } from "../interfaces/productResponse.interface";
 import { apiProductService } from "~/api-client/product";
 import { convertToUploadFile } from "~/helper/file";
+import { useProductContext } from "../hooks";
+import useLoading from "~/hooks/useLoading";
+import useModal from "~/hooks/useModal";
 
 interface Props {
   isEdit: boolean;
@@ -33,8 +36,9 @@ const EditForm = (props: Props) => {
   const { t: tError } = useTranslation("Error");
   const { t: tSuccess } = useTranslation("Success");
 
-  const { product_id } = useParams();
   const navigate = useNavigate();
+
+  const { product, setProduct } = useProductContext();
 
   const form = useForm<IProductForm>({
     defaultValues: initProductForm,
@@ -43,69 +47,37 @@ const EditForm = (props: Props) => {
 
   const { messageAntd } = useMessageAntd();
 
-  const [data, setData] = useState<IProductResponse | null>(null);
+  const { loading, onLoading } = useLoading({
+    getData: true,
+    submit: false,
+  });
 
-  const [loading, setLoading] = useState<{ getData: boolean; submit: boolean }>(
-    { getData: false, submit: false },
-  );
+  const { modal, onModal } = useModal({ submit: false });
 
-  const [modal, setModal] = useState<{
-    changePassword: boolean;
-    submit: boolean;
-  }>({ changePassword: false, submit: false });
+  const handleFillForm = (payload: IProductResponse) => {
+    const newDataForm: IProductForm = {
+      title: payload.productName,
+      description: payload.description,
+      basePrice: payload.basePrice,
+      promotionPrice: payload.promotionPrice,
+      stock: payload.stock,
+      mainCategory: payload.mainCategoryId,
+      subCategories: payload.subCategories.map((item) => item.categoryId),
+      isActive: payload.isActive,
+      thumbnailFile: null,
+      thumbnailUrl: payload.thumbnail,
+      gallery: payload.gallery.map((item) => ({
+        file: convertToUploadFile(item, {
+          type: "old",
+          thumbUrl: item,
+        }) as RcFile,
+        url: item,
+      })),
+    };
 
-  const onModal = (type: keyof typeof modal, value: boolean) => {
-    setModal({
-      ...modal,
-      [type]: value,
-    });
-  };
+    form.reset(newDataForm);
 
-  const onLoading = (type: keyof typeof loading, value: boolean) => {
-    setLoading({
-      ...loading,
-      [type]: value,
-    });
-  };
-
-  const handleGetData = async (id: string) => {
-    onLoading("getData", true);
-
-    await apiProductService
-      .product(id)
-      .then((payload: IProductResponse) => {
-        const newDataForm: IProductForm = {
-          title: payload.productName,
-          description: payload.description,
-          basePrice: payload.basePrice,
-          promotionPrice: payload.promotionPrice,
-          stock: payload.stock,
-          mainCategory: payload.mainCategoryId,
-          subCategories: payload.subCategories.map((item) => item.categoryId),
-          isActive: payload.isActive,
-          thumbnailFile: null,
-          thumbnailUrl: payload.thumbnail,
-          gallery: payload.gallery.map((item) => ({
-            file: convertToUploadFile(item, {
-              type: "old",
-              thumbUrl: item,
-            }) as RcFile,
-            url: item,
-          })),
-        };
-
-        form.reset(newDataForm);
-        setData(payload);
-        onLoading("getData", false);
-      })
-      .catch((err) => {
-        const { statusCode } = hanldeErrorAxios(err);
-
-        if (statusCode === 404) {
-          messageAntd.error(t("error.PRODUCT_NOT_FOUND"));
-          navigate(PATH_NAME.PRODUCTS);
-        }
-      });
+    onLoading({ getData: false });
   };
 
   const onSubmit = async (values: IProductForm) => {
@@ -119,7 +91,7 @@ const EditForm = (props: Props) => {
       subCategories: values.subCategories,
     };
 
-    onLoading("submit", true);
+    onLoading({ submit: true });
 
     try {
       if (values.thumbnailFile) {
@@ -148,19 +120,19 @@ const EditForm = (props: Props) => {
         }
       }
 
-      await apiProductService.update(data.productId, dataSend);
+      await apiProductService.update(product.productId, dataSend);
 
       const newData: IProductResponse = {
-        ...data,
+        ...product,
       };
 
-      if (!values.isActive && data.isActive) {
-        await apiProductService.disable(data.productId);
+      if (!values.isActive && product.isActive) {
+        await apiProductService.disable(product.productId);
         newData.isActive = false;
       }
 
-      if (values.isActive && !data.isActive) {
-        await apiProductService.enable(data.productId);
+      if (values.isActive && !product.isActive) {
+        await apiProductService.enable(product.productId);
         newData.isActive = true;
       }
 
@@ -175,8 +147,8 @@ const EditForm = (props: Props) => {
           url: item.url,
         })),
       );
-      setData(newData);
-      onModal("submit", false);
+      setProduct(newData);
+      onModal({ submit: false });
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
     } catch (err) {
       const { message } = hanldeErrorAxios(err);
@@ -195,26 +167,28 @@ const EditForm = (props: Props) => {
       }
     }
 
-    onLoading("submit", false);
+    onLoading({ submit: false });
   };
 
   useEffect(() => {
-    if (!product_id) return;
+    if (!product || !loading.getData) return;
 
-    handleGetData(product_id);
-  }, [product_id]);
+    handleFillForm(product);
+  }, [product, loading]);
 
   return (
     <Fragment>
       <div className="py-5">
-        {data && <InforForm isEdit={isEdit} form={form} data={data} />}
+        {!loading.getData && (
+          <InforForm isEdit={isEdit} form={form} data={product} />
+        )}
       </div>
       {isEdit && (
         <FormFooter
           okText={tCommon("save")}
           cancelText={tCommon("cancel")}
           onOk={form.handleSubmit(
-            () => onModal("submit", true),
+            () => onModal({ submit: true }),
             () => {
               messageAntd.error(
                 tError(MESSAGE_ERROR.PLEASE_FILL_REQUIRED_FIELDS),
@@ -245,7 +219,7 @@ const EditForm = (props: Props) => {
         open={modal.submit}
         onCancel={() => {
           if (loading.submit) return;
-          onModal("submit", false);
+          onModal({ submit: false });
         }}
         onOk={form.handleSubmit(onSubmit)}
         okText={tCommon("confirm")}

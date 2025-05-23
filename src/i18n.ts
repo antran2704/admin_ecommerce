@@ -55,6 +55,10 @@ import variantTypeValuePageEn from "@assets/locales/en/variantTypeValuesPage.jso
 import productPageVi from "@assets/locales/vi/productPage.json";
 import productPageEn from "@assets/locales/en/productPage.json";
 
+// Variant Product Page
+import variantProductPageVi from "@assets/locales/vi/variantProductPage.json";
+import variantProductPageEn from "@assets/locales/en/variantProductPage.json";
+
 // Sidebar
 import sidebarVi from "@assets/locales/vi/sidebar.json";
 import sidebarEn from "@assets/locales/en/sidebar.json";
@@ -98,6 +102,7 @@ const resources = {
     VariantTypePage: variantTypePageEn,
     VariantTypeValuePage: variantTypeValuePageEn,
     ProductPage: productPageEn,
+    VariantProductPage: variantProductPageEn,
     Permission: permissionEn,
     Sidebar: sidebarEn,
     Navbar: navbarEn,
@@ -120,6 +125,7 @@ const resources = {
     VariantTypePage: variantTypePageVi,
     VariantTypeValuePage: variantTypeValuePageVi,
     ProductPage: productPageVi,
+    VariantProductPage: variantProductPageVi,
     Permission: permissionVi,
     Sidebar: sidebarVi,
     Navbar: navbarVi,

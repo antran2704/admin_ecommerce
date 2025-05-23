@@ -1,0 +1,63 @@
+{
+  "title": "Manage variant product",
+  "searchTitle": "Search with ID, name",
+  "filter": {
+    "createdAt": "Created At"
+  },
+  "placeholder": {
+    "variant": "Variant type",
+    "selectVariant": "Please select variant"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "table": {
+    "id": "ID",
+    "name": "Name",
+    "thumbnail": "Thumbnail",
+    "basePrice": "Base price",
+    "promotionPrice": "Promotion price",
+    "stock": "Stock",
+    "category": "Category",
+    "status": "Status",
+    "createdAt": "Created At"
+  },
+  "createTitle": "Create variant product",
+  "viewInfoTitle": "Infomation of variant product",
+  "editTitle": "Update variant product",
+  "form": {
+    "id": "ID",
+    "name": "Name",
+    "description": "Description",
+    "thumbnail": "Thumbnail",
+    "category": "Category",
+    "subcategories": "Subcategories",
+    "basePrice": "Base price",
+    "promotionPrice": "Promotion price",
+    "stock": "Stock",
+    "status": "Status",
+    "createdAt": "Created At"
+  },
+  "modalDelete": {
+    "title": "Delete variant product",
+    "subtitle": "Do you want to delete variant product?"
+  },
+  "modalUpdate": {
+    "title": "Update infomation of variant product",
+    "subtitle": "Do you want to update variant product?"
+  },
+  "modalGenerate": {
+    "title": "Create list of variant product",
+    "subtitle": "Do you want create list of variant product?",
+    "clearAll": "Warning: All old variant products will be deleted"
+  },
+  "modalSelectImage": {
+    "title": "Select image"
+  },
+  "error": {
+    "VARIANT_PRODUCT_NOT_FOUND": "Variant product not found",
+    "VARIANT_PRODUCT_WAS_DISABLED": "Variant product was disabled",
+    "VARIANT_PRODUCT_WAS_ENABLED": "Variant product was enabled"
+  }
+}

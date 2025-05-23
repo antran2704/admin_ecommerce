@@ -35,7 +35,7 @@ const CreatePage = () => {
   const onSubmit = async (values: ICategoryForm) => {
     const dataSend: ICreateCategoryRequest = {
       categoryName: values.title,
-      categoryParentId: values.parentId,
+      categoryParentId: values.parentId !== "root" ? values.parentId : null,
       categorySlug: stringToSlug(values.slug),
       categoryThumbnail: values.thumbnailUrl,
     };

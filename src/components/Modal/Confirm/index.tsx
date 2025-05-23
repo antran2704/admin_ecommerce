@@ -33,7 +33,7 @@ const ModalConfirm = (props: Props) => {
     <Modal
       centered
       title={
-        <div className="flex items-start pb-5 gap-4">
+        <div className="flex items-start gap-4">
           <div className="flex items-center justify-center rounded-full">
             {type === "danger" && (
               <BiSolidError className="text-3xl text-yellow-500" />

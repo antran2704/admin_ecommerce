@@ -138,7 +138,8 @@ const InfoForm = (props: Props) => {
                     setValue("gallery", []);
                   } else {
                     const lastFile: UploadFile = files[files.length - 1];
-                    const index = value.length;
+                    const index = files.length - 1;
+
                     setValue(
                       `gallery.${index}.url`,
                       URL.createObjectURL(lastFile.originFileObj),

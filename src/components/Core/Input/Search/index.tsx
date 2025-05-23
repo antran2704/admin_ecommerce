@@ -64,7 +64,7 @@ const InputSearch = (props: Props, ref: LegacyRef<InputRef>) => {
       <div className="w-full">
         <Input
           ref={ref}
-          size="middle"
+          size="large"
           {...rest}
           classNames={{
             suffix: "text-red-500",

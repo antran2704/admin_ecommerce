@@ -37,6 +37,7 @@
   },
   "error": {
     "VARIANT_TYPE_NAME_EXISTED": "Tên biến thể đã tồn tại",
-    "VARIANT_TYPE_EXISTED": "Biến thể đã tồn tại"
+    "VARIANT_TYPE_EXISTED": "Biến thể đã tồn tại",
+    "VARIANT_TYPE_IS_USED": "Biến thể đang được sử dụng"
   }
 }

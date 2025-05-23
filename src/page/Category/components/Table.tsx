@@ -1,4 +1,4 @@
-import { TableColumnsType, message } from "antd";
+import { TableColumnsType } from "antd";
 import { memo, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -22,6 +22,7 @@ import { ICategoryTable } from "../interfaces";
 import { apiCategoryService } from "~/api-client/category";
 import { NO_IMAGE } from "~/common/image";
 import { formatBigNumber } from "~/helper/format";
+import useMessageAntd from "~/hooks/useMessageAntd";
 
 interface Props {
   items: ICategoryTable[];
@@ -54,14 +55,13 @@ const Table = (props: Props) => {
   const navigate = useNavigate();
 
   const { infoUser } = useAppSelector((state) => state.user);
+  const { messageAntd } = useMessageAntd();
 
   const [listItem, setListItem] = useState<ICategoryTable[]>([]);
   const [selectItem, setSelectItem] = useState<ICategoryTable | null>(null);
 
   const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
   const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
-
-  const [messageApi, contextHolder] = message.useMessage();
 
   const onModalDelete = () => {
     if (isOpenDelete) {
@@ -76,11 +76,11 @@ const Table = (props: Props) => {
 
     try {
       await apiCategoryService.delete(id);
-      messageApi.success(tSuccess(MESSAGE_SUCCESS.DELETED));
+      messageAntd.success(tSuccess(MESSAGE_SUCCESS.DELETED));
       onModalDelete();
       getData();
     } catch (error) {
-      messageApi.error(tError(MESSAGE_ERROR.TRY_AGAIN));
+      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
 
     setLoadingDelete(false);
@@ -231,9 +231,6 @@ const Table = (props: Props) => {
         cancelText={tCommon("goBack")}
         destroyOnClose={true}
       />
-
-      {/* message Antd */}
-      {contextHolder}
     </div>
   );
 };

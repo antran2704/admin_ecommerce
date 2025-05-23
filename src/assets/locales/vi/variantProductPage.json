@@ -1,0 +1,63 @@
+{
+  "title": "Quản lý sản phẩm con",
+  "searchTitle": "Tìm kiếm ID, Tên sản phẩm con",
+  "filter": {
+    "createdAt": "Ngày tạo"
+  },
+  "placeholder": {
+    "variant": "Biến thể",
+    "selectVariant": "Vui lòng chọn biến thể"
+  },
+  "status": {
+    "active": "Đang hoạt động",
+    "inactive": "Ngừng hoạt động"
+  },
+  "table": {
+    "id": "ID sản phẩm con",
+    "name": "Tên sản phẩm con",
+    "thumbnail": "Hình ảnh",
+    "basePrice": "Giá bán",
+    "promotionPrice": "Giá khuyến mãi",
+    "stock": "Số lượng",
+    "category": "Danh mục",
+    "status": "Trạng thái",
+    "createdAt": "Ngày tạo"
+  },
+  "createTitle": "Thêm mới sản phẩm con",
+  "viewInfoTitle": "Thông tin sản phẩm con",
+  "editTitle": "Cập nhật sản phẩm con",
+  "form": {
+    "id": "ID sản phẩm con",
+    "name": "Tên sản phẩm con",
+    "description": "Mô tả",
+    "thumbnail": "Hình ảnh",
+    "category": "Danh mục",
+    "subcategories": "Danh mục con",
+    "basePrice": "Giá bán",
+    "promotionPrice": "Giá khuyến mãi",
+    "stock": "Số lượng",
+    "status": "Trạng thái",
+    "createdAt": "Ngày tạo"
+  },
+  "modalDelete": {
+    "title": "Xóa sản phẩm con",
+    "subtitle": "Bạn muốn xóa sản phẩm con?"
+  },
+  "modalUpdate": {
+    "title": "Cập nhật sản phẩm con",
+    "subtitle": "Bạn muốn cập nhật thông tin sản phẩm con?"
+  },
+  "modalGenerate": {
+    "title": "Tạo danh sách sản phẩm con",
+    "subtitle": "Bạn muốn tạo sản danh sách phẩm con?",
+    "clearAll": "Chú ý: Tất cả các sản phẩm con cũ sẽ bị xóa"
+  },
+  "modalSelectImage": {
+    "title": "Chọn hình ảnh"
+  },
+  "error": {
+    "VARIANT_PRODUCT_NOT_FOUND": "Sản phẩm con không tồn tại",
+    "VARIANT_PRODUCT_WAS_DISABLED": "Sản phẩm con đang ngừng hoạt động",
+    "VARIANT_PRODUCT_WAS_ENABLED": "Sản phẩm con đang đang hoạt động"
+  }
+}
