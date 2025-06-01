@@ -12,7 +12,7 @@ import { TableCore } from "~/components/Core";
 import { IPagination } from "~/interface/pagination";
 
 import { initPagination } from "~/common/pagination";
-import { BtnCheck, BtnEdit, BtnTrash } from "~/components/Button";
+import { BtnCheck, BtnClose, BtnEdit, BtnTrash } from "~/components/Button";
 import { DAY_DMY } from "~/common/format";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import ability from "~/context/ability";
@@ -119,7 +119,16 @@ const Table = (props: Props) => {
       },
     };
 
-    reset({ ...getValues(), ...newFormItem });
+    reset(
+      { ...getValues(), ...newFormItem },
+      {
+        keepDirty: true,
+      },
+    );
+  };
+
+  const onCancelEdit = (record: IVariantProductTable) => {
+    setValue(record.id, null, { shouldDirty: false });
   };
 
   const onSelectImage = (value: string) => {
@@ -159,7 +168,7 @@ const Table = (props: Props) => {
 
     // Dont call API if haven't any change
     if (!dirtyFields[record.id]) {
-      reset({ ...dataForm, [record.id]: null });
+      setValue(record.id, null, { shouldDirty: false });
       return;
     }
 
@@ -191,7 +200,7 @@ const Table = (props: Props) => {
 
       resetRowTable(record, dataForm);
       messageAntd.success(tSuccess(MESSAGE_SUCCESS.UPDATED));
-      reset({ ...dataForm, [record.id]: null });
+      setValue(record.id, null, { shouldDirty: false });
     } catch (error) {
       messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
@@ -422,7 +431,12 @@ const Table = (props: Props) => {
                 />
               )}
 
+              {getValues(record.id) && (
+                <BtnClose onClick={handleSubmit(() => onCancelEdit(record))} />
+              )}
+
               {ability.can(EPermisisonAction.DELETE, EPageRole.ADMIN_PRODUCT) &&
+                !getValues(record.id) &&
                 infoUser.userId !== record.id && (
                   <BtnTrash
                     onClick={() => {
