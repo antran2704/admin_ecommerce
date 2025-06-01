@@ -518,7 +518,7 @@ const Table = (props: Props) => {
         }}
         destroyOnClose={true}
       >
-        {selectItem && (
+        {selectItem && modal.selectImage && (
           <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 mt-5 gap-5">
             {product.gallery.map((url, index) => (
               <img
