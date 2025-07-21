@@ -29,6 +29,6 @@
   "ADMIN_PRODUCT_INVENTORY": "Manage product inventory",
   "ADMIN_VARIANT_PRODUCT_INVENTORY": "Manage variant product inventory",
   "ADMIN_CART": "Manage cart",
-  "ADMIN_PAGE_ORDER": "Manage order",
+  "ADMIN_ORDER": "Manage order",
   "ADMIN_PAGE_NEWS": "Manage news"
 }

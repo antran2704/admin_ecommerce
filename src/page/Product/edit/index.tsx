@@ -102,8 +102,7 @@ const EditPage = () => {
         <LoadingLayout loading={loading.getData}>
           <div className="w-full p-5">
             <TabsCore
-              // activeKey={tabParam ? (tabParam as string) : "detail"}
-              defaultActiveKey="variant-product"
+              activeKey={tabParam ? (tabParam as string) : "detail"}
               items={tabs}
               onChange={onTabChange}
             />

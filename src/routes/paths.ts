@@ -28,6 +28,11 @@ const PATH_NAME = {
   CREATE_PRODUCT: "/products/create",
   UPDATE_PRODUCT: (id: string) => `/products/${id}`,
 
+  // ORDERS
+  ORDERS: "/orders",
+  CREATE_ORDER: "/orders/create",
+  UPDATE_ORDER: (id: string) => `/orders/${id}`,
+
   // NEWS
   NEWS: "/news",
   CREATE_NEWS: "/news/create",

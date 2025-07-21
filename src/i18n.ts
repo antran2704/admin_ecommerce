@@ -59,6 +59,10 @@ import productPageEn from "@assets/locales/en/productPage.json";
 import variantProductPageVi from "@assets/locales/vi/variantProductPage.json";
 import variantProductPageEn from "@assets/locales/en/variantProductPage.json";
 
+// Order Page
+import orderPageVi from "@assets/locales/vi/orderPage.json";
+import orderPageEn from "@assets/locales/en/orderPage.json";
+
 // Sidebar
 import sidebarVi from "@assets/locales/vi/sidebar.json";
 import sidebarEn from "@assets/locales/en/sidebar.json";
@@ -103,6 +107,7 @@ const resources = {
     VariantTypeValuePage: variantTypeValuePageEn,
     ProductPage: productPageEn,
     VariantProductPage: variantProductPageEn,
+    OrderPage: orderPageEn,
     Permission: permissionEn,
     Sidebar: sidebarEn,
     Navbar: navbarEn,
@@ -126,6 +131,7 @@ const resources = {
     VariantTypeValuePage: variantTypeValuePageVi,
     ProductPage: productPageVi,
     VariantProductPage: variantProductPageVi,
+    OrderPage: orderPageVi,
     Permission: permissionVi,
     Sidebar: sidebarVi,
     Navbar: navbarVi,

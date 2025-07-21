@@ -1,0 +1,35 @@
+{
+  "title": "Manage orders",
+  "searchTitle": "Search order ID",
+  "filter": {
+    "createdAt": "Created at"
+  },
+  "status": {
+    "pending": "Pending",
+    "processing": "Processing",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "table": {
+    "id": "Order ID",
+    "name": "Customer name",
+    "totalPrice": "Total price",
+    "phoneNumber": "Phone number",
+    "status": "Status",
+    "createdAt": "Created at"
+  },
+  "viewInfoTitle": "Infomation order",
+  "editTitle": "Update order",
+  "modalUpdate": {
+    "title": "Update order",
+    "subtitle": "Do you want to update order?"
+  },
+  "breadcrumb": {
+    "list": "List of order",
+    "viewInfo": "Infomation order",
+    "update": "Update order"
+  },
+  "error": {
+    "ORDER_NOT_FOUND": "Order not found"
+  }
+}
