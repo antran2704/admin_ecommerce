@@ -72,7 +72,7 @@ const TreeCategories = (props: Props) => {
         if (!isDuplicate) return item;
       });
 
-      if (id === data.categoryId || disableIds.includes(id)) {
+      if (id === data?.categoryId || disableIds.includes(id)) {
         const newDisableIds = newData
           .filter((item) => !disableIds.includes(item.id))
           .map((item) => item.id);
@@ -82,6 +82,7 @@ const TreeCategories = (props: Props) => {
       const mergeData = [...newTreeData, ...newData];
       setTreeData(mergeData);
     } catch (error) {
+      console.log(error);
       messageAntd.error(t("error.GET_CHILDREN_CATEGORY_ERROR"));
     }
   };

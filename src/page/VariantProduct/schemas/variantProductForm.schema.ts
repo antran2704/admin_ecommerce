@@ -13,6 +13,8 @@ const variantProductFormSchema = (t: TFunction) => {
     object(
       Object.keys(obj || {}).reduce(
         (acc, key) => {
+          if (!obj[key]) return acc;
+
           acc[key] = itemSchema(t);
           return acc;
         },
