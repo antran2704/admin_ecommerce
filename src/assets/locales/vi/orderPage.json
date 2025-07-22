@@ -20,6 +20,13 @@
   },
   "viewInfoTitle": "Thông tin đơn hàng",
   "editTitle": "Cập nhật đơn hàng",
+  "subTotal": "Tạm tính",
+  "total": "Tổng tiền",
+  "contactInfo": "Thông tin liên hệ",
+  "shippingAddress": "Địa chỉ giao hàng",
+  "paymentSummary": "Thông tin thanh toán",
+  "orderItems": "Sản phẩm",
+  "customer": "Khách hàng",
   "modalUpdate": {
     "title": "Cập nhật đơn hàng",
     "subtitle": "Bạn muốn cập nhật thông tin đơn hàng?"

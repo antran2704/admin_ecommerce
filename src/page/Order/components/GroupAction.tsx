@@ -1,19 +1,15 @@
 import { Dropdown, MenuProps } from "antd";
 import { Fragment, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 
-import { BtnAdd, BtnExportFile } from "~/components/Button";
+import { BtnExportFile } from "~/components/Button";
 import PDFManager from "~/components/Pdf";
 import PDFRow from "~/components/Pdf/Row";
 import PDFText from "~/components/Pdf/Text";
 
 import { DAY_DMY } from "~/common/format";
 import { createExcelFile } from "~/helper/file";
-import ability from "~/context/ability";
-import { EPageRole, EPermisisonAction } from "~/enum/constants";
-import PATH_NAME from "~/routes/paths";
 import { formatBigNumber } from "~/helper/format";
 import { IOrderTable } from "../interfaces/orderTable.interface";
 
@@ -162,12 +158,6 @@ const GroupAction = (props: Props) => {
             </PDFRow>
           ))}
         </PDFManager>
-
-        {ability.can(EPermisisonAction.CREATE, EPageRole.ADMIN_PRODUCT) && (
-          <Link to={PATH_NAME.CREATE_PRODUCT}>
-            <BtnAdd className="font-semibold">{tCommon("create")}</BtnAdd>
-          </Link>
-        )}
       </div>
     </Fragment>
   );

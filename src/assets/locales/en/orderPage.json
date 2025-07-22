@@ -18,8 +18,15 @@
     "status": "Status",
     "createdAt": "Created at"
   },
-  "viewInfoTitle": "Infomation order",
+  "viewInfoTitle": "Information order",
   "editTitle": "Update order",
+  "subTotal": "Subtotal",
+  "total": "Total",
+  "contactInfo": "Contact information",
+  "shippingAddress": "Shipping address",
+  "paymentSummary": "Payment summary",
+  "orderItems": "Order items",
+  "customer": "Customer",
   "modalUpdate": {
     "title": "Update order",
     "subtitle": "Do you want to update order?"

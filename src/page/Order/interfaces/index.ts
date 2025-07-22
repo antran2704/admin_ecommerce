@@ -3,3 +3,5 @@ export * from "./ordersResponse.interface";
 export * from "./orderResponse.interface";
 export * from "./shippingInfoResponse.interface";
 export * from "./orderCancellationResponse.interface";
+export * from "./getOrderItemsRequest.interface";
+export * from "./orderItemResponse.interface";
