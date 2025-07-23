@@ -1,26 +1,32 @@
-export const OrderHeader = () => {
+import { useTranslation } from "react-i18next";
+import dayjs from "dayjs";
+import { CiCalendar } from "react-icons/ci";
+
+import { IOrderResponse } from "../interfaces";
+import { OrderStatus } from "./Status";
+import { DAY_DYHM } from "~/common/format";
+
+interface IProps {
+  order: IOrderResponse;
+}
+
+export const OrderHeader = ({ order }: IProps) => {
+  const { t } = useTranslation("OrderPage");
+
   return (
-    <div className="flex items-center">
-      <h2 className="text-xl font-bold text-gray-900 mr-4">Order 123</h2>
-      <span className="px-3 py-1 text-sm font-semibold text-green-700 bg-green-100 rounded-full mr-2">
-        Pending
-      </span>
-      <div className="flex items-center text-gray-500 text-sm ml-4">
-        <svg
-          className="w-4 h-4 mr-1"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-          ></path>
-        </svg>
-        <span>11 Jan 2021</span>
+    <div className="flex items-center flex-wrap gap-4">
+      <h2 className="text-xl font-bold text-gray-900">
+        {t("order")} #{order?.orderId}
+      </h2>
+      <OrderStatus
+        status={order?.orderStatus}
+        tagProps={{ className: "text-sm" }}
+      />
+      <div className="flex items-center text-gray-500 text-sm gap-2">
+        <CiCalendar className="size-5" />
+        <span className="text-base">
+          {order?.createdAt && dayjs(order?.createdAt).format(DAY_DYHM)}
+        </span>
       </div>
     </div>
   );

@@ -37,18 +37,3 @@ export enum ENUM_STATUS {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
 }
-
-export enum ENUM_DAY_OF_WEEK {
-  MONDAY = "MONDAY",
-  TUESDAY = "TUESDAY",
-  WEDNESDAY = "WEDNESDAY",
-  THURSDAY = "THURSDAY",
-  FRIDAY = "FRIDAY",
-  SATURDAY = "SATURDAY",
-  SUNDAY = "SUNDAY",
-}
-
-export enum ENUM_PAGE_PRINTER {
-  A3 = "A3",
-  A4 = "A4",
-}

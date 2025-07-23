@@ -10,6 +10,11 @@
     "completed": "Completed",
     "cancelled": "Cancelled"
   },
+  "reason": {
+    "outOfStock": "Out of stock",
+    "customerChange": "Customer change mind",
+    "other": "Other"
+  },
   "table": {
     "id": "Order ID",
     "name": "Customer name",
@@ -18,6 +23,7 @@
     "status": "Status",
     "createdAt": "Created at"
   },
+  "order": "Order",
   "viewInfoTitle": "Information order",
   "editTitle": "Update order",
   "subtotal": "Subtotal",
@@ -27,6 +33,14 @@
   "paymentSummary": "Payment summary",
   "orderItems": "Order items",
   "customer": "Customer",
+  "note": "Note",
+   "cancellation": {
+    "title": "Cancellation Detail",
+    "cancelledBy": "Cancelled By",
+    "cancelledAt": "Cancelled At",
+    "reason": "Reason",
+    "description": "Description"
+  },
   "modalUpdate": {
     "title": "Update order",
     "subtitle": "Do you want to update order?"

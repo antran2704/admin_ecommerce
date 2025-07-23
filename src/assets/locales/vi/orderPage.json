@@ -10,6 +10,11 @@
     "completed": "Đã hoàn thành",
     "cancelled": "Đã hủy"
   },
+  "reason": {
+    "outOfStock": "Hết hàng",
+    "customerChange": "Khách hàng thay đổi ý",
+    "other": "Khác"
+  },
   "table": {
     "id": "ID đơn hàng",
     "name": "Tên khách hàng",
@@ -18,6 +23,7 @@
     "status": "Trạng thái",
     "createdAt": "Ngày tạo"
   },
+  "order": "Đơn hàng",
   "viewInfoTitle": "Thông tin đơn hàng",
   "editTitle": "Cập nhật đơn hàng",
   "subtotal": "Tạm tính",
@@ -27,6 +33,14 @@
   "paymentSummary": "Thông tin thanh toán",
   "orderItems": "Sản phẩm",
   "customer": "Khách hàng",
+  "note": "Ghi chú",
+  "cancellation": {
+    "title": "Chi tiết hủy đơn",
+    "cancelledBy": "Người hủy",
+    "cancelledAt": "Thời gian hủy",
+    "reason": "Lý do",
+    "description": "Mô tả"
+  },
   "modalUpdate": {
     "title": "Cập nhật đơn hàng",
     "subtitle": "Bạn muốn cập nhật thông tin đơn hàng?"

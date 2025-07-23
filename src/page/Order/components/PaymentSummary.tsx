@@ -1,7 +1,14 @@
 import { useTranslation } from "react-i18next";
 import CollapseGroup from "./Collapse";
+import { formatBigNumber } from "~/helper/format";
+import { VND_CURRENCY } from "~/common/currency";
+import { IOrderResponse } from "../interfaces";
 
-export const OrderPaymentSummary = () => {
+interface IProps {
+  order: IOrderResponse;
+}
+
+export const OrderPaymentSummary = ({ order }: IProps) => {
   const { t } = useTranslation("OrderPage");
 
   return (
@@ -9,11 +16,15 @@ export const OrderPaymentSummary = () => {
       <div className="space-y-2 text-gray-700">
         <div className="flex justify-between">
           <span>{t("subtotal")}:</span>
-          <span>10000</span>
+          <span>
+            {formatBigNumber(order?.totalPrice || 0)} {VND_CURRENCY}
+          </span>
         </div>
         <div className="flex justify-between font-bold text-lg pt-4 border-t border-gray-200">
           <span>{t("total")}</span>
-          <span>1000</span>
+          <span>
+            {formatBigNumber(order?.totalPrice || 0)} {VND_CURRENCY}
+          </span>
         </div>
       </div>
     </CollapseGroup>

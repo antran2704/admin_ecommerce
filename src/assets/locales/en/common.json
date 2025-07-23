@@ -1,75 +1,80 @@
 {
-    "all": "All",
-    "goBack": "Back",
-    "confirm": "Confirm",
-    "close": "Close",
-    "save": "Save",
-    "saveAndCreate": "Save & create",
-    "continute": "Continute",
-    "edit": "Edit",
-    "add": "Add {{name}}",
-    "agree": "Agree",
-    "yes": "Yes",
-    "no": "No",
-    "cancel": "Cancel",
-    "canceled": "Canceled",
-    "delete": "Delete",
-    "create": "Create",
-    "update": "Update",
-    "updating": "Updating",
-    "noData": "No data",
-    "success": "Success",
-    "cancelEdit": "Cancel edit",
-    "changePassword": "Change password",
-    "manualSetupPassword": "Setup password manual",
-    "sendPasswordToEmail": "Send password to email",
-    "addAndExportPdf": "Add & Export PDF",
-    "character": "character",
-    "action": "Action",
-    "number": "number",
-    "field": {
-      "phone": "Phone",
-      "password": "Password",
-      "rePassword": "Confirm password"
+  "all": "All",
+  "goBack": "Back",
+  "confirm": "Confirm",
+  "close": "Close",
+  "save": "Save",
+  "saveAndCreate": "Save & create",
+  "continute": "Continute",
+  "edit": "Edit",
+  "add": "Add {{name}}",
+  "agree": "Agree",
+  "yes": "Yes",
+  "no": "No",
+  "cancel": "Cancel",
+  "canceled": "Canceled",
+  "delete": "Delete",
+  "create": "Create",
+  "update": "Update",
+  "updating": "Updating",
+  "noData": "No data",
+  "success": "Success",
+  "cancelEdit": "Cancel edit",
+  "changePassword": "Change password",
+  "manualSetupPassword": "Setup password manual",
+  "sendPasswordToEmail": "Send password to email",
+  "addAndExportPdf": "Add & Export PDF",
+  "character": "character",
+  "action": "Action",
+  "number": "number",
+  "userType": {
+    "admin": "Admin",
+    "staff": "Staff",
+    "customer": "Customer"
+  },
+  "field": {
+    "phone": "Phone",
+    "password": "Password",
+    "rePassword": "Confirm password"
+  },
+  "checkPassword": {
+    "checkLength": "Less than 8 characters",
+    "checkNumber": "Less than 1 number",
+    "checkUppercase": "Less than 1 uppercase",
+    "checkLowercase": "Less than lowercase",
+    "checkSpecial": "Less than special character"
+  },
+  "placeholder": {
+    "username": "Inpur user name...",
+    "email": "Input Email...",
+    "password": "Input password",
+    "search": "Search...",
+    "select": "Select..."
+  },
+  "file": {
+    "exportFile": "Export file",
+    "exportExcel": "Export Excel",
+    "exportPdf": "Export PDF",
+    "exportTemplate": "Export Template",
+    "importFile": "Import file",
+    "image": "Image"
+  },
+  "copied": "Copied",
+  "pagination": {
+    "page": "Page",
+    "of": "of"
+  },
+  "modal": {
+    "update": {
+      "title": "Update",
+      "subtitle": "Do you want update?"
     },
-    "checkPassword": {
-      "checkLength": "Less than 8 characters",
-      "checkNumber": "Less than 1 number",
-      "checkUppercase": "Less than 1 uppercase",
-      "checkLowercase": "Less than lowercase",
-      "checkSpecial": "Less than special character"
-    },
-    "placeholder": {
-      "username": "Inpur user name...",
-      "email": "Input Email...",
-      "password": "Input password",
-      "search": "Search...",
-      "select": "Select..."
-    },
-    "file": {
-      "exportFile": "Export file",
-      "exportExcel": "Export Excel",
-      "exportPdf": "Export PDF",
-      "exportTemplate": "Export Template",
-      "importFile": "Import file",
-      "image": "Image"
-    },
-    "copied": "Copied",
-    "pagination": {
-      "page": "Page",
-      "of": "of"
-    },
-    "modal": {
-      "update": {
-        "title": "Update",
-        "subtitle": "Do you want update?"
-      },
-      "blocker": {
-        "title": "Notification",
-        "description": "You have not saved the update yet. Are you sure you want to exit?"
-      }
-    },
-    "breadcrumb": {
-      "home": "Home"
+    "blocker": {
+      "title": "Notification",
+      "description": "You have not saved the update yet. Are you sure you want to exit?"
     }
+  },
+  "breadcrumb": {
+    "home": "Home"
   }
+}

@@ -8,7 +8,6 @@ import { AppDispatch } from "~/store/types";
 import { logoutUser } from "~/store/slice/user";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import { API_VERSION, BASE_URL } from "~/common/api";
-import { getTimezoneOffset, getUserTimezone } from "~/helper/dateTime";
 import apiMeService from "~/api-client/me";
 
 let navigate: NavigateFunction;
@@ -30,13 +29,9 @@ export const injectTranslate = (_tError: any) => {
   tError = _tError;
 };
 
-const userTimezone = getUserTimezone();
-const timeOffset = getTimezoneOffset(userTimezone);
-
 const AxiosClient = axios.create({
   headers: {
     "Content-Type": "application/json",
-    "X-Timezone": timeOffset,
   },
   timeout: 30000, //timeout after 30 seconds
 });

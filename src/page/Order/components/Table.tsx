@@ -4,33 +4,27 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 
-import { ModalConfirm } from "~/components/Modal";
 import { TableCore } from "~/components/Core";
 
 import { IPagination } from "~/interface/pagination";
 
 import { initPagination } from "~/common/pagination";
-import { BtnEdit, BtnTrash, BtnView } from "~/components/Button";
+import { BtnEdit, BtnView } from "~/components/Button";
 import { DAY_DMY } from "~/common/format";
-import MESSAGE_ERROR from "~/common/errorMessage";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
-import { useAppSelector } from "~/store/hooks";
-import MESSAGE_SUCCESS from "~/common/successMessage";
 import PATH_NAME from "~/routes/paths";
-import { apiProductService } from "~/api-client/product";
 import { formatBigNumber } from "~/helper/format";
-import useMessageAntd from "~/hooks/useMessageAntd";
 import { IOrderTable } from "../interfaces/orderTable.interface";
 import { ENUM_ORDER_STATUS } from "../enums";
 import { getOrderStatusTitle } from "../helpers/getStatusTitle";
+import { OrderStatus } from "./Status";
 
 interface Props {
   items: IOrderTable[];
   pagination?: IPagination;
   loading?: boolean;
   selectedRowKeys?: React.Key[];
-  getData: () => void;
   onPagination: (nextPage: number, pageSize: number) => void;
   onSelectedRowKeys?: (selected: React.Key[]) => void;
   onSelectedRows?: (selectedRows: IOrderTable[]) => void;
@@ -42,7 +36,6 @@ const Table = (props: Props) => {
     pagination = initPagination,
     loading = false,
     selectedRowKeys,
-    getData,
     onPagination,
     onSelectedRowKeys,
     onSelectedRows,
@@ -50,43 +43,10 @@ const Table = (props: Props) => {
 
   const { t, i18n } = useTranslation("OrderPage");
   const { t: tCommon } = useTranslation("Common");
-  const { t: tError } = useTranslation("Error");
-  const { t: tSuccess } = useTranslation("Success");
 
   const navigate = useNavigate();
 
-  const { infoUser } = useAppSelector((state) => state.user);
-
   const [listItem, setListItem] = useState<IOrderTable[]>([]);
-  const [selectItem, setSelectItem] = useState<IOrderTable | null>(null);
-
-  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
-  const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
-
-  const { messageAntd } = useMessageAntd();
-
-  const onModalDelete = () => {
-    if (isOpenDelete) {
-      setSelectItem(null);
-    }
-
-    setIsOpenDelete(!isOpenDelete);
-  };
-
-  const handleDelete = async (id: string) => {
-    setLoadingDelete(true);
-
-    try {
-      await apiProductService.delete(id);
-      messageAntd.success(tSuccess(MESSAGE_SUCCESS.DELETED));
-      onModalDelete();
-      getData();
-    } catch (error) {
-      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
-    }
-
-    setLoadingDelete(false);
-  };
 
   // columnt table
   const columns: TableColumnsType<IOrderTable> =
@@ -101,9 +61,7 @@ const Table = (props: Props) => {
           title: t("table.name"),
           dataIndex: "customerName",
           render: (value: string) => (
-            <span className="block w-[200px]">
-              {value ? value : tCommon("noData")}
-            </span>
+            <span>{value ? value : tCommon("noData")}</span>
           ),
         },
         {
@@ -111,9 +69,9 @@ const Table = (props: Props) => {
           dataIndex: "phoneNumber",
           className: "cursor-pointer",
           render: (value: string) => (
-            <span className="block w-[200px]">
-              {value ? value : tCommon("noData")}
-            </span>
+            <Link to={`tel:${value}`} className="hover:text-primary-color">
+              {value ? `+${value}` : tCommon("noData")}
+            </Link>
           ),
         },
         {
@@ -129,9 +87,7 @@ const Table = (props: Props) => {
           dataIndex: "status",
           align: "center",
           className: "cursor-pointer",
-          render: (value: ENUM_ORDER_STATUS) => (
-            <span>{getOrderStatusTitle(t, value)}</span>
-          ),
+          render: (value: ENUM_ORDER_STATUS) => <OrderStatus status={value} />,
         },
         {
           title: t("table.createdAt"),
@@ -149,7 +105,7 @@ const Table = (props: Props) => {
           fixed: "right",
           render: (_, record: IOrderTable) => (
             <div className="flex items-center justify-center gap-2">
-              <Link to={PATH_NAME.UPDATE_PRODUCT(record.id)}>
+              <Link to={PATH_NAME.UPDATE_ORDER(record.id)}>
                 <BtnView />
               </Link>
 
@@ -157,20 +113,10 @@ const Table = (props: Props) => {
                 EPermisisonAction.UPDATE,
                 EPageRole.ADMIN_PRODUCT,
               ) && (
-                <Link to={PATH_NAME.UPDATE_PRODUCT(record.id) + "?edit=1"}>
+                <Link to={PATH_NAME.UPDATE_ORDER(record.id) + "?edit=1"}>
                   <BtnEdit />
                 </Link>
               )}
-
-              {ability.can(EPermisisonAction.DELETE, EPageRole.ADMIN_PRODUCT) &&
-                infoUser.userId !== record.id && (
-                  <BtnTrash
-                    onClick={() => {
-                      setSelectItem(record);
-                      onModalDelete();
-                    }}
-                  />
-                )}
             </div>
           ),
           align: "center",
@@ -204,7 +150,7 @@ const Table = (props: Props) => {
         onRow={(record: IOrderTable) => {
           return {
             onDoubleClick: () => {
-              navigate(PATH_NAME.UPDATE_PRODUCT(record.id));
+              navigate(PATH_NAME.UPDATE_ORDER(record.id));
             },
           };
         }}
@@ -220,23 +166,6 @@ const Table = (props: Props) => {
           preserveSelectedRowKeys: true,
           columnWidth: 100,
         }}
-      />
-
-      {/* Modal Delete Project */}
-      <ModalConfirm
-        title={t("modalDelete.title")}
-        subtitle={t("modalDelete.subtitle")}
-        open={isOpenDelete}
-        type="error"
-        okButtonProps={{
-          loading: loadingDelete,
-          disabled: loadingDelete,
-        }}
-        onCancel={onModalDelete}
-        onOk={() => handleDelete(selectItem.id as string)}
-        okText={tCommon("confirm")}
-        cancelText={tCommon("goBack")}
-        destroyOnClose={true}
       />
     </div>
   );

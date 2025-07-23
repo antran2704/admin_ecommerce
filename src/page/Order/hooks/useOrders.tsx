@@ -1,74 +1,51 @@
-import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
-import { initPagination } from "~/common/pagination";
 import { parseQueryString } from "~/helper/url";
-import { IResponseDataWithPagination } from "~/interface";
-import { IPagination } from "~/interface/pagination";
 import { IGetOrdersRequest, IOrdersResponse } from "../interfaces";
-import { IOrderTable } from "../interfaces/orderTable.interface";
 import { apiOrderService } from "~/api-client/order";
+import { TQueryOptions } from "~/interface/reactQuery";
+import { QUERY_KEY } from "~/constants/queryKey";
+import { IErrorResponse, IResponseDataWithPagination } from "~/interface";
+import { IOrderTable } from "../interfaces/orderTable.interface";
+import { transformOrdersResponseToTable } from "../transforms";
 
-const useOrders = (query?: Partial<IGetOrdersRequest>) => {
+const useOrders = (
+  paramater?: Partial<IGetOrdersRequest>,
+  options?: TQueryOptions<IResponseDataWithPagination<IOrdersResponse[]>>,
+) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const [data, setData] = useState<IOrdersResponse[]>([]);
   const [dataTable, setDataTabel] = useState<IOrderTable[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const [pagination, setPagination] = useState<IPagination>(initPagination);
 
   const onPagination = (page: number, take: number) => {
-    navigate(pathname + parseQueryString({ ...query, page, take }));
+    navigate(pathname + parseQueryString({ ...paramater, page, take }));
   };
 
-  const handleGetData = async (paramater: Partial<IGetOrdersRequest>) => {
-    setLoading(true);
-
-    await apiOrderService
-      .orders(paramater)
-      .then(
-        ({
-          data,
-          pagination,
-        }: IResponseDataWithPagination<IOrdersResponse[]>) => {
-          const dataTable: IOrderTable[] = data.map((x: IOrdersResponse) => ({
-            id: x.orderId,
-            phoneNumber: x.shippingInfomation.phoneNumber,
-            customerName: x.shippingInfomation.name,
-            status: x.orderStatus,
-            totalPrice: x.totalPrice,
-            createdAt: x.createdAt,
-          }));
-
-          setData(data);
-          setDataTabel(dataTable);
-          setPagination({
-            page: pagination.page,
-            take: pagination.take,
-            total: pagination.total,
-          });
-        },
-      )
-      .catch((err) => err);
-
-    setLoading(false);
-  };
+  const query = useQuery<
+    IResponseDataWithPagination<IOrdersResponse[]>,
+    IErrorResponse
+  >({
+    queryKey: [QUERY_KEY.ORDERS, paramater],
+    queryFn: () => apiOrderService.orders(paramater),
+    ...options,
+  });
 
   useEffect(() => {
-    if (!query) return;
+    if (!query.data) {
+      setDataTabel([]);
+      return;
+    }
 
-    handleGetData(query);
-  }, [query]);
+    setDataTabel(transformOrdersResponseToTable(query.data.data));
+  }, [query.data]);
 
   return {
-    orders: data,
+    ...query,
     orderTables: dataTable,
-    handleGetOrders: handleGetData,
     onPaginationOrders: onPagination,
-    paginationOrders: pagination,
-    loadingOrders: loading,
   };
 };
 

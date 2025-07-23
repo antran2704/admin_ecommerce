@@ -43,13 +43,8 @@ const OrderPage = () => {
     };
   }, [search]);
 
-  const {
-    orderTables,
-    paginationOrders,
-    loadingOrders,
-    onPaginationOrders,
-    handleGetOrders,
-  } = useOrders(paramater);
+  const { data, isLoading, orderTables, onPaginationOrders } =
+    useOrders(paramater);
 
   const { selectedRows, selectedRowKeys, onSelectedRows, onSelectedRowKeys } =
     useSelectTableRows<IOrderTable>();
@@ -95,10 +90,9 @@ const OrderPage = () => {
         <div className="py-10">
           <Table
             items={orderTables}
-            pagination={paginationOrders}
-            loading={loadingOrders}
+            pagination={data?.pagination}
+            loading={isLoading}
             selectedRowKeys={selectedRowKeys}
-            getData={() => handleGetOrders(paramater)}
             onPagination={onPaginationOrders}
             onSelectedRowKeys={onSelectedRowKeys}
             onSelectedRows={onSelectedRows}
