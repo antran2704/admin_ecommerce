@@ -1,4 +1,4 @@
-interface ErrorResponse {
+interface IErrorResponse {
   message: string;
   statusCode: number;
   path: string;
@@ -17,4 +17,8 @@ interface IResponseDataWithPagination<T> {
   pagination: IPaginationResponse;
 }
 
-export type { ErrorResponse, IResponseDataWithPagination, IPaginationResponse };
+export type {
+  IErrorResponse,
+  IResponseDataWithPagination,
+  IPaginationResponse,
+};
