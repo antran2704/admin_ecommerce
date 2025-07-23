@@ -1,6 +1,6 @@
 export const OrderHeader = () => {
   return (
-    <div className="flex items-center mb-6">
+    <div className="flex items-center">
       <h2 className="text-xl font-bold text-gray-900 mr-4">Order 123</h2>
       <span className="px-3 py-1 text-sm font-semibold text-green-700 bg-green-100 rounded-full mr-2">
         Pending

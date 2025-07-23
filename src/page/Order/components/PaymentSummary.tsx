@@ -1,13 +1,11 @@
 import { useTranslation } from "react-i18next";
+import CollapseGroup from "./Collapse";
 
 export const OrderPaymentSummary = () => {
   const { t } = useTranslation("OrderPage");
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-5 mb-6 border border-gray-200">
-      <h3 className="text-xl font-semibold text-gray-900 mb-4">
-        {t("paymentSummary")}
-      </h3>
+    <CollapseGroup label={t("paymentSummary")}>
       <div className="space-y-2 text-gray-700">
         <div className="flex justify-between">
           <span>{t("subtotal")}:</span>
@@ -18,6 +16,6 @@ export const OrderPaymentSummary = () => {
           <span>1000</span>
         </div>
       </div>
-    </div>
+    </CollapseGroup>
   );
 };

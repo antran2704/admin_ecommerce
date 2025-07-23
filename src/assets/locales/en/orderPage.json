@@ -20,7 +20,7 @@
   },
   "viewInfoTitle": "Information order",
   "editTitle": "Update order",
-  "subTotal": "Subtotal",
+  "subtotal": "Subtotal",
   "total": "Total",
   "contactInfo": "Contact information",
   "shippingAddress": "Shipping address",
