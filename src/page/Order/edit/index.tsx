@@ -18,10 +18,12 @@ import {
 } from "../components";
 import { useOrder } from "../hooks";
 import hanldeErrorAxios from "~/helper/handleErrorAxios";
+import MESSAGE_ERROR from "~/common/errorMessage";
 
 const EditPage = () => {
   const { t } = useTranslation("OrderPage");
   const { t: tCommon } = useTranslation("Common");
+  const { t: tError } = useTranslation("Error");
 
   const { order_id } = useParams();
   const { edit: editParam } = useGetSearchParams<{
@@ -49,6 +51,8 @@ const EditPage = () => {
     if (statusCode === 404) {
       messageAntd.error(t("error.ORDER_NOT_FOUND"));
       navigate(PATH_NAME.ORDERS);
+    } else {
+      messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
     }
   }, [error, isError]);
 
@@ -64,10 +68,10 @@ const EditPage = () => {
     >
       <div className="flex flex-col p-6 gap-6">
         {isLoading && <OrderHeaderSkelaton />}
-        {!isLoading && <OrderHeader order={orderData} />}
+        {!isLoading && <OrderHeader order={orderData} isEditable={isEdit} />}
 
         <div className="flex flex-col-reverse lg:flex-row overflow-hidden gap-6">
-          <div className="flex-1 flex flex-col lg:border-r border-gray-200 gap-6">
+          <div className="flex-1 flex flex-col gap-6">
             {orderData && !!orderData.cancellations?.length && (
               <OrderCancellations order={orderData} />
             )}

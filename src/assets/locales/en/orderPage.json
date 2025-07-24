@@ -10,6 +10,11 @@
     "completed": "Completed",
     "cancelled": "Cancelled"
   },
+  "action": {
+    "process": "Process",
+    "cancel": "Cancel",
+    "complete": "Complete"
+  },
   "reason": {
     "outOfStock": "Out of stock",
     "customerChange": "Customer change mind",
@@ -35,16 +40,28 @@
   "customer": "Customer",
   "note": "Note",
   "variant": "Variant",
-   "cancellation": {
+  "cancellation": {
     "title": "Cancellation Detail",
     "cancelledBy": "Cancelled By",
     "cancelledAt": "Cancelled At",
     "reason": "Reason",
     "description": "Description"
   },
-  "modalUpdate": {
-    "title": "Update order",
-    "subtitle": "Do you want to update order?"
+  "modalPending": {
+    "title": "Pending order",
+    "subtitle": "Do you want update order?"
+  },
+  "modalProcess": {
+    "title": "Process order",
+    "subtitle": "Do you want update order?"
+  },
+  "modalSuccess": {
+    "title": "Success order",
+    "subtitle": "Do you want update order?"
+  },
+  "modalCancel": {
+    "title": "Cancel order",
+    "subtitle": "Do you want cancel order?"
   },
   "breadcrumb": {
     "list": "List of order",

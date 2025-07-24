@@ -10,6 +10,11 @@
     "completed": "Đã hoàn thành",
     "cancelled": "Đã hủy"
   },
+  "action": {
+    "process": "Xử lý",
+    "cancel": "Hủy",
+    "complete": "Hoàn thành"
+  },
   "reason": {
     "outOfStock": "Hết hàng",
     "customerChange": "Khách hàng thay đổi ý",
@@ -42,9 +47,21 @@
     "reason": "Lý do",
     "description": "Mô tả"
   },
-  "modalUpdate": {
-    "title": "Cập nhật đơn hàng",
-    "subtitle": "Bạn muốn cập nhật thông tin đơn hàng?"
+  "modalPending": {
+    "title": "Chờ xác nhận đơn hàng",
+    "subtitle": "Bạn muốn cập nhật trạng thái đơn hàng?"
+  },
+  "modalProcess": {
+    "title": "Xử lý đơn hàng",
+    "subtitle": "Bạn muốn cập nhật trạng thái đơn hàng?"
+  },
+  "modalSuccess": {
+    "title": "Hoàn thành đơn hàng",
+    "subtitle": "Bạn muốn cập nhật trạng thái đơn hàng?"
+  },
+  "modalCancel": {
+    "title": "Hủy đơn hàng",
+    "subtitle": "Bạn muốn hủy đơn hàng?"
   },
   "breadcrumb": {
     "list": "Danh sách đơn hàng",

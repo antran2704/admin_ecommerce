@@ -6,6 +6,7 @@ import {
   IGetOrderItemsRequest,
   IGetOrdersRequest,
 } from "~/page/Order/interfaces";
+import { IUpdateOrderStatusRequest } from "~/page/Order/interfaces/updateStatusRequest.interface";
 
 const apiOrderService = {
   orders: async (paramater: Partial<IGetOrdersRequest>) => {
@@ -34,12 +35,12 @@ const apiOrderService = {
         parseParamater,
     ).then((res) => res.data);
   },
-  // update: async (id: string, data: IUpdateProductRequest) => {
-  //   return await AxiosClient.patch(
-  //     BASE_URL + API_VERSION.V1 + INTERNAL_PATH + `/admin/products/${id}`,
-  //     data,
-  //   ).then((res) => res.data);
-  // },
+  updateStatus: async (data: IUpdateOrderStatusRequest) => {
+    return await AxiosClient.patch(
+      BASE_URL + API_VERSION.V1 + INTERNAL_PATH + "/admin/orders/status",
+      data,
+    ).then((res) => res.data);
+  },
 };
 
 export { apiOrderService };
