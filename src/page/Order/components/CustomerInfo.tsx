@@ -2,8 +2,10 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { FiPhone } from "react-icons/fi";
 import { CiMail } from "react-icons/ci";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 import { IOrderResponse } from "../interfaces";
+import PATH_NAME from "~/routes/paths";
 
 interface IProps {
   order: IOrderResponse;
@@ -11,6 +13,11 @@ interface IProps {
 
 export const OrderCustomerInfo = ({ order }: IProps) => {
   const { t } = useTranslation("OrderPage");
+
+  const textForImg = order?.shippingInfomation?.name
+    .split(" ")
+    .map((item) => item.charAt(0).toUpperCase())
+    .join("");
 
   return (
     <div className="flex flex-col lg:w-96 bg-white border-b lg:border-b-0 lg:border-l border-gray-200 lg:pl-6 pb-4 gap-6">
@@ -20,7 +27,7 @@ export const OrderCustomerInfo = ({ order }: IProps) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <img
-            src={"https://placehold.co/40x40/E0E0E0/000000?text=EB"}
+            src={`https://placehold.co/40x40/E0E0E0/000000?text=${textForImg}`}
             alt={order?.shippingInfomation?.name}
             className="w-10 h-10 rounded-full object-cover"
           />
@@ -28,22 +35,13 @@ export const OrderCustomerInfo = ({ order }: IProps) => {
             {order?.shippingInfomation?.name}
           </span>
         </div>
-        <button className="text-gray-500 hover:text-gray-700">
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 5l7 7-7 7"
-            ></path>
-          </svg>
-        </button>
+        <Link
+          to={PATH_NAME.UPDATE_USER(order?.user?.id)}
+          target="_blank"
+          className="text-gray-500 hover:text-gray-700"
+        >
+          <MdKeyboardArrowRight className="size-6" />
+        </Link>
       </div>
 
       <div>
@@ -54,7 +52,7 @@ export const OrderCustomerInfo = ({ order }: IProps) => {
         <div className="flex flex-col gap-2">
           <div className="flex items-center space-x-2">
             <CiMail className="size-5" />
-            <span>eugenia.bates@gmail.com</span>
+            <span>{order?.user?.email}</span>
           </div>
           <div className="flex items-center space-x-2">
             <FiPhone className="size-5" />

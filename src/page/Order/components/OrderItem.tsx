@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 import { IOrderItemResponse } from "../interfaces";
 import PATH_NAME from "~/routes/paths";
 import { formatBigNumber } from "~/helper/format";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   item: IOrderItemResponse;
 }
 
 export const OrderItem = ({ item }: IProps) => {
+  const { t } = useTranslation("OrderPage");
+
   const productName = item.variantProduct
     ? item.variantProduct.name
     : item.product.name;
@@ -38,6 +41,7 @@ export const OrderItem = ({ item }: IProps) => {
         </p>
         {item.variantProduct && (
           <p className="text-sm text-gray-500 sm:text-left text-center">
+            {t("variant")}:{" "}
             {item.variantProduct.options
               .map((option) => option.name)
               .join(" / ")}

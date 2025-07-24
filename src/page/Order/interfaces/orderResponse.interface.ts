@@ -9,5 +9,9 @@ export interface IOrderResponse {
   shippingInfomation: IOrderShippingInfoResponse;
   note: string;
   cancellations: IOrderCancellationResponse[];
+  user: {
+    id: string;
+    email: string;
+  };
   createdAt: string;
 }
