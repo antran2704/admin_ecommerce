@@ -46,13 +46,7 @@ const IncomeServiceChart = (props: Props) => {
   const { t: tUtility } = useTranslation("UtilityType");
 
   const [data, setData] = useState<ChartData<"pie", any[], unknown>>({
-    labels: [
-      tUtility("meetingRoom"),
-      tUtility("napRoom"),
-      tUtility("liveStream"),
-      tUtility("printerBW"),
-      tUtility("printerCL"),
-    ],
+    labels: [],
     datasets: [],
   });
 

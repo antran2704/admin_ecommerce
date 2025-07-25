@@ -91,7 +91,7 @@ import successVi from "@assets/locales/vi/success.json";
 import filterEn from "@assets/locales/en/filter.json";
 import filterVi from "@assets/locales/vi/filter.json";
 
-const resources = {
+export const lngResources = {
   en: {
     ...resourceEn,
     LoginPage: loginPageEn,
@@ -115,7 +115,7 @@ const resources = {
     Error: errorEn,
     Success: successEn,
     Filter: filterEn,
-  },
+  } as const,
   vi: {
     ...resourceVi,
     LoginPage: loginPageVi,
@@ -139,8 +139,8 @@ const resources = {
     Error: errorVi,
     Success: successVi,
     Filter: filterVi,
-  },
-};
+  } as const,
+} as const;
 
 i18n
   .use(Backend)
@@ -153,7 +153,8 @@ i18n
       escapeValue: false,
       skipOnVariables: false,
     },
-    resources,
+    resources: lngResources,
+    defaultNS: "Common",
   });
 
 export default i18n;

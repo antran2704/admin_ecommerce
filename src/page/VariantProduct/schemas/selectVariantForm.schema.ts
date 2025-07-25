@@ -2,7 +2,7 @@ import { TFunction } from "i18next";
 import { object } from "yup";
 import MESSAGE_ERROR from "~/common/errorMessage";
 
-const selectVariantFormSchema = (t: TFunction) => {
+const selectVariantFormSchema = (t: TFunction<"Error">) => {
   return object().shape({
     variantValues: object().test(
       "each-array-not-empty",

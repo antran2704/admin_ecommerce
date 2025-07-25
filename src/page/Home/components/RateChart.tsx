@@ -109,7 +109,9 @@ const InComeLineChart = (props: Props) => {
 
   return (
     <div className="w-full h-full">
-      <h2 className={clsx("lg:text-xl text-lg mb-5")}>{t("fillRate")}</h2>
+      <h2 className={clsx("lg:text-xl text-lg mb-5")}>
+        {t("fillRateByFloor")}
+      </h2>
       <div className="w-full h-full bg-white shadow rounded-lg p-5">
         <div className="flex items-center justify-end">
           <div className="flex items-center gap-5">

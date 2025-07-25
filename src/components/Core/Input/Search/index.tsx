@@ -81,7 +81,9 @@ const InputSearch = (props: Props, ref: LegacyRef<InputRef>) => {
 
         {error && (
           <p className="text-sm text-red-500">
-            {errorMessage ? errorMessage : tError("REQUIRE_FIELD")}
+            {errorMessage
+              ? errorMessage
+              : tError("PLEASE_FILL_REQUIRED_FIELDS")}
           </p>
         )}
       </div>

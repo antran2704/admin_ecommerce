@@ -3,7 +3,7 @@ import { object, string } from "yup";
 import MESSAGE_ERROR from "~/common/errorMessage";
 import { ENUM_CANCELLATION_REASON } from "../enums";
 
-const cancelOrderFormSchema = (t: TFunction) => {
+const cancelOrderFormSchema = (t: TFunction<"Error">) => {
   return object().shape({
     reason: string().required(t(MESSAGE_ERROR.PLEASE_SELECT)),
     otherReason: string().when(["reason"], {

@@ -3,6 +3,7 @@ import { RoleGroup } from "./index";
 import { Fragment, memo, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { KeyPrefix } from "i18next";
 
 import { ModalConfirm } from "~/components/Modal";
 import { InputText } from "~/components/Core/Input";
@@ -80,7 +81,9 @@ const RoleGroupManage = (props: Props) => {
       .catch((err) => {
         const { statusCode } = hanldeErrorAxios(err);
         if (statusCode === 403) {
-          messageAntd.error(tError(MESSAGE_ERROR.FORBIDDEN));
+          messageAntd.error(
+            tError(MESSAGE_ERROR.FORBIDDEN as KeyPrefix<"Error">),
+          );
         } else {
           messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
         }
@@ -115,7 +118,9 @@ const RoleGroupManage = (props: Props) => {
         const { statusCode } = hanldeErrorAxios(err);
 
         if (statusCode === 403) {
-          messageAntd.error(tError(MESSAGE_ERROR.FORBIDDEN));
+          messageAntd.error(
+            tError(MESSAGE_ERROR.FORBIDDEN as KeyPrefix<"Error">),
+          );
         } else {
           messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
         }

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { KeyPrefix } from "i18next";
 
 import { MainLayout } from "~/layout";
 import { ChangePasswordModal, InforForm } from "../components";
@@ -172,7 +173,7 @@ const EditPage = () => {
       const { message } = hanldeErrorAxios(err);
 
       if (message === "ADMIN_IS_EXISTED") {
-        messageAntd.error(tError(message));
+        messageAntd.error(tError(message as KeyPrefix<"Error">));
       } else {
         messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       }

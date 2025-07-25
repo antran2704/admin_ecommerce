@@ -9,6 +9,7 @@ import { BtnAdd, BtnExportFile, BtnImportFile } from "~/components/Button";
 import PDFManager from "~/components/Pdf";
 import PDFRow from "~/components/Pdf/Row";
 import PDFText from "~/components/Pdf/Text";
+import { KeyPrefix } from "i18next";
 
 import { DAY_DMY } from "~/common/format";
 import { createExcelFile, handleGetDataFromExcel } from "~/helper/file";
@@ -21,7 +22,7 @@ import MESSAGE_ERROR from "~/common/errorMessage";
 import { combinePhoneNumber } from "~/helper/phoneNumber";
 import ability from "~/context/ability";
 import { EPageRole, EPermisisonAction } from "~/enum/constants";
-import { ICreateStaffBatch, IStaffResponse, IStaffTable } from "../interfaces";
+import { ICreateStaffBatch, IStaffTable } from "../interfaces";
 import { ENUM_ACCOUNT_STATUS } from "~/enum/user";
 import PATH_NAME from "~/routes/paths";
 
@@ -116,20 +117,6 @@ const GroupAction = (props: Props) => {
       [
         { header: t("form.name"), key: "name", width: 20 },
         { header: t("form.email"), key: "email", width: 20 },
-        { header: t("form.phone"), key: "phone", width: 20 },
-        { header: t("form.dateOfBirth"), key: "dateOfBirth", width: 20 },
-        {
-          header: t("form.address"),
-          key: "address",
-          width: 20,
-        },
-        { header: t("form.startedAt"), key: "startedAt", width: 20 },
-        { header: t("form.endedAt"), key: "endedAt", width: 20 },
-        {
-          header: t("form.userType"),
-          key: "userType",
-          width: 20,
-        },
       ],
       {
         requireHeaders: [t("form.name"), t("form.email")],
@@ -215,12 +202,12 @@ const GroupAction = (props: Props) => {
       handleResetUploadFile();
       handleGetData();
       onModal("importFile", false);
-      messageAntd.success(tSuccess("create"));
+      messageAntd.success(tSuccess("CREATED"));
     } catch (err) {
       const { message, statusCode } = hanldeErrorAxios(err);
 
       if (statusCode === 400 && message === "ADMIN_IS_EXISTED") {
-        messageAntd.error(tError(message));
+        messageAntd.error(tError(message as KeyPrefix<"Error">));
       } else {
         messageAntd.error(tError(MESSAGE_ERROR.TRY_AGAIN));
       }

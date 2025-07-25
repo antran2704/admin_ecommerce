@@ -3,14 +3,12 @@ import clsx from "clsx";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineGlobal } from "react-icons/ai";
-import { FaRegHandshake, FaRegUser } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import { IoMoonOutline } from "react-icons/io5";
-import { LuPencilRuler } from "react-icons/lu";
 import {
   MdLogout,
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
-  MdOutlineRemoveRedEye,
 } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { handleChangeMode } from "~/helper/darkmode";
@@ -104,24 +102,6 @@ const MobileMenu = (props: Props) => {
             locale: "vi",
           },
         ],
-      },
-      {
-        key: "auth",
-        label: t("auth"),
-        icon: <MdOutlineRemoveRedEye className="size-6 min-w-6" />,
-        path: "/",
-      },
-      {
-        key: "3",
-        label: t("investment"),
-        icon: <FaRegHandshake className="size-6 min-w-6" />,
-        path: "/",
-      },
-      {
-        key: "4",
-        label: t("interests"),
-        icon: <LuPencilRuler className="size-6 min-w-6" />,
-        path: "/",
       },
     ];
   }, [darkMode, infoUser, i18n.resolvedLanguage]);

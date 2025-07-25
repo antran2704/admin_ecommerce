@@ -1,7 +1,10 @@
 import { TFunction } from "i18next";
 import { ENUM_ORDER_STATUS } from "../enums";
 
-const getOrderStatusTitle = (t: TFunction, value: ENUM_ORDER_STATUS) => {
+const getOrderStatusTitle = (
+  t: TFunction<"OrderPage">,
+  value: ENUM_ORDER_STATUS,
+) => {
   switch (value) {
     case ENUM_ORDER_STATUS.PENDING:
       return t("status.pending");
