@@ -11,6 +11,7 @@ export const transformOrdersResponseToTable = (
     phoneNumber: x.shippingInfomation.phoneNumber,
     customerName: x.shippingInfomation.name,
     status: x.orderStatus,
+    transactionStatus: x?.transaction?.status,
     totalPrice: x.totalPrice,
     createdAt: x.createdAt,
   }));

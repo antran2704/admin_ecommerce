@@ -25,6 +25,7 @@
     "name": "Tên khách hàng",
     "totalPrice": "Tổng tiền",
     "phoneNumber": "Số diện thoại",
+    "transaction": "Thanh toán",
     "status": "Trạng thái",
     "createdAt": "Ngày tạo"
   },

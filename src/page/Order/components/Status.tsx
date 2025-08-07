@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { ENUM_ORDER_STATUS } from "../enums";
 import { Tag, TagProps } from "antd";
+import MESSAGE_ERROR from "~/common/errorMessage";
 
 interface IProps {
   status: ENUM_ORDER_STATUS;
@@ -9,6 +10,7 @@ interface IProps {
 
 export const OrderStatus = ({ status, tagProps }: IProps) => {
   const { t } = useTranslation("OrderPage");
+  const { t: tError } = useTranslation("Error");
 
   const commonProps: TagProps = {
     ...tagProps,
@@ -42,7 +44,12 @@ export const OrderStatus = ({ status, tagProps }: IProps) => {
           {t("status.cancelled")}
         </Tag>
       );
-  }
 
-  return null;
+    default:
+      return (
+        <Tag {...commonProps} color="default">
+          {tError(MESSAGE_ERROR.NO_DATA)}
+        </Tag>
+      );
+  }
 };

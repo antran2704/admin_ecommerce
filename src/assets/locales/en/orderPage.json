@@ -25,6 +25,7 @@
     "name": "Customer name",
     "totalPrice": "Total price",
     "phoneNumber": "Phone number",
+    "transaction": "Transaction",
     "status": "Status",
     "createdAt": "Created at"
   },

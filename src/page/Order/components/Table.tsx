@@ -17,8 +17,10 @@ import PATH_NAME from "~/routes/paths";
 import { formatBigNumber } from "~/helper/format";
 import { IOrderTable } from "../interfaces/orderTable.interface";
 import { ENUM_ORDER_STATUS } from "../enums";
-import { getOrderStatusTitle } from "../helpers/getStatusTitle";
 import { OrderStatus } from "./Status";
+import { VND_CURRENCY } from "~/common/currency";
+import { ENUM_TRANSACTION_STATUS } from "~/enum/transaction";
+import { OrderTransactionStatus } from "./TransactionStatus";
 
 interface Props {
   items: IOrderTable[];
@@ -79,7 +81,18 @@ const Table = (props: Props) => {
           dataIndex: "totalPrice",
           align: "center",
           render: (value: number) => (
-            <span>{value ? formatBigNumber(value) : 0}</span>
+            <span>
+              {value ? formatBigNumber(value) : 0} {VND_CURRENCY}
+            </span>
+          ),
+        },
+        {
+          title: t("table.transaction"),
+          dataIndex: "transactionStatus",
+          align: "center",
+          className: "cursor-pointer",
+          render: (value: ENUM_TRANSACTION_STATUS) => (
+            <OrderTransactionStatus status={value} />
           ),
         },
         {

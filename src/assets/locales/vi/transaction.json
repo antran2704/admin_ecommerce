@@ -1,0 +1,7 @@
+{
+  "status": {
+    "pending": "Chưa thanh toán",
+    "success": "Đã thanh toán",
+    "cancelled": "Thanh toán bị hủy"
+  }
+}

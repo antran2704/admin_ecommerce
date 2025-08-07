@@ -7,6 +7,7 @@ import { OrderStatus } from "./Status";
 import { DAY_DYHM } from "~/common/format";
 import { OrderStatusDropdown } from "./StatusDropdown";
 import { ENUM_ORDER_STATUS } from "../enums";
+import { OrderTransactionStatus } from "./TransactionStatus";
 
 interface IProps {
   order: IOrderResponse;
@@ -26,6 +27,10 @@ export const OrderHeader = ({ order, isEditable = false }: IProps) => {
         <h2 className="text-xl font-bold text-gray-900">
           {t("order")} #{order?.orderId}
         </h2>
+        <OrderTransactionStatus
+          status={order.transaction?.status}
+          tagProps={{ className: "text-sm" }}
+        />
         <OrderStatus
           status={order?.orderStatus}
           tagProps={{ className: "text-sm" }}

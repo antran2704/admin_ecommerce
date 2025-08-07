@@ -75,6 +75,10 @@ import navbarEn from "@assets/locales/en/navbar.json";
 import permissionEn from "@assets/locales/en/permission.json";
 import permissionVi from "@assets/locales/vi/permission.json";
 
+// Transaction
+import transactionEn from "@assets/locales/en/transaction.json";
+import transactionVi from "@assets/locales/vi/transaction.json";
+
 // Common
 import commonEn from "@assets/locales/en/common.json";
 import commonVi from "@assets/locales/vi/common.json";
@@ -109,6 +113,7 @@ export const lngResources = {
     VariantProductPage: variantProductPageEn,
     OrderPage: orderPageEn,
     Permission: permissionEn,
+    Transaction: transactionEn,
     Sidebar: sidebarEn,
     Navbar: navbarEn,
     Common: commonEn,
@@ -133,6 +138,7 @@ export const lngResources = {
     VariantProductPage: variantProductPageVi,
     OrderPage: orderPageVi,
     Permission: permissionVi,
+    Transaction: transactionVi,
     Sidebar: sidebarVi,
     Navbar: navbarVi,
     Common: commonVi,

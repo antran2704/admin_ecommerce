@@ -1,3 +1,4 @@
+import { ITransactionResponse } from "~/interface/transaction";
 import { ENUM_ORDER_STATUS } from "../enums";
 import { IOrderCancellationResponse } from "./orderCancellationResponse.interface";
 import { IOrderShippingInfoResponse } from "./shippingInfoResponse.interface";
@@ -13,5 +14,6 @@ export interface IOrderResponse {
     id: string;
     email: string;
   };
+  transaction: ITransactionResponse;
   createdAt: string;
 }
