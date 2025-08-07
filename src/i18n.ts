@@ -59,6 +59,10 @@ import productPageEn from "@assets/locales/en/productPage.json";
 import variantProductPageVi from "@assets/locales/vi/variantProductPage.json";
 import variantProductPageEn from "@assets/locales/en/variantProductPage.json";
 
+// Order Page
+import orderPageVi from "@assets/locales/vi/orderPage.json";
+import orderPageEn from "@assets/locales/en/orderPage.json";
+
 // Sidebar
 import sidebarVi from "@assets/locales/vi/sidebar.json";
 import sidebarEn from "@assets/locales/en/sidebar.json";
@@ -70,6 +74,10 @@ import navbarEn from "@assets/locales/en/navbar.json";
 // Permission
 import permissionEn from "@assets/locales/en/permission.json";
 import permissionVi from "@assets/locales/vi/permission.json";
+
+// Transaction
+import transactionEn from "@assets/locales/en/transaction.json";
+import transactionVi from "@assets/locales/vi/transaction.json";
 
 // Common
 import commonEn from "@assets/locales/en/common.json";
@@ -87,7 +95,7 @@ import successVi from "@assets/locales/vi/success.json";
 import filterEn from "@assets/locales/en/filter.json";
 import filterVi from "@assets/locales/vi/filter.json";
 
-const resources = {
+export const lngResources = {
   en: {
     ...resourceEn,
     LoginPage: loginPageEn,
@@ -103,14 +111,16 @@ const resources = {
     VariantTypeValuePage: variantTypeValuePageEn,
     ProductPage: productPageEn,
     VariantProductPage: variantProductPageEn,
+    OrderPage: orderPageEn,
     Permission: permissionEn,
+    Transaction: transactionEn,
     Sidebar: sidebarEn,
     Navbar: navbarEn,
     Common: commonEn,
     Error: errorEn,
     Success: successEn,
     Filter: filterEn,
-  },
+  } as const,
   vi: {
     ...resourceVi,
     LoginPage: loginPageVi,
@@ -126,15 +136,17 @@ const resources = {
     VariantTypeValuePage: variantTypeValuePageVi,
     ProductPage: productPageVi,
     VariantProductPage: variantProductPageVi,
+    OrderPage: orderPageVi,
     Permission: permissionVi,
+    Transaction: transactionVi,
     Sidebar: sidebarVi,
     Navbar: navbarVi,
     Common: commonVi,
     Error: errorVi,
     Success: successVi,
     Filter: filterVi,
-  },
-};
+  } as const,
+} as const;
 
 i18n
   .use(Backend)
@@ -147,7 +159,8 @@ i18n
       escapeValue: false,
       skipOnVariables: false,
     },
-    resources,
+    resources: lngResources,
+    defaultNS: "Common",
   });
 
 export default i18n;

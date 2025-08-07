@@ -36,6 +36,10 @@ const ProductPage = lazy(() => import("~/page/Product"));
 const CreateProductPage = lazy(() => import("~/page/Product/create"));
 const UpdateProductPage = lazy(() => import("~/page/Product/edit"));
 
+// Order
+const OrderPage = lazy(() => import("~/page/Order"));
+const UpdateOrderPage = lazy(() => import("~/page/Order/edit"));
+
 const MainRoutes: IRoute[] = [
   {
     id: uuidv4(),
@@ -169,6 +173,22 @@ const MainRoutes: IRoute[] = [
     href: `${PATH_NAME.PRODUCTS}/:product_id`,
     element: UpdateProductPage,
     subject: EPageRole.ADMIN_PRODUCT,
+    action: EPermisisonAction.VIEW,
+  },
+
+  // Order
+  {
+    id: uuidv4(),
+    href: PATH_NAME.ORDERS,
+    element: OrderPage,
+    subject: EPageRole.ADMIN_ORDER,
+    action: EPermisisonAction.VIEW,
+  },
+  {
+    id: uuidv4(),
+    href: `${PATH_NAME.ORDERS}/:order_id`,
+    element: UpdateOrderPage,
+    subject: EPageRole.ADMIN_ORDER,
     action: EPermisisonAction.VIEW,
   },
 ];

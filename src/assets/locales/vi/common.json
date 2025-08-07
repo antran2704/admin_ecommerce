@@ -27,6 +27,11 @@
   "addAndExportPdf": "Thêm & Xuất PDF",
   "character": "kí tự",
   "number": "số",
+  "userType": {
+    "admin": "Quản lý",
+    "staff": "Nhân viên",
+    "customer": "Khách hàng"
+  },
   "file": {
     "exportFile": "Xuất file",
     "exportExcel": "Xuất Excel",

@@ -1,7 +1,10 @@
 import { TFunction } from "i18next";
 import { ENUM_USER_PROVIDER } from "../enums";
 
-const getLabelForProvider = (t: TFunction, provider: ENUM_USER_PROVIDER) => {
+const getLabelForProvider = (
+  t: TFunction<"UserPage">,
+  provider: ENUM_USER_PROVIDER,
+) => {
   switch (provider) {
     case ENUM_USER_PROVIDER.GOOGLE:
       return t("provider.google");

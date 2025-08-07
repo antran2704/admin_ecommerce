@@ -1,0 +1,75 @@
+{
+  "title": "Quản lý đơn hàng",
+  "searchTitle": "Tìm kiếm ID đơn hàng",
+  "filter": {
+    "createdAt": "Ngày tạo"
+  },
+  "status": {
+    "pending": "Chờ xác nhận",
+    "processing": "Đang xử lý",
+    "completed": "Đã hoàn thành",
+    "cancelled": "Đã hủy"
+  },
+  "action": {
+    "process": "Xử lý",
+    "cancel": "Hủy",
+    "complete": "Hoàn thành"
+  },
+  "reason": {
+    "outOfStock": "Hết hàng",
+    "customerChange": "Khách hàng thay đổi ý",
+    "other": "Khác"
+  },
+  "table": {
+    "id": "ID đơn hàng",
+    "name": "Tên khách hàng",
+    "totalPrice": "Tổng tiền",
+    "phoneNumber": "Số diện thoại",
+    "transaction": "Thanh toán",
+    "status": "Trạng thái",
+    "createdAt": "Ngày tạo"
+  },
+  "order": "Đơn hàng",
+  "viewInfoTitle": "Thông tin đơn hàng",
+  "editTitle": "Cập nhật đơn hàng",
+  "subtotal": "Tạm tính",
+  "total": "Tổng tiền",
+  "contactInfo": "Thông tin liên hệ",
+  "shippingAddress": "Địa chỉ giao hàng",
+  "paymentSummary": "Thông tin thanh toán",
+  "orderItems": "Sản phẩm",
+  "customer": "Khách hàng",
+  "note": "Ghi chú",
+  "variant": "Phân loại",
+  "cancellation": {
+    "title": "Chi tiết hủy đơn",
+    "cancelledBy": "Người hủy",
+    "cancelledAt": "Thời gian hủy",
+    "reason": "Lý do",
+    "description": "Mô tả"
+  },
+  "modalPending": {
+    "title": "Chờ xác nhận đơn hàng",
+    "subtitle": "Bạn muốn cập nhật trạng thái đơn hàng?"
+  },
+  "modalProcess": {
+    "title": "Xử lý đơn hàng",
+    "subtitle": "Bạn muốn cập nhật trạng thái đơn hàng?"
+  },
+  "modalSuccess": {
+    "title": "Hoàn thành đơn hàng",
+    "subtitle": "Bạn muốn cập nhật trạng thái đơn hàng?"
+  },
+  "modalCancel": {
+    "title": "Hủy đơn hàng",
+    "subtitle": "Bạn muốn hủy đơn hàng?"
+  },
+  "breadcrumb": {
+    "list": "Danh sách đơn hàng",
+    "viewInfo": "Thông tin đơn hàng",
+    "update": "Cập nhật đơn hàng"
+  },
+  "error": {
+    "ORDER_NOT_FOUND": "Đơn hàng không tồn tại"
+  }
+}

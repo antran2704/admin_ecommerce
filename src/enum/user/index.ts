@@ -12,7 +12,7 @@ export enum ENUM_GENDER {
 
 export enum ENUM_USER_TYPE {
   ADMIN = "ADMIN",
-  END_USER = "END_USER",
+  USER = "USER",
 }
 
 export enum ENUM_ACCOUNT_STATUS {

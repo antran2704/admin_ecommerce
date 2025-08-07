@@ -1,0 +1,75 @@
+{
+  "title": "Manage orders",
+  "searchTitle": "Search order ID",
+  "filter": {
+    "createdAt": "Created at"
+  },
+  "status": {
+    "pending": "Pending",
+    "processing": "Processing",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "action": {
+    "process": "Process",
+    "cancel": "Cancel",
+    "complete": "Complete"
+  },
+  "reason": {
+    "outOfStock": "Out of stock",
+    "customerChange": "Customer change mind",
+    "other": "Other"
+  },
+  "table": {
+    "id": "Order ID",
+    "name": "Customer name",
+    "totalPrice": "Total price",
+    "phoneNumber": "Phone number",
+    "transaction": "Transaction",
+    "status": "Status",
+    "createdAt": "Created at"
+  },
+  "order": "Order",
+  "viewInfoTitle": "Information order",
+  "editTitle": "Update order",
+  "subtotal": "Subtotal",
+  "total": "Total",
+  "contactInfo": "Contact information",
+  "shippingAddress": "Shipping address",
+  "paymentSummary": "Payment summary",
+  "orderItems": "Order items",
+  "customer": "Customer",
+  "note": "Note",
+  "variant": "Variant",
+  "cancellation": {
+    "title": "Cancellation Detail",
+    "cancelledBy": "Cancelled By",
+    "cancelledAt": "Cancelled At",
+    "reason": "Reason",
+    "description": "Description"
+  },
+  "modalPending": {
+    "title": "Pending order",
+    "subtitle": "Do you want update order?"
+  },
+  "modalProcess": {
+    "title": "Process order",
+    "subtitle": "Do you want update order?"
+  },
+  "modalSuccess": {
+    "title": "Success order",
+    "subtitle": "Do you want update order?"
+  },
+  "modalCancel": {
+    "title": "Cancel order",
+    "subtitle": "Do you want cancel order?"
+  },
+  "breadcrumb": {
+    "list": "List of order",
+    "viewInfo": "Infomation order",
+    "update": "Update order"
+  },
+  "error": {
+    "ORDER_NOT_FOUND": "Order not found"
+  }
+}

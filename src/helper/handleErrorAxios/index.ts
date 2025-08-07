@@ -1,9 +1,9 @@
 import axios from "axios";
-import { ErrorResponse } from "~/interface";
+import { IErrorResponse } from "~/interface";
 
 const hanldeErrorAxios = (
   err: unknown,
-): Pick<ErrorResponse, "message" | "statusCode"> => {
+): Pick<IErrorResponse, "message" | "statusCode"> => {
   if (!axios.isAxiosError(err)) {
     return { message: "Internal Server", statusCode: 500 };
   }

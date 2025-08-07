@@ -29,6 +29,6 @@
   "ADMIN_PRODUCT_INVENTORY": "Quản lý tồn kho sản phẩm",
   "ADMIN_VARIANT_PRODUCT_INVENTORY": "Quản lý tồn kho sản phẩm con",
   "ADMIN_CART": "Quản lý giỏ hàng",
-  "ADMIN_PAGE_ORDER": "Quản lý đơn hàng",
+  "ADMIN_ORDER": "Quản lý đơn hàng",
   "ADMIN_PAGE_NEWS": "Quản lý tin tức"
 }

@@ -2,6 +2,7 @@ import { FaRegUser } from "react-icons/fa";
 import { IoFileTrayStackedOutline } from "react-icons/io5";
 import { BiCategory } from "react-icons/bi";
 import { BsBox } from "react-icons/bs";
+import { CiBoxes } from "react-icons/ci";
 
 import dashboardImg from "~/assets/images/Sidebar/dashboard.png";
 import permissionImg from "~/assets/images/Sidebar/permission.png";
@@ -57,6 +58,11 @@ const sidebarIcons: { [x: string]: JSX.Element } = {
   product: (
     <div className="wrap__menu-icon">
       <BsBox className="menu__icon !size-6 min-w-6" />
+    </div>
+  ),
+  order: (
+    <div className="wrap__menu-icon">
+      <CiBoxes className="menu__icon !size-7 min-w-7" />
     </div>
   ),
   news: (

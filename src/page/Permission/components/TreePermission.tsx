@@ -7,6 +7,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import clsx from "clsx";
 import { IPermission } from "~/interface/permission";
 import { useTranslation } from "react-i18next";
+import { KeyPrefix } from "i18next";
 
 interface Props {
   data: string[];
@@ -33,8 +34,8 @@ const TreePermission = (props: Props) => {
   const handleGetTree = (payload: IPermission): TreeDataNode => {
     return {
       title: payload.title.includes(".")
-        ? t(payload.title.split(".")[1])
-        : t(payload.title),
+        ? t(payload.title.split(".")[1] as KeyPrefix<"Permission">)
+        : t(payload.title as KeyPrefix<"Permission">),
       className: "text-base !py-3",
       key: payload.key,
       switcherIcon: (props) => (

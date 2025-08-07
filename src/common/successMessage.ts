@@ -2,6 +2,6 @@ const MESSAGE_SUCCESS = {
   CREATED: "CREATED",
   UPDATED: "UPDATED",
   DELETED: "DELETED",
-};
+} as const;
 
 export default MESSAGE_SUCCESS;

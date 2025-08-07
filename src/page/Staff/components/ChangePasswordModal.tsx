@@ -26,7 +26,7 @@ interface Props {
 const ChangePasswordModal = (props: Props) => {
   const { data, open, onCancel } = props;
 
-  const { t, i18n } = useTranslation("StaffPage");
+  const { t, i18n } = useTranslation("UserPage");
   const { t: tCommon } = useTranslation("Common");
   const { t: tSuccess } = useTranslation("Success");
   const { t: tError } = useTranslation("Error");

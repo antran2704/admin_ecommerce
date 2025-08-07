@@ -277,6 +277,20 @@
           "key": "ADMIN_CART.DELETE"
         }
       ]
+    },
+    {
+      "title": "ADMIN_ORDER",
+      "key": "ADMIN_ORDER",
+      "children": [
+        {
+          "title": "ADMIN_ORDER.VIEW",
+          "key": "ADMIN_ORDER.VIEW"
+        },
+        {
+          "title": "ADMIN_ORDER.UPDATE",
+          "key": "ADMIN_ORDER.UPDATE"
+        }
+      ]
     }
   ],
   "PORTAL": []
